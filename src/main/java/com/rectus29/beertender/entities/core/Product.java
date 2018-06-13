@@ -12,11 +12,9 @@ package com.rectus29.beertender.entities.core;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,11 +23,14 @@ public class Product extends GenericEntity {
 
     private String name;
 
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String desc;
 
     private String imagePath;
 
-    private List<ProductCategory> productCategories;
+    @ManyToMany(mappedBy = "productList")
+    @JoinTable(name = "product_category")
+    private List<Category> categoryList = new ArrayList<>();
 
     @Column(precision = 12, scale = 3)
     private BigDecimal price = BigDecimal.ZERO;

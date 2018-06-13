@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 15:13
  */
 @Entity
-@Table(name = "store_order")
+@Table(name = "order")
 public class Order extends GenericEntity {
 
     @OneToMany(mappedBy = "referenceOrder")

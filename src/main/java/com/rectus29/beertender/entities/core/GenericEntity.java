@@ -1,13 +1,4 @@
-package com.rectus29.beertender.entities.core; /**
- *
- * User: Rectus29
- * Date: 24/07/11
- * Time: 07:47
- */
-
-
-import com.rectuscorp.evetool.enums.State;
-import org.hibernate.annotations.GenericGenerator;
+package com.rectus29.beertender.entities.core;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,8 +8,7 @@ import java.util.Date;
 public class GenericEntity implements DomainObject, Serializable {
 
     @Id
-	@GeneratedValue(generator="EveGenerator",strategy = GenerationType.AUTO)
-	@GenericGenerator(name="EveGenerator", strategy="com.rectuscorp.evetool.dao.EveToolIDGenerator")
+	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)

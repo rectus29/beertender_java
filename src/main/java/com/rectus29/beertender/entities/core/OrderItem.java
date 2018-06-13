@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * Time: 14:32
  */
 @Entity
-@Table(name = "store_order_item")
+@Table(name = "order_item")
 public class OrderItem extends GenericEntity {
 
     @ManyToOne
