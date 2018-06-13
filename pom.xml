@@ -9,19 +9,6 @@
 
     <description>An application to manage beer order</description>
 
-    <developers>
-        <developer>
-            <id>rectus29</id>
-            <name>Alexandre B</name>
-            <url>http://github.com/rectus29/</url>
-            <timezone>+2</timezone>
-            <roles>
-                <role>Developer</role>
-                <role>Architect</role>
-            </roles>
-        </developer>
-    </developers>
-
     <build>
         <resources>
             <resource>
@@ -126,11 +113,11 @@
             <artifactId>wicket-datetime</artifactId>
             <version>${wicket.version}</version>
         </dependency>
-<!--        <dependency>
-            <groupId>org.wicketstuff</groupId>
-            <artifactId>wicketstuff-progressbar-spring</artifactId>
-            <version>${wicket.version}</version>
-        </dependency>-->
+        <!--        <dependency>
+                    <groupId>org.wicketstuff</groupId>
+                    <artifactId>wicketstuff-progressbar-spring</artifactId>
+                    <version>${wicket.version}</version>
+                </dependency>-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -222,9 +209,9 @@
             <version>${hibernate.version}</version>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-validator</artifactId>-->
-            <!--<version>5.2.5.Final</version>-->
+        <!--<groupId>org.hibernate</groupId>-->
+        <!--<artifactId>hibernate-validator</artifactId>-->
+        <!--<version>5.2.5.Final</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -321,6 +308,30 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <developers>
+        <developer>
+            <id>rectus29</id>
+            <name>Alexandre B</name>
+            <url>http://github.com/rectus29/</url>
+            <timezone>+2</timezone>
+            <roles>
+                <role>Developer</role>
+                <role>Architect</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>https://github.com/rectus29/beertender_java.git</connection>
+        <tag>HEAD</tag>
+        <url>https://github.com/rectus29/beertender_java</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/rectus29/beertender_java/issues</url>
+    </issueManagement>
 
     <licenses>
         <license>
