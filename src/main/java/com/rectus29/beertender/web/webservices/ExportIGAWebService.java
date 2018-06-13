@@ -9,7 +9,7 @@ package com.rectus29.beertender.web.webservices;
 /*-----------------------------------------------------*/
 
 
-import com.rectuscorp.evetool.web.Config;
+import com.rectus29.beertender.web.Config;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;

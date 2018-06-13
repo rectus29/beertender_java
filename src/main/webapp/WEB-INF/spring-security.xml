@@ -19,7 +19,7 @@
             <bean class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
                 <property name="sessionListeners">
                     <list>
-                        <bean class="com.rectuscorp.evetool.service.EveToolSessionListener"/>
+                        <bean class="com.rectus29.beertender.service.EveToolSessionListener"/>
                     </list>
                 </property>
                 <property name="sessionValidationInterval" value="5000"/>
@@ -43,6 +43,6 @@
     <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
     </bean>
-    <bean id="EveToolRealms" class="com.rectuscorp.evetool.realms.EveToolRealms"/>
+    <bean id="EveToolRealms" class="com.rectus29.beertender.realms.EveToolRealms"/>
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>

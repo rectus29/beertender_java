@@ -1,7 +1,6 @@
 package com.rectus29.beertender.dao;
 
 import com.rectus29.beertender.entities.core.Permission;
-import com.rectuscorp.evetool.entities.core.Permission;
 
 /**
  * Created by Oliv'Generator.

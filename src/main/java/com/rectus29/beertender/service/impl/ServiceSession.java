@@ -1,9 +1,9 @@
 package com.rectus29.beertender.service.impl;
 
 import com.rectus29.beertender.entities.core.User;
-import com.rectuscorp.evetool.entities.core.User;
-import com.rectuscorp.evetool.service.IserviceSession;
-import com.rectuscorp.evetool.service.IserviceUser;
+import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.service.IserviceSession;
+import com.rectus29.beertender.service.IserviceUser;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;

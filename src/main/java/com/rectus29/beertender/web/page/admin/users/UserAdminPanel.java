@@ -8,7 +8,6 @@ package com.rectus29.beertender.web.page.admin.users;
 
 
 import com.rectus29.beertender.web.page.admin.users.panels.list.UserListPanel;
-import com.rectuscorp.evetool.web.page.admin.users.panels.list.UserListPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 
 public class UserAdminPanel extends Panel {

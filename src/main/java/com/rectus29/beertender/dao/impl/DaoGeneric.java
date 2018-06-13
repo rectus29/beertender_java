@@ -1,8 +1,7 @@
 package com.rectus29.beertender.dao.impl;
 
+import com.rectus29.beertender.dao.IdaoGeneric;
 import com.rectus29.beertender.entities.core.GenericEntity;
-import com.rectuscorp.evetool.dao.IdaoGeneric;
-import com.rectuscorp.evetool.entities.core.GenericEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;

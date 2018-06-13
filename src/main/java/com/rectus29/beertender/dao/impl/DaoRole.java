@@ -1,10 +1,8 @@
 package com.rectus29.beertender.dao.impl;
 
+import com.rectus29.beertender.dao.IdaoRole;
 import com.rectus29.beertender.entities.core.Role;
 import com.rectus29.beertender.entities.core.User;
-import com.rectuscorp.evetool.dao.IdaoRole;
-import com.rectuscorp.evetool.entities.core.Role;
-import com.rectuscorp.evetool.entities.core.User;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;

@@ -1,10 +1,7 @@
 package com.rectus29.beertender.service;
 
 import com.rectus29.beertender.entities.core.User;
-import com.rectuscorp.evetool.entities.core.User;
 import org.apache.shiro.subject.Subject;
-
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.

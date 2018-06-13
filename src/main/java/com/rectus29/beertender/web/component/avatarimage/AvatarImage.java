@@ -1,15 +1,8 @@
 package com.rectus29.beertender.web.component.avatarimage;
 
 import com.rectus29.beertender.entities.DecorableElement;
-import com.rectus29.beertender.entities.crest.Corporation;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectuscorp.evetool.entities.DecorableElement;
-import com.rectuscorp.evetool.entities.core.Character;
-import com.rectuscorp.evetool.entities.crest.Corporation;
-import com.rectuscorp.evetool.service.IserviceUser;
-import com.rectuscorp.evetool.api.EveXmlApi;
-import com.rectuscorp.evetool.web.Config;
-import com.rectuscorp.evetool.web.EveToolApplication;
+import com.rectus29.beertender.web.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.markup.ComponentTag;

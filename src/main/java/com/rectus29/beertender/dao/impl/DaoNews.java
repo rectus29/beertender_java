@@ -1,10 +1,8 @@
 package com.rectus29.beertender.dao.impl;
 
+import com.rectus29.beertender.dao.IdaoNews;
 import com.rectus29.beertender.entities.core.News;
 import com.rectus29.beertender.enums.State;
-import com.rectuscorp.evetool.dao.IdaoNews;
-import com.rectuscorp.evetool.entities.core.News;
-import com.rectuscorp.evetool.enums.State;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;

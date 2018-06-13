@@ -2,7 +2,6 @@ package com.rectus29.beertender.service;
 
 
 import com.rectus29.beertender.entities.core.Config;
-import com.rectuscorp.evetool.entities.core.Config;
 
 /**
  * Created by IntelliJ IDEA.

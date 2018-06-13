@@ -3,9 +3,9 @@ package com.rectus29.beertender.service.impl;/**
  * Date: 20 mai 2009
  */
 
-import com.rectuscorp.evetool.dao.GenericDao;
-import com.rectuscorp.evetool.dao.tools.SortOrder;
-import com.rectuscorp.evetool.service.GenericManager;
+import com.rectus29.beertender.dao.GenericDao;
+import com.rectus29.beertender.dao.tools.SortOrder;
+import com.rectus29.beertender.service.GenericManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.transaction.annotation.Transactional;

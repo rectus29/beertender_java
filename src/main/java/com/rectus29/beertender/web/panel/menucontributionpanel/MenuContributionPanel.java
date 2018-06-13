@@ -1,6 +1,6 @@
 package com.rectus29.beertender.web.panel.menucontributionpanel;
 
-import com.rectuscorp.evetool.web.page.IMenuContributor;
+import com.rectus29.beertender.web.page.IMenuContributor;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;

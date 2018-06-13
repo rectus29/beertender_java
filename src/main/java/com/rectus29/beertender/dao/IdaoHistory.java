@@ -2,8 +2,6 @@ package com.rectus29.beertender.dao;
 
 import com.rectus29.beertender.entities.core.History;
 import com.rectus29.beertender.entities.core.User;
-import com.rectuscorp.evetool.entities.core.History;
-import com.rectuscorp.evetool.entities.core.User;
 
 import java.util.Date;
 import java.util.List;

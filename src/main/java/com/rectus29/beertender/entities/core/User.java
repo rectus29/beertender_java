@@ -12,7 +12,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "users")
-public class User extends GenericEntity implements Individual {
+public class User extends GenericEntity {
 
     @Column(nullable = false)
     private String password;
@@ -29,15 +29,13 @@ public class User extends GenericEntity implements Individual {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date restoreSessionDate;
-    @Column(name = "restoreSession")
+    @Column
     private String restoreSession;
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
     @Column
     private UserAuthentificationType userAuthentificationType = UserAuthentificationType.EMBED;
-    @OneToOne
-    private Character mainCharacter;
 
     public String getPassword() {
         return password;
@@ -47,11 +45,11 @@ public class User extends GenericEntity implements Individual {
         this.password = password;
     }
 
-    public String getUsername() {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUsername(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
@@ -126,14 +124,6 @@ public class User extends GenericEntity implements Individual {
         return false;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public UserAuthentificationType getUserAuthentificationType() {
         return userAuthentificationType;
     }
@@ -142,34 +132,4 @@ public class User extends GenericEntity implements Individual {
         this.userAuthentificationType = userAuthentificationType;
     }
 
-    public List<XmlApiKey> getXmlApiKeyList() {
-        return xmlApiKeyList;
-    }
-
-    public void setXmlApiKeyList(List<XmlApiKey> xmlApiKeyList) {
-        this.xmlApiKeyList = xmlApiKeyList;
-    }
-
-    public Character getMainCharacter() {
-        return mainCharacter;
-    }
-
-    public void setMainCharacter(Character mainCharacter) {
-        this.mainCharacter = mainCharacter;
-    }
-
-    /**
-     * retreive all characterfor the current user
-     *
-     * @return
-     */
-    public List<Character> getCharacterList() {
-        List<Character> out = new ArrayList<Character>();
-        for (XmlApiKey tempApiKey : this.getXmlApiKeyList()) {
-            if (tempApiKey.getState().equals(State.ENABLE)) {
-                out.addAll(tempApiKey.getCharacterList());
-            }
-        }
-        return out;
-    }
 }

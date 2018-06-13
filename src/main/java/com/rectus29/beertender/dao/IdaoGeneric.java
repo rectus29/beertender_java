@@ -2,7 +2,7 @@ package com.rectus29.beertender.dao;
 
 
 import com.rectus29.beertender.entities.core.GenericEntity;
-import com.rectuscorp.evetool.entities.core.GenericEntity;
+import com.rectus29.beertender.entities.core.GenericEntity;
 
 /**
  * User: Rectus_29

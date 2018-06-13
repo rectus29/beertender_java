@@ -14,14 +14,6 @@ package com.rectus29.beertender.web.panel.menupanel;
 /*-----------------------------------------------------*/
 
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.panel.characterpanel.CharacterPanel;
-import com.rectuscorp.evetool.service.IserviceUser;
-import com.rectuscorp.evetool.web.page.admin.AdminPage;
-import com.rectuscorp.evetool.web.page.crest.CrestPage;
-import com.rectuscorp.evetool.web.page.market.MarketPage;
-import com.rectuscorp.evetool.web.page.profile.ProfilePage;
-import com.rectuscorp.evetool.web.panel.characterpanel.CharacterPanel;
-import com.rectuscorp.evetool.web.panel.eveclockpanel.EveClockPanel;
 import org.apache.shiro.SecurityUtils;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;

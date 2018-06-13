@@ -1,10 +1,8 @@
 package com.rectus29.beertender.dao.impl;
 
+import com.rectus29.beertender.dao.IdaoHistory;
 import com.rectus29.beertender.entities.core.History;
 import com.rectus29.beertender.entities.core.User;
-import com.rectuscorp.evetool.dao.IdaoHistory;
-import com.rectuscorp.evetool.entities.core.History;
-import com.rectuscorp.evetool.entities.core.User;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;

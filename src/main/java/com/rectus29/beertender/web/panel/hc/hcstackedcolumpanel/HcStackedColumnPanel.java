@@ -6,13 +6,13 @@ package com.rectus29.beertender.web.panel.hc.hcstackedcolumpanel;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectuscorp.evetool.web.Config;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
+import com.rectus29.beertender.web.Config;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import java.util.*;

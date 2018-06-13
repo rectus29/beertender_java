@@ -2,8 +2,8 @@ package com.rectus29.beertender.web.panel.hc.hcsplinepanel;
 
 
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectuscorp.evetool.service.IserviceUser;
-import com.rectuscorp.evetool.web.Config;
+import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.web.Config;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;

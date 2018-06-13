@@ -2,7 +2,7 @@ package com.rectus29.beertender.service;
 
 
 import com.rectus29.beertender.entities.core.Permission;
-import com.rectuscorp.evetool.entities.core.Permission;
+import com.rectus29.beertender.entities.core.Permission;
 
 /**
  * Created by Oliv'Generator.

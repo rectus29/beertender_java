@@ -9,8 +9,8 @@ package com.rectus29.beertender.web.page.base;
 
 
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectuscorp.evetool.service.IserviceUser;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;

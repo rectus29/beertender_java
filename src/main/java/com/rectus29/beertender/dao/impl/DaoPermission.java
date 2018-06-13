@@ -1,8 +1,8 @@
 package com.rectus29.beertender.dao.impl;
 
 import com.rectus29.beertender.entities.core.Permission;
-import com.rectuscorp.evetool.dao.IdaoPermission;
-import com.rectuscorp.evetool.entities.core.Permission;
+import com.rectus29.beertender.dao.IdaoPermission;
+import com.rectus29.beertender.entities.core.Permission;
 import org.springframework.stereotype.Repository;
 
 /**

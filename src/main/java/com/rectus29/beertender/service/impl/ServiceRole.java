@@ -2,10 +2,10 @@ package com.rectus29.beertender.service.impl;
 
 import com.rectus29.beertender.entities.core.Role;
 import com.rectus29.beertender.entities.core.User;
-import com.rectuscorp.evetool.dao.impl.DaoRole;
-import com.rectuscorp.evetool.entities.core.Role;
-import com.rectuscorp.evetool.entities.core.User;
-import com.rectuscorp.evetool.service.IserviceRole;
+import com.rectus29.beertender.dao.impl.DaoRole;
+import com.rectus29.beertender.entities.core.Role;
+import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.service.IserviceRole;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

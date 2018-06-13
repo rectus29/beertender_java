@@ -2,7 +2,6 @@ package com.rectus29.beertender.service;
 
 
 import com.rectus29.beertender.entities.core.News;
-import com.rectuscorp.evetool.entities.core.News;
 
 import java.util.Date;
 import java.util.List;

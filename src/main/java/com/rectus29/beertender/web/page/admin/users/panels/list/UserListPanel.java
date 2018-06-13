@@ -5,19 +5,13 @@ import com.rectus29.beertender.entities.core.User;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.web.BeerTenderApplication;
 import com.rectus29.beertender.web.component.andilmodal.EveModal;
 import com.rectus29.beertender.web.component.confirmation.ConfirmationLink;
-import com.rectuscorp.evetool.entities.core.User;
-import com.rectuscorp.evetool.enums.State;
-import com.rectuscorp.evetool.realms.EveToolRealms;
-import com.rectuscorp.evetool.service.IserviceUser;
-import com.rectuscorp.evetool.web.EveToolApplication;
-import com.rectuscorp.evetool.web.component.andilmodal.EveModal;
-import com.rectuscorp.evetool.web.component.avatarimage.AvatarImage;
-import com.rectuscorp.evetool.web.component.confirmation.ConfirmationLink;
-import com.rectuscorp.evetool.web.page.admin.users.panels.edit.UserEditPanel;
-import com.rectuscorp.evetool.web.page.home.HomePage;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
+import com.rectus29.beertender.web.page.admin.users.panels.edit.UserEditPanel;
+import com.rectus29.beertender.web.page.home.HomePage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -146,10 +140,10 @@ public class UserListPanel extends Panel {
                 item.add(new AjaxLink("runas") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        BeerTenderRealms realms = ((EveToolApplication) getApplication()).getRealms();
+                        BeerTenderRealms realms = ((BeerTenderApplication) getApplication()).getRealms();
                         PrincipalCollection pc = new SimplePrincipalCollection(item.getModelObject().getId(), realms.getName());
                         SecurityUtils.getSubject().runAs(pc);
-                        ((EveToolApplication) getApplication()).updateRights();
+                        ((BeerTenderApplication) getApplication()).updateRights();
                         setResponsePage(HomePage.class);
                     }
 

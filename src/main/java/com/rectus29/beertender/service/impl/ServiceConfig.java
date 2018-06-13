@@ -1,9 +1,9 @@
 package com.rectus29.beertender.service.impl;
 
 import com.rectus29.beertender.entities.core.Config;
-import com.rectuscorp.evetool.dao.impl.DaoConfig;
-import com.rectuscorp.evetool.entities.core.Config;
-import com.rectuscorp.evetool.service.IserviceConfig;
+import com.rectus29.beertender.dao.impl.DaoConfig;
+import com.rectus29.beertender.entities.core.Config;
+import com.rectus29.beertender.service.IserviceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

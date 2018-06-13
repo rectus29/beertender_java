@@ -8,7 +8,7 @@ package com.rectus29.beertender.web.component.formattednumberlabel;
 /*-----------------------------------------------------*/
 
 
-import com.rectuscorp.evetool.web.Config;
+import com.rectus29.beertender.web.Config;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;

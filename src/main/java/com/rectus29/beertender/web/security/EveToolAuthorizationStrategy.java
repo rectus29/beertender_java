@@ -1,9 +1,8 @@
 package com.rectus29.beertender.web.security;
 
 import com.rectus29.beertender.session.BeerTenderSession;
-import com.rectuscorp.evetool.session.EveToolSession;
-import com.rectuscorp.evetool.web.page.base.ProtectedPage;
-import com.rectuscorp.evetool.web.security.signin.SigninPage;
+import com.rectus29.beertender.web.page.base.ProtectedPage;
+import com.rectus29.beertender.web.security.signin.SigninPage;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.apache.wicket.Component;
 import org.apache.wicket.RestartResponseAtInterceptPageException;

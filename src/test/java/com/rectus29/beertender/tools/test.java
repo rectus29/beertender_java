@@ -1,8 +1,8 @@
 package com.rectus29.beertender.tools;
 
 import com.rectus29.beertender.api.EveCRESTApi;
-import com.rectuscorp.evetool.api.EveCRESTApi;
-import com.rectuscorp.evetool.entities.core.*;
+import com.rectus29.beertender.api.EveCRESTApi;
+import com.rectus29.beertender.entities.core.*;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.logging.log4j.LogManager;

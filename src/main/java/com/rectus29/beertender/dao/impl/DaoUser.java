@@ -2,9 +2,9 @@ package com.rectus29.beertender.dao.impl;
 
 import com.rectus29.beertender.entities.core.User;
 import com.rectus29.beertender.enums.State;
-import com.rectuscorp.evetool.dao.IdaoUser;
-import com.rectuscorp.evetool.entities.core.User;
-import com.rectuscorp.evetool.enums.State;
+import com.rectus29.beertender.dao.IdaoUser;
+import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.enums.State;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;

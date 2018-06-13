@@ -1,9 +1,9 @@
 package com.rectus29.beertender.service.impl;
 
 import com.rectus29.beertender.entities.core.User;
-import com.rectuscorp.evetool.dao.impl.DaoUser;
-import com.rectuscorp.evetool.entities.core.User;
-import com.rectuscorp.evetool.service.IserviceUser;
+import com.rectus29.beertender.dao.impl.DaoUser;
+import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.service.IserviceUser;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

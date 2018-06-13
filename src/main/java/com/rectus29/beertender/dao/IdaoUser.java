@@ -2,7 +2,7 @@ package com.rectus29.beertender.dao;
 
 
 import com.rectus29.beertender.entities.core.User;
-import com.rectuscorp.evetool.entities.core.User;
+import com.rectus29.beertender.entities.core.User;
 
 import java.util.List;
 

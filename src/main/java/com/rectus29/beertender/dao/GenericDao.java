@@ -5,7 +5,6 @@ package com.rectus29.beertender.dao;/**
 
 
 import com.rectus29.beertender.dao.tools.SortOrder;
-import com.rectuscorp.evetool.dao.tools.SortOrder;
 
 import java.io.Serializable;
 import java.util.HashMap;

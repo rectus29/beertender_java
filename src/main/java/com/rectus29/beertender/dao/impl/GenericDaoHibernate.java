@@ -3,9 +3,8 @@ package com.rectus29.beertender.dao.impl; /**
  * Date: 20 mai 2009
  */
 
+import com.rectus29.beertender.dao.GenericDao;
 import com.rectus29.beertender.dao.tools.SortOrder;
-import com.rectuscorp.evetool.dao.GenericDao;
-import com.rectuscorp.evetool.dao.tools.SortOrder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.*;
@@ -15,7 +14,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 

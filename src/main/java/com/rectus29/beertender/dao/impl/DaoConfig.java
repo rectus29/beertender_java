@@ -1,8 +1,8 @@
 package com.rectus29.beertender.dao.impl;
 
 import com.rectus29.beertender.entities.core.Config;
-import com.rectuscorp.evetool.dao.IdaoConfig;
-import com.rectuscorp.evetool.entities.core.Config;
+import com.rectus29.beertender.dao.IdaoConfig;
+import com.rectus29.beertender.entities.core.Config;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;

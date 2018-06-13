@@ -1,9 +1,9 @@
 package com.rectus29.beertender.service.impl;
 
 import com.rectus29.beertender.entities.core.Permission;
-import com.rectuscorp.evetool.dao.impl.DaoPermission;
-import com.rectuscorp.evetool.entities.core.Permission;
-import com.rectuscorp.evetool.service.IservicePermission;
+import com.rectus29.beertender.dao.impl.DaoPermission;
+import com.rectus29.beertender.entities.core.Permission;
+import com.rectus29.beertender.service.IservicePermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

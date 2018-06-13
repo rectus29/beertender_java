@@ -1,6 +1,6 @@
 package com.rectus29.beertender.web.panel.footerpanel;
 
-import com.rectuscorp.evetool.web.Config;
+import com.rectus29.beertender.web.Config;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 
