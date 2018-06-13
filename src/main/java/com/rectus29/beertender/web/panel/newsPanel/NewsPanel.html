@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<body>
+<wicket:panel>
+    <ul>
+        <li wicket:id="news">
+            <div style="font-weight: bold;">
+                <span wicket:id="date" class="news-date"/>
+                <a wicket:id="titleLink" class="news-title" target="_blank">
+                    <span wicket:id="title"/>
+                </a>
+            </div>
+            <div class="clearfix">
+                <div class="thumb" wicket:id="thumb">
+
+                </div>
+                <div class="news-content" wicket:id="shortText"></div>
+            </div>
+        </li>
+    </ul>
+    <div wicket:id="modal"/>
+</wicket:panel>
+</body>
+</html>

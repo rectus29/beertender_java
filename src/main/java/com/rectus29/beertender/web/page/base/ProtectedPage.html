@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+
+</head>
+<body>
+<wicket:extend>
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="col-md-1" id="leftMenu" wicket:id="menuPanel" style="padding: 0px;"></div>
+            <div class="col-md-11 col-md-offset-1">
+                <div id="topPanel" class="row">
+                    <div wicket:id="topPanel" class="col-md-9 col-xs-12"></div>
+                    <div style="border-left: 1px solid grey;padding-top: 4px;height: 40px;font-size: 12px;" class="col-md-3 pull-right hidden-xs">
+                        <div class="row" style="padding-left: 15px;">
+                        <div class="col-md-6" wicket:id="serverState"/>
+                        <div class="col-md-6" wicket:id="clock"/>
+                        </div>
+                    </div>
+                </div>
+                <wicket:child/>
+            </div>
+
+        </div>
+    </div>
+</wicket:extend>
+</body>
+</html>

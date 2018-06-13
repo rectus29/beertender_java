@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<body>
+<wicket:panel>
+    <div>
+        <div class="nav_title nav_el row" style=" text-align: center;">
+            <div class="col-md-12">
+            <a href="/" class="site_title">
+                <img src="img/logo.png" class="img-responsive" alt="Retour à l'accueil" width="110">
+            </a>
+            </div>
+        </div>
+
+        <div class="nav_el" wicket:id="characterPanel"/>
+
+        <nav class="nav_el">
+            <ul class="nav nav-stacked">
+                <li><a href="#" wicket:id="market">FedMarket</a></li>
+                <li><a href="#">Item Explorer</a></li>
+                <li><a href="#" wicket:id="crest">crest test</a></li>
+            </ul>
+        </nav>
+        <nav class="nav_el">
+            <ul class="nav nav-stacked">
+                <li><a href="#">Mail Box</a></li>
+                <li><a href="#">Notifications</a></li>
+                <li><a href="#">Wallet</a></li>
+            </ul>
+        </nav>
+        <div id="navFooter" class="container-fluid">
+            <div class="footerButton col-md-4">
+                <a href="#" wicket:id="profile"><i class="fa fa-cog"></i></a>
+            </div>
+            <div class="footerButton col-md-4">
+                <a href="#" wicket:id="admin"><i class="fa fa-users"></i></a>
+            </div>
+            <div class="footerButton col-md-4">
+                <a href="#" wicket:id="logout"><i class="fa fa-power-off"></i></a>
+            </div>
+        </div>
+    </div>
+</wicket:panel>
+</body>
+</html>
