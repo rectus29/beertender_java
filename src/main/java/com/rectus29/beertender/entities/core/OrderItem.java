@@ -1,7 +1,6 @@
 package com.rectus29.beertender.entities.core;
 
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -14,41 +13,34 @@ import java.math.BigDecimal;
  * Time: 14:32
  */
 @Entity
-@Table(name = "order_item")
+@Table(name = "bills_item")
 public class OrderItem extends GenericEntity {
 
     @ManyToOne
     private Order referenceOrder;
 
-//    @Column
-//    private OrderItemState state = OrderItemState.PENDING;
-    @Column
-    private String productname;
-
-//    @Column
-//    private ProductType type;
-//
-//    @ManyToOne
-//    private Product originalProduct;
-//
-//    @ManyToOne
-//    private Shop shop;
+    @ManyToOne
+    private Product product;
 
     @Column(precision = 12, scale = 3)
     private BigDecimal productPrice;
 
     @Column(precision = 12, scale = 3)
-    private BigDecimal productTax;
+    private BigDecimal productTax = BigDecimal.ZERO;
 
     @Column
     private Long quantity;
 
-    public String getProductname() {
-        return productname;
+
+    public OrderItem() {
     }
 
-    public void setProductname(String productname) {
-        this.productname = productname;
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public BigDecimal getProductPrice() {
@@ -75,21 +67,21 @@ public class OrderItem extends GenericEntity {
         this.quantity = quantity;
     }
 
-
-    public BigDecimal getProductPriceWithTax(){
+    public BigDecimal getProductPriceWithTax() {
         return getProductPrice().add(getProductPrice().multiply(getProductTax()));
     }
 
     public BigDecimal getOrderItemPrice() {
         return getProductPrice().multiply(new BigDecimal(getQuantity()));
     }
+
     public BigDecimal getOrderItemPriceWithTax() {
         return getProductPriceWithTax().setScale(3, BigDecimal.ROUND_HALF_EVEN).multiply(new BigDecimal(getQuantity()));
     }
+
     public BigDecimal getOrderItemTax() {
         return getProductPrice().multiply(getProductTax()).setScale(3, BigDecimal.ROUND_HALF_EVEN).multiply(new BigDecimal(getQuantity()));
     }
-
 
     public Order getReferenceOrder() {
         return referenceOrder;
@@ -97,15 +89,5 @@ public class OrderItem extends GenericEntity {
 
     public void setReferenceOrder(Order referenceOrder) {
         this.referenceOrder = referenceOrder;
-    }
-
-    public OrderItem() {
-    }
-
-    public OrderItem(String productname, BigDecimal productPrice, BigDecimal productTax, Long quantity) {
-        this.productname = productname;
-        this.productPrice = productPrice;
-        this.productTax = productTax;
-        this.quantity = quantity;
     }
 }

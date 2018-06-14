@@ -8,14 +8,14 @@ import java.util.Date;
 public class GenericEntity implements DomainObject, Serializable {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date created = new Date();
+	protected Date created = new Date();
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date updated = new Date();
+	protected Date updated = new Date();
 
 
 	public void setId(Long id) {

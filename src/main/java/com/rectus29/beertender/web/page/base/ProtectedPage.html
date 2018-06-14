@@ -5,21 +5,34 @@
 </head>
 <body>
 <wicket:extend>
-    <div class="container-fluid">
-        <div class="row" >
-            <div class="col-md-1" id="leftMenu" wicket:id="menuPanel" style="padding: 0px;"></div>
-            <div class="col-md-11 col-md-offset-1">
-                <div id="topPanel" class="row">
-                    <div wicket:id="topPanel" class="col-md-9 col-xs-12"></div>
-                    <div style="border-left: 1px solid grey;padding-top: 4px;height: 40px;font-size: 12px;" class="col-md-3 pull-right hidden-xs">
-                        <div class="row" style="padding-left: 15px;">
-                        <div class="col-md-6" wicket:id="serverState"/>
+    <div class="container">
+        <div id="topBar" class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="logo col-md-2">
+                        <img src="/images/beer.png" alt="beer" class="img-fluid"/>
+                    </div>
+                    <div class="col-md-6">
+                        <h1>BeerTender</h1>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="userBlock">
+                            <span class="badge badge-light">0</span>&nbsp;<i class="fas fa-shopping-cart"></i>&nbsp;|&nbsp;
+                            <i class="fas fa-user"></i> User Login | <a href="#">Logout</a>
                         </div>
                     </div>
                 </div>
-                <wicket:child/>
             </div>
+        </div>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" id="leftMenu" wicket:id="menuPanel" style="padding: 0px;"></div>
+                <div class="col-md-9 col-md-offset-1">
+                    <wicket:child/>
+                </div>
+
+            </div>
         </div>
     </div>
 </wicket:extend>

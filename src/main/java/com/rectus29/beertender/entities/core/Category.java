@@ -12,10 +12,7 @@ package com.rectus29.beertender.entities.core;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +23,23 @@ public class Category extends GenericEntity{
     private String name;
 
     @Column(columnDefinition = "MEDIUMTEXT")
-    private String desc;
+    private String description;
 
-    @ManyToMany(mappedBy = "categoryList")
+    @ManyToMany
     private List<Product> productList = new ArrayList<>();
 
+    @ManyToOne
+    private Category parentCategory;
+
     public Category() {
+    }
+
+    public Category getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
     }
 
     public String getName() {
@@ -42,12 +50,12 @@ public class Category extends GenericEntity{
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Product> getProductList() {

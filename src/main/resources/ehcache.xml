@@ -91,7 +91,7 @@ even after a JVM restart.  -->
            diskPersistent="true"
            diskExpiryThreadIntervalSeconds="600"/>
 
-    <cache name="com.rectus29.beertender.realms.EveToolRealms.authorization"
+    <cache name="com.rectus29.beertender.realms.BeerTenderRealms.authorization"
            maxElementsInMemory="100"
            eternal="false"
            timeToLiveSeconds="600"

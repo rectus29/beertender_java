@@ -24,15 +24,56 @@ public class Product extends GenericEntity {
     private String name;
 
     @Column(columnDefinition = "MEDIUMTEXT")
-    private String desc;
+    private String description;
 
     private String imagePath;
 
     @ManyToMany(mappedBy = "productList")
-    @JoinTable(name = "product_category")
     private List<Category> categoryList = new ArrayList<>();
 
     @Column(precision = 12, scale = 3)
     private BigDecimal price = BigDecimal.ZERO;
 
+    public Product() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 }

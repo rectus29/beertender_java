@@ -57,7 +57,7 @@ public class BasePage extends WebPage implements TitleContributor {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new Label("title", " EveTool - " + new PropertyModel(this, "title").getObject()));
+        add(new Label("title", " BeerTender - " + new PropertyModel(this, "title").getObject()));
     }
 
     public String getTitleContribution() {

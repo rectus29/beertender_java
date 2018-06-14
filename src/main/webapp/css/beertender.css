@@ -1,17 +1,4 @@
-body {
-    background: url("../img/124080.jpeg") no-repeat black fixed;
-    color: #efefef;
-    font-size: 11px;
-}
 
-a, a:visited,a:hover{
-    color:#ADADAD;
-    transition:ease-in-out, background-color 0.3s;
-}
-
-a:hover{
-    background-color: #964516;
-}
 
 #connectWrapper {
     margin-top: 20%;
@@ -27,88 +14,19 @@ a:hover{
     padding: 15px;
 }
 
-#leftMenu {
-    background: #2D2D2D;
-    border-right: solid 2px #964516;
-    padding: 0px;
-    position: fixed;
-    top: 0;
-    bottom: 0;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
 
-.table-striped tbody tr:nth-child(2n+1) td, .table-striped tbody tr:nth-child(2n+1) th {
-    background-color: rgba(249, 249, 249, 0.18);
-}
-
-.nav > li > a:focus, .nav > li > a:hover {
-    text-decoration: none;
-    background-color: rgba(151, 49, 4, 0.65);
-}
-
-.table-striped > tbody > tr:nth-of-type(odd) {
-    background-color: rgba(249, 249, 249, 0.11);
-}
-
-input, select {
-    color: black;
+#userBlock{
+    background: white;
+    padding: 15px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
 }
 
 .wicket-modal {
     color: #3f3f3f;
-}
-
-.feedParser {
-
-}
-
-.feedParser .nodeItem{
-    border-bottom: 1px solid #ADADAD;
-    padding: 0 5px;
-    margin: 0 5px;
-}
-
-.feedParser img.nodeEnclosure {
-    height: 80px;
-}
-
-.feedParser a.nodeTitle {
-    color: #fff;
-    font-size: 2em;
-}
-
-tr.default{
-    background-color: rgba(150, 69, 22, 0.57);
-}
-
-#navFooter{
-    width: 100%;
-    position: absolute;
-    bottom: 0px;
-}
-
-#navFooter div.footerButton{
-    color:#964516;
-    font-size: 20px;
-    text-align: center;
-    padding: 4px 0 0 0;
-    height: 35px;
-}
-
-#navFooter div.footerButton:hover{
-    background-color: #964516;
-}
-
-
-
-.nav_el{
-    padding: 12px 0 12px 0;
-    margin: 0 0 0px 0;
-    border-bottom: 1px solid #ADADAD;
-}
-
-#topPanel{
-    height: 40px;
-    background: #2D2D2D;
-    border-bottom: 1px solid grey;
-    margin-bottom: 15px;
 }

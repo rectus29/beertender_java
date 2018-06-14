@@ -18,9 +18,9 @@ import org.apache.wicket.request.resource.IResource;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-public final class EveToolAuthorizationStrategy implements IAuthorizationStrategy, IUnauthorizedComponentInstantiationListener {
+public final class BeerTenderAuthorizationStrategy implements IAuthorizationStrategy, IUnauthorizedComponentInstantiationListener {
 
-    private static final Logger log = LogManager.getLogger(EveToolAuthorizationStrategy.class);
+    private static final Logger log = LogManager.getLogger(BeerTenderAuthorizationStrategy.class);
 
 
     public boolean isActionAuthorized(Component component, Action action) {

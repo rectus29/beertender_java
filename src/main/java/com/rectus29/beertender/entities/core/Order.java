@@ -1,6 +1,8 @@
 package com.rectus29.beertender.entities.core;
 
 
+import com.rectus29.beertender.enums.State;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import java.util.List;
  * Time: 15:13
  */
 @Entity
-@Table(name = "order")
+@Table(name = "bills")
 public class Order extends GenericEntity {
 
     @OneToMany(mappedBy = "referenceOrder")
@@ -22,8 +24,8 @@ public class Order extends GenericEntity {
     @ManyToOne
     private User user;
 
-//    @Column
-//    private OrderState state = OrderState.PENDING;
+    @Column
+    private State state = State.PENDING;
 
     @Column(columnDefinition = "MEDIUMTEXT")
     private String paymentToken="";

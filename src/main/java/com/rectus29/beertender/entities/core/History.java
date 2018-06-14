@@ -13,16 +13,7 @@ import java.util.Date;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "history")
-public class History implements Serializable {
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
-    @Column(name = "date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
-
+public class History extends GenericEntity implements Serializable {
 
     @Column(name = "action", nullable = false, length = 65536)
     private String action = "";
@@ -48,7 +39,7 @@ public class History implements Serializable {
 
     public History(String action, Date date, String details, String ip, Long objectId, String objectType, User user) {
         this.action = action;
-        this.date = date;
+        this.created = date;
         this.details = details;
         this.ip = ip;
         this.objectId = objectId;
@@ -57,7 +48,7 @@ public class History implements Serializable {
     }
     public History(String action, String details, String ip, Long objectId, String objectType, User user) {
         this.action = action;
-        this.date = new Date();
+        this.created = new Date();
         this.details = details;
         this.ip = ip;
         this.objectId = objectId;
@@ -66,7 +57,7 @@ public class History implements Serializable {
     }
 
     public History(Date date, User user, String action, Long id, String type, String details) {
-        this.date = date;
+        this.created = date;
         this.details = details;
         this.action = action;
         this.user = user;
@@ -74,14 +65,14 @@ public class History implements Serializable {
         this.objectType=type;
     }
     public History(Date date, User user, String action, Long id, String type) {
-        this.date = date;
+        this.created = date;
         this.action = action;
         this.user = user;
         this.objectId=id;
         this.objectType=type;
     }
     public History(User user, String action, Long id, String type, String details) {
-        this.date = new Date();
+        this.created = new Date();
         this.action = action;
         this.user = user;
         this.objectId = id;
@@ -89,27 +80,11 @@ public class History implements Serializable {
         this.details = details;
     }
     public History(User user, String action, Long id, String type) {
-        this.date = new Date();
+        this.created = new Date();
         this.action = action;
         this.user = user;
         this.objectId = id;
         this.objectType=type;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getAction() {

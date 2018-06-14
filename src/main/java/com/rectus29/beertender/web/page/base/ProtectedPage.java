@@ -33,7 +33,7 @@ public class ProtectedPage extends BasePage {
 
     }
 
-    public BeerTenderSession getEveToolSession() {
+    public BeerTenderSession getBeerTenderSession() {
         return (BeerTenderSession) getSession();
     }
 
@@ -41,9 +41,5 @@ public class ProtectedPage extends BasePage {
     protected void onInitialize() {
         super.onInitialize();
         add((new MenuPanel("menuPanel")).setOutputMarkupId(true));
-		add(new ServerStatePanel("serverState"));
-        add((new MenuContributionPanel("topPanel")).setOutputMarkupId(true));
-//        add((new FooterPanel("footerPanel")).setOutputMarkupId(true));
     }
-
 }

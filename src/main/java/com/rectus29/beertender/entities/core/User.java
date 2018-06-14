@@ -1,5 +1,6 @@
 package com.rectus29.beertender.entities.core;
 
+import com.rectus29.beertender.entities.DecorableElement;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.enums.UserAuthentificationType;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -12,7 +13,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "users")
-public class User extends GenericEntity {
+public class User extends GenericEntity implements DecorableElement{
 
     @Column(nullable = false)
     private String password;
@@ -36,6 +37,11 @@ public class User extends GenericEntity {
     private Date lastLogin;
     @Column
     private UserAuthentificationType userAuthentificationType = UserAuthentificationType.EMBED;
+
+    @Override
+    public String getFormatedName() {
+        return null;
+    }
 
     public String getPassword() {
         return password;
