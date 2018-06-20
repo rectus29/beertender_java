@@ -1,15 +1,13 @@
 package com.rectus29.beertender.web.page.home;
 
 
-/*-----------------------------------------------------*/
-/* User: Rectus for          Date: 21/12/12 14:16 */
-/*                                                     */
-/*                 All right reserved                  */
-/*-----------------------------------------------------*/
 
+import com.rectus29.beertender.entities.core.Product;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.page.base.ProtectedPage;
+import com.rectus29.beertender.web.panel.productListPanel.ProductListPanel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -32,6 +30,10 @@ public class HomePage extends ProtectedPage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+
+ 		if(this.getPageParameters().isEmpty()){
+			add(new ProductListPanel("productListPanel"));
+		}
 
 	}
 

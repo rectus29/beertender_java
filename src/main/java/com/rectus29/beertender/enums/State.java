@@ -13,5 +13,5 @@ package com.rectus29.beertender.enums;
 /*-----------------------------------------------------*/
 
 public enum State {
-    ENABLE, DISABLE, PENDING, DELETED, ERROR
+    DISABLE, ENABLE, PENDING, DELETED, ERROR
 }

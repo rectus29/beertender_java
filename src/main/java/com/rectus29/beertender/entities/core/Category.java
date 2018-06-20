@@ -12,6 +12,9 @@ package com.rectus29.beertender.entities.core;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
+import com.rectus29.beertender.enums.State;
+import net.sf.ehcache.terracotta.StandaloneTerracottaClusteredInstanceFactory;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,9 @@ public class Category extends GenericEntity{
 
     @ManyToOne
     private Category parentCategory;
+
+    @Column
+    private State state = State.ENABLE;
 
     public Category() {
     }
@@ -64,5 +70,13 @@ public class Category extends GenericEntity{
 
     public void setProductList(List<Product> productList) {
         this.productList = productList;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

@@ -1,4 +1,4 @@
-package com.rectus29.beertender.dao.tools;
+package com.rectus29.beertender.enums;
 
 /**
  *

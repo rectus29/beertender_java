@@ -1,14 +1,12 @@
 package com.rectus29.beertender.service.impl;
 
 import com.rectus29.beertender.entities.core.User;
-import com.rectus29.beertender.dao.impl.DaoUser;
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceUser;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.hibernate.annotations.NamedQueries;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,24 +21,12 @@ import java.util.List;
 @Service("serviceUser")
 public class ServiceUser extends GenericManagerImpl<User, Long> implements IserviceUser {
 
-    private static final Logger log = LogManager.getLogger(ServiceUser.class);
-
-    private DaoUser daoUser;
-
-    @Autowired
-    public ServiceUser(DaoUser daoUser) {
-        super(daoUser);
-        this.daoUser = daoUser;
+    public ServiceUser() {
+        super(User.class);
     }
 
-
     public User getCurrentUser() {
-        if (SecurityUtils.getSubject().getPrincipals().getRealmNames().contains("org.apache.shiro.realm.ldap.JndiLdapRealm_1")) {
-            return getUserLDAP(SecurityUtils.getSubject());
-        } else {
-            return getUser(SecurityUtils.getSubject());
-        }
-
+        return getUser(SecurityUtils.getSubject());
     }
 
     public User getUser(Subject subject) {
@@ -55,30 +41,32 @@ public class ServiceUser extends GenericManagerImpl<User, Long> implements Iserv
         }
     }
 
-    public User getUserLDAP(Subject subject) {
-        String userName = (String) subject.getPrincipal();
-        if (userName != null) {
-            // they are either authenticated or remembered from a previous com..mismastore.session,
-            // so return the user:
-            return getUserByUsername(userName);
-        } else {
-            //not logged in or remembered:
-            return null;
-        }
-    }
-
+    @Override
     public User getUserByUsername(String username) {
-        return daoUser.getUserByUsername(username);
+
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class);
+        detachedCriteria.add(Restrictions.eq("userName", username));
+        detachedCriteria.add(Restrictions.eq("state", State.ENABLE));
+        List result = getHibernateTemplate().findByCriteria(detachedCriteria);
+        if (result.size() == 0)
+            return null;
+        return (User) result.get(0);
     }
 
-    public User save(User c) {
-        return daoUser.save(c);
+    @Override
+    public List<User> getAll() {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class);
+        List result = getHibernateTemplate().findByCriteria(detachedCriteria);
+        return result;
     }
+
 
     public User getUserByMail(String property) {
-        return daoUser.getUserByMail(property);
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class);
+        detachedCriteria.add(Restrictions.eq("email", property));
+        List<User> result = (List<User>) getHibernateTemplate().findByCriteria(detachedCriteria);
+        if (result.size() > 0) return result.get(0);
+        return null;
     }
-
-
 
 }

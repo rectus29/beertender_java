@@ -1,8 +1,6 @@
 package com.rectus29.beertender.service.impl;
 
 import com.rectus29.beertender.entities.core.Permission;
-import com.rectus29.beertender.dao.impl.DaoPermission;
-import com.rectus29.beertender.entities.core.Permission;
 import com.rectus29.beertender.service.IservicePermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,17 +16,12 @@ import org.springframework.stereotype.Service;
 public class ServicePermission extends GenericManagerImpl<Permission, Long> implements IservicePermission {
 
 
-    private DaoPermission daoPermission;
-
-    @Autowired
-    public ServicePermission(DaoPermission daoPermission) {
-        super(daoPermission);
-        this.daoPermission = daoPermission;
+    public ServicePermission() {
+        super(Permission.class);
     }
 
-
     public Permission save(Permission c) {
-        return daoPermission.save(c);
+        return this.save(c);
     }
 
 }

@@ -5,27 +5,32 @@
 </wicket:head>
 <wicket:extend>
     <div class="container login-holder">
-        <div class="loginpage">
-            <form class="form-horizontal col-md-4 col-md-offset-4 well" id="connectWrapper" wicket:id="authenticationForm">
-
-                <img src="img/logo.png"/>
+        <div class="row">
+            <form class="col-md-4 offset-md-4 jumbotron" wicket:id="authenticationForm">
+                <br>
+                <img src="img/beer.png" class="img-fluid" width="90px"/>
                 <hr>
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-user"/>
+                <div class="form-group">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-user"/>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" wicket:id="username" wicket:message="placeholder:username">
                     </div>
-                    <input class="form-control" type="text" wicket:id="username" wicket:message="placeholder:username"/>
                 </div>
                 <br/>
-
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-lock"/>
+                <div class="form-group">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-lock"/>
+                            </div>
+                        </div>
+                        <input type="password" class="form-control" wicket:id="password" wicket:message="placeholder:password">
                     </div>
-                    <input class="form-control" type="password" wicket:id="password" wicket:message="placeholder:password"/>
                 </div>
-                <br/>
-
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
                         <wicket:message key="connect"/>

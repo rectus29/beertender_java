@@ -2,9 +2,7 @@ package com.rectus29.beertender.web.page.base;
 
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
-import com.rectus29.beertender.web.panel.menucontributionpanel.MenuContributionPanel;
 import com.rectus29.beertender.web.panel.menupanel.MenuPanel;
-import com.rectus29.beertender.web.panel.serverstatepanel.ServerStatePanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;

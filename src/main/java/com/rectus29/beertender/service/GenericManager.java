@@ -12,7 +12,7 @@ package com.rectus29.beertender.service;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.dao.tools.SortOrder;
+import com.rectus29.beertender.enums.SortOrder;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
