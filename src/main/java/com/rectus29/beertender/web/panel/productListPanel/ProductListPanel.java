@@ -18,7 +18,7 @@ public class ProductListPanel extends Panel {
 
     @SpringBean(name = "serviceProduct")
     private IserviceProduct serviceProduct;
-    @SpringBean(name = "serviceCateg")
+    @SpringBean(name = "serviceCategory")
     private IserviceCategory serviceCategory;
 
     private long categId;
@@ -45,24 +45,20 @@ public class ProductListPanel extends Panel {
             @Override
             protected List<Product> load() {
                 List<Category> filterList = new ArrayList<>();
-                filterList.add(serviceCategory.get(categId));
-
-                if(filterList.isEmpty()){
+                //filterList.add(serviceCategory.get(categId));
+                if (filterList.isEmpty()) {
                     return serviceProduct.getAll();
                 }
-
-
-
                 return serviceProduct.getProductByCategory(filterList);
             }
         };
 
-        add(new ListView<Product>("lvProduct", ldm) {
-            @Override
-            protected void populateItem(ListItem<Product> item) {
-
-            }
-        });
+//        add(new ListView<Product>("lvProduct", ldm) {
+//            @Override
+//            protected void populateItem(ListItem<Product> item) {
+//
+//            }
+//        });
 
 
     }

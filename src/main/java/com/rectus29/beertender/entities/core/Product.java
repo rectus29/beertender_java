@@ -12,6 +12,8 @@ package com.rectus29.beertender.entities.core;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
+import com.rectus29.beertender.enums.State;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,6 +35,9 @@ public class Product extends GenericEntity {
 
     @Column(precision = 12, scale = 3)
     private BigDecimal price = BigDecimal.ZERO;
+
+    @Column
+    private State state = State.ENABLE;
 
     public Product() {
     }
@@ -75,5 +80,13 @@ public class Product extends GenericEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }
