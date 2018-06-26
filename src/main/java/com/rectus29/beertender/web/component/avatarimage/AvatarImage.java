@@ -1,7 +1,7 @@
 package com.rectus29.beertender.web.component.avatarimage;
 
 import com.rectus29.beertender.entities.DecorableElement;
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.BeerTenderApplication;
 import org.apache.logging.log4j.LogManager;

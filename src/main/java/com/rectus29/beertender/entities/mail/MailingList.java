@@ -12,8 +12,8 @@ package com.rectus29.beertender.entities.mail;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.entities.core.GenericEntity;
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.GenericEntity;
+import com.rectus29.beertender.entities.User;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

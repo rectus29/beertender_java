@@ -1,12 +1,12 @@
 package com.rectus29.beertender.web.page.admin.users.panels.list;
 
 
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.BeerTenderApplication;
-import com.rectus29.beertender.web.component.andilmodal.EveModal;
+import com.rectus29.beertender.web.component.andilmodal.WicketModal;
 import com.rectus29.beertender.web.component.confirmation.ConfirmationLink;
 import com.rectus29.beertender.web.page.admin.users.panels.edit.UserEditPanel;
 import com.rectus29.beertender.web.page.home.HomePage;
@@ -47,7 +47,7 @@ public class UserListPanel extends Panel {
     private WebMarkupContainer wmc;
     private LoadableDetachableModel<List<User>> ldm;
     private PageableListView plv;
-    private EveModal modal;
+    private WicketModal modal;
     private PagingNavigator navigator;
 
     public
@@ -162,7 +162,7 @@ public class UserListPanel extends Panel {
             }
         }).setOutputMarkupId(true));
 
-        add((modal = new EveModal("modal")).setOutputMarkupId(true));
+        add((modal = new WicketModal("modal")).setOutputMarkupId(true));
         add(new AjaxLink("add"){
             @Override
             public void onClick(AjaxRequestTarget target) {
@@ -180,7 +180,7 @@ public class UserListPanel extends Panel {
                         modal.close(target);
                     }
                 });
-                modal.show(target, EveModal.ModalFormat.MEDIUM);
+                modal.show(target, WicketModal.ModalFormat.MEDIUM);
             }
         });
     }

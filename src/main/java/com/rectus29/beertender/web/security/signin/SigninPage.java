@@ -1,6 +1,6 @@
 package com.rectus29.beertender.web.security.signin;
 
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceSession;
 import com.rectus29.beertender.service.IserviceUser;

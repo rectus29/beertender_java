@@ -9,11 +9,7 @@ package com.rectus29.beertender.web.page.admin.server;
 
 
 
-import com.rectus29.beertender.entities.core.Config;
-import com.rectus29.beertender.service.IserviceConfig;
-import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;
-import com.rectus29.beertender.entities.core.Config;
+import com.rectus29.beertender.entities.Config;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;

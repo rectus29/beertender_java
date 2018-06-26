@@ -1,13 +1,12 @@
 package com.rectus29.beertender.service.impl;
 
 
-import com.rectus29.beertender.entities.core.News;
+import com.rectus29.beertender.entities.News;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceNews;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

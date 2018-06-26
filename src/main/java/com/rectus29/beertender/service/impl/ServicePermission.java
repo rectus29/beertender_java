@@ -1,8 +1,7 @@
 package com.rectus29.beertender.service.impl;
 
-import com.rectus29.beertender.entities.core.Permission;
+import com.rectus29.beertender.entities.Permission;
 import com.rectus29.beertender.service.IservicePermission;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

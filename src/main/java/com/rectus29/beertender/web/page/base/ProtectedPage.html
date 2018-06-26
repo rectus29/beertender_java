@@ -17,7 +17,11 @@
                     </div>
                     <div class="col-md-4">
                         <div id="userBlock">
-                            <span class="badge badge-light">0</span>&nbsp;<i class="fa fa-shopping-cart"></i>&nbsp;|&nbsp;
+                            <a href="#" wicket:id="cartLink">
+                                <span class="badge badge-light" wicket:id="nbProduct">0</span>
+                                &nbsp;<i class="fa fa-shopping-cart"></i>
+                            </a>
+                            &nbsp;|&nbsp;
                             <i class="fa fa-user"></i> <wicket:label wicket:id="login"></wicket:label> | <a href="logout">Logout</a>
                         </div>
                     </div>
@@ -33,6 +37,7 @@
                 </div>
             </div>
         </div>
+        <div wicket:id="modal"/>
     </div>
 </wicket:extend>
 </body>

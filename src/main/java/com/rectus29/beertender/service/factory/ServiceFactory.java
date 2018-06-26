@@ -12,7 +12,7 @@ package com.rectus29.beertender.service.factory;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.entities.core.GenericEntity;
+import com.rectus29.beertender.entities.GenericEntity;
 import com.rectus29.beertender.service.GenericManager;
 
 public interface ServiceFactory {

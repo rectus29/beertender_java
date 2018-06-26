@@ -13,6 +13,7 @@ import java.math.BigDecimal;
  * Project : mismacore
  */
 public class CurrencyLabel extends Label {
+
     public CurrencyLabel(String id, IModel<?> model) {
         super(id, model);
     }

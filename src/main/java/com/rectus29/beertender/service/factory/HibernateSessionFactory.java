@@ -11,7 +11,7 @@ package com.rectus29.beertender.service.factory;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.entities.core.GenericEntity;
+import com.rectus29.beertender.entities.GenericEntity;
 import com.rectus29.beertender.service.GenericManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

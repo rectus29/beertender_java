@@ -1,7 +1,7 @@
 package com.rectus29.beertender.realms;
 
-import com.rectus29.beertender.entities.core.Permission;
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.Permission;
+import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

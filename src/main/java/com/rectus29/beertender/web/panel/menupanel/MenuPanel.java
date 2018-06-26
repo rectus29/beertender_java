@@ -13,10 +13,9 @@ package com.rectus29.beertender.web.panel.menupanel;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.entities.core.Category;
+import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.service.impl.ServiceCategory;
 import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.page.home.HomePage;
 import com.rectus29.beertender.web.page.profile.ProfilePage;

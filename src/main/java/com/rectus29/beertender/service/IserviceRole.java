@@ -1,7 +1,7 @@
 package com.rectus29.beertender.service;
 
-import com.rectus29.beertender.entities.core.Role;
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.Role;
+import com.rectus29.beertender.entities.User;
 
 import java.util.List;
 

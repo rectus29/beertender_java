@@ -12,7 +12,7 @@ package com.rectus29.beertender.tasks.schedulde;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.entities.core.Config;
+import com.rectus29.beertender.entities.Config;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.tasks.Task;
 import org.apache.logging.log4j.LogManager;

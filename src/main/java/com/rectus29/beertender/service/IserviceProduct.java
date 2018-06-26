@@ -1,8 +1,8 @@
 package com.rectus29.beertender.service;
 
 
-import com.rectus29.beertender.entities.core.Category;
-import com.rectus29.beertender.entities.core.Product;
+import com.rectus29.beertender.entities.Category;
+import com.rectus29.beertender.entities.Product;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.rectus29.beertender.web.page.admin.users.panels.edit;
 
-import com.rectus29.beertender.entities.core.Role;
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.Role;
+import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.service.IserviceHistory;
 import com.rectus29.beertender.service.IserviceRole;

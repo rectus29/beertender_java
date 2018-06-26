@@ -1,12 +1,11 @@
 package com.rectus29.beertender.service.impl;
 
-import com.rectus29.beertender.entities.core.History;
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.History;
+import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceHistory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

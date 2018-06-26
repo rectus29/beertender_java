@@ -2,12 +2,10 @@ package com.rectus29.beertender.web.page.home;
 
 
 
-import com.rectus29.beertender.entities.core.Product;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.page.base.ProtectedPage;
 import com.rectus29.beertender.web.panel.productListPanel.ProductListPanel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 

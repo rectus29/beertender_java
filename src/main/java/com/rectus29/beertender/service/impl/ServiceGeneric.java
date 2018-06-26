@@ -1,8 +1,7 @@
 package com.rectus29.beertender.service.impl;
 
-import com.rectus29.beertender.entities.core.GenericEntity;
+import com.rectus29.beertender.entities.GenericEntity;
 import com.rectus29.beertender.service.IserviceGeneric;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

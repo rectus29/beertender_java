@@ -1,7 +1,7 @@
 package com.rectus29.beertender.serializers;
 
 import com.google.gson.*;
-import com.rectus29.beertender.entities.core.GenericEntity;
+import com.rectus29.beertender.entities.GenericEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

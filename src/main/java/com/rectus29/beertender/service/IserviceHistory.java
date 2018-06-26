@@ -1,7 +1,7 @@
 package com.rectus29.beertender.service;
 
-import com.rectus29.beertender.entities.core.History;
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.History;
+import com.rectus29.beertender.entities.User;
 
 import java.util.Date;
 import java.util.List;

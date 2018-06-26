@@ -1,7 +1,7 @@
 package com.rectus29.beertender.service;
 
 
-import com.rectus29.beertender.entities.core.GenericEntity;
+import com.rectus29.beertender.entities.GenericEntity;
 
 
 /**

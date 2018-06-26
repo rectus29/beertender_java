@@ -1,6 +1,6 @@
 package com.rectus29.beertender.web.security.restorepassword;
 
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;
 import com.rectus29.beertender.web.component.Validator.PasswordPolicyValidator;

@@ -1,6 +1,6 @@
 package com.rectus29.beertender.service;
 
-import com.rectus29.beertender.entities.core.User;
+import com.rectus29.beertender.entities.User;
 import org.apache.shiro.subject.Subject;
 
 /**
