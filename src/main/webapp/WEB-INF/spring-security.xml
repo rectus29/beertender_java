@@ -22,7 +22,7 @@
                         <bean class="com.rectus29.beertender.service.BeerTenderSessionListener"/>
                     </list>
                 </property>
-                <property name="sessionValidationInterval" value="5000"/>
+                <!--<property name="sessionValidationInterval" value="5000"/>-->
             </bean>
         </property>
     </bean>

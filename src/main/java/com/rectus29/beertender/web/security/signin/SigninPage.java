@@ -55,7 +55,6 @@ public class SigninPage extends BasePage {
 		}).setOutputMarkupId(true));
 		form.add(new EmailTextField("username", new PropertyModel<String>(this, "username")));
 		form.add(new PasswordTextField("password", new PropertyModel<String>(this, "password")));
-		form.add(new PasswordTextField("password", new PropertyModel<String>(this, "password")));
 		form.add(new CheckBox("rememberMe", new PropertyModel<Boolean>(this, "rememberMe")));
 		form.add((feed = new BootStrapFeedbackPanel("feedback")).setOutputMarkupId(true));
 
@@ -68,7 +67,7 @@ public class SigninPage extends BasePage {
 	 * @param password The password
 	 * @return True if signin was successful
 	 */
-	public boolean login(String username, String password, boolean rememberMe) {
+	private boolean login(String username, String password, boolean rememberMe) {
 		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
 		try {
@@ -81,7 +80,7 @@ public class SigninPage extends BasePage {
 		return false;
 	}
 
-	protected void onSignInSucceeded() {
+	private void onSignInSucceeded() {
 		User u = serviceUser.getCurrentUser();
 		u.setLastLogin(new java.util.Date());
 		serviceUser.save(u);
@@ -104,15 +103,15 @@ public class SigninPage extends BasePage {
 		response.render(OnDomReadyHeaderItem.forScript(javascript));
 	}
 
-	public String getPassword() {
+	private String getPassword() {
 		return password;
 	}
 
-	public String getUsername() {
+	private String getUsername() {
 		return username;
 	}
 
-	public Boolean getRememberMe() {
+	private Boolean getRememberMe() {
 		return rememberMe;
 	}
 }
