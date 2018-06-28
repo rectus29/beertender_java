@@ -68,7 +68,7 @@ public class BeerTenderRealms extends AuthorizingRealm {
 	@Override
 	protected SaltedAuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		User user = serviceUser.getByProperty("userName", token.getUsername(), true);
+		User user = serviceUser.getByProperty("email", token.getUsername(), true);
 		if (user != null) {
 			return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(Base64.decode(user.getSalt())), getName());
 		} else {

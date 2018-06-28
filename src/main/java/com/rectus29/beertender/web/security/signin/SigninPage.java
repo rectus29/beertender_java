@@ -14,6 +14,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
@@ -55,7 +56,7 @@ public class SigninPage extends BasePage {
 				}
 			}
 		}).setOutputMarkupId(true));
-		form.add(new TextField<String>("username", new PropertyModel<String>(this, "username")));
+		form.add(new EmailTextField("username", new PropertyModel<String>(this, "username")));
 		form.add(new PasswordTextField("password", new PropertyModel<String>(this, "password")));
 		form.add((feed = new BootStrapFeedbackPanel("feedback")).setOutputMarkupId(true));
 
