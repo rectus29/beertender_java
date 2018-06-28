@@ -5,6 +5,7 @@ import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
 import com.rectus29.beertender.web.panel.cart.CartPanel;
+import com.rectus29.beertender.web.panel.cartmodalpanel.CartModalPanel;
 import com.rectus29.beertender.web.panel.menupanel.MenuPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -52,7 +53,7 @@ public class ProtectedPage extends BasePage {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 modal.setTitle("Votre Panier");
-                modal.setContent(new CartPanel(modal.getContentId()));
+                modal.setContent(new CartModalPanel(modal.getContentId()));
                 modal.show(target);
             }
         }.add((nbProductLabel = new Label("nbProduct", BeerTenderSession.get().getCart().getCartRowList().size())).setOutputMarkupId(true)));
