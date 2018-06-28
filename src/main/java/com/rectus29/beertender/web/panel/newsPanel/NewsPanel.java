@@ -5,7 +5,7 @@ import com.rectus29.beertender.entities.News;
 import com.rectus29.beertender.enums.NewsType;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceNews;
-import com.rectus29.beertender.web.component.andilmodal.WicketModal;
+import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;

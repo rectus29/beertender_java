@@ -3,7 +3,7 @@ package com.rectus29.beertender.web.page.base;
 import com.rectus29.beertender.event.RefreshEvent;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
-import com.rectus29.beertender.web.component.andilmodal.WicketModal;
+import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
 import com.rectus29.beertender.web.panel.cart.CartPanel;
 import com.rectus29.beertender.web.panel.menupanel.MenuPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;

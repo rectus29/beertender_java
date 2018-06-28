@@ -6,7 +6,7 @@ import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.BeerTenderApplication;
-import com.rectus29.beertender.web.component.andilmodal.WicketModal;
+import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
 import com.rectus29.beertender.web.component.confirmation.ConfirmationLink;
 import com.rectus29.beertender.web.page.admin.users.panels.edit.UserEditPanel;
 import com.rectus29.beertender.web.page.home.HomePage;

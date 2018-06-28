@@ -2,7 +2,7 @@ package com.rectus29.beertender.web.component.formattednumberlabel;
 
 
 /*-----------------------------------------------------*/
-/* User: Rectus for          Date: 03/04/13 10:57 */
+/* User: Rectus for          Date: 03/04/13 10:57      */
 /*                                                     */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/

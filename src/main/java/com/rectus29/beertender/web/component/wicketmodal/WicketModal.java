@@ -1,4 +1,4 @@
-package com.rectus29.beertender.web.component.andilmodal;
+package com.rectus29.beertender.web.component.wicketmodal;
 
 
 /*-----------------------------------------------------*/
