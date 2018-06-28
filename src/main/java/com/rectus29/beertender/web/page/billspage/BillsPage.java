@@ -1,6 +1,7 @@
 package com.rectus29.beertender.web.page.billspage;
 
 import com.rectus29.beertender.web.page.base.ProtectedPage;
+import com.rectus29.beertender.web.panel.cart.CartPanel;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -10,5 +11,11 @@ import com.rectus29.beertender.web.page.base.ProtectedPage;
 public class BillsPage extends ProtectedPage {
 
     public BillsPage() {
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new CartPanel("panel"));
     }
 }
