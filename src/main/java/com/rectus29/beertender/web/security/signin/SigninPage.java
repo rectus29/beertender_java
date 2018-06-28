@@ -14,10 +14,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.apache.wicket.markup.html.form.EmailTextField;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -51,13 +48,15 @@ public class SigninPage extends BasePage {
 		add((form = new Form("authenticationForm") {
 			@Override
 			public final void onSubmit() {
-				if (login(getUsername(), getPassword(), false)) {
+				if (login(getUsername(), getPassword(), getRememberMe())) {
 					onSignInSucceeded();
 				}
 			}
 		}).setOutputMarkupId(true));
 		form.add(new EmailTextField("username", new PropertyModel<String>(this, "username")));
 		form.add(new PasswordTextField("password", new PropertyModel<String>(this, "password")));
+		form.add(new PasswordTextField("password", new PropertyModel<String>(this, "password")));
+		form.add(new CheckBox("rememberMe", new PropertyModel<Boolean>(this, "rememberMe")));
 		form.add((feed = new BootStrapFeedbackPanel("feedback")).setOutputMarkupId(true));
 
 	}
@@ -111,5 +110,9 @@ public class SigninPage extends BasePage {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public Boolean getRememberMe() {
+		return rememberMe;
 	}
 }
