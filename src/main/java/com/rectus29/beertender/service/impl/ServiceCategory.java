@@ -30,7 +30,7 @@ public class ServiceCategory extends GenericManagerImpl<Category, Long> implemen
     public List<Category> getRootCateg() {
         List<Category> result = new ArrayList<>();
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(this.persistentClass);
-        detachedCriteria.add(Restrictions.isNull("parentCategory"));
+        detachedCriteria.add(Restrictions.eq("isRoot", true));
         detachedCriteria.add(Restrictions.eq("state", State.ENABLE));
         List<Category> out = (List<Category>)getHibernateTemplate().findByCriteria(detachedCriteria);
         result.addAll(out);

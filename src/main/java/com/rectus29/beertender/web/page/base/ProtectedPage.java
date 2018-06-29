@@ -4,13 +4,14 @@ import com.rectus29.beertender.event.RefreshEvent;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
-import com.rectus29.beertender.web.panel.cart.CartPanel;
+import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.panel.cartmodalpanel.CartModalPanel;
 import com.rectus29.beertender.web.panel.menupanel.MenuPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -47,6 +48,12 @@ public class ProtectedPage extends BasePage {
 
         add((modal = new WicketModal("modal")).setOutputMarkupId(true));
         add(new Label("login", serviceUser.getCurrentUser().getUserName()));
+        add(new BookmarkablePageLink("admin", AdminPage.class) {
+            @Override
+            public boolean isVisible() {
+                return serviceUser.getCurrentUser().isAdmin();
+            }
+        });
         add((new MenuPanel("menuPanel")).setOutputMarkupId(true));
 
         add(new AjaxLink("cartLink") {

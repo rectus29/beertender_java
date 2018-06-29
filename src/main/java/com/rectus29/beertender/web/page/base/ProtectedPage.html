@@ -22,7 +22,11 @@
                                 &nbsp;<i class="fa fa-shopping-cart"></i>
                             </a>
                             &nbsp;|&nbsp;
-                            <i class="fa fa-user"></i> <wicket:label wicket:id="login"></wicket:label> | <a href="logout">Logout</a>
+                            <i class="fa fa-user"></i> <wicket:label wicket:id="login"></wicket:label>&nbsp;|&nbsp;
+                            <wicket:enclosure>
+                                <a href="#" wicket:id="admin"><i class="fa fa-cogs"></i></a>&nbsp;|&nbsp;
+                            </wicket:enclosure>
+                            <a href="logout">Logout</a>
                         </div>
                     </div>
                 </div>

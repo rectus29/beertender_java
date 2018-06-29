@@ -30,21 +30,19 @@ public class Category extends GenericEntity{
     @ManyToMany
     private List<Product> productList = new ArrayList<>();
 
-    @ManyToOne
-    private Category parentCategory;
+    private Boolean isRoot = false;
 
-    @Column
     private State state = State.ENABLE;
 
     public Category() {
     }
 
-    public Category getParentCategory() {
-        return parentCategory;
+    public Boolean getRoot() {
+        return isRoot;
     }
 
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
+    public void setRoot(Boolean root) {
+        isRoot = root;
     }
 
     public String getName() {

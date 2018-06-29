@@ -42,8 +42,11 @@ public class MenuPanel extends Panel {
 
     public MenuPanel(String id) {
         super(id);
+    }
 
-
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
         add((new WebMarkupContainer("wmc") {
             @Override
             protected void onInitialize() {
@@ -73,19 +76,5 @@ public class MenuPanel extends Panel {
             }
         }).setOutputMarkupId(true));
 
-
-    }
-
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
-        add(new BookmarkablePageLink("admin", AdminPage.class) {
-            @Override
-            public boolean isVisible() {
-                return serviceUser.getCurrentUser().isAdmin();
-            }
-        });
-        add(new BookmarkablePageLink<LogoutPage>("logout", LogoutPage.class));
-        add(new BookmarkablePageLink<ProfilePage>("profile", ProfilePage.class));
     }
 }

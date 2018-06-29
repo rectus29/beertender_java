@@ -2,37 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <body>
 <wicket:panel>
-    <div>
-        <div class="nav_title nav_el row" style=" text-align: center;">
-            <div class="col-md-12">
-            <a href="/" class="site_title">
-                <img src="img/logo.png" class="img-responsive" alt="Retour à l'accueil" width="110">
+    <ul class="nav flex-column" wicket:id="wmc">
+        <li class="nav-item nav-pills" wicket:id="rvLink">
+            <a class="nav-link" href="#" wicket:id="link">
+                <wicket:container wicket:id="label"/>
             </a>
-            </div>
-        </div>
-
-        <nav class="nav_el" >
-            <ul class="nav nav-stacked" wicket:id="wmc">
-                <li wicket:id="rvLink" >
-                    <a href="#" wicket:id="link">
-                        <wicket:container wicket:id="label">Item Explorer</wicket:container>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-        <div id="navFooter" class="container-fluid">
-            <div class="footerButton col-md-4">
-                <a href="#" wicket:id="profile"><i class="fa fa-cog"></i></a>
-            </div>
-            <div class="footerButton col-md-4">
-                <a href="#" wicket:id="admin"><i class="fa fa-users"></i></a>
-            </div>
-            <div class="footerButton col-md-4">
-                <a href="#" wicket:id="logout"><i class="fa fa-power-off"></i></a>
-            </div>
-        </div>
-    </div>
+        </li>
+    </ul>
 </wicket:panel>
 </body>
 </html>

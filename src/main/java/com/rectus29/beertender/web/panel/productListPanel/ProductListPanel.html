@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <body>
+<wicket:head>
+    <style>
+
+
+    </style>
+</wicket:head>
 <wicket:panel>
-    <div class="card-deck mb-3 text-center" wicket:id="wmc">
-        <div class="card mb-4 box-shadow" wicket:id="lv">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal" wicket:id="productName">Free</h4>
-            </div>
-            <div class="card-body">
-                <h1 class="card-title pricing-card-title" wicket:id="price">$0</h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                    <li>10 users included</li>
-                    <li>2 GB of storage</li>
-                    <li>Email support</li>
-                    <li>Help center access</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+    <div class="container">
+        <div class="card-deck mb-3 text-center" wicket:id="wmc">
+            <div class="card mb-4 box-shadow" wicket:id="lv">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal" wicket:id="productName">Free</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title" wicket:id="price">$0</h1>
+                    <div class="container" wicket:id="desc">
+
+                    </div>
+                    <div class="container">
+                        <a class="btn btn-lg col-md-3 btn-primary btn-block btn-outline-primary" href="#">
+                            <i class="fa fa-cart-plus"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
