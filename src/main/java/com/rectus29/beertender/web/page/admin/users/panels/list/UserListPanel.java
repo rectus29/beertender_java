@@ -95,7 +95,6 @@ public class UserListPanel extends Panel {
             @Override
             protected void populateItem(final ListItem<User> item) {
                 item.add(new Label("id", item.getModelObject().getId()+""));
-                item.add(new Label("username", item.getModelObject().getUserName()));
                 item.add(new Label("email", item.getModelObject().getEmail()));
                 item.add(new Label("role", item.getModelObject().getRole().getName()));
                 item.add(new EnumLabel<State>("state", item.getModelObject().getState()));

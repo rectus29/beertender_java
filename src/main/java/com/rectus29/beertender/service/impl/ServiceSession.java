@@ -62,7 +62,7 @@ public class ServiceSession implements IserviceSession {
             if (subject.getSession().getId().equals(session.getId())) {
                 subjectToRemove = subject;
                 User u = serviceUser.getUser(subject);
-                log.debug(u.getUserName() + " vient d'expirer");
+                log.debug(u.getId() + " vient d'expirer");
                 break;
             }
         }

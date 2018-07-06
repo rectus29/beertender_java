@@ -2,62 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <body>
 <wicket:panel>
-    <h1 class="page-header">Gestion serveur</h1>
+    <h1 class="page-header">Gestion des commandes</h1>
 
-    <div class="row">
-        <div class="col-md-6">
-            <h2>
-                <wicket:message key="HomePanel.serverStatus"/>
-            </h2>
-
-            <div wicket:id="status">
-                <wicket:message key="state"/>
-                : <span wicket:id="online" class="label">[online/maintenance]</span>
-                <a wicket:id="switchmode" class="btn btn-primary">
-                    <wicket:message key="change"/>
-                </a>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-6">
-
-            <h2>
-                <wicket:message key="HomePanel.msgToUsers"/>
-            </h2>
-
-            <p>
-                <wicket:message key="HomePanel.msgInfo"/>
-            </p>
-
-            <form wicket:id="msgPost" class="input-append">
-                <div class="input-append">
-                    <input class="span7" wicket:id="msgAdmin" name="msg_admin" type="text"/>
-                    <input wicket:id="msgPostSubmit" name="Afficher" wicket:message="value:validate"
-                           type="submit" class="btn btn-primary"/>
-
-                </div>
-            </form>
-
-        </div>
-        <div class="col-md-6">
-            <h2>
-                <wicket:message key="ServerAdminPanel.serverurl"/>
-            </h2>
-            <form wicket:id="serverUrlForm">
-                <div class="input-append">
-                    <input class="span7" wicket:id="serverUrl" type="text"/>
-                    <input type="submit" wicket:id="serverUrlSubmit" class="btn btn-primary"
-                           wicket:message="value:submit"/>
-                </div>
-                <div wicket:id="serverUrlfeed"/>
-            </form>
-        </div>
-
-    </div>
 </wicket:panel>
 </body>
 </html>

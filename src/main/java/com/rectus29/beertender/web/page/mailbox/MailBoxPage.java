@@ -1,6 +1,7 @@
 package com.rectus29.beertender.web.page.mailbox;
 
 
+import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import com.rectus29.beertender.web.page.base.ProtectedPage;
 
 /*-----------------------------------------------------*/
@@ -14,7 +15,7 @@ import com.rectus29.beertender.web.page.base.ProtectedPage;
 /*                Date: 11/08/2016 14:29                */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class MailBoxPage extends ProtectedPage {
+public class MailBoxPage extends BeerTenderPage {
 
 	public MailBoxPage() {
 	}

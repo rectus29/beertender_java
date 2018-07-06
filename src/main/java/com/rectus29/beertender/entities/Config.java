@@ -16,7 +16,7 @@ public class Config extends GenericEntity{
 	private String key;
 
 	@Column(name = "val", length = 65536)
-	private String value;
+	private String value = "";
 
 	/**
 	 * Instantiates a new Config.
@@ -53,8 +53,9 @@ public class Config extends GenericEntity{
 	 * @param key
 	 *        the key
 	 */
-	public void setKey(String key) {
+	public Config setKey(String key) {
 		this.key = key;
+		return this;
 	}
 
 	/**
@@ -72,8 +73,9 @@ public class Config extends GenericEntity{
 	 * @param value
 	 *        the value
 	 */
-	public void setValue(String value) {
+	public Config setValue(String value) {
 		this.value = value;
+		return this;
 	}
 
 	@Override

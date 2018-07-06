@@ -28,7 +28,7 @@ public class ServiceConfig extends GenericManagerImpl<Config, Long> implements I
         detachedCriteria.add(Restrictions.eq("key", key));
         List result = getHibernateTemplate().findByCriteria(detachedCriteria);
         if (result.size() == 0)
-            return null;
+            return new Config().setKey(key);
         return (Config) result.get(0);
     }
 }

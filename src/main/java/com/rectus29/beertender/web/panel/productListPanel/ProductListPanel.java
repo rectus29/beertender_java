@@ -5,13 +5,16 @@ import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
+import com.rectus29.beertender.web.page.product.ProductPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.util.ArrayList;
@@ -57,6 +60,12 @@ public class ProductListPanel extends Panel {
                 item.add(new Label("productName", item.getModelObject().getName()));
                 item.add(new CurrencyLabel("price", new Model<>(item.getModelObject().getPrice())));
                 item.add(new Label("desc", item.getModelObject().getDescription()));
+                item.add(new BookmarkablePageLink<ProductPage>(
+                                "btnProduct",
+                                ProductPage.class,
+                                new PageParameters().add(ProductPage.PRODUCT_ID, item.getModelObject().getId())
+                        )
+                );
 
             }
         });

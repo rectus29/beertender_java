@@ -1,5 +1,6 @@
 package com.rectus29.beertender.web.page.profile;
 
+import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import com.rectus29.beertender.web.page.base.ProtectedPage;
 import com.rectus29.beertender.web.page.profile.account.AccountPanel;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -15,7 +16,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 /*                Date: 28/02/2016                     */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class ProfilePage extends ProtectedPage {
+public class ProfilePage extends BeerTenderPage {
 
     public static String PANEL = "panel";
     public static String APIKEY = "apikey";

@@ -22,10 +22,6 @@ import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
 @ShiroSecurityConstraint(constraint = ShiroConstraint.IsAuthenticated)
 public class ProtectedPage extends BasePage {
 
-    @SpringBean(name = "serviceUser")
-    private IserviceUser serviceUser;
-    private Label nbProductLabel;
-    private WicketModal modal;
 
     public ProtectedPage() {
         super();
@@ -42,35 +38,6 @@ public class ProtectedPage extends BasePage {
 
     }
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
 
-        add((modal = new WicketModal("modal")).setOutputMarkupId(true));
-        add(new Label("login", serviceUser.getCurrentUser().getUserName()));
-        add(new BookmarkablePageLink("admin", AdminPage.class) {
-            @Override
-            public boolean isVisible() {
-                return serviceUser.getCurrentUser().isAdmin();
-            }
-        });
-        add((new MenuPanel("menuPanel")).setOutputMarkupId(true));
-
-        add(new AjaxLink("cartLink") {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
-                modal.setTitle("Votre Panier");
-                modal.setContent(new CartModalPanel(modal.getContentId()));
-                modal.show(target);
-            }
-        }.add((nbProductLabel = new Label("nbProduct", BeerTenderSession.get().getCart().getCartRowList().size())).setOutputMarkupId(true)));
-    }
-
-    @Override
-    public void onEvent(IEvent event) {
-        if (event.getPayload() instanceof RefreshEvent) {
-            ((RefreshEvent) event).getTarget().add(nbProductLabel);
-        }
-    }
 
 }

@@ -62,7 +62,7 @@ public class ServerAdminPanel extends Panel {
         Label online = new Label("online", new LoadableDetachableModel<String>() {
             @Override
             protected String load() {
-                return serviceConfig.getByKey("maintenance_mod").getValue().equals("0") ? "online" : "offline";
+                return "0".equals(serviceConfig.getByKey("maintenance_mod").getValue()) ? "online" : "offline";
             }
         });
         wmcStatus.add(online.add(new AttributeAppender("class", (serviceConfig.getByKey("maintenance_mod").getValue().equals("0"))?" label-warning":"")));
@@ -93,10 +93,6 @@ public class ServerAdminPanel extends Panel {
             @Override
             protected void onSubmit(AjaxRequestTarget ajaxRequestTarget, Form<?> form) {
                 Config c = serviceConfig.getByKey("admin_msg");
-                if (c == null) {
-                    c = new Config();
-                    c.setKey("admin_msg");
-                }
                 c.setValue(msgAdmin == null ? "" : msgAdmin);
                 serviceConfig.save(c);
                 setResponsePage(new AdminPage());
@@ -112,8 +108,7 @@ public class ServerAdminPanel extends Panel {
 
 
         Config serverUrlConfig = serviceConfig.getByKey("server_url");
-        if (serverUrlConfig != null)
-            server_url = serverUrlConfig.getValue();
+        server_url = serverUrlConfig.getValue();
         add(new Form("serverUrlForm")
                 .add(new TextField<String>("serverUrl", new PropertyModel<String>(this, "server_url")))
                 .add(new BootStrapFeedbackPanel("serverUrlfeed"))

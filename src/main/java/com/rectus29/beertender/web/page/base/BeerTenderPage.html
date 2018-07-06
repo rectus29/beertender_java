@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:extend>
+    <div class="container">
+        <div id="topBar" class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="logo col-md-2">
+                        <img src="img/beer.png" alt="beer" class="img-fluid"/>
+                    </div>
+                    <div class="col-md-6">
+                        <h1>BeerTender</h1>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="userBlock">
+                            <a href="#" wicket:id="cartLink">
+                                <span class="badge badge-light" wicket:id="nbProduct">0</span>
+                                &nbsp;<i class="fa fa-shopping-cart"></i>
+                            </a>
+                            &nbsp;|&nbsp;
+                            <i class="fa fa-user"></i> <wicket:label wicket:id="login"></wicket:label>&nbsp;|&nbsp;
+                            <wicket:enclosure>
+                                <a href="#" wicket:id="admin"><i class="fa fa-cogs"></i></a>&nbsp;|&nbsp;
+                            </wicket:enclosure>
+                            <a href="logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" id="leftMenu" wicket:id="menuPanel" style="padding: 0px;"></div>
+                <div class="col-md-9 col-md-offset-1">
+                    <wicket:child/>
+                </div>
+            </div>
+        </div>
+        <div wicket:id="modal"/>
+    </div>
+</wicket:extend>
+</body>
+</html>
