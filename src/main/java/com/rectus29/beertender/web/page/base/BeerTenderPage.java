@@ -5,6 +5,7 @@ import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
 import com.rectus29.beertender.web.page.admin.AdminPage;
+import com.rectus29.beertender.web.page.home.HomePage;
 import com.rectus29.beertender.web.panel.cartmodalpanel.CartModalPanel;
 import com.rectus29.beertender.web.panel.menupanel.MenuPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -26,7 +27,7 @@ public class BeerTenderPage extends ProtectedPage {
     @SpringBean(name = "serviceUser")
     private IserviceUser serviceUser;
     private Label nbProductLabel;
-    private WicketModal modal;
+    protected WicketModal modal;
 
     public BeerTenderPage() {
     }
@@ -43,6 +44,7 @@ public class BeerTenderPage extends ProtectedPage {
     protected void onInitialize() {
         super.onInitialize();
 
+        add(new BookmarkablePageLink<HomePage>("homeLink", HomePage.class));
         add((modal = new WicketModal("modal")).setOutputMarkupId(true));
         add(new Label("login", serviceUser.getCurrentUser().getFormatedName()));
         add(new BookmarkablePageLink("admin", AdminPage.class) {

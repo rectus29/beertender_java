@@ -42,8 +42,8 @@ public class CartPanel extends Panel {
             protected void populateItem(ListItem<Cart.CartRow> item) {
                 item.add(new Label("productName", item.getModelObject().getProduct().getName()));
                 item.add(new NumericLabel("productqte", item.getModelObject().getQuantity()));
-                item.add(new NumericLabel("productunitprice", item.getModelObject().getProduct().getPrice().doubleValue() + " €"));
-                item.add(new NumericLabel("rowprice", item.getModelObject().getSum() + " €"));
+                item.add(new NumericLabel("productunitprice", item.getModelObject().getProduct().getPrice().doubleValue()));
+                item.add(new NumericLabel("rowprice", item.getModelObject().getSum()));
                 //Action link
                 item.add(new AjaxLink("rmLink") {
                     @Override

@@ -61,7 +61,7 @@ public class BasePage extends WebPage implements TitleContributor {
     }
 
     public String getTitleContribution() {
-        return "Home";
+        return "";
     }
 
 }

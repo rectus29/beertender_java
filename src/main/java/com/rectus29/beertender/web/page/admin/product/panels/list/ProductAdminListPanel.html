@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+		"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<wicket:panel>
+
+	<a href="#" class="btn btn-primary pull-right" wicket:id="add">
+		<wicket:message key="add"/>
+	</a>
+	<form wicket:id="form" class="form-inline">
+		<label class="control-label" wicket:for="name"><wicket:message key="sortBylastName"/> : </label>
+		<input  class="form-control" wicket:id="name"/>
+		<a class="btn btn-default" wicket:id="filterSubmitButton"><wicket:message key="filter"/></a>
+
+	</form>
+	<table class="table table-striped">
+		<thead>
+		<tr>
+			<th>#</th>
+			<th><wicket:message key="name"/></th>
+			<th><wicket:message key="identifying"/></th>
+			<th><wicket:message key="mail"/></th>
+			<th><wicket:message key="role"/></th>
+			<th>status</th>
+			<th><wicket:message key="action"/>s</th>
+		</tr>
+		</thead>
+		<tbody wicket:id="wmc">
+		<tr wicket:id="sorting">
+			<td wicket:id="id"></td>
+			<td wicket:id="email">[name]</td>
+			<td wicket:id="role">[role]</td>
+			<td wicket:id="state">[role]</td>
+			<td>
+				<div class="btn-group btn-default">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						<wicket:message key="action"/>
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu pull-right">
+						<li><a href="#" wicket:id="runas"><i class="icon-user"/>&nbsp;
+							<wicket:message key="UserProfile.runAs"/>
+						</a></li>
+						<li><a href="#" wicket:id="edit"><i class="icon-edit"/>&nbsp;
+							<wicket:message key="edit"/>
+						</a></li>
+						<li><a href="#" wicket:id="remove"><i class="icon-remove"/>&nbsp;
+							<wicket:message key="delete"/>
+						</a></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<div wicket:id="navigator"/>
+	<div wicket:id="modal"/>
+</wicket:panel>
+</body>
+</html>

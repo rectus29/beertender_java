@@ -33,7 +33,8 @@ public class User extends GenericEntity implements DecorableElement{
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
-    @Column
+    @Column(nullable = false)
+	@Enumerated(EnumType.STRING)
     private UserAuthentificationType userAuthentificationType = UserAuthentificationType.EMBED;
 
     @Override

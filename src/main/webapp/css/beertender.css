@@ -2,14 +2,24 @@
 html {
     font-size: 14px;
 }
+
+body{
+	background: fixed url("../img/slider.jpg");
+	background-position: center 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
     }
 }
 
-.container {
-    max-width: 960px;
+.login-holder{
+	background: #dadada;
+	border-radius: 5px;
+	border: 1px solid white;
 }
 
 .pricing-header {
@@ -46,12 +56,13 @@ body {
 }
 
 #userBlock{
-    background: white;
-    padding: 15px;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
 }
 
 .wicket-modal {
     color: #3f3f3f;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+	color: #fff;
+	background-color: #007bff;
 }

@@ -26,9 +26,12 @@ public class ServiceProduct extends GenericManagerImpl<Product, Long> implements
     public List<Product> getProductByCategory(List<Category> categoryList) {
         List<Product> result = new ArrayList<>();
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(this.persistentClass);
-        detachedCriteria.add(Restrictions.in("categoryList", categoryList));
-        detachedCriteria.add(Restrictions.eq("state", State.ENABLE));
-        List<Product> out = (List<Product>)getHibernateTemplate().findByCriteria(detachedCriteria);
+        detachedCriteria.add(Restrictions.and(
+                Restrictions.in("categoryList", categoryList),
+                Restrictions.eq("state", State.ENABLE)
+                )
+        );
+        List<Product> out = (List<Product>) getHibernateTemplate().findByCriteria(detachedCriteria);
         result.addAll(out);
         return result;
     }

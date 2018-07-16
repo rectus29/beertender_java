@@ -4,12 +4,9 @@
 <wicket:panel>
     <h2 wicket:id="productName"></h2>
     <div class="row">
-        <div class="col-md">
-            Nom Produit
-        </div>
-        <label for="qte">Quantité</label>
-        <input type="number" id="qte" name="qte">
-        <input type="button" class="btn btn-primary" value="Ajouter" />
+        <label wicket:for="qte">Quantité</label>
+        <input type="number" wicket:id="qte" name="qte">
+        <input type="button" wicket:id="addToCart" class="btn btn-primary" value="Ajouter" />
     </div>
 </wicket:panel>
 </body>

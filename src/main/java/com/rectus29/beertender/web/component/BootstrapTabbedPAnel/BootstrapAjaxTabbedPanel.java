@@ -50,4 +50,6 @@ public class BootstrapAjaxTabbedPanel<T extends ITab> extends AjaxTabbedPanel {
             }
         };
     }
+
+
 }

@@ -35,9 +35,6 @@ public class ProtectedPage extends BasePage {
 
     public ProtectedPage(PageParameters parameters) {
         super(parameters);
-
     }
-
-
 
 }

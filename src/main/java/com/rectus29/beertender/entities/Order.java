@@ -35,6 +35,10 @@ public class Order extends GenericEntity {
     @Column(columnDefinition = "MEDIUMTEXT")
     private String paymentResponse="";
 
+    @ManyToOne(targetEntity = TimeFrame.class)
+	@JoinColumn(name = "timeframe_id", nullable = false)
+	private TimeFrame timeFrame;
+
     public User getUser() {
         return user;
     }
