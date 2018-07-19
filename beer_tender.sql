@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 29 juin 2018 à 07:03
+-- Généré le :  jeu. 19 juil. 2018 à 15:48
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -38,8 +38,10 @@ CREATE TABLE IF NOT EXISTS `bills` (
   `paymentToken` mediumtext,
   `state` int(11) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
+  `timeframe_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKk8vs7ac9xknv5xp18pdiehpp1` (`user_id`)
+  KEY `FKk8vs7ac9xknv5xp18pdiehpp1` (`user_id`),
+  KEY `FKfsjrhpequ3jr9hrih3w9nf2oo` (`timeframe_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -229,7 +231,14 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `codeString` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `permission`
+--
+
+INSERT INTO `permission` (`id`, `created`, `updated`, `codeString`, `description`) VALUES
+(1, '2018-07-06 09:08:34', '2018-07-06 09:08:36', 'admin:access', 'admin:access');
 
 -- --------------------------------------------------------
 
@@ -300,6 +309,31 @@ CREATE TABLE IF NOT EXISTS `role_permission` (
   KEY `FKsidab0lpqi82o4o15bwde2c5f` (`permissions_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `role_permission`
+--
+
+INSERT INTO `role_permission` (`Role_id`, `permissions_id`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `timeframe`
+--
+
+DROP TABLE IF EXISTS `timeframe`;
+CREATE TABLE IF NOT EXISTS `timeframe` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  `endDate` datetime DEFAULT NULL,
+  `startDate` datetime DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
@@ -318,9 +352,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `restoreSessionDate` datetime DEFAULT NULL,
   `salt` varchar(255) DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
-  `userAuthentificationType` int(11) DEFAULT NULL,
+  `userAuthentificationType` varchar(50) NOT NULL,
   `userName` varchar(255) NOT NULL,
   `role_id` bigint(20) DEFAULT NULL,
+  `uuid` varchar(36) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK4qu1gr772nnf6ve5af002rwya` (`role_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -329,8 +364,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `created`, `updated`, `email`, `lastLogin`, `password`, `restoreSession`, `restoreSessionDate`, `salt`, `state`, `userAuthentificationType`, `userName`, `role_id`) VALUES
-(1, '2015-08-24 00:00:00', NULL, 'rectus29@gmail.com', '2018-06-28 21:00:41', '2pTblAzn+o+S0sFR46qTR4KVKgVZx7T/lPATHhDTU8c=', NULL, NULL, 'XU5Pp4Lz+mSiUkciqOUXD3XocslsvE/iK0eOze2A0C77WE9idlq9emqQOuO7y2T+arRT84Hku5cpFwGRAqgJy8aCTndMAtzR6QshNyfI61lHu5ec0Msj8121nTt91CYvltCWf3OCid3/8AQg+fNh89QXbSjeZvwRKhLWlb41A3A=', 1, NULL, 'admin', 1);
+INSERT INTO `users` (`id`, `created`, `updated`, `email`, `lastLogin`, `password`, `restoreSession`, `restoreSessionDate`, `salt`, `state`, `userAuthentificationType`, `userName`, `role_id`, `uuid`) VALUES
+(1, '2015-08-24 00:00:00', '2018-07-13 07:37:20', 'rectus29@gmail.com', '2018-07-17 11:09:22', '2pTblAzn+o+S0sFR46qTR4KVKgVZx7T/lPATHhDTU8c=', NULL, NULL, 'XU5Pp4Lz+mSiUkciqOUXD3XocslsvE/iK0eOze2A0C77WE9idlq9emqQOuO7y2T+arRT84Hku5cpFwGRAqgJy8aCTndMAtzR6QshNyfI61lHu5ec0Msj8121nTt91CYvltCWf3OCid3/8AQg+fNh89QXbSjeZvwRKhLWlb41A3A=', 1, 'EMBED', 'admin', 1, 'yolo');
 
 --
 -- Contraintes pour les tables déchargées
@@ -340,6 +375,7 @@ INSERT INTO `users` (`id`, `created`, `updated`, `email`, `lastLogin`, `password
 -- Contraintes pour la table `bills`
 --
 ALTER TABLE `bills`
+  ADD CONSTRAINT `FKfsjrhpequ3jr9hrih3w9nf2oo` FOREIGN KEY (`timeframe_id`) REFERENCES `timeframe` (`id`),
   ADD CONSTRAINT `FKk8vs7ac9xknv5xp18pdiehpp1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
