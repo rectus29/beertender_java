@@ -33,39 +33,5 @@ public class Cart {
 		return this;
 	}
 
-	public class CartRow {
-		private Product product;
-		private int quantity = 0;
-		private double sum = 0d;
-
-		CartRow(Product product, int quantity) {
-			this.product = product;
-			this.quantity = quantity;
-			updateSum();
-		}
-
-		public Product getProduct() {
-			return product;
-		}
-
-		public int getQuantity() {
-			return quantity;
-		}
-
-		void setQuantity(int quantity) {
-			this.quantity = quantity;
-			updateSum();
-		}
-
-		public double getSum() {
-			return sum;
-		}
-
-		void updateSum() {
-			//method stub
-			//this.sum = product.getPrice().multiply(quantity);
-		}
-	}
-
 
 }

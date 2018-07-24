@@ -21,6 +21,5 @@ public class OrderAdminPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
     }
 }

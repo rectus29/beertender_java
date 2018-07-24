@@ -1,8 +1,7 @@
 package com.rectus29.beertender.service.impl;
 
-import com.rectus29.beertender.entities.Config;
 import com.rectus29.beertender.entities.TimeFrame;
-import com.rectus29.beertender.service.IserviceConfig;
+import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceTimeFrame;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -25,4 +24,13 @@ public class ServiceTimeFrame extends GenericManagerImpl<TimeFrame, Long> implem
         super(TimeFrame.class);
     }
 
+	@Override
+	public TimeFrame getCurrentTimeFrame() {
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(this.persistentClass);
+		detachedCriteria.add(Restrictions.eq("state", State.ENABLE));
+		List<TimeFrame> result = (List<TimeFrame>) getHibernateTemplate().findByCriteria(detachedCriteria);
+		if (result.size() == 0)
+			return null;
+		return result.get(0);
+	}
 }

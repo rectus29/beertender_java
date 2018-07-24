@@ -22,19 +22,9 @@ import org.apache.wicket.request.Request;
 
 public class BeerTenderSession extends WebSession {
 
-    private Cart cart = new Cart();
-
-    public BeerTenderSession(Request request) {
+      public BeerTenderSession(Request request) {
         super(request);
         Injector.get().inject(this);
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 
     public boolean logout() {

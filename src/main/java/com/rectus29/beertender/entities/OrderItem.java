@@ -16,78 +16,66 @@ import java.math.BigDecimal;
 @Table(name = "bills_item")
 public class OrderItem extends GenericEntity {
 
-    @ManyToOne
-    private Order referenceOrder;
+	@ManyToOne
+	private Order referenceOrder;
 
-    @ManyToOne
-    private Product product;
+	@ManyToOne
+	private Product product;
 
-    @Column(precision = 12, scale = 3)
-    private BigDecimal productPrice;
+	@Column(precision = 12, scale = 3)
+	private BigDecimal productPrice = BigDecimal.ZERO;
 
-    @Column(precision = 12, scale = 3)
-    private BigDecimal productTax = BigDecimal.ZERO;
-
-    @Column
-    private Long quantity;
+	@Column
+	private Long quantity = 0l;
 
 
-    public OrderItem() {
-    }
+	public OrderItem() {
+	}
 
-    public Product getProduct() {
-        return product;
-    }
+	public OrderItem(Product product, Long quantity) {
+		this.product = product;
+		this.quantity = quantity;
+		this.productPrice = this.product.getPrice();
+	}
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+	public Product getProduct() {
+		return product;
+	}
 
-    public BigDecimal getProductPrice() {
-        return productPrice;
-    }
+	public OrderItem setProduct(Product product) {
+		this.product = product;
+		return this;
+	}
 
-    public void setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
-    }
+	public BigDecimal getProductPrice() {
+		return productPrice;
+	}
 
-    public BigDecimal getProductTax() {
-        return productTax;
-    }
+	public OrderItem setProductPrice(BigDecimal productPrice) {
+		this.productPrice = productPrice;
+		return this;
+	}
 
-    public void setProductTax(BigDecimal productTax) {
-        this.productTax = productTax;
-    }
+	public Long getQuantity() {
+		return quantity;
+	}
 
-    public Long getQuantity() {
-        return quantity;
-    }
+	public OrderItem setQuantity(Long quantity) {
+		this.quantity = quantity;
+		return this;
+	}
 
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
-    }
 
-    public BigDecimal getProductPriceWithTax() {
-        return getProductPrice().add(getProductPrice().multiply(getProductTax()));
-    }
+	public BigDecimal getOrderItemPrice() {
+		return getProductPrice().multiply(new BigDecimal(getQuantity()));
+	}
 
-    public BigDecimal getOrderItemPrice() {
-        return getProductPrice().multiply(new BigDecimal(getQuantity()));
-    }
+	public Order getReferenceOrder() {
+		return referenceOrder;
+	}
 
-    public BigDecimal getOrderItemPriceWithTax() {
-        return getProductPriceWithTax().setScale(3, BigDecimal.ROUND_HALF_EVEN).multiply(new BigDecimal(getQuantity()));
-    }
-
-    public BigDecimal getOrderItemTax() {
-        return getProductPrice().multiply(getProductTax()).setScale(3, BigDecimal.ROUND_HALF_EVEN).multiply(new BigDecimal(getQuantity()));
-    }
-
-    public Order getReferenceOrder() {
-        return referenceOrder;
-    }
-
-    public void setReferenceOrder(Order referenceOrder) {
-        this.referenceOrder = referenceOrder;
-    }
+	public OrderItem setReferenceOrder(Order referenceOrder) {
+		this.referenceOrder = referenceOrder;
+		return this;
+	}
 }
