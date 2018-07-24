@@ -74,6 +74,21 @@ public class Order extends GenericEntity {
 		return this;
 	}
 
+	public Map<Long, OrderItem> getOrderItemList() {
+		return orderItemList;
+	}
+
+	public void setOrderItemList(Map<Long, OrderItem> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
+
+	public TimeFrame getTimeFrame() {
+		return timeFrame;
+	}
+
+	public void setTimeFrame(TimeFrame timeFrame) {
+		this.timeFrame = timeFrame;
+	}
 
 	public State getState() {
 		return state;

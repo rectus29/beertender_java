@@ -78,4 +78,9 @@ public class OrderItem extends GenericEntity {
 		this.referenceOrder = referenceOrder;
 		return this;
 	}
+
+	public double getSum() {
+		return product.getPrice().multiply(new BigDecimal(quantity)).doubleValue();
+
+	}
 }

@@ -1,7 +1,7 @@
 package com.rectus29.beertender.web.panel.cartmodalpanel;
 
 import com.rectus29.beertender.web.page.billspage.BillsPage;
-import com.rectus29.beertender.web.panel.cart.CartPanel;
+import com.rectus29.beertender.web.panel.cart.OrderPanel;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -19,7 +19,7 @@ public class CartModalPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new CartPanel("panel"));
+        add(new OrderPanel("panel"));
         add(new BookmarkablePageLink("seeBills", BillsPage.class) );
     }
 

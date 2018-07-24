@@ -1,8 +1,7 @@
 package com.rectus29.beertender.web.page.billspage;
 
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
-import com.rectus29.beertender.web.page.base.ProtectedPage;
-import com.rectus29.beertender.web.panel.cart.CartPanel;
+import com.rectus29.beertender.web.panel.cart.OrderPanel;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -17,6 +16,6 @@ public class BillsPage extends BeerTenderPage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new CartPanel("panel"));
+        add(new OrderPanel("panel"));
     }
 }

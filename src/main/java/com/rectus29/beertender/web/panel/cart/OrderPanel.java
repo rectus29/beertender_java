@@ -1,9 +1,13 @@
 package com.rectus29.beertender.web.panel.cart;
 
-import com.rectus29.beertender.entities.Cart;
+import com.rectus29.beertender.entities.Order;
+import com.rectus29.beertender.entities.OrderItem;
+import com.rectus29.beertender.enums.ErrorCode;
 import com.rectus29.beertender.event.RefreshEvent;
-import com.rectus29.beertender.session.BeerTenderSession;
+import com.rectus29.beertender.service.IserviceOrder;
+import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.component.formattednumberlabel.NumericLabel;
+import com.rectus29.beertender.web.security.error.ErrorPage;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.event.Broadcast;
@@ -13,13 +17,21 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CartPanel extends Panel {
+public class OrderPanel extends Panel {
 
-    public CartPanel(String id) {
+	@SpringBean(name = "serviceOrder")
+	private IserviceOrder serviceOrder;
+
+	@SpringBean(name = "serviceUser")
+	private IserviceUser serviceUser;
+
+    public OrderPanel(String id) {
         super(id);
     }
 
@@ -27,19 +39,25 @@ public class CartPanel extends Panel {
     protected void onInitialize() {
         super.onInitialize();
 
-        LoadableDetachableModel<List<Cart.CartRow>> ldm = new LoadableDetachableModel<List<Cart.CartRow>>() {
+        LoadableDetachableModel<List<OrderItem>> ldm = new LoadableDetachableModel<List<OrderItem>>() {
             @Override
-            protected List<Cart.CartRow> load() {
-                return BeerTenderSession.get().getCart().getCartRowList();
+            protected List<OrderItem> load() {
+            	Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
+					if(order != null){
+            			return (List<OrderItem>)order.getOrderItemList().values();
+					}else{
+            			setResponsePage(ErrorPage.class, new PageParameters().add("errorCode", ErrorCode.NO_ORDER_FOUND));
+					}
+					return new ArrayList<>();
             }
         };
 
         WebMarkupContainer wmc = new WebMarkupContainer("wmc");
         add(wmc.setOutputMarkupId(true));
 
-        ListView lv = new ListView<Cart.CartRow>("lvCartRow", ldm) {
+        ListView lv = new ListView<OrderItem>("lvCartRow", ldm) {
             @Override
-            protected void populateItem(ListItem<Cart.CartRow> item) {
+            protected void populateItem(ListItem<OrderItem> item) {
                 item.add(new Label("productName", item.getModelObject().getProduct().getName()));
                 item.add(new NumericLabel("productqte", item.getModelObject().getQuantity()));
                 item.add(new NumericLabel("productunitprice", item.getModelObject().getProduct().getPrice().doubleValue()));
@@ -48,10 +66,9 @@ public class CartPanel extends Panel {
                 item.add(new AjaxLink("rmLink") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        BeerTenderSession.get().getCart().removeProduct(
-                                item.getModelObject().getProduct()
-                        );
-                        ldm.detach();
+						Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
+                    	order.removeProduct(item.getModelObject().getProduct());
+						ldm.detach();
                         target.add(wmc);
                         send(getApplication(), Broadcast.BREADTH, new RefreshEvent(target));
                     }
@@ -59,10 +76,8 @@ public class CartPanel extends Panel {
                 item.add(new AjaxLink("plusLink") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        BeerTenderSession.get().getCart().addProduct(
-                                item.getModelObject().getProduct(),
-                                1
-                        );
+						Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
+						order.addProduct(item.getModelObject().getProduct(), 1);
                         ldm.detach();
                         target.add(wmc);
                         send(getApplication(), Broadcast.BREADTH, new RefreshEvent(target));
@@ -71,10 +86,8 @@ public class CartPanel extends Panel {
                 item.add(new AjaxLink("minusLink") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        BeerTenderSession.get().getCart().addProduct(
-                                item.getModelObject().getProduct(),
-                                -1
-                        );
+						Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
+						order.addProduct(item.getModelObject().getProduct(), -1);
                         ldm.detach();
                         target.add(wmc);
                         send(getApplication(), Broadcast.BREADTH, new RefreshEvent(target));
