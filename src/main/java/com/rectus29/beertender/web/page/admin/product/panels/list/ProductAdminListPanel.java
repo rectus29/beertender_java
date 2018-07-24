@@ -31,12 +31,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import java.util.ArrayList;
 import java.util.List;
 
-/*-----------------------------------------------------*/
-/*                     Adelya                          */
-/*                                                     */
-/*                Date: 13/07/2018 22:07               */
-/*                 All right reserved                  */
-/*-----------------------------------------------------*/
 public class ProductAdminListPanel extends Panel {
 
 	final static int NB_ITEMS_BY_PAGE = 20;
