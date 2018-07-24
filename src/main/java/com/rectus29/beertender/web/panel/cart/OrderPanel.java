@@ -11,6 +11,7 @@ import com.rectus29.beertender.web.security.error.ErrorPage;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.event.Broadcast;
+import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -31,6 +32,9 @@ public class OrderPanel extends Panel {
 	@SpringBean(name = "serviceUser")
 	private IserviceUser serviceUser;
 
+	private WebMarkupContainer wmc;
+	private LoadableDetachableModel<List<OrderItem>> ldm;
+
     public OrderPanel(String id) {
         super(id);
     }
@@ -39,12 +43,12 @@ public class OrderPanel extends Panel {
     protected void onInitialize() {
         super.onInitialize();
 
-        LoadableDetachableModel<List<OrderItem>> ldm = new LoadableDetachableModel<List<OrderItem>>() {
+        ldm = new LoadableDetachableModel<List<OrderItem>>() {
             @Override
             protected List<OrderItem> load() {
             	Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
 					if(order != null){
-            			return (List<OrderItem>)order.getOrderItemList().values();
+            			return (List<OrderItem>)order.getOrderItemList();
 					}else{
             			setResponsePage(ErrorPage.class, new PageParameters().add("errorCode", ErrorCode.NO_ORDER_FOUND));
 					}
@@ -52,12 +56,12 @@ public class OrderPanel extends Panel {
             }
         };
 
-        WebMarkupContainer wmc = new WebMarkupContainer("wmc");
+        wmc = new WebMarkupContainer("wmc");
         add(wmc.setOutputMarkupId(true));
 
         ListView lv = new ListView<OrderItem>("lvCartRow", ldm) {
             @Override
-            protected void populateItem(ListItem<OrderItem> item) {
+            protected void populateItem(final ListItem<OrderItem> item) {
                 item.add(new Label("productName", item.getModelObject().getProduct().getName()));
                 item.add(new NumericLabel("productqte", item.getModelObject().getQuantity()));
                 item.add(new NumericLabel("productunitprice", item.getModelObject().getProduct().getPrice().doubleValue()));
@@ -68,6 +72,7 @@ public class OrderPanel extends Panel {
                     public void onClick(AjaxRequestTarget target) {
 						Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
                     	order.removeProduct(item.getModelObject().getProduct());
+                    	serviceOrder.save(order);
 						ldm.detach();
                         target.add(wmc);
                         send(getApplication(), Broadcast.BREADTH, new RefreshEvent(target));
@@ -96,6 +101,5 @@ public class OrderPanel extends Panel {
             }
         };
         wmc.add(lv.setOutputMarkupId(true));
-
     }
 }

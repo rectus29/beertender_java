@@ -1,6 +1,7 @@
 package com.rectus29.beertender.web.page.base;
 
 import com.rectus29.beertender.event.RefreshEvent;
+import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
@@ -26,6 +27,8 @@ public class BeerTenderPage extends ProtectedPage {
 
     @SpringBean(name = "serviceUser")
     private IserviceUser serviceUser;
+    @SpringBean(name = "serviceOrder")
+    private IserviceOrder serviceOrder;
     private Label nbProductLabel;
     protected WicketModal modal;
 
@@ -62,13 +65,13 @@ public class BeerTenderPage extends ProtectedPage {
                 modal.setContent(new CartModalPanel(modal.getContentId()));
                 modal.show(target);
             }
-        }.add((nbProductLabel = new Label("nbProduct", BeerTenderSession.get().getCart().getCartRowList().size())).setOutputMarkupId(true)));
+        }.add((nbProductLabel = new Label("nbProduct", serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser()).getOrderItemList().size())).setOutputMarkupId(true)));
     }
 
     @Override
     public void onEvent(IEvent event) {
         if (event.getPayload() instanceof RefreshEvent) {
-            ((RefreshEvent) event).getTarget().add(nbProductLabel);
+            ((RefreshEvent) event.getPayload()).getTarget().add(nbProductLabel);
         }
     }
 }

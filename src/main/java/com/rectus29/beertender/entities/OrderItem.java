@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * User: rectus_29
@@ -16,7 +17,7 @@ import java.math.BigDecimal;
 @Table(name = "bills_item")
 public class OrderItem extends GenericEntity {
 
-	@ManyToOne
+	@ManyToOne(targetEntity = Order.class)
 	private Order referenceOrder;
 
 	@ManyToOne
@@ -32,10 +33,11 @@ public class OrderItem extends GenericEntity {
 	public OrderItem() {
 	}
 
-	public OrderItem(Product product, Long quantity) {
+	public OrderItem(Product product, Long quantity, Order referenceOrder) {
 		this.product = product;
 		this.quantity = quantity;
 		this.productPrice = this.product.getPrice();
+		this.referenceOrder = referenceOrder;
 	}
 
 	public Product getProduct() {
@@ -82,5 +84,20 @@ public class OrderItem extends GenericEntity {
 	public double getSum() {
 		return product.getPrice().multiply(new BigDecimal(quantity)).doubleValue();
 
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		OrderItem orderItem = (OrderItem) o;
+		return Objects.equals(referenceOrder, orderItem.referenceOrder) &&
+				Objects.equals(product, orderItem.product) &&
+				Objects.equals(productPrice, orderItem.productPrice);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(referenceOrder, product, productPrice);
 	}
 }
