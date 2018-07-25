@@ -75,7 +75,6 @@ public class UserEditPanel extends Panel {
 			@Override
 			protected void onInitialize() {
 				super.onInitialize();
-				add(new TextField<String>("username", new PropertyModel<String>(user, "userName")).setRequired(true));
 				add(new TextField<String>("firstname", new PropertyModel<String>(user, "firstName")).setRequired(true));
 				add(new TextField<String>("lastname", new PropertyModel<String>(user, "lastName")).setRequired(true));
 				add(new PasswordTextField("password", new PropertyModel<String>(UserEditPanel.this, "password")).setRequired(user.getPassword() == null));
@@ -111,7 +110,7 @@ public class UserEditPanel extends Panel {
 						onCancel(target);
 					}
 				});
-				add((feed = new BootStrapFeedbackPanel("smf")).setOutputMarkupId(true));
+				add((feed = new BootStrapFeedbackPanel("feed")).setOutputMarkupId(true));
 			}
 		}).setOutputMarkupId(true));
 	}

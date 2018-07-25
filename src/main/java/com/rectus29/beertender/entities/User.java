@@ -22,6 +22,10 @@ public class User extends GenericEntity implements DecorableElement{
     @Column
     private State state = State.ENABLE;
     @Column
+    private String firstName;
+    @Column
+    private String lastName;
+    @Column
     private String salt = new SecureRandomNumberGenerator().nextBytes(64).toBase64();
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private Role role;
@@ -137,4 +141,19 @@ public class User extends GenericEntity implements DecorableElement{
         this.userAuthentificationType = userAuthentificationType;
     }
 
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 }
