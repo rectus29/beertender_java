@@ -5,7 +5,6 @@ import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.enums.ErrorCode;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.page.billspage.BillsPage;
 import com.rectus29.beertender.web.security.error.ErrorPage;
 import org.apache.wicket.ajax.AjaxRequestTarget;

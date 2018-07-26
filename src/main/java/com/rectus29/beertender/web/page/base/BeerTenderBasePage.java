@@ -22,7 +22,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 /*                Date: 06/07/2018 11:41               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class BeerTenderPage extends BeerTenderBasePage {
+public class BeerTenderBasePage extends ProtectedPage {
 
     @SpringBean(name = "serviceUser")
     private IserviceUser serviceUser;
@@ -31,22 +31,39 @@ public class BeerTenderPage extends BeerTenderBasePage {
     private Label nbProductLabel;
     protected WicketModal modal;
 
-    public BeerTenderPage() {
+    public BeerTenderBasePage() {
     }
 
-    public BeerTenderPage(IModel model) {
+    public BeerTenderBasePage(IModel model) {
         super(model);
     }
 
-    public BeerTenderPage(PageParameters parameters) {
+    public BeerTenderBasePage(PageParameters parameters) {
         super(parameters);
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add((modal = new WicketModal("modal")).setOutputMarkupId(true));
-        add((new MenuPanel("menuPanel")).setOutputMarkupId(true));
+
+        add(new BookmarkablePageLink<HomePage>("homeLink", HomePage.class));
+        add(new Label("login", serviceUser.getCurrentUser().getFormatedName()));
+        add(new BookmarkablePageLink("admin", AdminPage.class) {
+            @Override
+            public boolean isVisible() {
+                return serviceUser.getCurrentUser().isAdmin();
+            }
+        });
+
+
+        add(new AjaxLink("cartLink") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                modal.setTitle("Votre Panier");
+                modal.setContent(new CartModalPanel(modal.getContentId()));
+                modal.show(target);
+            }
+        }.add((nbProductLabel = new Label("nbProduct", serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser()).getOrderItemList().size())).setOutputMarkupId(true)));
     }
 
     @Override

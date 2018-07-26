@@ -2,27 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <body>
 <wicket:extend>
-    <nav class="navbar navbar-light fixed-top navbar-dark bg-dark justify-content-between">
-        <a class="navbar-brand" href="/" wicket:id="homeLink">
-            <img src="img/beer.png" width="30" height="30" alt="" class="d-inline-block align-top">
-            BeerTender
-        </a>
-        <div id="userBlock">
-            <a href="#" wicket:id="cartLink">
-                <span class="badge badge-light" wicket:id="nbProduct">0</span>
-                &nbsp;<i class="fa fa-shopping-cart"></i>
-            </a>
-            &nbsp;|&nbsp;
-            <i class="fa fa-user"></i>
-            <wicket:label wicket:id="login"></wicket:label>&nbsp;|&nbsp;
-            <wicket:enclosure>
-                <a href="#" wicket:id="admin"><i class="fa fa-cogs"></i></a>&nbsp;|&nbsp;
-            </wicket:enclosure>
-            <a href="logout">Logout</a>
-        </div>
-
-    </nav>
-    <div class="container" style="padding-top: 95px; background: #fff;">
+    <div class="container">
         <div class="row">
             <div class="col-md-3" id="leftMenu" wicket:id="menuPanel" style="padding: 0px;"></div>
             <div class="col-md-9 col-md-offset-1">

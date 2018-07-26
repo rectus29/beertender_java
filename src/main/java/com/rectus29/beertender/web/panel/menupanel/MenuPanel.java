@@ -16,9 +16,7 @@ package com.rectus29.beertender.web.panel.menupanel;
 import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.page.home.HomePage;
-import com.rectus29.beertender.web.page.profile.ProfilePage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -28,7 +26,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.wicketstuff.shiro.page.LogoutPage;
 
 import java.util.List;
 

@@ -80,7 +80,23 @@ public class UserEditPanel extends Panel {
 				add(new PasswordTextField("password", new PropertyModel<String>(UserEditPanel.this, "password")).setRequired(user.getPassword() == null));
 				add(new TextField<String>("mail", new PropertyModel<String>(user, "email")).add(EmailAddressValidator.getInstance()).setRequired(true));
 				add(new DropDownChoice<Role>("role", new PropertyModel<Role>(user, "role"), serviceRole.getAuthorizedRole(serviceUser.getCurrentUser()), new ChoiceRenderer<Role>("name")).setRequired(true));
-				add(new DropDownChoice<UserAuthentificationType>("auth", new PropertyModel<UserAuthentificationType>(user, "userAuthentificationType"), Arrays.asList(UserAuthentificationType.values()), new EnumChoiceRenderer<UserAuthentificationType>()).setRequired(true));
+				add(new DropDownChoice<UserAuthentificationType>("auth",
+						new PropertyModel<UserAuthentificationType>(user, "userAuthentificationType"),
+						Arrays.asList(UserAuthentificationType.values()),
+						new EnumChoiceRenderer<UserAuthentificationType>())
+				{
+					@Override
+					public boolean isEnabled() {
+						return serviceUser.getCurrentUser().isAdmin();
+					}
+				}.setRequired(true));
+				add(new TextField<String>("uuid",
+						new PropertyModel<String>(user, "uuid")){
+					@Override
+					public boolean isEnabled() {
+						return serviceUser.getCurrentUser().isAdmin();
+					}
+				}.setRequired(true));
 				add(new AjaxSubmitLink("submit") {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target, Form form) {

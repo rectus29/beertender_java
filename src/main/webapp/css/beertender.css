@@ -16,6 +16,14 @@ body{
     }
 }
 
+#body-spacer{
+	padding-top: 95px;
+}
+
+.white-element{
+
+}
+
 .login-holder{
 	background: #dadada;
 	border-radius: 5px;

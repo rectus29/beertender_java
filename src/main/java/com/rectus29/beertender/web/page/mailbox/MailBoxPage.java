@@ -2,7 +2,6 @@ package com.rectus29.beertender.web.page.mailbox;
 
 
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
-import com.rectus29.beertender.web.page.base.ProtectedPage;
 
 /*-----------------------------------------------------*/
 /*      _____           _               ___   ___      */

@@ -11,6 +11,7 @@ import com.rectus29.beertender.web.page.admin.order.OrderAdminPanel;
 import com.rectus29.beertender.web.page.admin.server.ServerAdminPanel;
 import com.rectus29.beertender.web.page.admin.timeframe.TimeFrameAdminPanel;
 import com.rectus29.beertender.web.page.admin.users.UserAdminPanel;
+import com.rectus29.beertender.web.page.base.BeerTenderBasePage;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
@@ -26,7 +27,7 @@ import java.util.List;
 @ShiroSecurityConstraint(
         constraint = ShiroConstraint.HasPermission, value = "admin:access"
 )
-public class AdminPage extends BeerTenderPage {
+public class AdminPage extends BeerTenderBasePage {
 
     public static String SERVER = "server";
     public static String USER = "user";

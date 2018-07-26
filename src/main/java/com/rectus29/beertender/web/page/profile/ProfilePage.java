@@ -1,7 +1,6 @@
 package com.rectus29.beertender.web.page.profile;
 
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
-import com.rectus29.beertender.web.page.base.ProtectedPage;
 import com.rectus29.beertender.web.page.profile.account.AccountPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 

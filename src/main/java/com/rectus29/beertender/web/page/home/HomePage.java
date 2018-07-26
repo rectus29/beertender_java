@@ -5,7 +5,6 @@ import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
-import com.rectus29.beertender.web.page.base.ProtectedPage;
 import com.rectus29.beertender.web.panel.productListPanel.ProductListPanel;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.model.IModel;

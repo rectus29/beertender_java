@@ -16,7 +16,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class ProductPage extends BeerTenderPage {
 
