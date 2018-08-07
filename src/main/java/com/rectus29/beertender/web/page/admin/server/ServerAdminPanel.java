@@ -14,6 +14,7 @@ import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;
 import com.rectus29.beertender.web.page.admin.AdminPage;
+import com.rectus29.beertender.web.page.admin.server.panels.SchedulerPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -133,6 +134,8 @@ public class ServerAdminPanel extends Panel {
                 })
                 .setOutputMarkupId(true)
         );
+
+        add(new SchedulerPanel("schedulerPanel"));
 
 
     }

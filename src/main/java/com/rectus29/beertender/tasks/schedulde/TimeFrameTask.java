@@ -13,44 +13,49 @@ package com.rectus29.beertender.tasks.schedulde;
 /*-----------------------------------------------------*/
 
 import com.rectus29.beertender.entities.Config;
-import com.rectus29.beertender.service.IserviceConfig;
+import com.rectus29.beertender.entities.Order;
+import com.rectus29.beertender.entities.TimeFrame;
+import com.rectus29.beertender.enums.State;
+import com.rectus29.beertender.service.IserviceOrder;
+import com.rectus29.beertender.service.IserviceTimeFrame;
 import com.rectus29.beertender.tasks.Task;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
 
-/**
- * this task check server state every 3 minute
- * and set config with it
- */
 @Transactional
 @Service
-public class ServerStateTask extends Task {
+public class TimeFrameTask extends Task {
 
-	private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(ServerStateTask.class);
-	public static final String SERVEROPEN = "SERVEROPEN";
-	public static final String ONLINEPLAYERS = "ONLINEPLAYERS";
+	private static final Logger log = LogManager.getLogger(TimeFrameTask.class);
+
 	@Autowired
-	@Qualifier("serviceConfig")
-	private IserviceConfig serviceConfig;
+	@Qualifier("serviceTimeFrame")
+	private IserviceTimeFrame serviceTimeFrame;
 
 	@Override
-	@Scheduled(cron = "0 0/1 * * * *")
+	@Scheduled(cron = "0 0 * * * *")
 	public void process() {
-		log.debug("start task");
-		Map<String, Object> out = new HashMap<>();
-		if (out.get(SERVEROPEN) != null) {
-			serviceConfig.save(new Config(SERVEROPEN, (String) out.get(SERVEROPEN)));
+		log.debug("start timeFrame task");
+
+		for(TimeFrame tf : serviceTimeFrame.getAll()){
+			if(tf.getStartDate().before(new Date()) && tf.getEndDate().after(new Date())){
+				tf.setState(State.ENABLE);
+				log.debug("enable timeFrame #" + tf.getId());
+			}
+			if(tf.getEndDate().before(new Date())){
+				tf.setState(State.DISABLE);
+				log.debug("disable timeFrame #" + tf.getId());
+			}
+			serviceTimeFrame.save(tf);
+
 		}
-		if (out.get(ONLINEPLAYERS) != null) {
-			serviceConfig.save(new Config(ONLINEPLAYERS, (String) out.get(ONLINEPLAYERS)));
-		}
-		log.debug("task done");
+		log.debug("timeFrame task done");
 	}
 }

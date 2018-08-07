@@ -14,6 +14,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +46,7 @@ public class ServiceOrder extends GenericManagerImpl<Order, Long> implements Ise
 			log.error("no active Time Frame");
 			return null;
 		} else {
-			DetachedCriteria dc = DetachedCriteria.forClass(this.persistentClass);
+			DetachedCriteria dc = getDetachedCriteria();
 			dc.add(Restrictions.eq("user", user));
 			dc.add(Restrictions.eq("timeFrame", timeFrame));
 			List<Order> order = (List<Order>) getHibernateTemplate().findByCriteria(dc);
@@ -62,5 +63,16 @@ public class ServiceOrder extends GenericManagerImpl<Order, Long> implements Ise
 			}
 
 		}
+	}
+
+	@Override
+	public List<Order> getAll(State[] stateArray) {
+		List<Order>  out =(List<Order>) getHibernateTemplate()
+				.findByCriteria(
+						getDetachedCriteria()
+								.add(Restrictions.in("state", stateArray)
+								)
+				);
+		return out;
 	}
 }

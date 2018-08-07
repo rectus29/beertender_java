@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<head>
+	<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+</head>
 <body>
 <wicket:extend>
-    <div wicket:id="panel"></div>
+	<div class="container">
+		<div class="TimeFrameDetail white-element d-flex justify-content-around">
+			<div >
+				Commande :
+				<small class="text-muted" wicket:id="tfName"/>
+			</div>
+			<div class="pull-right">
+				Date de cloture :
+				<small class="text-muted" wicket:id="tfEndDate"/>
+			</div>
+		</div>
+		<div wicket:id="panel" class="white-element"/>
+	</div>
 </wicket:extend>
 </body>
 </html>

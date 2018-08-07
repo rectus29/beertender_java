@@ -1,9 +1,9 @@
 
 html {
-    font-size: 14px;
+	font-size: 14px;
 }
 
-body{
+body {
 	background: fixed url("../img/slider.jpg");
 	background-position: center 0;
 	background-repeat: no-repeat;
@@ -11,66 +11,101 @@ body{
 }
 
 @media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
+	html {
+		font-size: 16px;
+	}
 }
 
-#body-spacer{
+#body-spacer {
 	padding-top: 95px;
 }
 
-.white-element{
-
+.white-element {
+	background: white;
 }
 
-.login-holder{
+.login-holder {
 	background: #dadada;
 	border-radius: 5px;
 	border: 1px solid white;
 }
 
 .pricing-header {
-    max-width: 700px;
+	max-width: 700px;
 }
 
 .card-deck .card {
-    min-width: 220px;
+	min-width: 220px;
 }
 
-.border-top { border-top: 1px solid #e5e5e5; }
-.border-bottom { border-bottom: 1px solid #e5e5e5; }
+.border-top {
+	border-top: 1px solid #e5e5e5;
+}
 
-.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+.border-bottom {
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+	box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
 
 #connectWrapper {
-    margin-top: 20%;
-    color: white;
-    background: rgba(13, 13, 13, 0.62);
-    border: 1px solid #1C1C1C;
-    text-align: center;
+	margin-top: 20%;
+	color: white;
+	background: rgba(13, 13, 13, 0.62);
+	border: 1px solid #1C1C1C;
+	text-align: center;
 }
 
 .blackelement {
-    background: rgba(13, 13, 13, 0.62);
-    border: 1px solid #4a4a4a;
-    padding: 15px;
+	background: rgba(13, 13, 13, 0.62);
+	border: 1px solid #4a4a4a;
+	padding: 15px;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
 }
 
-#userBlock{
+#userBlock {
 }
 
 .wicket-modal {
-    color: #3f3f3f;
+	color: #3f3f3f;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
 	color: #fff;
 	background-color: #007bff;
+}
+
+li.nav-item a {
+	background: #ffffff7a;
+	margin-right: 2px;
+}
+
+li.nav-item a.active {
+	background: #ffffff7a;
+}
+
+.tab-panel {
+	background: white;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+li.nav-item.nav-pills {
+	margin-bottom: 2px;
+}
+
+.productContainer {
+	padding: 15px;
+
+}
+
+.TimeFrameDetail {
+	margin: 0 0 15px 0;
 }
