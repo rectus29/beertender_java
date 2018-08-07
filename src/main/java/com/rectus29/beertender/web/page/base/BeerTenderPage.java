@@ -45,7 +45,6 @@ public class BeerTenderPage extends BeerTenderBasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add((modal = new WicketModal("modal")).setOutputMarkupId(true));
         add((new MenuPanel("menuPanel")).setOutputMarkupId(true));
     }
 

@@ -64,6 +64,7 @@ public class BeerTenderBasePage extends ProtectedPage {
                 modal.show(target);
             }
         }.add((nbProductLabel = new Label("nbProduct", serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser()).getOrderItemList().size())).setOutputMarkupId(true)));
+        add((modal = new WicketModal("modal")).setOutputMarkupId(true));
     }
 
     @Override
