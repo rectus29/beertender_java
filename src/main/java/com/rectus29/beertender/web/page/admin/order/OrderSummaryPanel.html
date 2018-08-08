@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<body>
+<wicket:panel>
+    <h1 class="page-header">Gestion des commandes</h1>
+
+	<form wicket:id="orderSelectionForm">
+		<div class="form-group row">
+			<label for="orderSelector" class="col-sm-2 col-form-label">Commande</label>
+			<div class="col-sm-10">
+				<select id="orderSelector" class="form-control form-control-sm" wicket:id="oroderSelector" />
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-10">
+				<button wicket:id="ajaxSubmit" class="btn btn-primary">Valider</button>
+			</div>
+		</div>
+	</form>
+	<div wicket:id="panel"/>
+</wicket:panel>
+</body>
+</html>

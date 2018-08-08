@@ -7,12 +7,11 @@ package com.rectus29.beertender.web.page.admin;
 /*-----------------------------------------------------*/
 
 import com.rectus29.beertender.web.component.BootstrapTabbedPAnel.BootstrapAjaxTabbedPanel;
-import com.rectus29.beertender.web.page.admin.order.OrderAdminPanel;
+import com.rectus29.beertender.web.page.admin.order.OrderSummaryPanel;
 import com.rectus29.beertender.web.page.admin.server.ServerAdminPanel;
 import com.rectus29.beertender.web.page.admin.timeframe.TimeFrameAdminPanel;
 import com.rectus29.beertender.web.page.admin.users.UserAdminPanel;
 import com.rectus29.beertender.web.page.base.BeerTenderBasePage;
-import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -45,7 +44,7 @@ public class AdminPage extends BeerTenderBasePage {
         panelList.add(new AbstractTab(new Model<String>("Commandes")) {
             @Override
             public WebMarkupContainer getPanel(String panelId) {
-                return new OrderAdminPanel(panelId);
+                return new OrderSummaryPanel(panelId);
             }
         });
        panelList.add(new AbstractTab(new Model<String>("Time Frame")) {

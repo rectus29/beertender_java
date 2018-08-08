@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+
+	<table class="table table-striped">
+		<thead class="thead-dark">
+		<tr>
+			<th>Utilisateur</th>
+			<th>Produit</th>
+			<th>type</th>
+			<th>Qte</th>
+			<th>PU</th>
+			<th>Total</th>
+		</tr>
+		</thead>
+		<tbody>
+		<wicket:container id="orderRv">
+			<tr>
+				<td colspan="5" wicket:id="user">UserNAme</td>
+				<td colspan="1">Editer</td>
+			</tr>
+			<wicket:container id="orderItemRv">
+			<tr>
+				<td></td>
+				<td wicket:id="product"></td>
+				<td wicket:id="type"></td>
+				<td wicket:id="qte"></td>
+				<td wicket:id="unitPrice"></td>
+				<td wicket:id="total"></td>
+			</tr>
+			</wicket:container>
+		</wicket:container>
+		</tbody>
+	</table>
+
+
+</wicket:panel>
+</body>
+</html>
