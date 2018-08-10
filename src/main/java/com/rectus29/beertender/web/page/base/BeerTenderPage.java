@@ -29,7 +29,6 @@ public class BeerTenderPage extends BeerTenderBasePage {
     @SpringBean(name = "serviceOrder")
     private IserviceOrder serviceOrder;
     private Label nbProductLabel;
-    protected WicketModal modal;
 
     public BeerTenderPage() {
     }

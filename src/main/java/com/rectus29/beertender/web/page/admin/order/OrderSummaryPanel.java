@@ -63,7 +63,8 @@ public class OrderSummaryPanel extends Panel {
 		form.add(new AjaxButton("ajaxSubmit") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				childPanel.addOrReplace(new OrderSummaryChildPanel("panel", timeFrameModel));
+				childPanel = (Panel) childPanel.replaceWith(new OrderSummaryChildPanel("panel", timeFrameModel).setOutputMarkupId(true));
+				target.add(childPanel);
 			}
 		});
 		//place emptyPanel by default

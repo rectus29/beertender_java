@@ -2,6 +2,7 @@ package com.rectus29.beertender.entities;
 
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.enums.UserAuthentificationType;
+import com.rectus29.beertender.tools.StringUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 
 import javax.persistence.*;
@@ -43,7 +44,7 @@ public class User extends GenericEntity implements DecorableElement{
 
     @Override
     public String getFormatedName() {
-        return null;
+        return firstName + " " + lastName.toUpperCase();
     }
 
     public String getPassword() {

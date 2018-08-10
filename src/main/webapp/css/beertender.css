@@ -4,9 +4,8 @@ html {
 }
 
 body {
-	background: fixed url("../img/slider.jpg");
-	background-position: center 0;
-	background-repeat: no-repeat;
+	//background: fixed url("../img/slider.jpg");
+	background: no-repeat center 0;
 	background-size: cover;
 }
 

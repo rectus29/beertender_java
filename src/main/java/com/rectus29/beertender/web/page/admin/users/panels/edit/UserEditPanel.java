@@ -49,11 +49,8 @@ public class UserEditPanel extends Panel {
 	private IserviceHistory serviceHistory;
 
 	private User user;
-
 	private Form form;
-
 	private BootStrapFeedbackPanel feed;
-
 	private String password;
 
 	public UserEditPanel(String s) {

@@ -27,7 +27,7 @@ public class TimeFrame extends GenericEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate = DateUtil.addMonths(new Date(), 2);
 
-	private State state = State.ENABLE;
+	private State state = State.PENDING;
 
 	@OneToMany(mappedBy = "timeFrame")
 	private List<Order> orderList = new ArrayList<>();

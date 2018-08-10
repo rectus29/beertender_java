@@ -50,7 +50,7 @@ public class ServiceRole extends GenericManagerImpl<Role, Long> implements Iserv
         Role ref = u.getRole();
         List<Role> out = new ArrayList<Role>();
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Role.class);
-        detachedCriteria.add(Restrictions.ge("weight", ref.getWeight()));
+        detachedCriteria.add(Restrictions.le("weight", ref.getWeight()));
         List result = getHibernateTemplate().findByCriteria(detachedCriteria);
         if (result.size() > 0)
             out.addAll(result);
