@@ -70,6 +70,16 @@ body {
 }
 
 #userBlock {
+	color: white;
+}
+
+#userBlock a{
+	color: white;
+}
+
+#userBlock a:hover{
+	color: white;
+	text-decoration: none;
 }
 
 .wicket-modal {

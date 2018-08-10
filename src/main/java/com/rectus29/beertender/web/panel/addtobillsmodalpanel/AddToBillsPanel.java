@@ -16,7 +16,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-public class AddToBillsPanel extends Panel {
+public abstract class AddToBillsPanel extends Panel {
 
     @SpringBean(name = "serviceUser")
     private IserviceUser serviceUser;
@@ -47,8 +47,19 @@ public class AddToBillsPanel extends Panel {
                         AddToBillsPanel.this.qte
                 );
 				serviceOrder.save(order);
-                setResponsePage(BillsPage.class);
+				AddToBillsPanel.this.onValid(target);
             }
         });
+		add(new AjaxLink("cancel") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				AddToBillsPanel.this.onCancel(target);
+			}
+		});
     }
+
+
+    public abstract void onCancel(AjaxRequestTarget target);
+
+    public abstract void onValid(AjaxRequestTarget target);
 }

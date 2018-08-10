@@ -2,12 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <body>
 <wicket:panel>
-    <h2 wicket:id="productName"></h2>
-    <div class="row">
-        <label wicket:for="qte">Quantité</label>
-        <input type="number" wicket:id="qte" name="qte">
-        <input type="button" wicket:id="addToCart" class="btn btn-primary" value="Ajouter" />
-    </div>
+
+	<div class="row">
+		<div class="col-md-2 hidden-xs">
+
+		</div>
+		<div class="col-md-10 col-xs-12">
+			<div wicket:id="productName"></div>
+			<div class="row">
+				<label wicket:for="qte">Quantité</label>
+				<input type="number" wicket:id="qte" name="qte" placeholder="Quantité">
+			</div>
+		</div>
+		<div class="pull-right">
+			<a href="#" wicket:id="addToCart" class="btn btn-primary">Ajouter au panier</a>
+			<a href="#" wicket:id="cancel" class="btn">Annuler</a>
+		</div>
+	</div>
+
 </wicket:panel>
 </body>
 </html>

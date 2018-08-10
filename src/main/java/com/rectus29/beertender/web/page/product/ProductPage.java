@@ -4,6 +4,7 @@ import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
+import com.rectus29.beertender.web.page.billspage.BillsPage;
 import com.rectus29.beertender.web.panel.addtobillsmodalpanel.AddToBillsPanel;
 import com.rectus29.beertender.web.security.error.ErrorPage;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -48,7 +49,19 @@ public class ProductPage extends BeerTenderPage {
         add(new AjaxLink("addToCartLink") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                modal.setContent(new AddToBillsPanel(modal.getContentId(), product));
+                modal.setContent(new AddToBillsPanel(modal.getContentId(), product){
+					@Override
+					public void onCancel(AjaxRequestTarget target) {
+						modal.close(target);
+					}
+
+					@Override
+					public void onValid(AjaxRequestTarget target) {
+						modal.close(target);
+						setResponsePage(BillsPage.class);
+					}
+				});
+                modal.setTitle("Ajouter à la commande");
                 modal.show(target);
             }
         });
