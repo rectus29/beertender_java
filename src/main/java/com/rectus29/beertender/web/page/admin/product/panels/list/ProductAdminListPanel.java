@@ -89,7 +89,7 @@ public class ProductAdminListPanel extends Panel {
 			@Override
 			protected void populateItem(final ListItem<Product> item) {
 				item.add(new Label("id", item.getModelObject().getId()+""));
-				item.add(new Label("name", item.getModelObject().getName()));
+				item.add(new Label("prodName", item.getModelObject().getName()));
 				item.add(new CurrencyLabel("price", new Model<Long>(item.getModelObject().getPrice().longValue())));
 				item.add(new EnumLabel<State>("state", item.getModelObject().getState()));
 				item.add(new AjaxLink("edit") {

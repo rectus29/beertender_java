@@ -8,6 +8,7 @@ package com.rectus29.beertender.web.page.admin;
 
 import com.rectus29.beertender.web.component.BootstrapTabbedPAnel.BootstrapAjaxTabbedPanel;
 import com.rectus29.beertender.web.page.admin.order.OrderSummaryPanel;
+import com.rectus29.beertender.web.page.admin.product.ProductAdminPanel;
 import com.rectus29.beertender.web.page.admin.server.ServerAdminPanel;
 import com.rectus29.beertender.web.page.admin.timeframe.TimeFrameAdminPanel;
 import com.rectus29.beertender.web.page.admin.users.UserAdminPanel;
@@ -15,6 +16,7 @@ import com.rectus29.beertender.web.page.base.BeerTenderBasePage;
 import org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 import org.wicketstuff.shiro.ShiroConstraint;
@@ -47,25 +49,31 @@ public class AdminPage extends BeerTenderBasePage {
                 return new OrderSummaryPanel(panelId);
             }
         });
-       panelList.add(new AbstractTab(new Model<String>("Time Frame")) {
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new TimeFrameAdminPanel(panelId);
-            }
-        });
-        panelList.add(new AbstractTab(new Model<String>("Serveur")) {
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new ServerAdminPanel(panelId);
-            }
-        });
-        panelList.add(new AbstractTab(new Model<String>("Utilisateur")) {
+		panelList.add(new AbstractTab(new Model<String>("Produits")) {
+			@Override
+			public WebMarkupContainer getPanel(String panelId) {
+				return new ProductAdminPanel(panelId);
+			}
+		});
+		panelList.add(new AbstractTab(new Model<String>("Time Frame")) {
+			@Override
+			public WebMarkupContainer getPanel(String panelId) {
+				return new TimeFrameAdminPanel(panelId);
+			}
+		});
+		panelList.add(new AbstractTab(new Model<String>("Utilisateur")) {
             @Override
             public WebMarkupContainer getPanel(String panelId) {
                 return new UserAdminPanel(panelId);
             }
         });
-        add(atp = new BootstrapAjaxTabbedPanel("tabPanel", panelList));
+		panelList.add(new AbstractTab(new Model<String>("Serveur")) {
+			@Override
+			public WebMarkupContainer getPanel(String panelId) {
+				return new ServerAdminPanel(panelId);
+			}
+		});
+		add(atp = new BootstrapAjaxTabbedPanel("tabPanel", panelList));
     }
 
     @Override

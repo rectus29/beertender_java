@@ -11,28 +11,30 @@
 		<wicket:message key="add"/>
 	</a>
 	<form wicket:id="form" class="form-inline">
-		<label class="control-label" wicket:for="name"><wicket:message key="sortBylastName"/> : </label>
-		<input  class="form-control" wicket:id="name"/>
-		<a class="btn btn-default" wicket:id="filterSubmitButton"><wicket:message key="filter"/></a>
-
+		<label class="control-label" wicket:for="name">Rechercher : </label>
+		<input class="form-control" wicket:id="name"/>
+		<a class="btn btn-default" wicket:id="filterSubmitButton">
+			<wicket:message key="filter"/>
+		</a>
 	</form>
 	<table class="table table-striped">
 		<thead>
 		<tr>
 			<th>#</th>
-			<th><wicket:message key="name"/></th>
-			<th><wicket:message key="identifying"/></th>
-			<th><wicket:message key="mail"/></th>
-			<th><wicket:message key="role"/></th>
-			<th>status</th>
-			<th><wicket:message key="action"/>s</th>
+			<th>Nom</th>
+			<th>Prix Unit.</th>
+			<th>Status</th>
+			<th>
+				<wicket:message key="action"/>
+				s
+			</th>
 		</tr>
 		</thead>
 		<tbody wicket:id="wmc">
 		<tr wicket:id="sorting">
 			<td wicket:id="id"></td>
-			<td wicket:id="email">[name]</td>
-			<td wicket:id="role">[role]</td>
+			<td wicket:id="prodName"></td>
+			<td wicket:id="price">[name]</td>
 			<td wicket:id="state">[role]</td>
 			<td>
 				<div class="btn-group btn-default">
@@ -41,15 +43,16 @@
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu pull-right">
-						<li><a href="#" wicket:id="runas"><i class="icon-user"/>&nbsp;
-							<wicket:message key="UserProfile.runAs"/>
-						</a></li>
-						<li><a href="#" wicket:id="edit"><i class="icon-edit"/>&nbsp;
-							<wicket:message key="edit"/>
-						</a></li>
-						<li><a href="#" wicket:id="remove"><i class="icon-remove"/>&nbsp;
-							<wicket:message key="delete"/>
-						</a></li>
+						<li>
+							<a href="#" wicket:id="edit"><i class="icon-edit"/>&nbsp;
+								<wicket:message key="edit"/>
+							</a>
+						</li>
+						<li>
+							<a href="#" wicket:id="remove"><i class="icon-remove"/>&nbsp;
+								<wicket:message key="delete"/>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</td>
