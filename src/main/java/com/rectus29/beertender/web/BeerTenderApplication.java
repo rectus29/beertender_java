@@ -24,6 +24,7 @@ import org.apache.wicket.settings.ApplicationSettings;
 import org.apache.wicket.settings.RequestCycleSettings;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.apache.wicket.util.lang.Bytes;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.wicketstuff.shiro.annotation.AnnotationsShiroAuthorizationStrategy;
 import org.wicketstuff.shiro.authz.ShiroUnauthorizedComponentListener;
@@ -37,6 +38,8 @@ import org.wicketstuff.shiro.authz.ShiroUnauthorizedComponentListener;
 public class BeerTenderApplication extends WebApplication {
 	private Config config;
 	private String realmsName = BeerTenderRealms.class.getSimpleName();
+
+
 
 	@Override
 	public void init() {
@@ -80,6 +83,11 @@ public class BeerTenderApplication extends WebApplication {
 		settings.setPageExpiredErrorPage(SigninPage.class);
 		settings.setInternalErrorPage(ErrorPage.class);
 		getApplicationSettings().setUploadProgressUpdatesEnabled(true);
+	}
+
+
+	public ApplicationContext getAppCtx() {
+		return WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
 	}
 
 	public Class<? extends Page> getHomePage() {

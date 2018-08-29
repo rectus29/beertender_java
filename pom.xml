@@ -45,6 +45,16 @@
                             <!-- this is relative to the pom.xml directory -->
                             <directory>${basedir}/src/main/webapp</directory>
                         </resource>
+						<resource>
+                            <!-- this is relative to the pom.xml directory -->
+                            <directory>${basedir}/src/main/java</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<excludes>
+								<exclude>**/*.java</exclude>
+							</excludes>
+                        </resource>
                     </webResources>
                 </configuration>
             </plugin>

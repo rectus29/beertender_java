@@ -5,6 +5,7 @@ import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
+import com.rectus29.beertender.web.component.productimage.ProductImage;
 import com.rectus29.beertender.web.page.product.ProductPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -57,6 +58,7 @@ public class ProductListPanel extends Panel {
         wmc.add(new ListView<Product>("lv", ldm) {
             @Override
             protected void populateItem(ListItem<Product> item) {
+                item.add(new ProductImage("productImage", item.getModel()));
                 item.add(new Label("productName", item.getModelObject().getName()));
                 item.add(new CurrencyLabel("price", new Model<>(item.getModelObject().getPrice())));
                 item.add(new Label("desc", item.getModelObject().getDescription()));

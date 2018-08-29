@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 
@@ -43,9 +44,10 @@ public class OrderSummaryChildPanel extends Panel {
 						item.add(new Label("type", "-"));
 						item.add(new NumericLabel("qte", item.getModelObject().getQuantity()));
 						item.add(new CurrencyLabel("unitPrice", new PropertyModel<OrderItem>(item.getModelObject(), "quantity")));
-						item.add(new NumericLabel("total", item.getModelObject().getSum()));
+						item.add(new CurrencyLabel("total", new Model(item.getModelObject().getSum())));
 					}
 				});
+				item.add(new CurrencyLabel("orderTotal", new Model<>(item.getModelObject().getOrderPrice())));
 			}
 		};
 		add(rv);

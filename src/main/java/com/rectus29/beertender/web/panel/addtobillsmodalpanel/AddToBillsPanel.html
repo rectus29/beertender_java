@@ -2,24 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <body>
 <wicket:panel>
+	<form action="#" wicket:id="form" class="container">
+		<div class="row">
+			<div class="col-md-2 hidden-xs">
+				<img src="#" wicket:id="productImage" class="img-fluid" >
+			</div>
+			<div class="col-md-10 col-xs-12">
 
-	<div class="row">
-		<div class="col-md-2 hidden-xs">
+				<div wicket:id="productName"></div>
 
-		</div>
-		<div class="col-md-10 col-xs-12">
-			<div wicket:id="productName"></div>
-			<div class="row">
-				<label wicket:for="qte">Quantité</label>
-				<input type="number" wicket:id="qte" name="qte" placeholder="Quantité">
+				<div class="form-group row">
+					<label wicket:for="qte"  class="col-sm-2 col-form-label">Quantité</label>
+					<div class="col-sm-10">
+						<input type="number" wicket:id="qte" name="qte" placeholder="Quantité">
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="pull-right">
-			<a href="#" wicket:id="addToCart" class="btn btn-primary">Ajouter au panier</a>
-			<a href="#" wicket:id="cancel" class="btn">Annuler</a>
+		<div class="row">
+			<div class="pull-right">
+				<a href="#" wicket:id="addToCart" class="btn btn-primary">Ajouter au panier</a>
+				<a href="#" wicket:id="cancel" class="btn btn-outline-primary">Annuler</a>
+			</div>
 		</div>
-	</div>
-
+	</form>
 </wicket:panel>
 </body>
 </html>
