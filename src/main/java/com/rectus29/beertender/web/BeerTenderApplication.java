@@ -14,6 +14,8 @@ import com.rectus29.beertender.web.security.restorepassword.RestorePasswordPage;
 import com.rectus29.beertender.web.security.signin.SigninPage;
 import com.rectus29.beertender.web.security.signout.SignoutPage;
 import com.rectus29.beertender.web.security.unauthorizedpage.UnauthorizedPage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
@@ -36,14 +38,16 @@ import org.wicketstuff.shiro.authz.ShiroUnauthorizedComponentListener;
 /*-----------------------------------------------------*/
 
 public class BeerTenderApplication extends WebApplication {
+
+	private static final Logger log = LogManager.getLogger(BeerTenderApplication.class);
+
 	private Config config;
 	private String realmsName = BeerTenderRealms.class.getSimpleName();
-
-
 
 	@Override
 	public void init() {
 		super.init();
+		log.debug("Init Beertender application");
 		getDebugSettings().setAjaxDebugModeEnabled(true);
 		//gestion de l'annotation @OnEvent
 		getFrameworkSettings().add(new DispatchOnEventMethod());
