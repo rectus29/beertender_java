@@ -28,6 +28,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,17 +54,19 @@ public class CartTimeFrameCheckTask extends Task {
 	public void process() {
 		log.debug("start task");
 
-//		for(Order order : serviceOrder.getAll(new State[]{State.ENABLE})){
-//			order.getTimeFrame().
-//		}
-//
-//
-//		if (out.get(SERVEROPEN) != null) {
-//			serviceConfig.save(new Config(SERVEROPEN, (String) out.get(SERVEROPEN)));
-//		}
-//		if (out.get(ONLINEPLAYERS) != null) {
-//			serviceConfig.save(new Config(ONLINEPLAYERS, (String) out.get(ONLINEPLAYERS)));
-//		}
+		//disable timeframe in past
+		for(Order order : serviceOrder.getAll(new State[]{State.ENABLE})){
+			if(order.getTimeFrame().getEndDate().before(new Date())){
+				order.setState(State.DISABLE);
+			}
+		}
+		//enable the first found
+		for(Order order : serviceOrder.getAll(new State[]{State.PENDING})){
+			if(order.getTimeFrame().getStartDate().after(new Date())){
+				order.setState(State.ENABLE);
+			}
+		}
+
 		log.debug("task done");
 	}
 }
