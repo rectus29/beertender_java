@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 19 juil. 2018 à 15:48
+-- Généré le :  mar. 04 sep. 2018 à 16:13
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -42,7 +42,16 @@ CREATE TABLE IF NOT EXISTS `bills` (
   PRIMARY KEY (`id`),
   KEY `FKk8vs7ac9xknv5xp18pdiehpp1` (`user_id`),
   KEY `FKfsjrhpequ3jr9hrih3w9nf2oo` (`timeframe_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `bills`
+--
+
+INSERT INTO `bills` (`id`, `created`, `updated`, `paymentRequest`, `paymentResponse`, `paymentToken`, `state`, `user_id`, `timeframe_id`) VALUES
+(1, '2018-07-24 15:46:43', '2018-07-24 15:46:45', NULL, NULL, NULL, 1, 1, 1),
+(2, '2018-08-28 13:32:25', '2018-08-28 13:32:25', NULL, NULL, NULL, 2, 2, 2),
+(3, '2018-08-29 12:22:16', '2018-08-29 12:22:16', NULL, NULL, NULL, 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -63,7 +72,21 @@ CREATE TABLE IF NOT EXISTS `bills_item` (
   PRIMARY KEY (`id`),
   KEY `FKguocg4eg48f2v5e54wlc203eh` (`referenceOrder_id`),
   KEY `FK6a60fxr5ii4002ppmwq2g35dj` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `bills_item`
+--
+
+INSERT INTO `bills_item` (`id`, `created`, `updated`, `productPrice`, `productTax`, `quantity`, `product_id`, `referenceOrder_id`) VALUES
+(1, '2018-07-25 13:56:28', '2018-07-25 13:56:28', '30.000', NULL, 2, 1, 1),
+(2, '2018-08-10 14:57:32', '2018-08-10 14:57:32', '9999.000', NULL, 1, 5, 1),
+(3, '2018-08-10 14:57:46', '2018-08-10 14:57:46', '46.990', NULL, 1, 4, 1),
+(4, '2018-08-28 13:32:25', '2018-08-28 13:32:25', '30.000', NULL, 1, 1, 2),
+(5, '2018-08-29 12:22:16', '2018-08-29 12:22:16', '30.000', NULL, 10, 1, 3),
+(6, '2018-08-29 12:23:44', '2018-08-29 12:23:44', '46.990', NULL, 1, 4, 3),
+(7, '2018-08-29 12:26:02', '2018-08-29 12:26:02', '35.780', NULL, 12, 3, 3),
+(8, '2018-08-29 13:26:42', '2018-08-29 13:26:42', '9999.000', NULL, 12, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -88,12 +111,12 @@ CREATE TABLE IF NOT EXISTS `category` (
 --
 
 INSERT INTO `category` (`id`, `created`, `updated`, `description`, `name`, `state`, `isRoot`) VALUES
-(1, '2018-06-18 15:39:16', '2018-06-18 15:39:16', 'Bouteille 75cl', 'Bouteille 75cl', 1, b'1'),
-(2, '2018-06-18 15:39:16', '2018-06-18 15:39:16', 'Bouteille 33cl', 'Bouteille 33cl', 1, b'1'),
-(3, '2018-06-19 12:47:07', '2018-06-19 12:47:10', 'Bière blonde', 'Bière blonde', 1, NULL),
-(4, '2018-06-19 12:47:43', '2018-06-19 12:47:45', 'Bière brune', 'Bière brune', 1, NULL),
-(5, '2018-06-28 09:11:07', '2018-06-28 09:11:09', 'Bière blanche', 'Bière blanche', 1, NULL),
-(6, '2018-06-28 09:11:54', '2018-06-28 09:11:55', 'Bière de saison', 'Bière de saison', 1, NULL);
+(1, '2018-06-18 15:39:16', '2018-06-18 15:39:16', 'Bouteille 12x75cl', 'Bouteille 12x75cl', 1, b'1'),
+(2, '2018-06-18 15:39:16', '2018-06-18 15:39:16', 'Bouteille 24x33cl', 'Bouteille 24x33cl', 1, b'1'),
+(3, '2018-06-19 12:47:07', '2018-06-19 12:47:10', 'Mini-Fût', 'Mini-Fût', 1, b'1'),
+(4, '2018-06-19 12:47:43', '2018-06-19 12:47:45', 'Coffret cadeaux', 'Coffret cadeaux', 1, b'1'),
+(5, '2018-06-28 09:11:07', '2018-06-28 09:11:09', 'Limonades Artisanales - conditionnement 6x75cl', 'Limonades Artisanales - conditionnement 6x75cl', 1, b'1'),
+(6, '2018-06-28 09:11:54', '2018-06-28 09:11:55', 'Verres', 'Verres', 1, b'1');
 
 -- --------------------------------------------------------
 
@@ -138,14 +161,15 @@ CREATE TABLE IF NOT EXISTS `config` (
   `ke` longtext NOT NULL,
   `val` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `config`
 --
 
 INSERT INTO `config` (`id`, `created`, `updated`, `ke`, `val`) VALUES
-(1, '2018-06-14 15:25:58', '2018-06-14 15:26:07', 'maintenance_mod', '1');
+(1, '2018-06-14 15:25:58', '2018-06-14 15:26:07', 'maintenance_mod', '1'),
+(2, '2018-08-28 13:33:37', '2018-08-28 13:33:37', 'admin_msg', '');
 
 -- --------------------------------------------------------
 
@@ -231,14 +255,17 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `codeString` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `permission`
 --
 
 INSERT INTO `permission` (`id`, `created`, `updated`, `codeString`, `description`) VALUES
-(1, '2018-07-06 09:08:34', '2018-07-06 09:08:36', 'admin:access', 'admin:access');
+(1, '2018-07-06 09:08:34', '2018-07-06 09:08:36', 'admin:access', 'admin:access'),
+(2, '2018-08-28 11:29:35', '2018-08-28 11:29:32', 'system:user:edit', 'system:user:edit'),
+(3, '2018-08-28 11:30:34', '2018-08-28 11:30:32', 'system:user:delete', 'system:user:delete'),
+(4, '2018-08-28 11:30:49', '2018-08-28 11:30:49', 'system:user:runas', 'system:user:runas');
 
 -- --------------------------------------------------------
 
@@ -268,7 +295,7 @@ INSERT INTO `product` (`id`, `created`, `updated`, `description`, `imagePath`, `
 (2, '2018-06-28 09:08:08', '2018-06-28 09:08:12', 'Biere Blonde de luxe', NULL, 'Biere Blonde de luxe', '32.620', 1),
 (3, '2018-06-28 09:08:13', '2018-06-28 09:08:13', 'Blanche qui va bien', NULL, 'Blanche qui va bien', '35.780', 1),
 (4, '2018-06-28 09:08:14', '2018-06-28 09:08:15', 'Choulette de noël', NULL, 'Choulette de noël', '46.990', 1),
-(5, '2018-06-28 18:46:18', '2018-06-28 18:46:54', 'Une bière blonde artisanale créée pour commémorer cette bataille et rendre hommage à l’armée britannique.\r\n\r\nBière artisanale fabriquée en France. Contient du malt d’orge. A conserver dans un endroit frais et sec, à l’abri de la lumière.\r\n\r\nL’abus d’alcool est dangereux pour la santé, à consommer avec modération.\r\n\r\nLa consommation de boissons alcoolisées pendant la grossesse, même en faible quantité, peut avoir des conséquences graves sur la santé de l’enfant.', NULL, 'LA BATTLE OF CAMBRAI 75CL 6% VOL.', '9999.000', 1);
+(5, '2018-06-28 18:46:18', '2018-06-28 18:46:54', 'Une bière blonde artisanale créée pour commémorer cette bataille et rendre hommage à l’armée britannique.\r\n\r\nBière artisanale fabriquée en France. Contient du malt d’orge. A conserver dans un endroit frais et sec, à l’abri de la lumière.\r\n\r\nL’abus d’alcool est dangereux pour la santé, à consommer avec modération.\r\n\r\nLa consommation de boissons alcoolisées pendant la grossesse, même en faible quantité, peut avoir des conséquences graves sur la santé de l’enfant.', 'img/products/Battle-of-Cambrai-blonde-75cl-500x1000.jpg', 'LA BATTLE OF CAMBRAI 75CL 6% VOL.', '9999.000', 1);
 
 -- --------------------------------------------------------
 
@@ -286,14 +313,15 @@ CREATE TABLE IF NOT EXISTS `role` (
   `name` varchar(255) DEFAULT NULL,
   `weight` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `role`
 --
 
 INSERT INTO `role` (`id`, `created`, `updated`, `description`, `isAdmin`, `name`, `weight`) VALUES
-(1, '2018-06-14 15:26:50', '2018-06-14 15:26:53', 'admin', b'1', 'admin', 1000);
+(1, '2018-06-14 15:26:50', '2018-06-14 15:26:53', 'admin', b'1', 'admin', 1000),
+(2, '2018-08-10 12:35:26', '2018-08-10 12:35:28', 'Utilisateur', b'0', 'user', 10);
 
 -- --------------------------------------------------------
 
@@ -314,7 +342,10 @@ CREATE TABLE IF NOT EXISTS `role_permission` (
 --
 
 INSERT INTO `role_permission` (`Role_id`, `permissions_id`) VALUES
-(1, 1);
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4);
 
 -- --------------------------------------------------------
 
@@ -332,7 +363,16 @@ CREATE TABLE IF NOT EXISTS `timeframe` (
   `state` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `timeframe`
+--
+
+INSERT INTO `timeframe` (`id`, `created`, `updated`, `endDate`, `startDate`, `state`, `name`) VALUES
+(1, '2018-07-24 15:38:51', '2018-07-24 15:38:55', '2018-09-30 15:39:05', '2018-09-01 15:39:11', 1, 'Septembre 2018'),
+(2, '2018-08-10 14:33:25', '2018-08-10 14:33:27', '2018-08-31 14:34:20', '2018-08-01 14:34:23', 0, 'Aout 2018'),
+(4, '2018-08-10 14:35:37', '2018-08-10 14:35:35', '2018-07-31 14:35:24', '2018-07-01 14:35:04', 0, 'Juillet 2018');
 
 -- --------------------------------------------------------
 
@@ -353,19 +393,21 @@ CREATE TABLE IF NOT EXISTS `users` (
   `salt` varchar(255) DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
   `userAuthentificationType` varchar(50) NOT NULL,
-  `userName` varchar(255) NOT NULL,
   `role_id` bigint(20) DEFAULT NULL,
   `uuid` varchar(36) NOT NULL,
+  `firstName` varchar(255) DEFAULT NULL,
+  `lastName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK4qu1gr772nnf6ve5af002rwya` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `created`, `updated`, `email`, `lastLogin`, `password`, `restoreSession`, `restoreSessionDate`, `salt`, `state`, `userAuthentificationType`, `userName`, `role_id`, `uuid`) VALUES
-(1, '2015-08-24 00:00:00', '2018-07-13 07:37:20', 'rectus29@gmail.com', '2018-07-17 11:09:22', '2pTblAzn+o+S0sFR46qTR4KVKgVZx7T/lPATHhDTU8c=', NULL, NULL, 'XU5Pp4Lz+mSiUkciqOUXD3XocslsvE/iK0eOze2A0C77WE9idlq9emqQOuO7y2T+arRT84Hku5cpFwGRAqgJy8aCTndMAtzR6QshNyfI61lHu5ec0Msj8121nTt91CYvltCWf3OCid3/8AQg+fNh89QXbSjeZvwRKhLWlb41A3A=', 1, 'EMBED', 'admin', 1, 'yolo');
+INSERT INTO `users` (`id`, `created`, `updated`, `email`, `lastLogin`, `password`, `restoreSession`, `restoreSessionDate`, `salt`, `state`, `userAuthentificationType`, `role_id`, `uuid`, `firstName`, `lastName`) VALUES
+(1, '2015-08-24 00:00:00', '2018-07-13 07:37:20', 'rectus29@gmail.com', '2018-09-04 15:20:00', '2pTblAzn+o+S0sFR46qTR4KVKgVZx7T/lPATHhDTU8c=', NULL, NULL, 'XU5Pp4Lz+mSiUkciqOUXD3XocslsvE/iK0eOze2A0C77WE9idlq9emqQOuO7y2T+arRT84Hku5cpFwGRAqgJy8aCTndMAtzR6QshNyfI61lHu5ec0Msj8121nTt91CYvltCWf3OCid3/8AQg+fNh89QXbSjeZvwRKhLWlb41A3A=', 1, 'EMBED', 1, 'yolo', 'ALexandre', 'Bernard'),
+(2, '2018-08-10 14:40:05', '2018-08-10 14:40:05', 'test@yolo.com', NULL, 'UvcQHRaqQAVXnvJ+OrF3UNGgG8uEmxK3RT0s3lYsOIw=', NULL, NULL, 'NpJdQwuK4L/ghzIHo3pS+g==', 1, 'EMBED', 2, '97e8afab-0c75-460d-8629-f0a8f6cc168a', 'test', 'test');
 
 --
 -- Contraintes pour les tables déchargées
