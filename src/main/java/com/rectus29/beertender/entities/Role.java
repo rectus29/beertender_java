@@ -14,7 +14,7 @@ import java.util.Set;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "role")
-public class Role extends GenericEntity implements Comparable<Role> {
+public class Role extends GenericEntity<Role> {
 
 	@Column
 	private String name;
@@ -106,15 +106,16 @@ public class Role extends GenericEntity implements Comparable<Role> {
 		this.isAdmin = isAdmin;
 	}
 
-	public int compareTo(Role o) {
-		return this.getId().compareTo(o.getId());
-	}
-
 	public int getWeight() {
 		return weight;
 	}
 
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+
+	@Override
+	public int compareTo(Role object) {
+		return defaultCompareTo(object);
 	}
 }

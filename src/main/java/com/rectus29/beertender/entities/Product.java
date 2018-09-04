@@ -21,7 +21,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "product")
-public class Product extends GenericEntity {
+public class Product extends GenericEntity<Product> {
 
     private String name;
 
@@ -89,4 +89,9 @@ public class Product extends GenericEntity {
     public void setState(State state) {
         this.state = state;
     }
+
+	@Override
+	public int compareTo(Product object) {
+		return defaultCompareTo(object);
+	}
 }

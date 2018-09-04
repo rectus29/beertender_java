@@ -12,7 +12,7 @@ import java.util.UUID;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "users")
-public class User extends GenericEntity implements DecorableElement{
+public class User extends GenericEntity<User> implements DecorableElement{
 
     @Column(nullable = false)
     private String password;
@@ -156,5 +156,10 @@ public class User extends GenericEntity implements DecorableElement{
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	@Override
+	public int compareTo(User object) {
+		return defaultCompareTo(object);
 	}
 }

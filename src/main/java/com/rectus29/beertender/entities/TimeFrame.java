@@ -74,4 +74,9 @@ public class TimeFrame extends GenericEntity {
 	public void setOrderList(List<Order> orderList) {
 		this.orderList = orderList;
 	}
+
+	@Override
+	public int compareTo(Object object) {
+		return defaultCompareTo(object);
+	}
 }

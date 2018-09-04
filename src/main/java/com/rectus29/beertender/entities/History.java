@@ -13,7 +13,7 @@ import java.util.Date;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "history")
-public class History extends GenericEntity implements Serializable {
+public class History extends GenericEntity<History> {
 
     @Column(name = "action", nullable = false, length = 65536)
     private String action = "";
@@ -133,4 +133,9 @@ public class History extends GenericEntity implements Serializable {
     public void setIp(String ip) {
         this.ip = ip;
     }
+
+	@Override
+	public int compareTo(History object) {
+		return defaultCompareTo(object);
+	}
 }

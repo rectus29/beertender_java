@@ -50,7 +50,7 @@ public class ProductListPanel extends Panel {
                 if (ProductListPanel.this.filter.isEmpty()) {
                     return serviceProduct.getAll();
                 }
-                return serviceProduct.getProductByCategory(ProductListPanel.this.filter);
+				return new ArrayList<Product>(serviceCategory.getFilteredProduct(ProductListPanel.this.filter).getFilteredProduct());
             }
         };
         add((wmc = new WebMarkupContainer("wmc")).setOutputMarkupId(true));

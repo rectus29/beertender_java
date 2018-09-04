@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Entity
 @Table(name = "bills")
-public class Order extends GenericEntity {
+public class Order extends GenericEntity<Order> {
 
 	@OneToMany(targetEntity = OrderItem.class, cascade = CascadeType.ALL, mappedBy = "referenceOrder")
 	private List<OrderItem> orderItemList = new ArrayList<>();
@@ -109,5 +109,10 @@ public class Order extends GenericEntity {
 
 	public void setState(State state) {
 		this.state = state;
+	}
+
+	@Override
+	public int compareTo(Order object) {
+		return defaultCompareTo(object);
 	}
 }

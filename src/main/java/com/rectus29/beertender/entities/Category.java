@@ -20,7 +20,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "category")
-public class Category extends GenericEntity{
+public class Category extends GenericEntity<Category>{
 
     private String name;
 
@@ -76,4 +76,9 @@ public class Category extends GenericEntity{
     public void setState(State state) {
         this.state = state;
     }
+
+	@Override
+	public int compareTo(Category object) {
+		return defaultCompareTo(object);
+	}
 }

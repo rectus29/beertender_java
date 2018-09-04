@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "config")
-public class Config extends GenericEntity{
+public class Config extends GenericEntity<Config>{
 
 	@Column(name = "ke", nullable = false, length = 65536)
 	private String key;
@@ -92,5 +92,10 @@ public class Config extends GenericEntity{
 		int result = key != null ? key.hashCode() : 0;
 		result = 31 * result + (value != null ? value.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public int compareTo(Config object) {
+		return defaultCompareTo(object);
 	}
 }

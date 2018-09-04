@@ -9,7 +9,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "news")
-public class News extends GenericEntity implements Comparable<News> {
+public class News extends GenericEntity<News> {
 
     @Column
     private String title;

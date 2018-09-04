@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "bills_item")
-public class OrderItem extends GenericEntity {
+public class OrderItem extends GenericEntity<OrderItem> {
 
 	@ManyToOne(targetEntity = Order.class)
 	private Order referenceOrder;
@@ -99,5 +99,10 @@ public class OrderItem extends GenericEntity {
 	@Override
 	public int hashCode() {
 		return Objects.hash(referenceOrder, product, productPrice);
+	}
+
+	@Override
+	public int compareTo(OrderItem object) {
+		return defaultCompareTo(object);
 	}
 }

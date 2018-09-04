@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="permission")
-public class Permission extends GenericEntity implements Comparable<Permission> {
+public class Permission extends GenericEntity<Permission> {
 
     @Column
     private String codeString;
@@ -52,7 +52,8 @@ public class Permission extends GenericEntity implements Comparable<Permission> 
         return result;
     }
 
-    public int compareTo(Permission o) {
-        return this.getId().compareTo(o.getId());
-    }
+	@Override
+	public int compareTo(Permission object) {
+		return defaultCompareTo(object);
+	}
 }

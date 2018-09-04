@@ -2,6 +2,8 @@ package com.rectus29.beertender.service;
 
 
 import com.rectus29.beertender.entities.Category;
+import com.rectus29.beertender.entities.Product;
+import com.rectus29.beertender.service.impl.ServiceCategory;
 
 import java.util.List;
 
@@ -16,4 +18,5 @@ public interface IserviceCategory extends GenericManager<Category, Long> {
 
     public List<Category> getRootCateg();
 
+	ServiceCategory.FilteredResult getFilteredProduct(List<Category> filter);
 }

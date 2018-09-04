@@ -25,7 +25,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "mailinglist")
-public class MailingList extends GenericEntity {
+public class MailingList extends GenericEntity<MailingList> {
 
     @Column
     private String name;
@@ -52,4 +52,9 @@ public class MailingList extends GenericEntity {
     public void setUsersList(List<User> usersList) {
         this.usersList = usersList;
     }
+
+	@Override
+	public int compareTo(MailingList object) {
+		return defaultCompareTo(object);
+	}
 }
