@@ -50,23 +50,26 @@ public class CartTimeFrameCheckTask extends Task {
 	private IserviceOrder serviceOrder;
 
 	@Override
-	@Scheduled(cron = "0 0 0 * * *")
+	//minute, hour, day of month, month, and day of week
+	//@Scheduled(cron = "0 * * * * *")
 	public void process() {
 		log.debug("start task");
 
 		//disable timeframe in past
 		for(Order order : serviceOrder.getAll(new State[]{State.ENABLE})){
 			if(order.getTimeFrame().getEndDate().before(new Date())){
+				log.debug("disable timeFrame #" + order.getId());
 				order.setState(State.DISABLE);
 			}
 		}
 		//enable the first found
 		for(Order order : serviceOrder.getAll(new State[]{State.PENDING})){
 			if(order.getTimeFrame().getStartDate().after(new Date())){
+				log.debug("enable timeFrame #" + order.getId());
 				order.setState(State.ENABLE);
 			}
 		}
-
 		log.debug("task done");
+
 	}
 }

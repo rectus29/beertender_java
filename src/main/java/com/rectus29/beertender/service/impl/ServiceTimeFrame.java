@@ -20,9 +20,9 @@ import java.util.List;
 public class ServiceTimeFrame extends GenericManagerImpl<TimeFrame, Long> implements IserviceTimeFrame {
 
 
-    public ServiceTimeFrame() {
-        super(TimeFrame.class);
-    }
+	public ServiceTimeFrame() {
+		super(TimeFrame.class);
+	}
 
 	@Override
 	public TimeFrame getCurrentTimeFrame() {
@@ -32,5 +32,15 @@ public class ServiceTimeFrame extends GenericManagerImpl<TimeFrame, Long> implem
 		if (result.size() == 0)
 			return null;
 		return result.get(0);
+	}
+
+	@Override
+	public List<TimeFrame> getAll(State[] stateArray) {
+		List<TimeFrame> out = (List<TimeFrame>) getHibernateTemplate().findByCriteria(getDetachedCriteria().add(
+				Restrictions.in("state", stateArray)
+				)
+		);
+		return out;
+
 	}
 }

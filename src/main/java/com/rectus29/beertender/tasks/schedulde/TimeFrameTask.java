@@ -42,20 +42,25 @@ public class TimeFrameTask extends Task {
 	@Override
 	@Scheduled(cron = "0 0 * * * *")
 	public void process() {
-		log.debug("start timeFrame task");
+		log.debug("start timeFrame Management task");
 
-		for(TimeFrame tf : serviceTimeFrame.getAll()){
-			if(tf.getStartDate().before(new Date()) && tf.getEndDate().after(new Date())){
-				tf.setState(State.ENABLE);
-				log.debug("enable timeFrame #" + tf.getId());
-			}
+		log.debug("start task");
+
+		//disable timeframe in past
+		for(TimeFrame tf : serviceTimeFrame.getAll(new State[]{State.ENABLE})){
 			if(tf.getEndDate().before(new Date())){
-				tf.setState(State.DISABLE);
 				log.debug("disable timeFrame #" + tf.getId());
+				tf.setState(State.DISABLE);
 			}
-			serviceTimeFrame.save(tf);
-
 		}
+		//enable the first found
+		for(TimeFrame tf : serviceTimeFrame.getAll(new State[]{State.PENDING})){
+			if(tf.getStartDate().before(new Date()) && tf.getEndDate().after(new Date())){
+				log.debug("enable timeFrame #" + tf.getId());
+				tf.setState(State.ENABLE);
+			}
+		}
+
 		log.debug("timeFrame task done");
 	}
 }
