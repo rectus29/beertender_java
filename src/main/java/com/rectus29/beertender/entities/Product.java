@@ -23,72 +23,75 @@ import java.util.List;
 @Table(name = "product")
 public class Product extends GenericEntity<Product> {
 
-    private String name;
+	@ManyToOne
+	private ProductDefinition productDefinition;
 
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String description;
+	@Column(precision = 12, scale = 3)
+	private BigDecimal price = BigDecimal.ZERO;
 
-    private String imagePath;
+	@ManyToOne
+	private Packaging packaging;
 
-    @ManyToMany(mappedBy = "productList")
-    private List<Category> categoryList = new ArrayList<>();
+	@ManyToMany(mappedBy = "productList")
+	private List<Category> categoryList = new ArrayList<>();
 
-    @Column(precision = 12, scale = 3)
-    private BigDecimal price = BigDecimal.ZERO;
 
-    @Column
-    private State state = State.ENABLE;
+	private State state = State.ENABLE;
 
-    public Product() {
-    }
+	public Product() {
+	}
 
-    public String getName() {
-        return name;
-    }
+	public ProductDefinition getProductDefinition() {
+		return productDefinition;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setProductDefinition(ProductDefinition productDefinition) {
+		this.productDefinition = productDefinition;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public String getImagePath() {
-        return imagePath;
-    }
+	public Packaging getPackaging() {
+		return packaging;
+	}
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
+	public void setPackaging(Packaging packaging) {
+		this.packaging = packaging;
+	}
 
-    public List<Category> getCategoryList() {
-        return categoryList;
-    }
+	public State getState() {
+		return state;
+	}
 
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
-    }
+	public void setState(State state) {
+		this.state = state;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public String getName(){
+		return this.getProductDefinition().getName();
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public String getDescription(){
+		return this.getProductDefinition().getDescription();
+	}
 
-    public State getState() {
-        return state;
-    }
+	public String getImagePath(){
+		return this.getProductDefinition().getImagePath();
+	}
 
-    public void setState(State state) {
-        this.state = state;
-    }
+	public List<Category> getCategoryList() {
+		return categoryList;
+	}
+
+	public void setCategoryList(List<Category> categoryList) {
+		this.categoryList = categoryList;
+	}
 
 	@Override
 	public int compareTo(Product object) {
