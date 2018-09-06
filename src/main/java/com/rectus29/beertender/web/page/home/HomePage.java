@@ -4,6 +4,9 @@ package com.rectus29.beertender.web.page.home;
 import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.service.impl.ServiceCategory;
+import com.rectus29.beertender.session.BeerTenderFilter;
+import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import com.rectus29.beertender.web.panel.productListPanel.ProductListPanel;
 import org.apache.commons.lang.StringUtils;
@@ -38,7 +41,10 @@ public class HomePage extends BeerTenderPage {
         super.onInitialize();
 
         List<Category> categoryList = new ArrayList<Category>();
-        StringValue pp = getPageParameters().get("categ");
+        StringValue packageParam = getPageParameters().get("package");
+        StringValue categParam = getPageParameters().get("categ");
+		BeerTenderSession.get().getBeerTenderFilter().setPackagingFilter(tata).addCategFilter(tete);
+
         if (StringUtils.isNotEmpty(pp.toString())) {
             Category category = serviceCateg.get(Long.parseLong(pp.toString()));
             categoryList.add(category);

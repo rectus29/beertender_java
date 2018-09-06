@@ -20,21 +20,31 @@ import org.apache.wicket.request.Request;
 
 public class BeerTenderSession extends WebSession {
 
-      public BeerTenderSession(Request request) {
-        super(request);
-        Injector.get().inject(this);
-    }
+	private BeerTenderFilter tenderFilter = new BeerTenderFilter();
 
-    public boolean logout() {
-        SecurityUtils.getSubject().logout();
-        return true;
-    }
 
-    public boolean isAuthenticated() {
-        return SecurityUtils.getSubject().isAuthenticated();
-    }
+	public BeerTenderSession(Request request) {
+		super(request);
+		Injector.get().inject(this);
+	}
 
-    public static BeerTenderSession get() {
-        return (BeerTenderSession) Session.get();
-    }
+	public static BeerTenderSession get() {
+		return (BeerTenderSession) Session.get();
+	}
+
+	public boolean logout() {
+		SecurityUtils.getSubject().logout();
+		return true;
+	}
+
+	public boolean isAuthenticated() {
+		return SecurityUtils.getSubject().isAuthenticated();
+	}
+
+	public BeerTenderFilter getBeerTenderFilter() {
+		if (this.tenderFilter == null) {
+			this.tenderFilter = new BeerTenderFilter();
+		}
+		return this.tenderFilter;
+	}
 }

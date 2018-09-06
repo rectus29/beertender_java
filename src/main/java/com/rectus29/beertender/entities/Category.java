@@ -24,6 +24,8 @@ public class Category extends GenericEntity<Category>{
 
     private String name;
 
+    private String shortName;
+
     @Column(columnDefinition = "MEDIUMTEXT")
     private String description;
 
@@ -76,6 +78,14 @@ public class Category extends GenericEntity<Category>{
     public void setState(State state) {
         this.state = state;
     }
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
 
 	@Override
 	public int compareTo(Category object) {

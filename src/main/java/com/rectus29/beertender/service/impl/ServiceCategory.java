@@ -5,6 +5,8 @@ import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceCategory;
+import com.rectus29.beertender.tools.StringUtils;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Created by Oliv'Generator
  * User: rectus_29
  * Date: 03 sept. 2012
  * Time: 05:32:27
@@ -54,6 +55,14 @@ public class ServiceCategory extends GenericManagerImpl<Category, Long> implemen
 		return out;
 	}
 
+	@Override
+	public Category save(Category object) {
+		//clean and set the short name
+		String cleanValue = StringUtils.stripAccents(object.getName());
+		cleanValue = StringUtils.deleteWhitespace(cleanValue);
+		object.setShortName(cleanValue);
+		return super.save(object);
+	}
 
 	public class FilteredResult {
 		Set<Product> filteredProduct = new TreeSet<>();

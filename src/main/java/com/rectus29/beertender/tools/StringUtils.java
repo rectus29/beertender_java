@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * Time: 17:04:01
  * To change this template use File | Settings | File Templates.
  */
-public class StringUtils extends org.apache.commons.lang.StringUtils {
+public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
 
     private static final Logger log = LogManager.getLogger(StringUtils.class);
