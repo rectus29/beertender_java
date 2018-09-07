@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 04 sep. 2018 à 16:13
+-- Généré le :  ven. 07 sep. 2018 à 15:49
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -44,15 +44,6 @@ CREATE TABLE IF NOT EXISTS `bills` (
   KEY `FKfsjrhpequ3jr9hrih3w9nf2oo` (`timeframe_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `bills`
---
-
-INSERT INTO `bills` (`id`, `created`, `updated`, `paymentRequest`, `paymentResponse`, `paymentToken`, `state`, `user_id`, `timeframe_id`) VALUES
-(1, '2018-07-24 15:46:43', '2018-07-24 15:46:45', NULL, NULL, NULL, 1, 1, 1),
-(2, '2018-08-28 13:32:25', '2018-08-28 13:32:25', NULL, NULL, NULL, 2, 2, 2),
-(3, '2018-08-29 12:22:16', '2018-08-29 12:22:16', NULL, NULL, NULL, 2, 1, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -73,20 +64,6 @@ CREATE TABLE IF NOT EXISTS `bills_item` (
   KEY `FKguocg4eg48f2v5e54wlc203eh` (`referenceOrder_id`),
   KEY `FK6a60fxr5ii4002ppmwq2g35dj` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `bills_item`
---
-
-INSERT INTO `bills_item` (`id`, `created`, `updated`, `productPrice`, `productTax`, `quantity`, `product_id`, `referenceOrder_id`) VALUES
-(1, '2018-07-25 13:56:28', '2018-07-25 13:56:28', '30.000', NULL, 2, 1, 1),
-(2, '2018-08-10 14:57:32', '2018-08-10 14:57:32', '9999.000', NULL, 1, 5, 1),
-(3, '2018-08-10 14:57:46', '2018-08-10 14:57:46', '46.990', NULL, 1, 4, 1),
-(4, '2018-08-28 13:32:25', '2018-08-28 13:32:25', '30.000', NULL, 1, 1, 2),
-(5, '2018-08-29 12:22:16', '2018-08-29 12:22:16', '30.000', NULL, 10, 1, 3),
-(6, '2018-08-29 12:23:44', '2018-08-29 12:23:44', '46.990', NULL, 1, 4, 3),
-(7, '2018-08-29 12:26:02', '2018-08-29 12:26:02', '35.780', NULL, 12, 3, 3),
-(8, '2018-08-29 13:26:42', '2018-08-29 13:26:42', '9999.000', NULL, 12, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -244,6 +221,34 @@ CREATE TABLE IF NOT EXISTS `news` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `packaging`
+--
+
+DROP TABLE IF EXISTS `packaging`;
+CREATE TABLE IF NOT EXISTS `packaging` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `packaging`
+--
+
+INSERT INTO `packaging` (`id`, `created`, `updated`, `name`, `state`) VALUES
+(1, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 12x75cl', 1),
+(2, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 24x33cl', 1),
+(3, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Coffret cadeaux', 1),
+(4, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Limonades Artisanales - conditionnement 6x75cl', 1),
+(5, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Mini-Fût', 1),
+(6, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Verres', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `permission`
 --
 
@@ -255,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `codeString` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `permission`
@@ -265,7 +270,9 @@ INSERT INTO `permission` (`id`, `created`, `updated`, `codeString`, `description
 (1, '2018-07-06 09:08:34', '2018-07-06 09:08:36', 'admin:access', 'admin:access'),
 (2, '2018-08-28 11:29:35', '2018-08-28 11:29:32', 'system:user:edit', 'system:user:edit'),
 (3, '2018-08-28 11:30:34', '2018-08-28 11:30:32', 'system:user:delete', 'system:user:delete'),
-(4, '2018-08-28 11:30:49', '2018-08-28 11:30:49', 'system:user:runas', 'system:user:runas');
+(4, '2018-08-28 11:30:49', '2018-08-28 11:30:49', 'system:user:runas', 'system:user:runas'),
+(5, '2018-09-06 00:00:00', '2018-09-06 00:00:00', 'system:product:edit', 'system:product:edit'),
+(6, '2018-09-06 00:00:00', '2018-09-06 00:00:00', 'system:product:delete', 'system:product:delete');
 
 -- --------------------------------------------------------
 
@@ -278,24 +285,42 @@ CREATE TABLE IF NOT EXISTS `product` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
+  `price` decimal(12,3) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
+  `packaging_id` bigint(20) DEFAULT NULL,
+  `productDefinition_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKbbuq7eyl3p15b039dh1r8cswq` (`packaging_id`),
+  KEY `FK7xlsyofr56yy5reb7t26ibwtq` (`productDefinition_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `productdefinition`
+--
+
+DROP TABLE IF EXISTS `productdefinition`;
+CREATE TABLE IF NOT EXISTS `productdefinition` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
   `description` mediumtext,
   `imagePath` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `price` decimal(12,3) DEFAULT NULL,
-  `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `product`
+-- Déchargement des données de la table `productdefinition`
 --
 
-INSERT INTO `product` (`id`, `created`, `updated`, `description`, `imagePath`, `name`, `price`, `state`) VALUES
-(1, '2018-06-20 12:55:40', '2018-06-20 12:55:42', 'Triple Ambree', NULL, 'triple Ambree', '30.000', 1),
-(2, '2018-06-28 09:08:08', '2018-06-28 09:08:12', 'Biere Blonde de luxe', NULL, 'Biere Blonde de luxe', '32.620', 1),
-(3, '2018-06-28 09:08:13', '2018-06-28 09:08:13', 'Blanche qui va bien', NULL, 'Blanche qui va bien', '35.780', 1),
-(4, '2018-06-28 09:08:14', '2018-06-28 09:08:15', 'Choulette de noël', NULL, 'Choulette de noël', '46.990', 1),
-(5, '2018-06-28 18:46:18', '2018-06-28 18:46:54', 'Une bière blonde artisanale créée pour commémorer cette bataille et rendre hommage à l’armée britannique.\r\n\r\nBière artisanale fabriquée en France. Contient du malt d’orge. A conserver dans un endroit frais et sec, à l’abri de la lumière.\r\n\r\nL’abus d’alcool est dangereux pour la santé, à consommer avec modération.\r\n\r\nLa consommation de boissons alcoolisées pendant la grossesse, même en faible quantité, peut avoir des conséquences graves sur la santé de l’enfant.', 'img/products/Battle-of-Cambrai-blonde-75cl-500x1000.jpg', 'LA BATTLE OF CAMBRAI 75CL 6% VOL.', '9999.000', 1);
+INSERT INTO `productdefinition` (`id`, `created`, `updated`, `description`, `imagePath`, `name`) VALUES
+(1, '2018-06-20 12:55:40', '2018-06-20 12:55:42', 'Triple Ambree', NULL, 'triple Ambree'),
+(2, '2018-06-28 09:08:08', '2018-06-28 09:08:12', 'Biere Blonde de luxe', NULL, 'Biere Blonde de luxe'),
+(3, '2018-06-28 09:08:13', '2018-06-28 09:08:13', 'Blanche qui va bien', NULL, 'Blanche qui va bien'),
+(4, '2018-06-28 09:08:14', '2018-06-28 09:08:15', 'Choulette de noël', NULL, 'Choulette de noël'),
+(5, '2018-06-28 18:46:18', '2018-06-28 18:46:54', 'Une bière blonde artisanale créée pour commémorer cette bataille et rendre hommage à l’armée britannique.\r\n\r\nBière artisanale fabriquée en France. Contient du malt d’orge. A conserver dans un endroit frais et sec, à l’abri de la lumière.\r\n\r\nL’abus d’alcool est dangereux pour la santé, à consommer avec modération.\r\n\r\nLa consommation de boissons alcoolisées pendant la grossesse, même en faible quantité, peut avoir des conséquences graves sur la santé de l’enfant.', 'img/products/Battle-of-Cambrai-blonde-75cl-500x1000.jpg', 'LA BATTLE OF CAMBRAI 75CL 6% VOL.');
 
 -- --------------------------------------------------------
 
@@ -424,14 +449,14 @@ ALTER TABLE `bills`
 -- Contraintes pour la table `bills_item`
 --
 ALTER TABLE `bills_item`
-  ADD CONSTRAINT `FK6a60fxr5ii4002ppmwq2g35dj` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `FK6a60fxr5ii4002ppmwq2g35dj` FOREIGN KEY (`product_id`) REFERENCES `productdefinition` (`id`),
   ADD CONSTRAINT `FKguocg4eg48f2v5e54wlc203eh` FOREIGN KEY (`referenceOrder_id`) REFERENCES `bills` (`id`);
 
 --
 -- Contraintes pour la table `category_product`
 --
 ALTER TABLE `category_product`
-  ADD CONSTRAINT `FK9yrj0lls46mey164t8xoi5x0` FOREIGN KEY (`productList_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `FK9yrj0lls46mey164t8xoi5x0` FOREIGN KEY (`productList_id`) REFERENCES `productdefinition` (`id`),
   ADD CONSTRAINT `FKp0srnvhghoqddkdrwj9nlqx97` FOREIGN KEY (`categoryList_id`) REFERENCES `category` (`id`);
 
 --
@@ -452,6 +477,13 @@ ALTER TABLE `mailinglist_users`
 --
 ALTER TABLE `news`
   ADD CONSTRAINT `FKi09n75txtudw1kawj5o7i8xag` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Contraintes pour la table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `FK7xlsyofr56yy5reb7t26ibwtq` FOREIGN KEY (`productDefinition_id`) REFERENCES `productdefinition` (`id`),
+  ADD CONSTRAINT `FKbbuq7eyl3p15b039dh1r8cswq` FOREIGN KEY (`packaging_id`) REFERENCES `packaging` (`id`);
 
 --
 -- Contraintes pour la table `role_permission`
