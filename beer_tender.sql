@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 07 sep. 2018 à 15:49
+-- Généré le :  lun. 10 sep. 2018 à 15:59
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `name` varchar(255) DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
   `isRoot` bit(1) DEFAULT NULL,
+  `shortName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -87,13 +88,13 @@ CREATE TABLE IF NOT EXISTS `category` (
 -- Déchargement des données de la table `category`
 --
 
-INSERT INTO `category` (`id`, `created`, `updated`, `description`, `name`, `state`, `isRoot`) VALUES
-(1, '2018-06-18 15:39:16', '2018-06-18 15:39:16', 'Bouteille 12x75cl', 'Bouteille 12x75cl', 1, b'1'),
-(2, '2018-06-18 15:39:16', '2018-06-18 15:39:16', 'Bouteille 24x33cl', 'Bouteille 24x33cl', 1, b'1'),
-(3, '2018-06-19 12:47:07', '2018-06-19 12:47:10', 'Mini-Fût', 'Mini-Fût', 1, b'1'),
-(4, '2018-06-19 12:47:43', '2018-06-19 12:47:45', 'Coffret cadeaux', 'Coffret cadeaux', 1, b'1'),
-(5, '2018-06-28 09:11:07', '2018-06-28 09:11:09', 'Limonades Artisanales - conditionnement 6x75cl', 'Limonades Artisanales - conditionnement 6x75cl', 1, b'1'),
-(6, '2018-06-28 09:11:54', '2018-06-28 09:11:55', 'Verres', 'Verres', 1, b'1');
+INSERT INTO `category` (`id`, `created`, `updated`, `description`, `name`, `state`, `isRoot`, `shortName`) VALUES
+(1, '2018-06-18 15:39:16', '2018-06-18 15:39:16', 'Blonde', 'Blonde', 1, b'1', 'blonde'),
+(2, '2018-06-18 15:39:16', '2018-06-18 15:39:16', 'Blanche', 'Blanche', 1, b'1', 'blanche'),
+(3, '2018-06-19 12:47:07', '2018-06-19 12:47:10', 'Ambree', 'Ambree', 1, b'1', 'ambree'),
+(4, '2018-06-19 12:47:43', '2018-06-19 12:47:45', 'Biere de garde', 'Biere de garde', 1, b'1', 'garde'),
+(5, '2018-06-28 09:11:07', '2018-06-28 09:11:09', 'Limonades Artisanales', 'Limonades Artisanales', 1, b'1', 'limo'),
+(6, '2018-06-28 09:11:54', '2018-06-28 09:11:55', 'Verres', 'Verres', 1, b'1', 'verres');
 
 -- --------------------------------------------------------
 
@@ -231,6 +232,7 @@ CREATE TABLE IF NOT EXISTS `packaging` (
   `updated` datetime DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
+  `shortName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -238,13 +240,13 @@ CREATE TABLE IF NOT EXISTS `packaging` (
 -- Déchargement des données de la table `packaging`
 --
 
-INSERT INTO `packaging` (`id`, `created`, `updated`, `name`, `state`) VALUES
-(1, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 12x75cl', 1),
-(2, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 24x33cl', 1),
-(3, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Coffret cadeaux', 1),
-(4, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Limonades Artisanales - conditionnement 6x75cl', 1),
-(5, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Mini-Fût', 1),
-(6, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Verres', 1);
+INSERT INTO `packaging` (`id`, `created`, `updated`, `name`, `state`, `shortName`) VALUES
+(1, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 12x75cl', 1, '75cl'),
+(2, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 24x33cl', 1, '33cl'),
+(3, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Coffret cadeaux', 1, 'cadeaux'),
+(4, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Limonades Artisanales - conditionnement 6x75cl', 1, 'limo'),
+(5, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Mini-Fût', 1, 'fut'),
+(6, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Verres', 1, 'verres');
 
 -- --------------------------------------------------------
 
@@ -292,7 +294,14 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`id`),
   KEY `FKbbuq7eyl3p15b039dh1r8cswq` (`packaging_id`),
   KEY `FK7xlsyofr56yy5reb7t26ibwtq` (`productDefinition_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `product`
+--
+
+INSERT INTO `product` (`id`, `created`, `updated`, `price`, `state`, `packaging_id`, `productDefinition_id`) VALUES
+(1, '2018-09-10 11:30:48', '2018-09-10 11:30:50', '32.990', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -308,6 +317,7 @@ CREATE TABLE IF NOT EXISTS `productdefinition` (
   `description` mediumtext,
   `imagePath` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
@@ -315,12 +325,12 @@ CREATE TABLE IF NOT EXISTS `productdefinition` (
 -- Déchargement des données de la table `productdefinition`
 --
 
-INSERT INTO `productdefinition` (`id`, `created`, `updated`, `description`, `imagePath`, `name`) VALUES
-(1, '2018-06-20 12:55:40', '2018-06-20 12:55:42', 'Triple Ambree', NULL, 'triple Ambree'),
-(2, '2018-06-28 09:08:08', '2018-06-28 09:08:12', 'Biere Blonde de luxe', NULL, 'Biere Blonde de luxe'),
-(3, '2018-06-28 09:08:13', '2018-06-28 09:08:13', 'Blanche qui va bien', NULL, 'Blanche qui va bien'),
-(4, '2018-06-28 09:08:14', '2018-06-28 09:08:15', 'Choulette de noël', NULL, 'Choulette de noël'),
-(5, '2018-06-28 18:46:18', '2018-06-28 18:46:54', 'Une bière blonde artisanale créée pour commémorer cette bataille et rendre hommage à l’armée britannique.\r\n\r\nBière artisanale fabriquée en France. Contient du malt d’orge. A conserver dans un endroit frais et sec, à l’abri de la lumière.\r\n\r\nL’abus d’alcool est dangereux pour la santé, à consommer avec modération.\r\n\r\nLa consommation de boissons alcoolisées pendant la grossesse, même en faible quantité, peut avoir des conséquences graves sur la santé de l’enfant.', 'img/products/Battle-of-Cambrai-blonde-75cl-500x1000.jpg', 'LA BATTLE OF CAMBRAI 75CL 6% VOL.');
+INSERT INTO `productdefinition` (`id`, `created`, `updated`, `description`, `imagePath`, `name`, `state`) VALUES
+(1, '2018-06-20 12:55:40', '2018-06-20 12:55:42', 'Triple Ambree', NULL, 'triple Ambree', 1),
+(2, '2018-06-28 09:08:08', '2018-06-28 09:08:12', 'Biere Blonde de luxe', NULL, 'Biere Blonde de luxe', 1),
+(3, '2018-06-28 09:08:13', '2018-06-28 09:08:13', 'Blanche qui va bien', NULL, 'Blanche qui va bien', 1),
+(4, '2018-06-28 09:08:14', '2018-06-28 09:08:15', 'Choulette de noël', NULL, 'Choulette de noël', 1),
+(5, '2018-06-28 18:46:18', '2018-06-28 18:46:54', 'Une bière blonde artisanale créée pour commémorer cette bataille et rendre hommage à l’armée britannique.\r\n\r\nBière artisanale fabriquée en France. Contient du malt d’orge. A conserver dans un endroit frais et sec, à l’abri de la lumière.\r\n\r\nL’abus d’alcool est dangereux pour la santé, à consommer avec modération.\r\n\r\nLa consommation de boissons alcoolisées pendant la grossesse, même en faible quantité, peut avoir des conséquences graves sur la santé de l’enfant.', 'img/products/Battle-of-Cambrai-blonde-75cl-500x1000.jpg', 'LA BATTLE OF CAMBRAI 75CL 6% VOL.', 1);
 
 -- --------------------------------------------------------
 
@@ -431,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `created`, `updated`, `email`, `lastLogin`, `password`, `restoreSession`, `restoreSessionDate`, `salt`, `state`, `userAuthentificationType`, `role_id`, `uuid`, `firstName`, `lastName`) VALUES
-(1, '2015-08-24 00:00:00', '2018-07-13 07:37:20', 'rectus29@gmail.com', '2018-09-04 15:20:00', '2pTblAzn+o+S0sFR46qTR4KVKgVZx7T/lPATHhDTU8c=', NULL, NULL, 'XU5Pp4Lz+mSiUkciqOUXD3XocslsvE/iK0eOze2A0C77WE9idlq9emqQOuO7y2T+arRT84Hku5cpFwGRAqgJy8aCTndMAtzR6QshNyfI61lHu5ec0Msj8121nTt91CYvltCWf3OCid3/8AQg+fNh89QXbSjeZvwRKhLWlb41A3A=', 1, 'EMBED', 1, 'yolo', 'ALexandre', 'Bernard'),
+(1, '2015-08-24 00:00:00', '2018-07-13 07:37:20', 'rectus29@gmail.com', '2018-09-10 14:01:29', '2pTblAzn+o+S0sFR46qTR4KVKgVZx7T/lPATHhDTU8c=', NULL, NULL, 'XU5Pp4Lz+mSiUkciqOUXD3XocslsvE/iK0eOze2A0C77WE9idlq9emqQOuO7y2T+arRT84Hku5cpFwGRAqgJy8aCTndMAtzR6QshNyfI61lHu5ec0Msj8121nTt91CYvltCWf3OCid3/8AQg+fNh89QXbSjeZvwRKhLWlb41A3A=', 1, 'EMBED', 1, 'yolo', 'ALexandre', 'Bernard'),
 (2, '2018-08-10 14:40:05', '2018-08-10 14:40:05', 'test@yolo.com', NULL, 'UvcQHRaqQAVXnvJ+OrF3UNGgG8uEmxK3RT0s3lYsOIw=', NULL, NULL, 'NpJdQwuK4L/ghzIHo3pS+g==', 1, 'EMBED', 2, '97e8afab-0c75-460d-8629-f0a8f6cc168a', 'test', 'test');
 
 --
