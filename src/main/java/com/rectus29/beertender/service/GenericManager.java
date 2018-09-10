@@ -12,6 +12,7 @@ package com.rectus29.beertender.service;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
+import com.rectus29.beertender.entities.Packaging;
 import com.rectus29.beertender.enums.SortOrder;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -116,5 +117,7 @@ public interface GenericManager<T, PK extends Serializable> {
     public List<T> findByNamedQuery(String queryName, Map<String, Object> queryParams, int start, int nb);
 
     int truncate();
+
+	public List<T> getAllIn(String propertyBame, List<Object> objectList);
 }
 

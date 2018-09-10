@@ -75,6 +75,7 @@ public class BeerTenderApplication extends WebApplication {
 		mountPage("profile/#{panel}", ProfilePage.class);
 		mountPage("mail/#{panel}", MailBoxPage.class);
 		mountPage("product/#{productId}", ProductPage.class);
+		mountPage("home/#{package}/#{categ}", getHomePage());
 
 		mountPage("unauthorized", UnauthorizedPage.class);
 		mountPage("restorepassword/${uid}", RestorePasswordPage.class);

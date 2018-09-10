@@ -435,5 +435,12 @@ public abstract class GenericManagerImpl<T, PK extends Serializable> implements 
         return rowAffected;
     }
 
+	@Override
+	public List<T> getAllIn(String propertyBame, List<Object> objectList) {
+		DetachedCriteria crit = DetachedCriteria.forClass(getEntityClass());
+		crit.add(Restrictions.in(propertyBame, objectList));
+		return (List<T>)getHibernateTemplate().findByCriteria(crit);
+	}
+
 }
 

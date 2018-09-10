@@ -1,33 +1,33 @@
-package com.rectus29.beertender.web.page.admin.product.panels.edit;
+package com.rectus29.beertender.web.page.admin.productDefinition.edit;
 
-import com.rectus29.beertender.entities.Packaging;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.entities.ProductDefinition;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.service.IserviceProductDefinition;
-import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;
-import com.rectus29.beertender.web.page.admin.users.panels.edit.UserEditPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
-import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-public abstract class ProductAdminEditPanel extends Panel {
+public abstract class ProductDefifnitionAdminEditPanel extends Panel {
 
-	private static final Logger log = LogManager.getLogger(ProductAdminEditPanel.class);
+	private static final Logger log = LogManager.getLogger(ProductDefifnitionAdminEditPanel.class);
 
 	@SpringBean(name = "serviceProductDefinition")
 	private IserviceProductDefinition serviceProductDefinition;
@@ -36,16 +36,18 @@ public abstract class ProductAdminEditPanel extends Panel {
 	@SpringBean(name = "serviceProduct")
 	private IserviceProduct serviceProduct;
 
-	private IModel<Product> productIModel;
+	private IModel<ProductDefinition> productIModel;
 	private Form form;
 	private BootStrapFeedbackPanel feed;
 
-	public ProductAdminEditPanel(String id) {
+	public ProductDefifnitionAdminEditPanel(String id) {
 		super(id);
+		this.productIModel = new Model<ProductDefinition>(new ProductDefinition());
 	}
 
-	public ProductAdminEditPanel(String id, IModel<Product> model) {
+	public ProductDefifnitionAdminEditPanel(String id, IModel<ProductDefinition> model) {
 		super(id, model);
+		this.productIModel = model;
 	}
 
 	@Override
@@ -78,10 +80,10 @@ public abstract class ProductAdminEditPanel extends Panel {
 				add(new AjaxSubmitLink("submit") {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target, Form form) {
-						productIModel.setObject(serviceProduct.save(productIModel.getObject()));
-						success(new ResourceModel("success").getObject());
-						target.add(form);
-						ProductAdminEditPanel.this.onSubmit(target, productIModel);
+//						productIModel.setObject(serviceProduct.save(productIModel.getObject()));
+//						success(new ResourceModel("success").getObject());
+//						target.add(form);
+//						ProductDefifnitionAdminEditPanel.this.onSubmit(target, productIModel);
 					}
 
 					@Override

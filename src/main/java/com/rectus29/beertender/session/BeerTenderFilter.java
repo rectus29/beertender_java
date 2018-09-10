@@ -2,6 +2,8 @@ package com.rectus29.beertender.session;
 
 import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Packaging;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,31 +15,40 @@ import java.util.Set;
 /*-----------------------------------------------------*/
 public class BeerTenderFilter {
 
-	private Packaging packagingFilter;
-	private Set<Category> categoryFilterList = new HashSet<>();
+	private IModel<Packaging> packagingFilterModel;
+	private Set<IModel<Category>> categoryFilterModelList = new HashSet<>();
 
 	public BeerTenderFilter() {
 	}
 
-	public Packaging getPackagingFilter() {
-		return packagingFilter;
+	public IModel<Packaging> getPackagingFilter() {
+		return packagingFilterModel;
 	}
 
-	public BeerTenderFilter setPackagingFilter(Packaging packagingFilter) {
-		this.packagingFilter = packagingFilter;
+
+
+	public BeerTenderFilter setPackagingFilter(IModel<Packaging> packagingFilter) {
+		this.packagingFilterModel = packagingFilter;
 		return this;
 	}
 
-	public Set<Category> getCategoryFilterList() {
-		return categoryFilterList;
+	public Set<IModel<Category>> getCategoryFilterList() {
+		return categoryFilterModelList;
 	}
 
-	public void setCategoryFilterList(Set<Category> categoryFilterList) {
-		this.categoryFilterList = categoryFilterList;
+	public void setCategoryFilterModelList(Set<IModel<Category>> categoryFilterList) {
+		this.categoryFilterModelList = categoryFilterList;
 	}
 
-	public BeerTenderFilter addCategoryFilterList(Category categoryFilter) {
-		this.categoryFilterList.add(categoryFilter);
+	public BeerTenderFilter addCategoryFilterModel(IModel<Category> categoryFilterModel) {
+		this.categoryFilterModelList.add(categoryFilterModel);
+		return this;
+	}
+
+
+
+	public BeerTenderFilter setPackagingFilterModel(IModel<Packaging> packagingFilterModel) {
+		this.packagingFilterModel = packagingFilterModel;
 		return this;
 	}
 }
