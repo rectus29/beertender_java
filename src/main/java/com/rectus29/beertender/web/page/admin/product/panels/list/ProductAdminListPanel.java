@@ -95,6 +95,7 @@ public class ProductAdminListPanel extends Panel {
 				item.add(new AjaxLink("edit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
+						modal.setSize(WicketModal.ModalFormat.LARGE);
 						modal.setTitle(new ResourceModel("UserEditPanel.editUser").getObject());
 						modal.setContent(new ProductAdminEditPanel(modal.getContentId(), item.getModel()){
 							@Override
