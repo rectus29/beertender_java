@@ -1,4 +1,4 @@
-package com.rectus29.beertender.web.component.BootStrapFeedbackPanel;
+package com.rectus29.beertender.web.component.bootstrapfeedbackpanel;
 
 
 /*-----------------------------------------------------*/
@@ -12,13 +12,13 @@ import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
-public class BootStrapFeedbackPanel extends FeedbackPanel{
+public class BootstrapFeedbackPanel extends FeedbackPanel{
 
-    public BootStrapFeedbackPanel(String id) {
+    public BootstrapFeedbackPanel(String id) {
         super(id);
     }
 
-    public BootStrapFeedbackPanel(String id, IFeedbackMessageFilter filter) {
+    public BootstrapFeedbackPanel(String id, IFeedbackMessageFilter filter) {
         super(id, filter);
     }
 

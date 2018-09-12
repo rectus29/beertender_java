@@ -1,15 +1,11 @@
 package com.rectus29.beertender.web.page.admin.product.panels.edit;
 
-import com.rectus29.beertender.entities.Packaging;
 import com.rectus29.beertender.entities.Product;
-import com.rectus29.beertender.entities.ProductDefinition;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.service.IserviceProductDefinition;
-import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;
-import com.rectus29.beertender.web.page.admin.users.panels.edit.UserEditPanel;
+import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -39,7 +35,7 @@ public abstract class ProductAdminEditPanel extends Panel {
 
 	private IModel<Product> productIModel;
 	private Form form;
-	private BootStrapFeedbackPanel feed;
+	private BootstrapFeedbackPanel feed;
 
 	public ProductAdminEditPanel(String id) {
 		super(id);
@@ -99,7 +95,7 @@ public abstract class ProductAdminEditPanel extends Panel {
 						onCancel(target);
 					}
 				});
-				add((feed = new BootStrapFeedbackPanel("feed")).setOutputMarkupId(true));
+				add((feed = new BootstrapFeedbackPanel("feed")).setOutputMarkupId(true));
 			}
 		}).setOutputMarkupId(true));
 

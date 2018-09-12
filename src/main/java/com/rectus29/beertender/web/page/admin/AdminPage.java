@@ -6,17 +6,15 @@ package com.rectus29.beertender.web.page.admin;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.web.component.BootstrapTabbedPAnel.BootstrapAjaxTabbedPanel;
+import com.rectus29.beertender.web.component.bookmarkabletabbedpanel.BookmarkableNamedTab;
+import com.rectus29.beertender.web.component.bookmarkabletabbedpanel.BookmarkableTabbedPanel;
 import com.rectus29.beertender.web.page.admin.order.OrderSummaryPanel;
 import com.rectus29.beertender.web.page.admin.product.ProductAdminPanel;
 import com.rectus29.beertender.web.page.admin.server.ServerAdminPanel;
 import com.rectus29.beertender.web.page.admin.timeframe.TimeFrameAdminPanel;
 import com.rectus29.beertender.web.page.admin.users.UserAdminPanel;
 import com.rectus29.beertender.web.page.base.BeerTenderBasePage;
-import org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel;
-import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 import org.wicketstuff.shiro.ShiroConstraint;
@@ -26,59 +24,80 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ShiroSecurityConstraint(
-        constraint = ShiroConstraint.HasPermission, value = "admin:access"
+		constraint = ShiroConstraint.HasPermission, value = "admin:access"
 )
 public class AdminPage extends BeerTenderBasePage {
 
-    public static String SERVER = "server";
-    public static String USER = "user";
-    public static String PANEL = "panel";
-    private AjaxTabbedPanel atp;
+	public AdminPage() {
+	}
 
-    public AdminPage() {
-    }
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
+		List<BookmarkableNamedTab> panelList = new ArrayList<>();
+		panelList.add(new BookmarkableNamedTab(new Model<String>("Commandes")) {
+			@Override
+			public WebMarkupContainer getPanel(String panelId) {
+				return new OrderSummaryPanel(panelId);
+			}
 
-        List<AbstractTab> panelList = new ArrayList<>();
-        panelList.add(new AbstractTab(new Model<String>("Commandes")) {
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new OrderSummaryPanel(panelId);
-            }
-        });
-		panelList.add(new AbstractTab(new Model<String>("Produits")) {
+			@Override
+			public String getName() {
+				return "commande";
+			}
+		});
+		panelList.add(new BookmarkableNamedTab(new Model<String>("Produits")) {
 			@Override
 			public WebMarkupContainer getPanel(String panelId) {
 				return new ProductAdminPanel(panelId);
 			}
+
+			@Override
+			public String getName() {
+				return "product";
+			}
 		});
-		panelList.add(new AbstractTab(new Model<String>("Time Frame")) {
+		panelList.add(new BookmarkableNamedTab(new Model<String>("Time Frame")) {
 			@Override
 			public WebMarkupContainer getPanel(String panelId) {
 				return new TimeFrameAdminPanel(panelId);
 			}
+
+			@Override
+			public String getName() {
+				return "timeframe";
+			}
 		});
-		panelList.add(new AbstractTab(new Model<String>("Utilisateur")) {
-            @Override
-            public WebMarkupContainer getPanel(String panelId) {
-                return new UserAdminPanel(panelId);
-            }
-        });
-		panelList.add(new AbstractTab(new Model<String>("Serveur")) {
+		panelList.add(new BookmarkableNamedTab(new Model<String>("Utilisateur")) {
+			@Override
+			public WebMarkupContainer getPanel(String panelId) {
+				return new UserAdminPanel(panelId);
+			}
+
+			@Override
+			public String getName() {
+				return "users";
+			}
+		});
+		panelList.add(new BookmarkableNamedTab(new Model<String>("Serveur")) {
 			@Override
 			public WebMarkupContainer getPanel(String panelId) {
 				return new ServerAdminPanel(panelId);
 			}
-		});
-		add(atp = new BootstrapAjaxTabbedPanel("tabPanel", panelList));
-    }
 
-    @Override
-    public String getTitleContribution() {
-        return new ResourceModel("administration").getObject();
-    }
+			@Override
+			public String getName() {
+				return "server";
+			}
+
+		});
+		add(new BookmarkableTabbedPanel<>("tabPanel", panelList, getPageParameters()));
+	}
+
+	@Override
+	public String getTitleContribution() {
+		return new ResourceModel("administration").getObject();
+	}
 
 }

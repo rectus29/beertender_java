@@ -6,6 +6,7 @@
     <groupId>com.rectus29.app</groupId>
     <artifactId>beertender</artifactId>
     <version>0.1-ALPHA</version>
+	<packaging>war</packaging>
 
     <description>An application to manage beer order</description>
 

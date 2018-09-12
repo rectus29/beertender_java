@@ -2,7 +2,7 @@ package com.rectus29.beertender.web.security.restorepassword;
 
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;
+import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.component.Validator.PasswordPolicyValidator;
 import com.rectus29.beertender.web.page.base.BasePage;
 import org.apache.commons.lang.time.DateUtils;
@@ -56,7 +56,7 @@ public class RestorePasswordPage extends BasePage {
 
         form.add(new EqualPasswordInputValidator(mdp1, mdp2));
 
-        final FeedbackPanel feed = new BootStrapFeedbackPanel("feedback");
+        final FeedbackPanel feed = new BootstrapFeedbackPanel("feedback");
         feed.setOutputMarkupId(true);
         add(feed);
 

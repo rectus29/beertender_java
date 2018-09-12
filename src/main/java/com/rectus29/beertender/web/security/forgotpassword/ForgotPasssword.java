@@ -2,7 +2,7 @@ package com.rectus29.beertender.web.security.forgotpassword;
 
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;
+import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.page.base.BasePage;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -42,7 +42,7 @@ public class ForgotPasssword extends BasePage {
         final TextField id = new TextField("identifier", new PropertyModel(this, "identity"));
         form.add(id);
 
-        final FeedbackPanel feed = new BootStrapFeedbackPanel("feedback");
+        final FeedbackPanel feed = new BootstrapFeedbackPanel("feedback");
         feed.setOutputMarkupId(true);
         add(feed);
 

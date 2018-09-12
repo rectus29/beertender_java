@@ -4,7 +4,7 @@ import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceSession;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;
+import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.page.base.BasePage;
 import com.rectus29.beertender.web.security.maintenancepage.MaintenancePage;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
@@ -56,7 +56,7 @@ public class SigninPage extends BasePage {
 		form.add(new EmailTextField("username", new PropertyModel<String>(this, "username")));
 		form.add(new PasswordTextField("password", new PropertyModel<String>(this, "password")));
 		form.add(new CheckBox("rememberMe", new PropertyModel<Boolean>(this, "rememberMe")));
-		form.add((feed = new BootStrapFeedbackPanel("feedback")).setOutputMarkupId(true));
+		form.add((feed = new BootstrapFeedbackPanel("feedback")).setOutputMarkupId(true));
 
 	}
 

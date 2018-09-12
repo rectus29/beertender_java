@@ -12,7 +12,7 @@ package com.rectus29.beertender.web.page.admin.server;
 import com.rectus29.beertender.entities.Config;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;
+import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.page.admin.server.panels.SchedulerPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -112,7 +112,7 @@ public class ServerAdminPanel extends Panel {
         server_url = serverUrlConfig.getValue();
         add(new Form("serverUrlForm")
                 .add(new TextField<String>("serverUrl", new PropertyModel<String>(this, "server_url")))
-                .add(new BootStrapFeedbackPanel("serverUrlfeed"))
+                .add(new BootstrapFeedbackPanel("serverUrlfeed"))
                 .add(new AjaxSubmitLink("serverUrlSubmit") {
                     @Override
                     protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

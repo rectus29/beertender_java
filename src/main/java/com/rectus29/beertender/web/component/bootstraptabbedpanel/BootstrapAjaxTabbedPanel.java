@@ -1,4 +1,4 @@
-package com.rectus29.beertender.web.component.BootstrapTabbedPAnel;
+package com.rectus29.beertender.web.component.bootstraptabbedpanel;
 
 
 /*-----------------------------------------------------*/

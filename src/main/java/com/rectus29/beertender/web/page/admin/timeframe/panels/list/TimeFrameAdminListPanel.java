@@ -99,24 +99,24 @@ public class TimeFrameAdminListPanel extends Panel {
 					public void onClick(AjaxRequestTarget target) {
 						modal.setTitle(new ResourceModel("UserEditPanel.editUser").getObject());
 						modal.setContent(new TimeFrameAdminEditPanel(modal.getContentId(), item.getModel()) {
-//							@Override
-//							public void onSubmit(AjaxRequestTarget target) {
-//								ldm.detach();
-//								modal.close(target);
-//								target.add(wmc);
-//							}
-//
-//							@Override
-//							public void onCancel(AjaxRequestTarget target) {
-//								modal.close(target);
-//							}
+							@Override
+							public void onSubmit(AjaxRequestTarget target) {
+								ldm.detach();
+								modal.close(target);
+								target.add(wmc);
+							}
+
+							@Override
+							public void onCancel(AjaxRequestTarget target) {
+								modal.close(target);
+							}
 						});
 						modal.show(target);
 					}
 
 					@Override
 					public boolean isVisible() {
-						return SecurityUtils.getSubject().isPermitted("system:user:edit");
+						return SecurityUtils.getSubject().isPermitted("system:timeFrame:edit");
 					}
 				});
 				item.add(new ConfirmationLink("remove", new ResourceModel("UserEditPanel.confirmMsg2").getObject()) {
@@ -129,7 +129,7 @@ public class TimeFrameAdminListPanel extends Panel {
 
 					@Override
 					public boolean isVisible() {
-						return SecurityUtils.getSubject().isPermitted("system:user:delete");
+						return SecurityUtils.getSubject().isPermitted("system:timeFrame:delete");
 					}
 				});
 			}

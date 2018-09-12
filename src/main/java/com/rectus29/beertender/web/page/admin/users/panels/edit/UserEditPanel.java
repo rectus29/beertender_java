@@ -6,7 +6,7 @@ import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.service.IserviceHistory;
 import com.rectus29.beertender.service.IserviceRole;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.component.BootStrapFeedbackPanel.BootStrapFeedbackPanel;
+import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.crypto.RandomNumberGenerator;
@@ -50,7 +50,7 @@ public class UserEditPanel extends Panel {
 
 	private User user;
 	private Form form;
-	private BootStrapFeedbackPanel feed;
+	private BootstrapFeedbackPanel feed;
 	private String password;
 
 	public UserEditPanel(String s) {
@@ -123,7 +123,7 @@ public class UserEditPanel extends Panel {
 						onCancel(target);
 					}
 				});
-				add((feed = new BootStrapFeedbackPanel("feed")).setOutputMarkupId(true));
+				add((feed = new BootstrapFeedbackPanel("feed")).setOutputMarkupId(true));
 			}
 		}).setOutputMarkupId(true));
 	}

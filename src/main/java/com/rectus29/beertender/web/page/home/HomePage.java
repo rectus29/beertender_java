@@ -6,8 +6,6 @@ import com.rectus29.beertender.entities.Packaging;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.service.impl.ServiceCategory;
-import com.rectus29.beertender.session.BeerTenderFilter;
 import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import com.rectus29.beertender.web.panel.productListPanel.ProductListPanel;
