@@ -7,6 +7,7 @@ package com.rectus29.beertender.service;
 /*-----------------------------------------------------*/
 
 
+import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Packaging;
 import com.rectus29.beertender.enums.State;
 
@@ -16,4 +17,5 @@ public interface IservicePackaging extends GenericManager<Packaging, Long> {
 
 	public List<Packaging> getAll(List<State> stateList);
 
+	List<Category> getChildCategoryFor(Packaging modelObject);
 }

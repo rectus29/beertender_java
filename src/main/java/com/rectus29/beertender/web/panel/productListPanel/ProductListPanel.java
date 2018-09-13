@@ -4,6 +4,7 @@ import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceProduct;
+import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.productimage.ProductImage;
 import com.rectus29.beertender.web.page.product.ProductPage;
@@ -47,10 +48,10 @@ public class ProductListPanel extends Panel {
         LoadableDetachableModel<List<Product>> ldm = new LoadableDetachableModel<List<Product>>() {
             @Override
             protected List<Product> load() {
-                if (ProductListPanel.this.filter.isEmpty()) {
+                if (BeerTenderSession.get().getBeerTenderFilter().isEmpty()) {
                     return serviceProduct.getAll();
                 }
-				return new ArrayList<Product>(serviceCategory.getFilteredProduct(ProductListPanel.this.filter).getFilteredProduct());
+				return serviceProduct.getFilteredProduct(BeerTenderSession.get().getBeerTenderFilter());
             }
         };
         add((wmc = new WebMarkupContainer("wmc")).setOutputMarkupId(true));

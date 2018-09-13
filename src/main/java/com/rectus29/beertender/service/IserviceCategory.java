@@ -17,6 +17,4 @@ import java.util.List;
 public interface IserviceCategory extends GenericManager<Category, Long> {
 
     public List<Category> getRootCateg();
-
-	ServiceCategory.FilteredResult getFilteredProduct(List<Category> filter);
 }

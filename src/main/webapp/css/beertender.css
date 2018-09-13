@@ -92,7 +92,7 @@ tr.userRow td{
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
 	color: #fff;
-	background-color: #007bff;
+	background-color: #343a40;
 }
 
 li.nav-item a {
@@ -102,6 +102,10 @@ li.nav-item a {
 
 li.nav-item a.active {
 	background: #ffffff7a;
+}
+
+li.nav-item ul.nav>li.nav-item>a.nav-link.active{
+	background: #5f686e;
 }
 
 .tab-panel {

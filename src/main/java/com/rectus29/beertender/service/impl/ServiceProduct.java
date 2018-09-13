@@ -4,7 +4,9 @@ import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceProduct;
+import com.rectus29.beertender.session.BeerTenderFilter;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,17 @@ public class ServiceProduct extends GenericManagerImpl<Product, Long> implements
     public ServiceProduct() {
         super(Product.class);
     }
+
+	@Override
+	public List<Product> getFilteredProduct(BeerTenderFilter btf) {
+    	List<Product> out = new ArrayList<>();
+ 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
+    	detachedCriteria.add(Restrictions.eq("packaging", btf.getPackagingFilter().getObject()));
+//    	detachedCriteria.add(Restrictions.in("categoryList", btf.getCategoryFilterList()));
+		out.addAll((List<Product>) getHibernateTemplate().findByCriteria(detachedCriteria));
+		return out;
+	}
+
 
     @Override
     public List<Product> getProductByCategory(List<Category> categoryList) {

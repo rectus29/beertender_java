@@ -1,7 +1,9 @@
 package com.rectus29.beertender.service.impl;
 
 
+import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Packaging;
+import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.tools.StringUtils;
@@ -10,7 +12,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * User: rectus_29
@@ -33,6 +37,17 @@ public class ServicePackaging extends GenericManagerImpl<Packaging, Long> implem
 		detachedCriteria.add(Restrictions.in("state",stateList));
 		out.addAll((List<Packaging>)getHibernateTemplate().findByCriteria(getDetachedCriteria()));
 		return out;
+	}
+
+	@Override
+	public List<Category> getChildCategoryFor(Packaging packaging) {
+		Set<Category> out = new HashSet<>();
+		if(packaging != null){
+			for(Product temp : packaging.getProductList()){
+				out.addAll(temp.getCategoryList());
+			}
+		}
+		return new ArrayList<>(out);
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class HomePage extends BeerTenderPage {
 
         List<Category> categoryList = new ArrayList<Category>();
         StringValue packageParam = getPageParameters().get("package");
-        StringValue categParam = getPageParameters().get("categ");
+        StringValue categParam = getPageParameters().get("category");
 
 		// if there is some param retreiveobject here
 		// TODO to displace somewhere else like filter init or other
@@ -57,7 +57,7 @@ public class HomePage extends BeerTenderPage {
 		if(StringUtils.isNotEmpty(categParam.toString())){
 			Category categ = serviceCateg.getByProperty("shortName", categParam.toString(), true);
 			if(categ != null)
-				BeerTenderSession.get().getBeerTenderFilter().addCategoryFilterModel(new Model<>(categ));
+				BeerTenderSession.get().getBeerTenderFilter().setCategoryFilterModel(new Model<>(categ));
 		}
 
         add(new ProductListPanel("productListPanel", categoryList));

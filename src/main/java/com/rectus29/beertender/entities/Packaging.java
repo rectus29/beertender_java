@@ -21,6 +21,8 @@ public class Packaging extends GenericEntity<Packaging>{
 
 	private String shortName;
 
+	private Integer sortOrder = 0;
+
 	@OneToMany(mappedBy = "packaging")
 	private List<Product> productList = new ArrayList<>();
 
@@ -59,6 +61,14 @@ public class Packaging extends GenericEntity<Packaging>{
 
 	public void setState(State state) {
 		this.state = state;
+	}
+
+	public Integer getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
 	}
 
 	@Override

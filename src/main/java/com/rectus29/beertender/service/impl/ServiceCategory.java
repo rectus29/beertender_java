@@ -5,6 +5,7 @@ import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceCategory;
+import com.rectus29.beertender.session.BeerTenderFilter;
 import com.rectus29.beertender.tools.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
@@ -39,20 +40,6 @@ public class ServiceCategory extends GenericManagerImpl<Category, Long> implemen
 		List<Category> out = (List<Category>) getHibernateTemplate().findByCriteria(detachedCriteria);
 		result.addAll(out);
 		return result;
-	}
-
-	@Override
-	public FilteredResult getFilteredProduct(List<Category> filter) {
-		FilteredResult out = new FilteredResult();
-		for(Category tempcateg : filter){
-			out.getFilteredProduct().addAll(tempcateg.getProductList());
-			for(Product tempProduct:tempcateg.getProductList()){
-				out.getChildCategory().addAll(tempProduct.getCategoryList());
-			}
-		}
-		//cleaning the output categ to avoid loop
-		out.getChildCategory().removeAll(filter);
-		return out;
 	}
 
 	@Override

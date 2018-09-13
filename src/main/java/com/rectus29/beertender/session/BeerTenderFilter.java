@@ -15,8 +15,8 @@ import java.util.Set;
 /*-----------------------------------------------------*/
 public class BeerTenderFilter {
 
-	private IModel<Packaging> packagingFilterModel;
-	private Set<IModel<Category>> categoryFilterModelList = new HashSet<>();
+	private IModel<Packaging> packagingFilterModel = new Model<Packaging>();
+	private IModel<Category> categoryFilterModel = new Model<Category>();
 
 	public BeerTenderFilter() {
 	}
@@ -32,23 +32,27 @@ public class BeerTenderFilter {
 		return this;
 	}
 
-	public Set<IModel<Category>> getCategoryFilterList() {
-		return categoryFilterModelList;
+	public IModel<Packaging> getPackagingFilterModel() {
+		return packagingFilterModel;
 	}
 
-	public void setCategoryFilterModelList(Set<IModel<Category>> categoryFilterList) {
-		this.categoryFilterModelList = categoryFilterList;
+	public IModel<Category> getCategoryFilterModel() {
+		return categoryFilterModel;
 	}
 
-	public BeerTenderFilter addCategoryFilterModel(IModel<Category> categoryFilterModel) {
-		this.categoryFilterModelList.add(categoryFilterModel);
-		return this;
+	public void setCategoryFilterModel(IModel<Category> categoryFilterModel) {
+		this.categoryFilterModel = categoryFilterModel;
 	}
-
-
 
 	public BeerTenderFilter setPackagingFilterModel(IModel<Packaging> packagingFilterModel) {
 		this.packagingFilterModel = packagingFilterModel;
 		return this;
+	}
+
+	public boolean isEmpty() {
+		if(this.packagingFilterModel == null || this.packagingFilterModel.getObject() == null){
+			return true;
+		}
+		return false;
 	}
 }
