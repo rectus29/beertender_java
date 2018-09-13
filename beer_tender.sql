@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 10 sep. 2018 à 15:59
+-- Généré le :  jeu. 13 sep. 2018 à 15:58
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -42,7 +42,14 @@ CREATE TABLE IF NOT EXISTS `bills` (
   PRIMARY KEY (`id`),
   KEY `FKk8vs7ac9xknv5xp18pdiehpp1` (`user_id`),
   KEY `FKfsjrhpequ3jr9hrih3w9nf2oo` (`timeframe_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `bills`
+--
+
+INSERT INTO `bills` (`id`, `created`, `updated`, `paymentRequest`, `paymentResponse`, `paymentToken`, `state`, `user_id`, `timeframe_id`) VALUES
+(4, '2018-09-12 13:39:55', '2018-09-12 13:39:55', NULL, NULL, NULL, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -63,7 +70,14 @@ CREATE TABLE IF NOT EXISTS `bills_item` (
   PRIMARY KEY (`id`),
   KEY `FKguocg4eg48f2v5e54wlc203eh` (`referenceOrder_id`),
   KEY `FK6a60fxr5ii4002ppmwq2g35dj` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `bills_item`
+--
+
+INSERT INTO `bills_item` (`id`, `created`, `updated`, `productPrice`, `productTax`, `quantity`, `product_id`, `referenceOrder_id`) VALUES
+(9, '2018-09-12 13:39:55', '2018-09-12 13:39:55', '32.990', NULL, 10, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -233,6 +247,7 @@ CREATE TABLE IF NOT EXISTS `packaging` (
   `name` varchar(255) DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
   `shortName` varchar(255) DEFAULT NULL,
+  `sortOrder` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -240,13 +255,13 @@ CREATE TABLE IF NOT EXISTS `packaging` (
 -- Déchargement des données de la table `packaging`
 --
 
-INSERT INTO `packaging` (`id`, `created`, `updated`, `name`, `state`, `shortName`) VALUES
-(1, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 12x75cl', 1, '75cl'),
-(2, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 24x33cl', 1, '33cl'),
-(3, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Coffret cadeaux', 1, 'cadeaux'),
-(4, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Limonades Artisanales - conditionnement 6x75cl', 1, 'limo'),
-(5, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Mini-Fût', 1, 'fut'),
-(6, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Verres', 1, 'verres');
+INSERT INTO `packaging` (`id`, `created`, `updated`, `name`, `state`, `shortName`, `sortOrder`) VALUES
+(1, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 12x75cl', 1, '75cl', 0),
+(2, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 24x33cl', 1, '33cl', 1),
+(3, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Coffret cadeaux', 1, 'cadeaux', 3),
+(4, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 6x75cl', 1, '6x75', 2),
+(5, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Mini-Fût', 1, 'fut', 4),
+(6, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Verres', 1, 'verres', 5);
 
 -- --------------------------------------------------------
 
@@ -262,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `codeString` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `permission`
@@ -274,7 +289,9 @@ INSERT INTO `permission` (`id`, `created`, `updated`, `codeString`, `description
 (3, '2018-08-28 11:30:34', '2018-08-28 11:30:32', 'system:user:delete', 'system:user:delete'),
 (4, '2018-08-28 11:30:49', '2018-08-28 11:30:49', 'system:user:runas', 'system:user:runas'),
 (5, '2018-09-06 00:00:00', '2018-09-06 00:00:00', 'system:product:edit', 'system:product:edit'),
-(6, '2018-09-06 00:00:00', '2018-09-06 00:00:00', 'system:product:delete', 'system:product:delete');
+(6, '2018-09-06 00:00:00', '2018-09-06 00:00:00', 'system:product:delete', 'system:product:delete'),
+(7, '2018-09-12 11:53:24', '2018-09-12 11:53:22', 'system:timeFrame:edit', 'system:timeFrame:edit'),
+(8, '2018-09-12 11:53:25', '2018-09-12 11:53:26', 'system:timeFrame:delete', 'system:timeFrame:delete');
 
 -- --------------------------------------------------------
 
@@ -294,14 +311,20 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`id`),
   KEY `FKbbuq7eyl3p15b039dh1r8cswq` (`packaging_id`),
   KEY `FK7xlsyofr56yy5reb7t26ibwtq` (`productDefinition_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `product`
 --
 
 INSERT INTO `product` (`id`, `created`, `updated`, `price`, `state`, `packaging_id`, `productDefinition_id`) VALUES
-(1, '2018-09-10 11:30:48', '2018-09-10 11:30:50', '32.990', 1, 1, 1);
+(1, '2018-09-10 11:30:48', '2018-09-10 11:30:50', '32.990', 1, 1, 1),
+(2, '2018-09-11 13:53:37', '2018-09-11 13:53:37', '15.200', 1, 2, 2),
+(3, '2018-09-13 09:15:05', '2018-09-13 09:15:05', '20.000', 1, 1, 3),
+(4, '2018-09-13 09:15:05', '2018-09-13 09:15:05', '65.980', 1, 1, 4),
+(5, '2018-09-13 09:15:05', '2018-09-13 09:15:05', '35.220', 1, 5, 5),
+(6, '2018-09-13 09:15:05', '2018-09-13 09:15:05', '45.650', 1, 2, 1),
+(7, '2018-09-13 09:15:05', '2018-09-13 09:15:05', '25.320', 1, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -380,7 +403,11 @@ INSERT INTO `role_permission` (`Role_id`, `permissions_id`) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
-(1, 4);
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8);
 
 -- --------------------------------------------------------
 
@@ -398,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `timeframe` (
   `state` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `timeframe`
@@ -407,7 +434,8 @@ CREATE TABLE IF NOT EXISTS `timeframe` (
 INSERT INTO `timeframe` (`id`, `created`, `updated`, `endDate`, `startDate`, `state`, `name`) VALUES
 (1, '2018-07-24 15:38:51', '2018-07-24 15:38:55', '2018-09-30 15:39:05', '2018-09-01 15:39:11', 1, 'Septembre 2018'),
 (2, '2018-08-10 14:33:25', '2018-08-10 14:33:27', '2018-08-31 14:34:20', '2018-08-01 14:34:23', 0, 'Aout 2018'),
-(4, '2018-08-10 14:35:37', '2018-08-10 14:35:35', '2018-07-31 14:35:24', '2018-07-01 14:35:04', 0, 'Juillet 2018');
+(4, '2018-08-10 14:35:37', '2018-08-10 14:35:35', '2018-07-31 14:35:24', '2018-07-01 14:35:04', 0, 'Juillet 2018'),
+(5, '2018-09-12 13:51:06', '2018-09-12 13:51:06', '2018-10-31 00:00:00', '2018-10-01 00:00:00', 2, 'Octobre 2018');
 
 -- --------------------------------------------------------
 
@@ -441,7 +469,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `created`, `updated`, `email`, `lastLogin`, `password`, `restoreSession`, `restoreSessionDate`, `salt`, `state`, `userAuthentificationType`, `role_id`, `uuid`, `firstName`, `lastName`) VALUES
-(1, '2015-08-24 00:00:00', '2018-07-13 07:37:20', 'rectus29@gmail.com', '2018-09-10 14:01:29', '2pTblAzn+o+S0sFR46qTR4KVKgVZx7T/lPATHhDTU8c=', NULL, NULL, 'XU5Pp4Lz+mSiUkciqOUXD3XocslsvE/iK0eOze2A0C77WE9idlq9emqQOuO7y2T+arRT84Hku5cpFwGRAqgJy8aCTndMAtzR6QshNyfI61lHu5ec0Msj8121nTt91CYvltCWf3OCid3/8AQg+fNh89QXbSjeZvwRKhLWlb41A3A=', 1, 'EMBED', 1, 'yolo', 'ALexandre', 'Bernard'),
+(1, '2015-08-24 00:00:00', '2018-07-13 07:37:20', 'rectus29@gmail.com', '2018-09-13 14:04:49', '2pTblAzn+o+S0sFR46qTR4KVKgVZx7T/lPATHhDTU8c=', NULL, NULL, 'XU5Pp4Lz+mSiUkciqOUXD3XocslsvE/iK0eOze2A0C77WE9idlq9emqQOuO7y2T+arRT84Hku5cpFwGRAqgJy8aCTndMAtzR6QshNyfI61lHu5ec0Msj8121nTt91CYvltCWf3OCid3/8AQg+fNh89QXbSjeZvwRKhLWlb41A3A=', 1, 'EMBED', 1, 'yolo', 'ALexandre', 'Bernard'),
 (2, '2018-08-10 14:40:05', '2018-08-10 14:40:05', 'test@yolo.com', NULL, 'UvcQHRaqQAVXnvJ+OrF3UNGgG8uEmxK3RT0s3lYsOIw=', NULL, NULL, 'NpJdQwuK4L/ghzIHo3pS+g==', 1, 'EMBED', 2, '97e8afab-0c75-460d-8629-f0a8f6cc168a', 'test', 'test');
 
 --
