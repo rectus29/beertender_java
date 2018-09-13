@@ -6,9 +6,12 @@ package com.rectus29.beertender.web.component.bookmarkabletabbedpanel;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
+import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.extensions.markup.html.tabs.TabbedPanel;
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.list.LoopItem;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
 
@@ -102,6 +105,36 @@ public class BookmarkableTabbedPanel<T extends BookmarkableTab> extends TabbedPa
 		if (index == getSelectedTab())
 			link.setEnabled(false);
 		return link;
+	}
+
+	@Override
+	protected LoopItem newTabContainer(final int tabIndex) {
+		return new LoopItem(tabIndex) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void onComponentTag(final ComponentTag tag) {
+				super.onComponentTag(tag);
+				String cssClass = tag.getAttribute("class");
+				if (cssClass == null) {
+					cssClass = " ";
+				}
+				cssClass += " tab" + getIndex();
+
+				if (getIndex() == getSelectedTab()) {
+					cssClass += " active";
+				}
+				if (getIndex() == getTabs().size() - 1) {
+					cssClass += " last";
+				}
+				tag.put("class", cssClass.trim());
+			}
+
+			@Override
+			public boolean isVisible() {
+				return ((ITab) getTabs().get(tabIndex)).isVisible();
+			}
+		};
 	}
 
 }

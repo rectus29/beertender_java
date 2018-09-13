@@ -73,14 +73,15 @@ public class MenuPanel extends Panel {
 				add(new ListView<Packaging>("rvLink", model) {
 					@Override
 					protected void populateItem(ListItem<Packaging> listItem) {
-						final PageParameters packagingPp = new PageParameters().add("package", listItem.getModelObject().getShortName());
+
 						listItem.add(new BookmarkablePageLink("link",
 										HomePage.class,
-										packagingPp
+										new PageParameters().add("package", listItem.getModelObject().getShortName())
 								)
 										.add(new Label("label", listItem.getModelObject().getName()))
 										.add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getPackagingFilter().getObject() == listItem.getModelObject()) ? " active" : ""))
 						);
+						listItem.add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getPackagingFilter().getObject() == listItem.getModelObject()) ? " active" : ""));
 						List<Category> categories = servicePackaging.getChildCategoryFor(listItem.getModelObject());
 						Collections.sort(categories);
 						listItem.add(new ListView<Category>("rvChildLink", categories) {
@@ -88,7 +89,7 @@ public class MenuPanel extends Panel {
 							protected void populateItem(ListItem<Category> item) {
 								item.add(new BookmarkablePageLink("childLink",
 												HomePage.class,
-												packagingPp.add("category", item.getModelObject().getShortName())
+												new PageParameters().add("package", listItem.getModelObject().getShortName()).add("category", item.getModelObject().getShortName())
 										)
 												.add(new Label("childLabel", item.getModelObject().getName()))
 												.add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getCategoryFilterModel().getObject() == item.getModelObject()) ? " active" : ""))

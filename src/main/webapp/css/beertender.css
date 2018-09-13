@@ -4,8 +4,7 @@ html {
 }
 
 body {
-	//background: fixed url("../img/slider.jpg");
-	background: no-repeat center 0;
+	background: fixed url("../img/slider.jpg") no-repeat center 0;
 	background-size: cover;
 }
 
@@ -104,6 +103,10 @@ li.nav-item a.active {
 	background: #ffffff7a;
 }
 
+li.nav-item li.nav-item{
+	padding: 0 0 0 25px;
+}
+
 li.nav-item ul.nav>li.nav-item>a.nav-link.active{
 	background: #5f686e;
 }
@@ -113,6 +116,15 @@ li.nav-item ul.nav>li.nav-item>a.nav-link.active{
 	padding-right: 15px;
 	padding-left: 15px;
 }
+
+li.nav-item ul.nav{
+	display: none;
+}
+
+li.nav-item.active ul.nav{
+	display: block;
+}
+
 
 li.nav-item.nav-pills {
 	margin-bottom: 2px;
