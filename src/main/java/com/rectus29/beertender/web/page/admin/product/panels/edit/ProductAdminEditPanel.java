@@ -6,6 +6,7 @@ import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.service.IserviceProductDefinition;
+import com.rectus29.beertender.tools.ImageUtils;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.page.admin.productDefinition.edit.ProductDefifnitionAdminEditPanel;
 import org.apache.logging.log4j.LogManager;
@@ -17,14 +18,15 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.model.*;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class ProductAdminEditPanel extends Panel {
 
@@ -40,16 +42,19 @@ public abstract class ProductAdminEditPanel extends Panel {
 	private IModel<Product> productIModel;
 	private IModel<ProductDefinition> productDefinitionIModel;
 	private Form form;
+	private FileUploadField fileUpload;
 	private BootstrapFeedbackPanel feed;
 
 	public ProductAdminEditPanel(String id) {
 		super(id);
 		this.productIModel = new Model<>(new Product());
+		this.productDefinitionIModel = new Model<>(new ProductDefinition());
 	}
 
 	public ProductAdminEditPanel(String id, IModel<Product> model) {
 		super(id, model);
 		this.productIModel = model;
+		this.productDefinitionIModel = new Model<ProductDefinition>(model.getObject().getProductDefinition());
 	}
 
 	@Override
@@ -60,31 +65,35 @@ public abstract class ProductAdminEditPanel extends Panel {
 			@Override
 			protected void onInitialize() {
 				super.onInitialize();
-				add(new DropDownChoice<>("state",
-						new PropertyModel<>(productIModel, "state"),
-						Arrays.asList(State.values()),
-						new ChoiceRenderer<>("name")
-				).setRequired(true));
+				//add wmc
+                WebMarkupContainer wmc, defEditPanel;
+                add((wmc = new WebMarkupContainer("definitionPanel")));
+                wmc.setOutputMarkupId(true);
+                //add def selector
+                wmc.add(new DropDownChoice<>("productDef",
+                        productDefinitionIModel,
+                        new LoadableDetachableModel<List<? extends ProductDefinition>>() {
+                            @Override
+                            protected List<? extends ProductDefinition> load() {
+                                List<ProductDefinition> out = new ArrayList<>();
+                                out.add(null);
+                                out.addAll(serviceProductDefinition.getAll(Arrays.asList(State.ENABLE)));
+                                return out;
+                            }
+                        },
+                        new ChoiceRenderer<>("name")
+                ));
 
-				WebMarkupContainer wmc, defEditPanel;
-				add((wmc = new WebMarkupContainer("definitionPanel")));
-				wmc.setOutputMarkupId(true);
-				//add def selector
-				wmc.add(new DropDownChoice<>("productDef",
-						new PropertyModel<>(this, "productDefinitionIModel"),
-						serviceProductDefinition.getAll(Arrays.asList(State.ENABLE)),
-						new ChoiceRenderer<>("name")
-				).setRequired(true));
-				wmc.add((defEditPanel = new WebMarkupContainer("defEditPanel"){
-					@Override
-					protected void onInitialize() {
-						super.onInitialize();
-						add(new TextField<String>("defName", new PropertyModel<>(productDefinitionIModel,"name")));
-						add(new TextArea<String>("defDesc", new PropertyModel<>(productDefinitionIModel,"description")));
-					}
-				}).setOutputMarkupId(true).setVisible(false));
+                wmc.add((defEditPanel = new WebMarkupContainer("defEditPanel"){
+                    @Override
+                    protected void onInitialize() {
+                        super.onInitialize();
+                        add(new TextField<String>("defName", new PropertyModel<>(productDefinitionIModel,"name")));
+                        add(new TextArea<String>("defDesc", new PropertyModel<>(productDefinitionIModel,"description")));
+                    }
+                }).setOutputMarkupId(true).setVisible(false));
 
-				wmc.add(new AjaxLink("editdef") {
+                wmc.add(new AjaxLink("editdef") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						defEditPanel.setVisible(!defEditPanel.isVisible());
@@ -92,7 +101,13 @@ public abstract class ProductAdminEditPanel extends Panel {
 					}
 				});
 
-				add(new FileUploadField("defimg", new PropertyModel<>(productIModel,"fileImage")));
+                add(new DropDownChoice<>("state",
+                        new PropertyModel<>(productIModel, "state"),
+                        Arrays.asList(State.values()),
+                        new ChoiceRenderer<>("name")
+                ).setRequired(true));
+
+                add(fileUpload = new FileUploadField("defimg"));
 
 				add(new DropDownChoice<>("packaging",
 						new PropertyModel<>(productIModel, "packaging"),
@@ -108,6 +123,9 @@ public abstract class ProductAdminEditPanel extends Panel {
 					protected void onSubmit(AjaxRequestTarget target, Form form) {
 						//set definition in product
 						productIModel.getObject().setProductDefinition(productDefinitionIModel.getObject());
+						if(fileUpload.getFileUpload() != null && ImageUtils.isAnImage(fileUpload.getFileUpload().getBytes())){
+                            productIModel.getObject().setFileImage(fileUpload.getFileUpload().getBytes());
+						}
 						productIModel.setObject(serviceProduct.save(productIModel.getObject()));
 						success(new ResourceModel("success").getObject());
 						target.add(form);

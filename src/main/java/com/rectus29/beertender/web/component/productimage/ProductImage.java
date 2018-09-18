@@ -43,15 +43,9 @@ public class ProductImage extends Image {
 			}
 			Boolean isImage = ImageIO.read(new ByteArrayInputStream(model.getObject().getFileImage())) != null;
 			if (isImage) {
-				BlobImageResource imageResource = new BlobImageResource() {
-
+				DynamicImageResource imageResource = new DynamicImageResource() {
 					@Override
-					protected Blob getBlob(Attributes attributes) {
-						return null;
-					}
-
-					@Override
-					protected byte[] getImageData(IResource.Attributes attributes) {
+					protected byte[] getImageData(Attributes attributes) {
 						return model.getObject().getFileImage();
 					}
 				};
