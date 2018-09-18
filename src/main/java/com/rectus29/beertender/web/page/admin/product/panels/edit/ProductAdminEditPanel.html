@@ -3,12 +3,32 @@
 <body>
 <wicket:panel>
 	<form wicket:id="form">
-		<div class="form-group">
+		<div class="form-group" wicket:id="definitionPanel">
 			<label class="control-label" wicket:for="productDef">
 				<wicket:message key="productDef"/>
 			</label>
 
-			<select wicket:id="productDef" class="form-control"/>
+			<select wicket:id="productDef" class="form-control"/><a href="#"wicket:id="editdef">Modilfier</a>
+			<div wicket:id="defEditPanel">
+				<div class="form-group">
+					<label class="control-label" wicket:for="defName">
+						Nom
+					</label>
+					<input type="text" wicket:id="defName" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<label class="control-label" wicket:for="defDesc">
+						Description
+					</label>
+					<textarea wicket:id="defDesc" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<label class="control-label" wicket:for="defimg">
+						Image
+					</label>
+					<input type="file" wicket:id="defimg" class="form-control"/>
+				</div>
+			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label" wicket:for="packaging">

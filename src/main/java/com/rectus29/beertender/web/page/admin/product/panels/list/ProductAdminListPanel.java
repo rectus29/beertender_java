@@ -1,15 +1,12 @@
 package com.rectus29.beertender.web.page.admin.product.panels.list;
 
 import com.rectus29.beertender.entities.Product;
-import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceProduct;
-import com.rectus29.beertender.web.BeerTenderApplication;
 import com.rectus29.beertender.web.component.confirmation.ConfirmationLink;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
-import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
+import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.product.panels.edit.ProductAdminEditPanel;
-import com.rectus29.beertender.web.page.admin.users.panels.edit.UserEditPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -42,7 +39,7 @@ public class ProductAdminListPanel extends Panel {
 	private WebMarkupContainer wmc;
 	private LoadableDetachableModel<List<Product>> ldm;
 	private PageableListView plv;
-	private WicketModal modal;
+	private BeerTenderModal modal;
 	private PagingNavigator navigator;
 
 
@@ -96,7 +93,7 @@ public class ProductAdminListPanel extends Panel {
 				item.add(new AjaxLink("edit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						modal.setSize(WicketModal.ModalFormat.LARGE);
+						modal.setSize(BeerTenderModal.ModalFormat.LARGE);
 						modal.setTitle(new ResourceModel("UserEditPanel.editUser").getObject());
 						modal.setContent(new ProductAdminEditPanel(modal.getContentId(), item.getModel()){
 							@Override
@@ -141,11 +138,12 @@ public class ProductAdminListPanel extends Panel {
 			}
 		}).setOutputMarkupId(true));
 
-		add((modal = new WicketModal("modal")).setOutputMarkupId(true));
+		add((modal = new BeerTenderModal("modal")).setOutputMarkupId(true));
 		add(new AjaxLink("add"){
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 				modal.setTitle(new ResourceModel("UserEditPanel.addUser").getObject());
+				modal.setSize(BeerTenderModal.ModalFormat.LARGE);
 				modal.setContent(new ProductAdminEditPanel(modal.getContentId()){
 					@Override
 					public void onSubmit(AjaxRequestTarget target, IModel<Product> productIModel) {
@@ -159,7 +157,7 @@ public class ProductAdminListPanel extends Panel {
 						modal.close(target);
 					}
 				});
-				modal.show(target, WicketModal.ModalFormat.MEDIUM);
+				modal.show(target, BeerTenderModal.ModalFormat.MEDIUM);
 			}
 		});
 

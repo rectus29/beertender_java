@@ -4,7 +4,7 @@ html {
 }
 
 body {
-	background: fixed url("../img/slider.jpg") no-repeat center 0;
+	/*background: fixed url("../img/slider.jpg") no-repeat center 0;*/
 	background-size: cover;
 }
 
@@ -24,7 +24,6 @@ body {
 
 .login-holder {
 	background: #dadada;
-	border-radius: 5px;
 	border: 1px solid white;
 }
 

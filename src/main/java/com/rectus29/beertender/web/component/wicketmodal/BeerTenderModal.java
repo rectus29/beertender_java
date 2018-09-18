@@ -10,6 +10,7 @@ package com.rectus29.beertender.web.component.wicketmodal;
 
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.core.request.handler.IPartialPageRequestHandler;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -20,12 +21,12 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.resource.CoreLibrariesContributor;
 
-public class WicketModal extends ModalWindow {
+public class BeerTenderModal extends ModalWindow {
     private static final long serialVersionUID = 1L;
-    private static ResourceReference JAVASCRIPT = new JavaScriptResourceReference(WicketModal.class, "WicketModal.js");
-    private static ResourceReference CSS = new PackageResourceReference(WicketModal.class, "WicketModal.css");
+    private static ResourceReference JAVASCRIPT = new JavaScriptResourceReference(BeerTenderModal.class, "BeerTenderModal.js");
+    private static ResourceReference CSS = new PackageResourceReference(BeerTenderModal.class, "BeerTenderModal.css");
 
-    public WicketModal(String id) {
+    public BeerTenderModal(String id) {
         super(id);
         setCloseButtonCallback(new CloseButtonCallback() {
             public boolean onCloseButtonClicked(AjaxRequestTarget target) {
@@ -35,7 +36,7 @@ public class WicketModal extends ModalWindow {
         this.setResizable(false);
     }
 
-    public WicketModal(String id, IModel<?> model) {
+    public BeerTenderModal(String id, IModel<?> model) {
         super(id, model);
         setCloseButtonCallback(new CloseButtonCallback() {
             public boolean onCloseButtonClicked(AjaxRequestTarget target) {
@@ -45,7 +46,13 @@ public class WicketModal extends ModalWindow {
         this.setResizable(false);
     }
 
-    public WicketModal(String id, ModalFormat format) {
+	@Override
+	public void close(IPartialPageRequestHandler target) {
+		super.close(target);
+		this.setSize(ModalFormat.AUTO);
+	}
+
+	public BeerTenderModal(String id, ModalFormat format) {
         super(id);
         setSize(format);
     }
@@ -103,7 +110,7 @@ public class WicketModal extends ModalWindow {
     }
 
 
-    public static enum ModalFormat {
+    public enum ModalFormat {
         TINY, SMALL, MEDIUM, LARGE, AUTO
     }
 

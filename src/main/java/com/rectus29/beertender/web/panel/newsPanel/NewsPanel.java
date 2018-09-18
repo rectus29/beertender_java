@@ -5,7 +5,7 @@ import com.rectus29.beertender.entities.News;
 import com.rectus29.beertender.enums.NewsType;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceNews;
-import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
+import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
@@ -44,7 +44,7 @@ public class NewsPanel extends Panel {
     @SpringBean(name = "serviceConfig")
     private IserviceConfig serviceConfig;
     private LoadableDetachableModel<List<DisplayableNews>> ldm;
-    private WicketModal modal;
+    private BeerTenderModal modal;
     private int nbNews = 5;
     private int displayNews = 0;
     private String imgThumb;
@@ -150,7 +150,7 @@ public class NewsPanel extends Panel {
             }
         };
         add(newsListView.setOutputMarkupId(true));
-        add((modal = new WicketModal("modal")).setOutputMarkupId(true));
+        add((modal = new BeerTenderModal("modal")).setOutputMarkupId(true));
     }
 
     private class DisplayableNews implements Serializable {

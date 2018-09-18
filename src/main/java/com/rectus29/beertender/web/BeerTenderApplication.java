@@ -19,6 +19,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
+import org.apache.wicket.markup.html.IPackageResourceGuard;
+import org.apache.wicket.markup.html.SecurePackageResourceGuard;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
@@ -88,6 +90,12 @@ public class BeerTenderApplication extends WebApplication {
 		settings.setPageExpiredErrorPage(SigninPage.class);
 		settings.setInternalErrorPage(ErrorPage.class);
 		getApplicationSettings().setUploadProgressUpdatesEnabled(true);
+
+		IPackageResourceGuard packageResourceGuard = this.getResourceSettings().getPackageResourceGuard();
+		if (packageResourceGuard instanceof SecurePackageResourceGuard){
+			SecurePackageResourceGuard guard = (SecurePackageResourceGuard) packageResourceGuard;
+			//add pattren ti guard here for ressources model access
+		}
 	}
 
 

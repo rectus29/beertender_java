@@ -6,7 +6,7 @@ import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.BeerTenderApplication;
-import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
+import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.component.confirmation.ConfirmationLink;
 import com.rectus29.beertender.web.page.admin.users.panels.edit.UserEditPanel;
 import com.rectus29.beertender.web.page.home.HomePage;
@@ -47,7 +47,7 @@ public class UserListPanel extends Panel {
     private WebMarkupContainer wmc;
     private LoadableDetachableModel<List<User>> ldm;
     private PageableListView plv;
-    private WicketModal modal;
+    private BeerTenderModal modal;
     private PagingNavigator navigator;
 
     public
@@ -162,7 +162,7 @@ public class UserListPanel extends Panel {
             }
         }).setOutputMarkupId(true));
 
-        add((modal = new WicketModal("modal")).setOutputMarkupId(true));
+        add((modal = new BeerTenderModal("modal")).setOutputMarkupId(true));
         add(new AjaxLink("add"){
             @Override
             public void onClick(AjaxRequestTarget target) {
@@ -180,7 +180,7 @@ public class UserListPanel extends Panel {
                         modal.close(target);
                     }
                 });
-                modal.show(target, WicketModal.ModalFormat.MEDIUM);
+                modal.show(target, BeerTenderModal.ModalFormat.MEDIUM);
             }
         });
     }

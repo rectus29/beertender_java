@@ -27,8 +27,6 @@ public class ProductDefinition extends GenericEntity<ProductDefinition> {
 	@Column(columnDefinition = "MEDIUMTEXT")
 	private String description;
 
-	private String imagePath;
-
 	private State state = State.ENABLE;
 
 	public ProductDefinition() {
@@ -48,14 +46,6 @@ public class ProductDefinition extends GenericEntity<ProductDefinition> {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
 	}
 
 	public State getState() {

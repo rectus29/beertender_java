@@ -3,11 +3,10 @@ package com.rectus29.beertender.web.page.base;
 import com.rectus29.beertender.event.RefreshEvent;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.component.wicketmodal.WicketModal;
+import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.page.home.HomePage;
 import com.rectus29.beertender.web.panel.cartmodalpanel.CartModalPanel;
-import com.rectus29.beertender.web.panel.menupanel.MenuPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.event.IEvent;
@@ -29,7 +28,7 @@ public class BeerTenderBasePage extends ProtectedPage {
     @SpringBean(name = "serviceOrder")
     private IserviceOrder serviceOrder;
     private Label nbProductLabel;
-    protected WicketModal modal;
+    protected BeerTenderModal modal;
 
     public BeerTenderBasePage() {
     }
@@ -64,7 +63,7 @@ public class BeerTenderBasePage extends ProtectedPage {
                 modal.show(target);
             }
         }.add((nbProductLabel = new Label("nbProduct", serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser()).getOrderItemList().size())).setOutputMarkupId(true)));
-        add((modal = new WicketModal("modal")).setOutputMarkupId(true));
+        add((modal = new BeerTenderModal("modal")).setOutputMarkupId(true));
     }
 
     @Override

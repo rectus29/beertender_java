@@ -13,6 +13,7 @@ package com.rectus29.beertender.entities;
 /*-----------------------------------------------------*/
 
 import com.rectus29.beertender.enums.State;
+import org.hibernate.type.BlobType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -34,6 +35,10 @@ public class Product extends GenericEntity<Product> {
 
 	@ManyToMany(mappedBy = "productList")
 	private List<Category> categoryList = new ArrayList<>();
+
+	@Lob
+	@Column(columnDefinition = "BLOB")
+	private byte[] fileImage;
 
 
 	private State state = State.ENABLE;
@@ -81,16 +86,20 @@ public class Product extends GenericEntity<Product> {
 		return this.getProductDefinition().getDescription();
 	}
 
-	public String getImagePath(){
-		return this.getProductDefinition().getImagePath();
-	}
-
 	public List<Category> getCategoryList() {
 		return categoryList;
 	}
 
 	public void setCategoryList(List<Category> categoryList) {
 		this.categoryList = categoryList;
+	}
+
+	public byte[] getFileImage() {
+		return fileImage;
+	}
+
+	public void setFileImage(byte[] fileImage) {
+		this.fileImage = fileImage;
 	}
 
 	@Override

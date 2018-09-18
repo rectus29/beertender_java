@@ -1,17 +1,21 @@
 package com.rectus29.beertender.web.page.admin.product.panels.edit;
 
 import com.rectus29.beertender.entities.Product;
+import com.rectus29.beertender.entities.ProductDefinition;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.service.IserviceProductDefinition;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
+import com.rectus29.beertender.web.page.admin.productDefinition.edit.ProductDefifnitionAdminEditPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -34,6 +38,7 @@ public abstract class ProductAdminEditPanel extends Panel {
 	private IserviceProduct serviceProduct;
 
 	private IModel<Product> productIModel;
+	private IModel<ProductDefinition> productDefinitionIModel;
 	private Form form;
 	private BootstrapFeedbackPanel feed;
 
@@ -60,11 +65,35 @@ public abstract class ProductAdminEditPanel extends Panel {
 						Arrays.asList(State.values()),
 						new ChoiceRenderer<>("name")
 				).setRequired(true));
-				add(new DropDownChoice<>("productDef",
+
+				WebMarkupContainer wmc, defEditPanel;
+				add((wmc = new WebMarkupContainer("definitionPanel")));
+				wmc.setOutputMarkupId(true);
+				//add def selector
+				wmc.add(new DropDownChoice<>("productDef",
 						new PropertyModel<>(productIModel, "productDefinition"),
 						serviceProductDefinition.getAll(Arrays.asList(State.ENABLE)),
 						new ChoiceRenderer<>("name")
 				).setRequired(true));
+				wmc.add((defEditPanel = new WebMarkupContainer("defEditPanel"){
+					@Override
+					protected void onInitialize() {
+						super.onInitialize();
+						add(new TextField<String>("defName", new PropertyModel<>(productDefinitionIModel,"name")));
+						add(new TextArea<String>("defDesc", new PropertyModel<>(productDefinitionIModel,"description")));
+						add(new FileUploadField("defimg", new PropertyModel<>(productDefinitionIModel,"imagePath")));
+					}
+				}).setOutputMarkupId(true).setVisible(false));
+
+				wmc.add(new AjaxLink("editdef") {
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						defEditPanel.setVisible(true);
+						target.add(wmc);
+					}
+				});
+
+
 				add(new DropDownChoice<>("packaging",
 						new PropertyModel<>(productIModel, "packaging"),
 						servicePackaging.getAll(Arrays.asList(State.ENABLE)),
