@@ -71,7 +71,7 @@ public abstract class ProductAdminEditPanel extends Panel {
 				wmc.setOutputMarkupId(true);
 				//add def selector
 				wmc.add(new DropDownChoice<>("productDef",
-						new PropertyModel<>(productIModel, "productDefinition"),
+						new PropertyModel<>(this, "productDefinitionIModel"),
 						serviceProductDefinition.getAll(Arrays.asList(State.ENABLE)),
 						new ChoiceRenderer<>("name")
 				).setRequired(true));
@@ -81,18 +81,18 @@ public abstract class ProductAdminEditPanel extends Panel {
 						super.onInitialize();
 						add(new TextField<String>("defName", new PropertyModel<>(productDefinitionIModel,"name")));
 						add(new TextArea<String>("defDesc", new PropertyModel<>(productDefinitionIModel,"description")));
-						add(new FileUploadField("defimg", new PropertyModel<>(productDefinitionIModel,"imagePath")));
 					}
 				}).setOutputMarkupId(true).setVisible(false));
 
 				wmc.add(new AjaxLink("editdef") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						defEditPanel.setVisible(true);
+						defEditPanel.setVisible(!defEditPanel.isVisible());
 						target.add(wmc);
 					}
 				});
 
+				add(new FileUploadField("defimg", new PropertyModel<>(productIModel,"fileImage")));
 
 				add(new DropDownChoice<>("packaging",
 						new PropertyModel<>(productIModel, "packaging"),
@@ -106,6 +106,8 @@ public abstract class ProductAdminEditPanel extends Panel {
 				add(new AjaxSubmitLink("submit") {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target, Form form) {
+						//set definition in product
+						productIModel.getObject().setProductDefinition(productDefinitionIModel.getObject());
 						productIModel.setObject(serviceProduct.save(productIModel.getObject()));
 						success(new ResourceModel("success").getObject());
 						target.add(form);
