@@ -8,6 +8,7 @@ import com.rectus29.beertender.web.page.home.HomePage;
 import com.rectus29.beertender.web.page.mailbox.MailBoxPage;
 import com.rectus29.beertender.web.page.product.ProductPage;
 import com.rectus29.beertender.web.page.profile.ProfilePage;
+import com.rectus29.beertender.web.page.test.TestPage;
 import com.rectus29.beertender.web.security.error.ErrorPage;
 import com.rectus29.beertender.web.security.forgotpassword.ForgotPasssword;
 import com.rectus29.beertender.web.security.restorepassword.RestorePasswordPage;
@@ -84,6 +85,7 @@ public class BeerTenderApplication extends WebApplication {
 		mountPage("forgotPasssword", ForgotPasssword.class);
 		mountPage("logout", SignoutPage.class);
 		mountPage("login", SigninPage.class);
+		mountPage("test", TestPage.class);
 
 		ApplicationSettings settings = getApplicationSettings();
 		settings.setAccessDeniedPage(UnauthorizedPage.class);

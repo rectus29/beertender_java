@@ -9,14 +9,11 @@ import org.apache.logging.log4j.Logger;
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.image.resource.BlobImageResource;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.DynamicImageResource;
-import org.apache.wicket.request.resource.IResource;
 
 import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
-import java.sql.Blob;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,14 +25,11 @@ public class ProductImage extends Image {
 
 	private static final Logger log = LogManager.getLogger(ProductAdminEditPanel.class);
 	private IModel<Product> model;
+	private boolean isDefaultImg = false;
 
 	public ProductImage(String id, IModel<Product> productModel) {
 		super(id);
 		this.model = productModel;
-	}
-
-	protected void onComponentTag(ComponentTag tag) {
-		super.onComponentTag(tag);
 
 		try {
 			if (model.getObject().getFileImage() == null) {
@@ -50,11 +44,21 @@ public class ProductImage extends Image {
 					}
 				};
 				setImageResource(imageResource);
-			}else{
+				setImageResources();
+			} else {
 				throw new BeerTenderException("no comptible media found");
 			}
 		} catch (Exception ex) {
 			log.debug(ex);
+			isDefaultImg = true;
+		}
+
+
+	}
+
+	protected void onComponentTag(ComponentTag tag) {
+		super.onComponentTag(tag);
+		if (isDefaultImg) {
 			tag.put("src", ((BeerTenderApplication) Application.get()).getAppCtx().getApplicationName() + "/img/products/default-bottle.png");
 		}
 

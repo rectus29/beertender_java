@@ -76,7 +76,7 @@ public abstract class ProductAdminEditPanel extends Panel {
                             @Override
                             protected List<? extends ProductDefinition> load() {
                                 List<ProductDefinition> out = new ArrayList<>();
-                                out.add(null);
+                                out.add(new ProductDefinition());
                                 out.addAll(serviceProductDefinition.getAll(Arrays.asList(State.ENABLE)));
                                 return out;
                             }
