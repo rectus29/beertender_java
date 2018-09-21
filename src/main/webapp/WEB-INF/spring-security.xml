@@ -11,6 +11,7 @@
         <property name="realms">
             <list>
                 <ref bean="BeerTenderRealms"/>
+                <ref bean="GoogleOauthRealms"/>
             </list>
         </property>
         <property name="cacheManager" ref="cacheManager"/>
@@ -44,5 +45,6 @@
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
     </bean>
     <bean id="BeerTenderRealms" class="com.rectus29.beertender.realms.BeerTenderRealms"/>
+    <bean id="GoogleOauthRealms" class="com.rectus29.beertender.realms.GoogleOauthRealm"/>
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>

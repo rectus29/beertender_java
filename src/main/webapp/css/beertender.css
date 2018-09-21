@@ -23,8 +23,8 @@ body {
 }
 
 .login-holder {
-	background: #dadada;
-	border: 1px solid white;
+	border: 1px solid #ced4da;
+	border-radius: 0.25em;
 }
 
 .pricing-header {

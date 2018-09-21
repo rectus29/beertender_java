@@ -37,6 +37,14 @@
             <param-value>com.rectus29.beertender.web.BeerTenderApplication</param-value>
         </init-param>
     </filter>
+	<filter>
+        <filter-name>googleOauthFilter</filter-name>
+        <filter-class>com.rectus29.beertender.realms.GoogleOauthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>googleOauthFilter</filter-name>
+        <url-pattern>/googleOauthSignin</url-pattern>
+    </filter-mapping>
 
     <filter-mapping>
         <filter-name>SpringOpenEntityManagerInViewFilter</filter-name>
