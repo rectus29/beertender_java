@@ -15,3 +15,4 @@
 *.war
 *.ear
 
+/src/main/resources/client_secret.json
