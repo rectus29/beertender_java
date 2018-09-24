@@ -53,12 +53,16 @@ public class HomePage extends BeerTenderPage {
 			Packaging pack = servicePackaging.getByProperty("shortName", packageParam.toString(), true);
 			if(pack != null)
 				BeerTenderSession.get().getBeerTenderFilter().setPackagingFilterModel(new Model<>(pack));
-		}
+		}else{
+            BeerTenderSession.get().getBeerTenderFilter().setPackagingFilterModel(new Model<>());
+        }
 		if(StringUtils.isNotEmpty(categParam.toString())){
 			Category categ = serviceCateg.getByProperty("shortName", categParam.toString(), true);
 			if(categ != null)
 				BeerTenderSession.get().getBeerTenderFilter().setCategoryFilterModel(new Model<>(categ));
-		}
+		}else{
+            BeerTenderSession.get().getBeerTenderFilter().setCategoryFilterModel(new Model<>());
+        }
 
         add(new ProductListPanel("productListPanel", categoryList));
     }
