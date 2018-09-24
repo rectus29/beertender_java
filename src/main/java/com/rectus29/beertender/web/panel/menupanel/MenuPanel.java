@@ -32,74 +32,76 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class MenuPanel extends Panel {
 
-	@SpringBean(name = "serviceCategory")
-	private IserviceCategory serviceCategory;
+    @SpringBean(name = "serviceCategory")
+    private IserviceCategory serviceCategory;
 
-	@SpringBean(name = "serviceUser")
-	private IserviceUser serviceUser;
+    @SpringBean(name = "serviceUser")
+    private IserviceUser serviceUser;
 
 
-	@SpringBean(name = "servicePackaging")
-	private IservicePackaging servicePackaging;
+    @SpringBean(name = "servicePackaging")
+    private IservicePackaging servicePackaging;
 
-	public MenuPanel(String id) {
-		super(id);
-	}
+    public MenuPanel(String id) {
+        super(id);
+    }
 
-	@Override
-	protected void onInitialize() {
-		super.onInitialize();
-		add((new WebMarkupContainer("wmc") {
-			@Override
-			protected void onInitialize() {
-				super.onInitialize();
-				LoadableDetachableModel model = new LoadableDetachableModel<List<Packaging>>() {
-					@Override
-					protected List<Packaging> load() {
-						List<Packaging> out = servicePackaging.getAll(Arrays.asList(State.ENABLE));
-						Collections.sort(out, new Comparator<Packaging>() {
-							@Override
-							public int compare(Packaging o1, Packaging o2) {
-								return o1.getSortOrder().compareTo(o2.getSortOrder());
-							}
-						});
-						return out;
-					}
-				};
-				add(new ListView<Packaging>("rvLink", model) {
-					@Override
-					protected void populateItem(ListItem<Packaging> listItem) {
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add((new WebMarkupContainer("wmc") {
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+                LoadableDetachableModel model = new LoadableDetachableModel<List<Packaging>>() {
+                    @Override
+                    protected List<Packaging> load() {
+                        List<Packaging> out = servicePackaging.getAll(Arrays.asList(State.ENABLE));
+                        Collections.sort(out, new Comparator<Packaging>() {
+                            @Override
+                            public int compare(Packaging o1, Packaging o2) {
+                                return o1.getSortOrder().compareTo(o2.getSortOrder());
+                            }
+                        });
+                        return out;
+                    }
+                };
+                add(new ListView<Packaging>("rvLink", model) {
+                    @Override
+                    protected void populateItem(ListItem<Packaging> listItem) {
 
-						listItem.add(new BookmarkablePageLink("link",
-										HomePage.class,
-										new PageParameters().add("package", listItem.getModelObject().getShortName())
-								)
-										.add(new Label("label", listItem.getModelObject().getName()))
-										.add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getPackagingFilter().getObject() == listItem.getModelObject()) ? " active" : ""))
-						);
-						listItem.add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getPackagingFilter().getObject() == listItem.getModelObject()) ? " active" : ""));
-						List<Category> categories = servicePackaging.getChildCategoryFor(listItem.getModelObject());
-						Collections.sort(categories);
-						listItem.add(new ListView<Category>("rvChildLink", categories) {
-							@Override
-							protected void populateItem(ListItem<Category> item) {
-								item.add(new BookmarkablePageLink("childLink",
-												HomePage.class,
-												new PageParameters().add("package", listItem.getModelObject().getShortName()).add("category", item.getModelObject().getShortName())
-										)
-												.add(new Label("childLabel", item.getModelObject().getName()))
-												.add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getCategoryFilterModel().getObject() == item.getModelObject()) ? " active" : ""))
-								);
-							}
-						});
-					}
-				});
-			}
-		}).setOutputMarkupId(true));
+                        listItem.add(new BookmarkablePageLink("link",
+                                HomePage.class,
+                                new PageParameters().add("package", listItem.getModelObject().getShortName()))
+                                .add(new Label("label", listItem.getModelObject().getName()))
+                                .add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getPackagingFilter().getObject() == listItem.getModelObject()) ? " active" : ""))
+                        );
+                        listItem.add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getPackagingFilter().getObject() == listItem.getModelObject()) ? " active" : ""));
+                        List<Category> categories = servicePackaging.getChildCategoryFor(listItem.getModelObject());
+                        Collections.sort(categories);
+                        listItem.add(new ListView<Category>("rvChildLink", categories) {
+                            @Override
+                            protected void populateItem(ListItem<Category> item) {
+                                item.add(new BookmarkablePageLink("childLink",
+                                                HomePage.class,
+                                                new PageParameters().add("package", listItem.getModelObject().getShortName()).add("category", item.getModelObject().getShortName())
+                                        )
+                                                .add(new Label("childLabel", item.getModelObject().getName()))
+                                                .add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getCategoryFilterModel().getObject() == item.getModelObject()) ? " active" : ""))
+                                );
+                            }
+                        });
+                    }
+                });
+            }
+        }).setOutputMarkupId(true));
 
-	}
+    }
 }
