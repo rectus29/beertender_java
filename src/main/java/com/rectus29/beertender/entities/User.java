@@ -12,7 +12,7 @@ import java.util.UUID;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "users")
-public class User extends GenericEntity<User> implements DecorableElement{
+public class User extends GenericEntity<User> implements DecorableElement {
 
     @Column(nullable = false)
     private String password;
@@ -39,12 +39,12 @@ public class User extends GenericEntity<User> implements DecorableElement{
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
     @Column(nullable = false)
-	@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private UserAuthentificationType userAuthentificationType = UserAuthentificationType.NONE;
 
     @Override
     public String getFormatedName() {
-        return firstName + " " + lastName.toUpperCase();
+        return ((StringUtils.isNotBlank(firstName)) ? firstName : "") + " " + ((StringUtils.isNotBlank(lastName)) ? lastName.toUpperCase() : "");
     }
 
     public String getPassword() {
@@ -142,24 +142,24 @@ public class User extends GenericEntity<User> implements DecorableElement{
         this.userAuthentificationType = userAuthentificationType;
     }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	@Override
-	public int compareTo(User object) {
-		return defaultCompareTo(object);
-	}
+    @Override
+    public int compareTo(User object) {
+        return defaultCompareTo(object);
+    }
 }
