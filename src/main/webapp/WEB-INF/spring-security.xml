@@ -14,6 +14,7 @@
                 <ref bean="GoogleOauthRealms"/>
             </list>
         </property>
+		<property name="authenticator" ref="authenticator" />
         <property name="cacheManager" ref="cacheManager"/>
         <property name="sessionMode" value="native"/>
         <property name="sessionManager">
@@ -41,6 +42,19 @@
             </list>
         </property>
     </bean>
+
+	<bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+		<property name="realms">
+			<list>
+				<ref bean="BeerTenderRealms"/>
+				<ref bean="GoogleOauthRealms"/>
+			</list>
+		</property>
+		<property name="authenticationStrategy">
+			<bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy" />
+		</property>
+	</bean>
+
     <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
     </bean>

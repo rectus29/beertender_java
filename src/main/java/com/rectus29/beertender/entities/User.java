@@ -40,7 +40,7 @@ public class User extends GenericEntity<User> implements DecorableElement{
     private Date lastLogin;
     @Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-    private UserAuthentificationType userAuthentificationType = UserAuthentificationType.EMBED;
+    private UserAuthentificationType userAuthentificationType = UserAuthentificationType.NONE;
 
     @Override
     public String getFormatedName() {

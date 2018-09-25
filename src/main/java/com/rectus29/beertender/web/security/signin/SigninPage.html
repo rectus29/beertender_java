@@ -23,10 +23,12 @@
 					},
 					contentType: 'application/octet-stream; charset=utf-8',
 					success: function(result) {
-						window.location("home");
+						debugger;
+						window.location.assign('home');
 						// Handle or verify the server response.
 					},
 					error: function(result){
+						debugger;
 						alert("Error while Google Authentication");
 						$('#signinButton i').toggleClass('fa-spin');
 					},

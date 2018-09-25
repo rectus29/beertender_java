@@ -78,26 +78,30 @@ public class GoogleOauthFilter implements Filter {
 		GoogleIdToken.Payload payload = idToken.getPayload();
 		String userId = payload.getSubject();  // Use this value as a key to identify a user.
 		String email = payload.getEmail();
-		boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
 		String name = (String) payload.get("name");
 		String pictureUrl = (String) payload.get("picture");
-		String locale = (String) payload.get("locale");
 		String familyName = (String) payload.get("family_name");
 		String givenName = (String) payload.get("given_name");
 
 		logger.debug("GoogleOauth user login: {}", email);
 
-		final GoogleOauthToken token = new GoogleOauthToken(email);
+		final GoogleOauthToken token = new GoogleOauthToken(email)
+				.setName(name)
+				.setFamilyName(familyName)
+				.setGivenName(givenName)
+				.setUserId(userId);
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login(token);
 			logger.debug("Authorized user locally: {}", currentUser);
+			httpResponse.setStatus(200);
+			httpResponse.addHeader("auth", "Ok");
+			return;
 		} catch (AuthenticationException e) {
 			logger.info("User cannot be authenticated. Probably not provisioned yet? Will respond with 401.", e);
 			httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unknown user");
 			return;
 		}
-		chain.doFilter(request, response);
 	}
 
 	public void destroy() {

@@ -1,16 +1,9 @@
 package com.rectus29.beertender.realms;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.rectus29.beertender.entities.User;
+import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.tools.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -21,17 +14,10 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.SimpleByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.FileReader;
-import java.io.IOException;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -63,6 +49,18 @@ public class GoogleOauthRealm extends AuthorizingRealm {
 		GoogleOauthToken got = (GoogleOauthToken) token;
 		User user = serviceUser.getUserByMail(got.getGoogleEmail());
 		if (user != null) {
+			//if a first login with google
+			if(user.getUserAuthentificationType() == UserAuthentificationType.NONE){
+				//update DATA from google
+				user.setFirstName(got.getName());
+				user.setLastName(got.getFamilyName());
+				user.setUuid(got.getUserId());
+				//clear password
+				user.setPassword(null);
+				//set login mode
+				user.setUserAuthentificationType(UserAuthentificationType.GOOGLE);
+			}
+			//auth
 			SimpleAuthenticationInfo auth = new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(Base64.decode(user.getSalt())), getName());
 			return auth;
 		}
