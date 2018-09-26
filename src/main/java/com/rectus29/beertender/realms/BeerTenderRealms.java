@@ -30,17 +30,11 @@ import org.springframework.stereotype.Component;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-/**
- * The type Eve tool realms.
- */
 @Component
 public class BeerTenderRealms extends AuthorizingRealm {
 
-	private static final Logger log = LogManager.getLogger(BeerTenderRealms.class);
-
-	/**
-	 * The Service user.
-	 */
+	public static final String REALM_NAME = "GoogleOauthRealm";
+	private static final Logger logger = LogManager.getLogger(BeerTenderRealms.class);
 	protected IserviceUser serviceUser;
 
 	/**
@@ -62,11 +56,12 @@ public class BeerTenderRealms extends AuthorizingRealm {
 	 */
 	@Autowired
 	public void setServiceUser(IserviceUser serviceUser) {
+		setName(REALM_NAME);
 		this.serviceUser = serviceUser;
 	}
 
 	@Override
-	protected SaltedAuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		User user = serviceUser.getByProperty("email", token.getUsername(), true);
 		if (user != null) {
@@ -93,13 +88,13 @@ public class BeerTenderRealms extends AuthorizingRealm {
 				for (Permission rc : user.getRole().getPermissions()) {
 					info.addStringPermission(rc.getCodeString());
 				}
-				log.debug("permission loading done");
+				logger.debug("permission loading done");
 				return info;
 			} else {
 				return null;
 			}
 		} catch (Exception e) {
-			log.error(e);
+			logger.error(e);
 			return null;
 		}
 	}

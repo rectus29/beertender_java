@@ -2,8 +2,10 @@ package com.rectus29.beertender.web.component.labels;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.convert.IConverter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -18,9 +20,14 @@ public class CurrencyLabel extends Label {
         super(id, model);
     }
 
-    public CurrencyLabel(String id) {
-        this(id, null);
-    }
+	public CurrencyLabel(String id, BigDecimal data) {
+		super(id, new Model<BigDecimal>(data));
+	}
+
+	public CurrencyLabel(String id, Number data) {
+		super(id, new Model<Number>(data));
+	}
+
 
     public IConverter getConverter(Class type) {
         if(type == BigDecimal.class)

@@ -55,6 +55,13 @@ public class Order extends GenericEntity<Order> {
 		return res;
 	}
 
+	public int getNbProductInOrder(){
+		int nbProduct = 0;
+		for (OrderItem orderItem : orderItemList)
+			nbProduct += orderItem.getQuantity();
+		return nbProduct;
+	}
+
 	public Order addProduct(Product product, long qte) {
 		OrderItem toAdd = new OrderItem(product, qte, this);
 		if (orderItemList.contains(toAdd)) {

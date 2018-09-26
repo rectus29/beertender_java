@@ -2,6 +2,8 @@ package com.rectus29.beertender.web.security.maintenancepage;
 
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.web.page.base.BasePage;
+import com.rectus29.beertender.web.page.base.BeerTenderBasePage;
+import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /*-----------------------------------------------------*/

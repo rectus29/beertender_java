@@ -7,6 +7,7 @@ import com.rectus29.beertender.event.RefreshEvent;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.component.formattednumberlabel.NumericLabel;
+import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.security.error.ErrorPage;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -62,9 +63,10 @@ public class OrderPanel extends Panel {
             @Override
             protected void populateItem(final ListItem<OrderItem> item) {
                 item.add(new Label("productName", item.getModelObject().getProduct().getName()));
-                item.add(new NumericLabel("productqte", item.getModelObject().getQuantity()));
-                item.add(new NumericLabel("productunitprice", item.getModelObject().getProduct().getPrice().doubleValue()));
-                item.add(new NumericLabel("rowprice", item.getModelObject().getSum()));
+                item.add(new Label("productpack", item.getModelObject().getProduct().getPackaging().getName()));
+                item.add(new CurrencyLabel("productunitprice", item.getModelObject().getProduct().getPrice()));
+				item.add(new NumericLabel("productqte", item.getModelObject().getQuantity()));
+				item.add(new CurrencyLabel("rowprice", item.getModelObject().getSum()));
                 //Action link
                 item.add(new AjaxLink("rmLink") {
                     @Override

@@ -4,6 +4,7 @@ import com.rectus29.beertender.event.DispatchOnEventMethod;
 import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.page.admin.AdminPage;
+import com.rectus29.beertender.web.page.billspage.BillsPage;
 import com.rectus29.beertender.web.page.home.HomePage;
 import com.rectus29.beertender.web.page.mailbox.MailBoxPage;
 import com.rectus29.beertender.web.page.product.ProductPage;
@@ -79,6 +80,7 @@ public class BeerTenderApplication extends WebApplication {
 		mountPage("mail/#{panel}", MailBoxPage.class);
 		mountPage("product/#{productId}", ProductPage.class);
 		mountPage("home/#{package}/#{category}", getHomePage());
+		mountPage("order/", BillsPage.class);
 
 		mountPage("unauthorized", UnauthorizedPage.class);
 		mountPage("restorepassword/${uid}", RestorePasswordPage.class);
@@ -99,7 +101,6 @@ public class BeerTenderApplication extends WebApplication {
 			//add pattren ti guard here for ressources model access
 		}
 	}
-
 
 	public ApplicationContext getAppCtx() {
 		return WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
