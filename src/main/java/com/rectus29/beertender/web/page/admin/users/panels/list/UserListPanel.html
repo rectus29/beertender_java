@@ -35,23 +35,23 @@
             <td wicket:id="role">[role]</td>
             <td wicket:id="state">[role]</td>
             <td>
-                <div class="btn-group btn-default">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <div class="btn-group ">
+                    <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                         <wicket:message key="action"/>
                         <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu pull-right">
-                        <li><a href="#" wicket:id="runas"><i class="icon-user"/>&nbsp;
-                            <wicket:message key="UserProfile.runAs"/>
-                        </a></li>
-                        <li><a href="#" wicket:id="edit"><i class="icon-edit"/>&nbsp;
-                            <wicket:message key="edit"/>
-                        </a></li>
-                        <li><a href="#" wicket:id="remove"><i class="icon-remove"/>&nbsp;
-                            <wicket:message key="delete"/>
-                        </a></li>
-                    </ul>
-                </div>
+                    </button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#" wicket:id="runas"><i class="icon-user"/>&nbsp;
+							<wicket:message key="UserProfile.runAs"/>
+						</a>
+						<a class="dropdown-item" href="#" wicket:id="edit"><i class="icon-edit"/>&nbsp;
+							<wicket:message key="edit"/>
+						</a>
+						<a class="dropdown-item" href="#" wicket:id="remove"><i class="icon-remove"/>&nbsp;
+							<wicket:message key="delete"/>
+						</a>
+					</div>
+				</div>
             </td>
         </tr>
         </tbody>

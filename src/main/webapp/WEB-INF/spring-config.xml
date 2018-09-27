@@ -87,20 +87,16 @@
     <tx:annotation-driven/>
 
     <!-- Mail configuration -->
-    <!--<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">-->
-        <!--<property name="host" value="smtp.server.com"/>-->
-        <!--<property name="username" value="sender@server.com"/>-->
-        <!--<property name="password" value="pass4sender"/>-->
-        <!--<property name="port" value="25"/>-->
-        <!--<property name="defaultEncoding" value="UTF-8"/>-->
-    <!--</bean>-->
-
-    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="velocityProperties">
-            <value>
-                resource.loader=class
-                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-            </value>
-        </property>
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.server.com"/>
+        <property name="username" value="sender@server.com"/>
+        <property name="password" value="pass4sender"/>
+        <property name="port" value="25"/>
+        <property name="defaultEncoding" value="UTF-8"/>
     </bean>
+
+	<bean id="freeMarkerConfigurationFactory" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+		<property name="templateLoaderPath" value="classpath:/mailTemplate"/>
+		<property name="preferFileSystemAccess" value="false"/>
+	</bean>
 </beans>

@@ -4,6 +4,7 @@ import com.rectus29.beertender.entities.Role;
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.service.IserviceHistory;
+import com.rectus29.beertender.service.IserviceMail;
 import com.rectus29.beertender.service.IserviceRole;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
@@ -47,6 +48,9 @@ public class UserEditPanel extends Panel {
 
 	@SpringBean(name = "serviceHistory")
 	private IserviceHistory serviceHistory;
+
+	@SpringBean(name = "serviceMail")
+	private IserviceMail serviceMail;
 
 	private User user;
 	private Form form;
@@ -94,18 +98,31 @@ public class UserEditPanel extends Panel {
 						return serviceUser.getCurrentUser().isAdmin();
 					}
 				}.setRequired(true));
+
+
+				add(new AjaxSubmitLink("submitAndNotify") {
+					@Override
+					protected void onSubmit(AjaxRequestTarget target, Form form) {
+						target = checkForm(target, form);
+						//send notif to the new User
+						//serviceMail.sendEmail();
+
+						success(new ResourceModel("success").getObject());
+						target.add(form);
+						UserEditPanel.this.onSubmit(target);
+					}
+
+					@Override
+					public void onError(AjaxRequestTarget target, Form<?> form) {
+						target.add(feed);
+					}
+
+				});
+
 				add(new AjaxSubmitLink("submit") {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target, Form form) {
-						if (password != null) {
-							//Salt
-							RandomNumberGenerator rng = new SecureRandomNumberGenerator();
-							ByteSource salt = rng.nextBytes();
-							user.setSalt(salt.toBase64());
-							user.setPassword(new Sha256Hash(password, new SimpleByteSource(Base64.decode(user.getSalt())), 1024).toBase64());
-						}
-						user = serviceUser.save(user);
-						user = new User();
+						target = checkForm(target, form);
 						success(new ResourceModel("success").getObject());
 						target.add(form);
 						UserEditPanel.this.onSubmit(target);
@@ -126,6 +143,19 @@ public class UserEditPanel extends Panel {
 				add((feed = new BootstrapFeedbackPanel("feed")).setOutputMarkupId(true));
 			}
 		}).setOutputMarkupId(true));
+	}
+
+	private AjaxRequestTarget checkForm(AjaxRequestTarget target, Form form){
+		if (password != null) {
+			//Salt
+			RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+			ByteSource salt = rng.nextBytes();
+			user.setSalt(salt.toBase64());
+			user.setPassword(new Sha256Hash(password, new SimpleByteSource(Base64.decode(user.getSalt())), 1024).toBase64());
+		}
+		user = serviceUser.save(user);
+		user = new User();
+		return target;
 	}
 
 	public void onSubmit(AjaxRequestTarget target) {

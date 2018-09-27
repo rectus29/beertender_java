@@ -1,10 +1,12 @@
 package com.rectus29.beertender.web.page.admin.productDefinition.list;
 
+import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.entities.ProductDefinition;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceProductDefinition;
 import com.rectus29.beertender.web.component.confirmation.ConfirmationLink;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
+import com.rectus29.beertender.web.page.admin.product.panels.edit.ProductAdminEditPanel;
 import com.rectus29.beertender.web.page.admin.productDefinition.edit.ProductDefifnitionAdminEditPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +23,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
@@ -94,7 +97,19 @@ public class ProductDefinitionAdminListPanel extends Panel {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						modal.setTitle(new ResourceModel("UserEditPanel.editUser").getObject());
-						modal.setContent(new ProductDefifnitionAdminEditPanel(modal.getContentId(), item.getModel()));
+						modal.setContent(new ProductDefifnitionAdminEditPanel(modal.getContentId(), item.getModel()){
+							@Override
+							public void onSubmit(AjaxRequestTarget target, IModel<ProductDefinition> productModel) {
+								ldm.detach();
+								target.add(wmc);
+								modal.close(target);
+							}
+
+							@Override
+							public void onCancel(AjaxRequestTarget target) {
+								modal.close(target);
+							}
+						});
 						modal.show(target);
 					}
 
@@ -126,6 +141,26 @@ public class ProductDefinitionAdminListPanel extends Panel {
 		}).setOutputMarkupId(true));
 
 		add((modal = new BeerTenderModal("modal")).setOutputMarkupId(true));
+		add(new AjaxLink("add"){
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				modal.setTitle(new ResourceModel("add").getObject());
+				modal.setContent(new ProductDefifnitionAdminEditPanel(modal.getContentId()){
+					@Override
+					public void onSubmit(AjaxRequestTarget target, IModel<ProductDefinition> productIModel) {
+						ldm.detach();
+						modal.close(target);
+						target.add(wmc);
+					}
+
+					@Override
+					public void onCancel(AjaxRequestTarget target) {
+						modal.close(target);
+					}
+				});
+				modal.show(target, BeerTenderModal.ModalFormat.MEDIUM);
+			}
+		});
 
 
 	}
