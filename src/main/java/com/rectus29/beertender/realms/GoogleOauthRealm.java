@@ -59,7 +59,7 @@ public class GoogleOauthRealm extends BeerTenderRealms {
 				user.setLastName(got.getFamilyName());
 				user.setUuid(got.getUserId());
 				//clear password
-				user.setPassword(UUID.randomUUID().toString());
+				user.setPassword("NO-PASSWORD-" + UUID.randomUUID().toString());
 				//set login mode
 				user.setUserAuthentificationType(UserAuthentificationType.GOOGLE);
 				user = serviceUser.save(user);

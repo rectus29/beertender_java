@@ -84,7 +84,6 @@ public class SigninPage extends BasePage {
 		User u = serviceUser.getCurrentUser();
 		u.setLastLogin(new java.util.Date());
 		serviceUser.save(u);
-
 		if (serviceConfig.getByProperty("key", "maintenance_mod", true).getValue().equals("1") && !serviceUser.getCurrentUser().isAdmin()) {
 			throw new RestartResponseException(MaintenancePage.class);
 		}

@@ -48,9 +48,35 @@
                             <directory>${basedir}/src/main/webapp</directory>
                         </resource>
                     </webResources>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Build>${buildNumber}</Implementation-Build>
+						</manifestEntries>
+					</archive>
                 </configuration>
             </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<doCheck>true</doCheck>
+					<doUpdate>true</doUpdate>
+				</configuration>
+			</plugin>
         </plugins>
+		<finalName>${project.artifactId}-${project.version}-r${buildNumber}</finalName>
     </build>
 
     <properties>
@@ -377,7 +403,8 @@
     </developers>
 
     <scm>
-        <connection>https://github.com/rectus29/beertender_java.git</connection>
+        <connection>scm:git:https://github.com/rectus29/beertender_java.git</connection>
+        <developerConnection>scm:git:https://github.com/rectus29/beertender_java.git</developerConnection>
         <tag>HEAD</tag>
         <url>https://github.com/rectus29/beertender_java</url>
     </scm>
