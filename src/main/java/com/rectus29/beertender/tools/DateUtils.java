@@ -1,6 +1,5 @@
 package com.rectus29.beertender.tools;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.joda.time.*;
 
 import java.util.Calendar;
@@ -12,7 +11,7 @@ import java.util.Date;
  * Date: 5 nov. 2010
  * Time: 09:37:27
  */
-public class DateUtil extends DateUtils {
+public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
 
     /**
@@ -113,7 +112,7 @@ public class DateUtil extends DateUtils {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         int d = cal.getActualMaximum(cal.DAY_OF_MONTH);
-        date = DateUtil.setDays(date, cal.getActualMaximum(cal.DAY_OF_MONTH));
+        date = DateUtils.setDays(date, cal.getActualMaximum(cal.DAY_OF_MONTH));
         return date;
     }
 
@@ -124,7 +123,7 @@ public class DateUtil extends DateUtils {
      * @return
      */
     public static Date goToBeginOfMonth(Date date) {
-        return DateUtil.setDays(date, 1);
+        return DateUtils.setDays(date, 1);
     }
 
     /**
@@ -136,7 +135,7 @@ public class DateUtil extends DateUtils {
     public static Date goToEndOfWeek(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        return DateUtil.addDays(date, (7 - cal.get(cal.DAY_OF_WEEK)));
+        return DateUtils.addDays(date, (7 - cal.get(cal.DAY_OF_WEEK)));
     }
 
     /**
@@ -148,7 +147,7 @@ public class DateUtil extends DateUtils {
     public static Date goToBeginOfWeek(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        return DateUtil.addDays(date, -(cal.get(cal.DAY_OF_WEEK)));
+        return DateUtils.addDays(date, -(cal.get(cal.DAY_OF_WEEK)));
     }
 
     /**
@@ -158,8 +157,8 @@ public class DateUtil extends DateUtils {
      * @return
      */
     public static Date goToBeginOfYear(Date date) {
-        date = DateUtil.setMonths(date, 0);
-        date = DateUtil.setDays(date, 1);
+        date = DateUtils.setMonths(date, 0);
+        date = DateUtils.setDays(date, 1);
         return date;
     }
 
@@ -214,7 +213,7 @@ public class DateUtil extends DateUtils {
     public static Date setCurrentYear(Date date) {
         Calendar cal = Calendar.getInstance();
         int n = cal.get(cal.YEAR);
-        return DateUtil.setYears(date, n);
+        return DateUtils.setYears(date, n);
     }
 
     /**
@@ -225,7 +224,7 @@ public class DateUtil extends DateUtils {
      */
     public static Date updateClotureDate(Date date) {
         //MAJ de la date pour retour
-        Date dateRef = DateUtil.setCurrentYear(date);
+        Date dateRef = DateUtils.setCurrentYear(date);
         //preparation calendar pour le mois
         Calendar cal = Calendar.getInstance();
         cal.setTime(dateRef);
@@ -238,7 +237,7 @@ public class DateUtil extends DateUtils {
             if(m == m2 && cal.get(cal.DAY_OF_MONTH) <= cal2.get(cal2.DAY_OF_MONTH)){
                 return dateRef;
             }else
-            return DateUtil.addYears(dateRef, -1);
+            return DateUtils.addYears(dateRef, -1);
         }
         return dateRef;
     }
@@ -290,9 +289,9 @@ public class DateUtil extends DateUtils {
      */
     public static Date getDate(int day, int month, int year) {
         Date temp = new Date();
-        temp = DateUtil.setDays(temp, day);
-        temp = DateUtil.setMonths(temp, month - 1);
-        temp = DateUtil.setYears(temp, year);
+        temp = DateUtils.setDays(temp, day);
+        temp = DateUtils.setMonths(temp, month - 1);
+        temp = DateUtils.setYears(temp, year);
         return temp;
     }
 

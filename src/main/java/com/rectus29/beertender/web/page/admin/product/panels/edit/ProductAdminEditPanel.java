@@ -8,6 +8,7 @@ import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.service.IserviceProductDefinition;
 import com.rectus29.beertender.tools.ImageUtils;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
+import com.rectus29.beertender.web.component.switchbutton.SwitchButton;
 import com.rectus29.beertender.web.page.admin.productDefinition.edit.ProductDefifnitionAdminEditPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +45,8 @@ public abstract class ProductAdminEditPanel extends Panel {
 	private Form form;
 	private FileUploadField fileUpload;
 	private BootstrapFeedbackPanel feed;
+	private DropDownChoice ddc;
+	private WebMarkupContainer wmc, defEditPanel;
 
 	public ProductAdminEditPanel(String id) {
 		super(id);
@@ -66,11 +69,10 @@ public abstract class ProductAdminEditPanel extends Panel {
 			protected void onInitialize() {
 				super.onInitialize();
 				//add wmc
-                WebMarkupContainer wmc, defEditPanel;
-                add((wmc = new WebMarkupContainer("definitionPanel")));
-                wmc.setOutputMarkupId(true);
+                add((wmc = new WebMarkupContainer("definitionPanel")).setOutputMarkupId(true));
+
                 //add def selector
-                wmc.add(new DropDownChoice<>("productDef",
+                wmc.add(ddc = new DropDownChoice<>("productDef",
                         productDefinitionIModel,
                         new LoadableDetachableModel<List<? extends ProductDefinition>>() {
                             @Override
@@ -82,9 +84,7 @@ public abstract class ProductAdminEditPanel extends Panel {
                             }
                         },
                         new ChoiceRenderer<>("name")
-                ));
-
-                wmc.add((defEditPanel = new WebMarkupContainer("defEditPanel"){
+                )).add((defEditPanel = new WebMarkupContainer("defEditPanel"){
                     @Override
                     protected void onInitialize() {
                         super.onInitialize();
@@ -93,10 +93,18 @@ public abstract class ProductAdminEditPanel extends Panel {
                     }
                 }).setOutputMarkupId(true).setVisible(false));
 
-                wmc.add(new AjaxLink("editdef") {
+                wmc.add(new SwitchButton("editdef") {
 					@Override
-					public void onClick(AjaxRequestTarget target) {
+					public void onPush(AjaxRequestTarget target) {
 						defEditPanel.setVisible(!defEditPanel.isVisible());
+						ddc.setVisible(!ddc.isVisible());
+						target.add(wmc);
+					}
+
+					@Override
+					public void onRelease(AjaxRequestTarget target) {
+						defEditPanel.setVisible(!defEditPanel.isVisible());
+						ddc.setVisible(!ddc.isVisible());
 						target.add(wmc);
 					}
 				});

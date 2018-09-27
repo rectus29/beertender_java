@@ -2,6 +2,7 @@ package com.rectus29.beertender.realms;
 
 import com.rectus29.beertender.entities.Permission;
 import com.rectus29.beertender.entities.User;
+import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.service.IserviceUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +17,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.SimpleByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 
 /*-----------------------------------------------------*/
@@ -65,6 +68,11 @@ public class BeerTenderRealms extends AuthorizingRealm {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		User user = serviceUser.getByProperty("email", token.getUsername(), true);
 		if (user != null) {
+			if (user.getUserAuthentificationType() == UserAuthentificationType.NONE) {
+				//set login mode
+				user.setUserAuthentificationType(UserAuthentificationType.EMBED);
+				user = serviceUser.save(user);
+			}
 			return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(Base64.decode(user.getSalt())), getName());
 		} else {
 			return null;

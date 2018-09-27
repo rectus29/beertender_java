@@ -1,13 +1,10 @@
 package com.rectus29.beertender.web.page.test;
 
-import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceProduct;
-import com.rectus29.beertender.web.component.productimage.ProductImage;
+import com.rectus29.beertender.web.component.switchbutton.SwitchButton;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.request.resource.DynamicImageResource;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /*-----------------------------------------------------*/
@@ -32,13 +29,18 @@ public class TestPage extends WebPage {
 		super.onInitialize();
 
 
-		add(new Image("testimg", new DynamicImageResource() {
+		add(new SwitchButton("box") {
 			@Override
-			protected byte[] getImageData(Attributes attributes) {
-				return serviceProduct.get(6l).getFileImage();
+			public void onPush(AjaxRequestTarget target) {
+				System.out.println("yolo");
 			}
-		}));
 
-		add(new ProductImage("productImage", new Model<Product>(serviceProduct.get(5l))));
+			@Override
+			public void onRelease(AjaxRequestTarget target) {
+				System.out.println("yola");
+			}
+		});
+
+
 	}
 }

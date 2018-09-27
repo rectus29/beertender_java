@@ -3,54 +3,65 @@
 <body>
 <wicket:panel>
 	<form wicket:id="form">
-		<div class="form-group" wicket:id="definitionPanel">
-			<label class="control-label" wicket:for="productDef">
-				<wicket:message key="productDef"/>
-			</label>
 
-			<select wicket:id="productDef" class="form-control"/><a href="#"wicket:id="editdef">Modilfier</a>
-			<div wicket:id="defEditPanel">
-				<div class="form-group">
-					<label class="control-label" wicket:for="defName">
-						Nom
+		<div class="row">
+			<div class="col-md-6">
+				<div wicket:id="definitionPanel">
+					<label class="control-label" wicket:for="productDef">
+						<wicket:message key="productDef"/>
 					</label>
-					<input type="text" wicket:id="defName" class="form-control"/>
+					<select wicket:id="productDef" class="form-control"/><input type="checkbox" wicket:id="editdef"/>
+					<div wicket:id="defEditPanel">
+						<div class="form-group">
+							<label class="control-label" wicket:for="defName">
+								Nom
+							</label>
+							<input type="text" wicket:id="defName" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label" wicket:for="defDesc">
+								Description
+							</label>
+							<textarea wicket:id="defDesc" class="form-control"/>
+						</div>
+					</div>
 				</div>
+				<hr>
 				<div class="form-group">
-					<label class="control-label" wicket:for="defDesc">
-						Description
+					<label class="control-label" wicket:for="defimg">
+						Image
 					</label>
-					<textarea wicket:id="defDesc" class="form-control"/>
+					<input type="file" wicket:id="defimg" class="form-control"/>
 				</div>
 
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label" wicket:for="defimg">
-				Image
-			</label>
-			<input type="file" wicket:id="defimg" class="form-control"/>
-		</div>
-		<div class="form-group">
-			<label class="control-label" wicket:for="packaging">
-				<wicket:message key="packaging"/>
-			</label>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label" wicket:for="packaging">
+						<wicket:message key="packaging"/>
+					</label>
 
-			<select wicket:id="packaging" class="form-control"/>
-		</div>
-		<div class="form-group">
-			<label class="control-label" wicket:for="price">
-				<wicket:message key="price"/>
-			</label>
+					<select wicket:id="packaging" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<label class="control-label" wicket:for="price">
+						<wicket:message key="price"/>
+					</label>
 
-			<input wicket:id="price" type="number" class="form-control"/>
-		</div>
-		<div class="form-group">
-			<label class="control-label" wicket:for="state">
-				<wicket:message key="state"/>
-			</label>
+					<input wicket:id="price" type="number" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<label class="control-label" wicket:for="state">
+						<wicket:message key="state"/>
+					</label>
 
-			<select wicket:id="state" class="form-control"/>
+					<select wicket:id="state" class="form-control"/>
+				</div>
+
+				<hr>
+
+				categselector
+			</div>
 		</div>
 		<div class="form-group">
 			<div class="controls">
@@ -63,7 +74,6 @@
 			</div>
 		</div>
 		<div wicket:id="feed"/>
-
 	</form>
 </wicket:panel>
 </body>

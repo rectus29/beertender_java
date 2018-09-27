@@ -1,8 +1,7 @@
 package com.rectus29.beertender.entities;
 
 import com.rectus29.beertender.enums.State;
-import com.rectus29.beertender.tools.DateUtil;
-import org.apache.logging.log4j.core.config.plugins.validation.Constraint;
+import com.rectus29.beertender.tools.DateUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,8 +13,8 @@ import java.util.List;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 @Entity
-@Table(	name = "timeframe",
-		uniqueConstraints = @UniqueConstraint(name = "state_unique" ,columnNames = "state")
+@Table(name = "timeframe",
+		uniqueConstraints = @UniqueConstraint(name = "state_unique", columnNames = "state")
 )
 public class TimeFrame extends GenericEntity {
 
@@ -25,7 +24,7 @@ public class TimeFrame extends GenericEntity {
 	private Date startDate = new Date();
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date endDate = DateUtil.addMonths(new Date(), 2);
+	private Date endDate = DateUtils.addMonths(new Date(), 2);
 
 	private State state = State.PENDING;
 

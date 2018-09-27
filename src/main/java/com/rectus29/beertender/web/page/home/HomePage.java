@@ -7,9 +7,9 @@ import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
+import com.rectus29.beertender.tools.StringUtils;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import com.rectus29.beertender.web.panel.productListPanel.ProductListPanel;
-import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -28,8 +28,7 @@ public class HomePage extends BeerTenderPage {
 	@SpringBean(name = "servicePackaging")
 	IservicePackaging servicePackaging;
 
-    public HomePage() {
-    }
+    public HomePage() {}
 
     public HomePage(IModel model) {
         super(model);

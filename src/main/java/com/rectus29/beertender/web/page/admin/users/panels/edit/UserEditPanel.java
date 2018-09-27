@@ -7,8 +7,10 @@ import com.rectus29.beertender.service.IserviceHistory;
 import com.rectus29.beertender.service.IserviceMail;
 import com.rectus29.beertender.service.IserviceRole;
 import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.validator.PasswordPolicyValidator;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -76,23 +78,41 @@ public class UserEditPanel extends Panel {
 			@Override
 			protected void onInitialize() {
 				super.onInitialize();
-				add(new TextField<String>("firstname", new PropertyModel<String>(user, "firstName")).setRequired(true));
-				add(new TextField<String>("lastname", new PropertyModel<String>(user, "lastName")).setRequired(true));
-				add(new PasswordTextField("password", new PropertyModel<String>(UserEditPanel.this, "password")).setRequired(user.getPassword() == null));
-				add(new TextField<String>("mail", new PropertyModel<String>(user, "email")).add(EmailAddressValidator.getInstance()).setRequired(true));
-				add(new DropDownChoice<Role>("role", new PropertyModel<Role>(user, "role"), serviceRole.getAuthorizedRole(serviceUser.getCurrentUser()), new ChoiceRenderer<Role>("name")).setRequired(true));
+				add(new TextField<String>("firstname",
+						new PropertyModel<String>(user, "firstName"))
+						.setRequired(true)
+				);
+				add(new TextField<String>("lastname",
+						new PropertyModel<String>(user, "lastName"))
+						.setRequired(true)
+				);
+				add(new PasswordTextField("password",
+						new PropertyModel<String>(UserEditPanel.this, "password"))
+						.add(new PasswordPolicyValidator())
+						.setRequired(user.getPassword() == null)
+				);
+				add(new TextField<String>("mail",
+						new PropertyModel<String>(user, "email"))
+						.add(EmailAddressValidator.getInstance())
+						.setRequired(true)
+				);
+				add(new DropDownChoice<Role>("role",
+						new PropertyModel<Role>(user, "role"),
+						serviceRole.getAuthorizedRole(serviceUser.getCurrentUser()),
+						new ChoiceRenderer<Role>("name"))
+						.setRequired(true)
+				);
 				add(new DropDownChoice<UserAuthentificationType>("auth",
 						new PropertyModel<UserAuthentificationType>(user, "userAuthentificationType"),
 						Arrays.asList(UserAuthentificationType.values()),
-						new EnumChoiceRenderer<UserAuthentificationType>())
-				{
+						new EnumChoiceRenderer<UserAuthentificationType>()) {
 					@Override
 					public boolean isEnabled() {
 						return serviceUser.getCurrentUser().isAdmin();
 					}
 				}.setRequired(true));
 				add(new TextField<String>("uuid",
-						new PropertyModel<String>(user, "uuid")){
+						new PropertyModel<String>(user, "uuid")) {
 					@Override
 					public boolean isEnabled() {
 						return serviceUser.getCurrentUser().isAdmin();
@@ -145,7 +165,7 @@ public class UserEditPanel extends Panel {
 		}).setOutputMarkupId(true));
 	}
 
-	private AjaxRequestTarget checkForm(AjaxRequestTarget target, Form form){
+	private AjaxRequestTarget checkForm(AjaxRequestTarget target, Form form) {
 		if (password != null) {
 			//Salt
 			RandomNumberGenerator rng = new SecureRandomNumberGenerator();
