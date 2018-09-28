@@ -14,6 +14,7 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptContentHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebComponent;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
@@ -26,14 +27,14 @@ import org.apache.wicket.model.ResourceModel;
 
 public abstract class SwitchButton extends FormComponent {
 
-    private IModel<Boolean> activ = new Model<>(Boolean.FALSE);
+    private IModel<String> activ = new Model<>("off");
 
     public SwitchButton(String id) {
         super(id);
         setModel(activ);
     }
 
-	public SwitchButton(String id, IModel<Boolean> model) {
+	public SwitchButton(String id, IModel<String> model) {
 		super(id, model);
 		this.activ = model;
 	}
@@ -52,7 +53,7 @@ public abstract class SwitchButton extends FormComponent {
         this.add(new AjaxFormComponentUpdatingBehavior("change") {
             @Override
             protected void onUpdate(AjaxRequestTarget target) {
-                if (activ.getObject()) {
+                if ("on".equals(activ.getObject())) {
                     onPush(target);
                 }else{
                     onRelease(target);
@@ -63,11 +64,20 @@ public abstract class SwitchButton extends FormComponent {
 
 	@Override
 	public void renderHead(IHeaderResponse response) {
-		response.render(new JavaScriptContentHeaderItem("alert('hello');", null, ""));
+        StringBuilder sb = new StringBuilder();
+        sb.append(" $('#" + this.getMarkupId() + "').bootstrapToggle();");
+		response.render(new OnDomReadyHeaderItem(sb.toString()));
 		super.renderHead(response);
 	}
 
-	protected void onComponentTag(ComponentTag tag) {
+
+
+    @Override
+    protected void onAfterRender() {
+        super.onAfterRender();
+    }
+
+    protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
 		checkComponentTag(tag, "input");
 		checkComponentTagAttribute(tag, "type", "checkbox");
@@ -78,11 +88,11 @@ public abstract class SwitchButton extends FormComponent {
 
     public abstract void onRelease(AjaxRequestTarget target);
 
-    public Boolean getActiv() {
+    /*public Boolean getActiv() {
         return activ.getObject();
     }
 
     public void setActiv(Boolean activ) {
         this.activ.setObject(activ);
-    }
+    }*/
 }
