@@ -6,6 +6,7 @@ package com.rectus29.beertender.web.component.bookmarkabletabbedpanel;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.extensions.markup.html.tabs.TabbedPanel;
 import org.apache.wicket.markup.ComponentTag;
@@ -102,8 +103,10 @@ public class BookmarkableTabbedPanel<T extends BookmarkableTab> extends TabbedPa
 			paramValue = ((BookmarkableNamedTab) this.getTabs().get(index)).getName();
 		}
 		WebMarkupContainer link = new BookmarkablePageLink(linkId, getPage().getClass(), new PageParameters().add(tabParameterName, paramValue));
-		if (index == getSelectedTab())
+		if (index == getSelectedTab()){
 			link.setEnabled(false);
+			link.add(new AttributeAppender("class", " active"));
+		}
 		return link;
 	}
 
