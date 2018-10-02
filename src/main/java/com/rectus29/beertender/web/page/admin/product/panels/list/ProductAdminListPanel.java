@@ -93,7 +93,6 @@ public class ProductAdminListPanel extends Panel {
 				item.add(new AjaxLink("edit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						modal.setSize(BeerTenderModal.ModalFormat.LARGE);
 						modal.setTitle(new ResourceModel("UserEditPanel.editUser").getObject());
 						modal.setContent(new ProductAdminEditPanel(modal.getContentId(), item.getModel()){
 							@Override
@@ -108,7 +107,7 @@ public class ProductAdminListPanel extends Panel {
 								modal.close(target);
 							}
 						});
-						modal.show(target);
+						modal.show(target, BeerTenderModal.ModalFormat.LARGE);
 					}
 
 					@Override
@@ -143,7 +142,6 @@ public class ProductAdminListPanel extends Panel {
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 				modal.setTitle(new ResourceModel("UserEditPanel.addUser").getObject());
-				modal.setSize(BeerTenderModal.ModalFormat.LARGE);
 				modal.setContent(new ProductAdminEditPanel(modal.getContentId()){
 					@Override
 					public void onSubmit(AjaxRequestTarget target, IModel<Product> productIModel) {
@@ -157,7 +155,7 @@ public class ProductAdminListPanel extends Panel {
 						modal.close(target);
 					}
 				});
-				modal.show(target, BeerTenderModal.ModalFormat.MEDIUM);
+				modal.show(target, BeerTenderModal.ModalFormat.LARGE);
 			}
 		});
 

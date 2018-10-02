@@ -119,26 +119,6 @@ public class UserEditPanel extends Panel {
 					}
 				}.setRequired(true));
 
-
-				add(new AjaxSubmitLink("submitAndNotify") {
-					@Override
-					protected void onSubmit(AjaxRequestTarget target, Form form) {
-						target = checkForm(target, form);
-						//send notif to the new User
-						//serviceMail.sendEmail();
-
-						success(new ResourceModel("success").getObject());
-						target.add(form);
-						UserEditPanel.this.onSubmit(target);
-					}
-
-					@Override
-					public void onError(AjaxRequestTarget target, Form<?> form) {
-						target.add(feed);
-					}
-
-				});
-
 				add(new AjaxSubmitLink("submit") {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target, Form form) {

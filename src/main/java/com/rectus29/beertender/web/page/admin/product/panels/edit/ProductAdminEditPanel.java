@@ -1,13 +1,16 @@
 package com.rectus29.beertender.web.page.admin.product.panels.edit;
 
+import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.entities.ProductDefinition;
 import com.rectus29.beertender.enums.State;
+import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.service.IserviceProductDefinition;
 import com.rectus29.beertender.tools.ImageUtils;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
+import com.rectus29.beertender.web.component.multipledropdownchoice.MultipleDropDownChoice;
 import com.rectus29.beertender.web.component.switchbutton.SwitchButton;
 import com.rectus29.beertender.web.page.admin.productDefinition.edit.ProductDefifnitionAdminEditPanel;
 import org.apache.logging.log4j.LogManager;
@@ -39,6 +42,8 @@ public abstract class ProductAdminEditPanel extends Panel {
 	private IservicePackaging servicePackaging;
 	@SpringBean(name = "serviceProduct")
 	private IserviceProduct serviceProduct;
+	@SpringBean(name = "serviceCategory")
+	private IserviceCategory serviceCategory;
 
 	private IModel<Product> productIModel;
 	private IModel<ProductDefinition> productDefinitionIModel;
@@ -93,7 +98,7 @@ public abstract class ProductAdminEditPanel extends Panel {
                     }
                 }).setOutputMarkupId(true).setVisible(false));
 
-                wmc.add(new SwitchButton("editdef") {
+                add(new SwitchButton("editdef") {
 					@Override
 					public void onPush(AjaxRequestTarget target) {
 						defEditPanel.setVisible(!defEditPanel.isVisible());
@@ -103,9 +108,17 @@ public abstract class ProductAdminEditPanel extends Panel {
 
 					@Override
 					public void onRelease(AjaxRequestTarget target) {
-						defEditPanel.setVisible(!defEditPanel.isVisible());
-						ddc.setVisible(!ddc.isVisible());
-						target.add(wmc);
+						onPush(target);
+					}
+
+					@Override
+					protected String getOnLabel() {
+						return "Editer";
+					}
+
+					@Override
+					protected String getOffLabel() {
+						return "Utiliser";
 					}
 				});
 
@@ -122,9 +135,16 @@ public abstract class ProductAdminEditPanel extends Panel {
 						servicePackaging.getAll(Arrays.asList(State.ENABLE)),
 						new ChoiceRenderer<>("name")
 				).setRequired(true));
+
 				add(new NumberTextField<>("price",
 						new PropertyModel<BigDecimal>(productIModel, "price")
 				).setRequired(true));
+
+				add(new MultipleDropDownChoice("categ",
+						new PropertyModel<Category>(productIModel, "categoryList"),
+						serviceCategory.getAll(),
+						new ChoiceRenderer<Category>("name")
+				));
 
 				add(new AjaxSubmitLink("submit") {
 					@Override

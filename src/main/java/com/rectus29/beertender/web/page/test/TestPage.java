@@ -1,20 +1,22 @@
 package com.rectus29.beertender.web.page.test;
 
+import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.web.component.switchbutton.SwitchButton;
+import com.rectus29.beertender.web.page.admin.product.panels.edit.ProductAdminEditPanel;
+import com.rectus29.beertender.web.page.base.BasePage;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /*-----------------------------------------------------*/
-/*                     Adelya                          */
 /*                                                     */
 /*                Date: 19/09/2018 17:19               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class TestPage extends WebPage {
-
+public class TestPage extends BasePage {
 
 	@SpringBean(name = "serviceProduct")
 	private IserviceProduct serviceProduct;
@@ -38,6 +40,23 @@ public class TestPage extends WebPage {
 			@Override
 			public void onRelease(AjaxRequestTarget target) {
 				System.out.println("yola");
+			}
+
+			@Override
+			public boolean isVisible() {
+				return false;
+			}
+		});
+
+		add(new ProductAdminEditPanel("tete") {
+			@Override
+			public void onSubmit(AjaxRequestTarget target, IModel<Product> productModel) {
+
+			}
+
+			@Override
+			public void onCancel(AjaxRequestTarget target) {
+
 			}
 		});
 

@@ -10,7 +10,8 @@ import java.util.List;
  * Date: 5 juil. 2010
  */
 public interface IserviceRole extends GenericManager<Role, Long> {
-    public Role getRoleByName(String roleName);
+
+	public Role getRoleByName(String roleName);
 
     public Role getRoleByDesc(String desc);
 

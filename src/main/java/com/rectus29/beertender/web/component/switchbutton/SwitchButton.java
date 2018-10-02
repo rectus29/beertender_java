@@ -82,17 +82,29 @@ public abstract class SwitchButton extends FormComponent {
 		checkComponentTag(tag, "input");
 		checkComponentTagAttribute(tag, "type", "checkbox");
 		tag.put("data-toggle", "toggle");
+		tag.put("data-on", getOnLabel());
+		tag.put("data-off", getOffLabel());
+		tag.put("data-onstyle", getOnStyle());
+		tag.put("data-offstyle", getOffStyle());
+	}
+
+	protected String getOnStyle() {
+    	return "primary";
+	}
+
+	protected String getOffStyle() {
+		return "light";
+	}
+
+	protected String getOnLabel(){
+    	return "On";
+	}
+
+	protected String getOffLabel(){
+		return "Off";
 	}
 
     public abstract void onPush(AjaxRequestTarget target);
 
     public abstract void onRelease(AjaxRequestTarget target);
-
-    /*public Boolean getActiv() {
-        return activ.getObject();
-    }
-
-    public void setActiv(Boolean activ) {
-        this.activ.setObject(activ);
-    }*/
 }

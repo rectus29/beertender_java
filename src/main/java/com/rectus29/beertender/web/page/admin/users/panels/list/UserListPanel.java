@@ -10,6 +10,7 @@ import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.component.confirmation.ConfirmationLink;
 import com.rectus29.beertender.web.page.admin.users.panels.edit.UserEditPanel;
 import com.rectus29.beertender.web.page.home.HomePage;
+import com.rectus29.beertender.web.panel.enrollpanel.EnrollPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -26,6 +27,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
@@ -163,6 +165,7 @@ public class UserListPanel extends Panel {
         }).setOutputMarkupId(true));
 
         add((modal = new BeerTenderModal("modal")).setOutputMarkupId(true));
+
         add(new AjaxLink("add"){
             @Override
             public void onClick(AjaxRequestTarget target) {
@@ -183,5 +186,16 @@ public class UserListPanel extends Panel {
                 modal.show(target, BeerTenderModal.ModalFormat.MEDIUM);
             }
         });
+
+        add(new AjaxLink("enroll") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				modal.setTitle("Inviter un nouveau memebre");
+				modal.setContent(new EnrollPanel(modal.getContentId()){
+
+				});
+				modal.show(target, BeerTenderModal.ModalFormat.AUTO);
+			}
+		});
     }
 }
