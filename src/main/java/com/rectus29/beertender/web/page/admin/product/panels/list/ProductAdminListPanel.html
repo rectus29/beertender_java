@@ -6,17 +6,18 @@
 </head>
 <body>
 <wicket:panel>
-
-	<a href="#" class="btn btn-primary btn-sm pull-right" wicket:id="add">
-		<wicket:message key="add"/>
-	</a>
-	<form wicket:id="form" class="form-inline">
-		<label class="control-label" wicket:for="name">Rechercher : </label>
-		<input class="form-control" wicket:id="name"/>
-		<a class="btn btn-default" wicket:id="filterSubmitButton">
-			<wicket:message key="filter"/>
+	<div class="actionRow">
+		<a href="#" class="btn btn-primary btn-sm pull-right" wicket:id="add">
+			<wicket:message key="add"/>
 		</a>
-	</form>
+		<form wicket:id="form" class="form-inline">
+			<input class="form-control" wicket:id="name" placeholder="Rechercher"/>
+			<select class="form-control" wicket:id="pckg"/>
+			<a class="btn btn-default" wicket:id="filterSubmitButton">
+				<wicket:message key="filter"/>
+			</a>
+		</form>
+	</div>
 	<table class="table table-striped">
 		<thead>
 		<tr>
@@ -45,12 +46,12 @@
 						<span class="caret"></span>
 					</button>
 					<div class="dropdown-menu">
-							<a class="dropdown-item" href="#" wicket:id="edit">
-								<i class="icon-edit"/>&nbsp;<wicket:message key="edit"/>
-							</a>
-							<a class="dropdown-item" href="#" wicket:id="remove">
-								<i class="icon-remove"/>&nbsp;<wicket:message key="delete"/>
-							</a>
+						<a class="dropdown-item" href="#" wicket:id="edit">
+							<i class="icon-edit"/>&nbsp;<wicket:message key="edit"/>
+						</a>
+						<a class="dropdown-item" href="#" wicket:id="remove">
+							<i class="icon-remove"/>&nbsp;<wicket:message key="delete"/>
+						</a>
 					</div>
 				</div>
 			</td>

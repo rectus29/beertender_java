@@ -5,18 +5,20 @@
 </head>
 <body>
 <wicket:extend>
-	<div class="container">
+	<div class="container spaced-container">
+		<h2 wicket:id="tfName">
+		</h2>
 		<div class="TimeFrameDetail white-element d-flex justify-content-around">
 			<div >
 				Commande :
-				<small class="text-muted" wicket:id="tfName"/>
+				<small class="text-muted">#<wicket:container wicket:id="billsCode"/></small>
 			</div>
 			<div class="pull-right">
 				Date de cloture :
-				<small class="text-muted" wicket:id="tfEndDate"/>
+				<small class="text-muted" wicket:id="tfEndDate"></small>
 			</div>
 		</div>
-		<div wicket:id="panel" class="white-element"/>
+		<div wicket:id="panel" class="white-element"></div>
 	</div>
 </wicket:extend>
 </body>

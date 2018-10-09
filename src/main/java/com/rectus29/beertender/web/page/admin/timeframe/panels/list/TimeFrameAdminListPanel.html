@@ -6,16 +6,21 @@
 </head>
 <body>
 <wicket:panel>
+	<div class="actionRow">
+		<a href="#" class="btn btn-primary btn-sm pull-right" wicket:id="add">
+			<wicket:message key="add"/>
+		</a>
+		<form wicket:id="form" class="form-inline">
+			<label class="control-label" wicket:for="name">
+				<wicket:message key="sortBylastName"/>
+				: </label>
+			<input class="form-control" wicket:id="name"/>
+			<a class="btn btn-default" wicket:id="filterSubmitButton">
+				<wicket:message key="filter"/>
+			</a>
 
-	<a href="#" class="btn btn-primary btn-sm pull-right" wicket:id="add">
-		<wicket:message key="add"/>
-	</a>
-	<form wicket:id="form" class="form-inline">
-		<label class="control-label" wicket:for="name"><wicket:message key="sortBylastName"/> : </label>
-		<input  class="form-control" wicket:id="name"/>
-		<a class="btn btn-default" wicket:id="filterSubmitButton"><wicket:message key="filter"/></a>
-
-	</form>
+		</form>
+	</div>
 	<table class="table table-striped">
 		<thead>
 		<tr>
@@ -30,8 +35,7 @@
 		<tbody wicket:id="wmc">
 		<tr wicket:id="sorting">
 			<td wicket:id="id"></td>
-			<!--&lt;!&ndash;<td><wicket:container wicket:id="lastName"/></td>-->
-			<td wicket:id="name">[name]</td>-->
+			<td wicket:id="name">[name]</td>
 			<td wicket:id="startDate">[name]</td>
 			<td wicket:id="endDate">[role]</td>
 			<td wicket:id="state">[role]</td>

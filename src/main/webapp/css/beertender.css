@@ -176,3 +176,11 @@ li.nav-item.nav-pills {
 	font-size: .75rem;
 	text-transform: uppercase;
 }
+
+.spaced-container {
+	padding-top: 1rem;
+}
+
+.actionRow {
+	padding:  0px 0px 15px 0px;
+}

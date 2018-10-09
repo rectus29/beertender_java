@@ -8,31 +8,26 @@ package com.rectus29.beertender.web.component.switchbutton;
 /*-----------------------------------------------------*/
 
 
+import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptContentHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.apache.wicket.markup.html.WebComponent;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.util.string.StringValue;
 
 public abstract class SwitchButton extends FormComponent {
 
-    private IModel<String> activ = new Model<>("off");
+	private IModel<String> activ = new Model<>("off");
+	private AbstractDefaultAjaxBehavior adab;
 
-    public SwitchButton(String id) {
-        super(id);
-        setModel(activ);
-    }
+	public SwitchButton(String id) {
+		super(id);
+		setModel(activ);
+	}
 
 	public SwitchButton(String id, IModel<String> model) {
 		super(id, model);
@@ -45,39 +40,44 @@ public abstract class SwitchButton extends FormComponent {
 	}
 
 
-
 	@Override
     protected void onInitialize() {
         super.onInitialize();
 		setOutputMarkupId(true);
-        this.add(new AjaxFormComponentUpdatingBehavior("change") {
-            @Override
-            protected void onUpdate(AjaxRequestTarget target) {
-                if ("on".equals(activ.getObject())) {
-                    onPush(target);
-                }else{
-                    onRelease(target);
-                }
-            }
-        });
+		this.adab =new AbstractDefaultAjaxBehavior() {
+			@Override
+			protected void respond(AjaxRequestTarget target) {
+				StringValue param = RequestCycle.get().getRequest().getRequestParameters().getParameterValue("state");
+				if ("true".equals(param.toString())) {
+					activ.setObject("on");
+					onPush(target);
+				}else{
+					activ.setObject("off");
+					onRelease(target);
+				}
+			}
+		};
+        this.add(adab);
     }
 
 	@Override
 	public void renderHead(IHeaderResponse response) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(" $('#" + this.getMarkupId() + "').bootstrapToggle();");
+		StringBuilder sb = new StringBuilder();
+		sb.append(" $('#" + this.getMarkupId() + "').bootstrapToggle();");
+		sb.append(" $(document).on('change', '#" + this.getMarkupId() + "', function(){" +
+				"Wicket.Ajax.get({u:'"+this.adab.getCallbackUrl()+"&state=' + $(" + this.getMarkupId() + ").prop('checked')})" +
+				"});");
 		response.render(new OnDomReadyHeaderItem(sb.toString()));
 		super.renderHead(response);
 	}
 
 
+	@Override
+	protected void onAfterRender() {
+		super.onAfterRender();
+	}
 
-    @Override
-    protected void onAfterRender() {
-        super.onAfterRender();
-    }
-
-    protected void onComponentTag(ComponentTag tag) {
+	protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
 		checkComponentTag(tag, "input");
 		checkComponentTagAttribute(tag, "type", "checkbox");
@@ -89,22 +89,22 @@ public abstract class SwitchButton extends FormComponent {
 	}
 
 	protected String getOnStyle() {
-    	return "primary";
+		return "primary";
 	}
 
 	protected String getOffStyle() {
 		return "light";
 	}
 
-	protected String getOnLabel(){
-    	return "On";
+	protected String getOnLabel() {
+		return "On";
 	}
 
-	protected String getOffLabel(){
+	protected String getOffLabel() {
 		return "Off";
 	}
 
-    public abstract void onPush(AjaxRequestTarget target);
+	public abstract void onPush(AjaxRequestTarget target);
 
-    public abstract void onRelease(AjaxRequestTarget target);
+	public abstract void onRelease(AjaxRequestTarget target);
 }

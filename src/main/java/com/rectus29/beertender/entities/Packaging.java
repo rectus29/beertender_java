@@ -7,6 +7,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -74,5 +75,22 @@ public class Packaging extends GenericEntity<Packaging>{
 	@Override
 	public int compareTo(Packaging object) {
 		return defaultCompareTo(object);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Packaging packaging = (Packaging) o;
+		return Objects.equals(name, packaging.name) &&
+				Objects.equals(getId(), packaging.getId()) &&
+				Objects.equals(shortName, packaging.shortName) &&
+				Objects.equals(sortOrder, packaging.sortOrder) &&
+				state == packaging.state;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, shortName, sortOrder, state);
 	}
 }

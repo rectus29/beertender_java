@@ -44,21 +44,11 @@ public class TestPage extends BasePage {
 
 			@Override
 			public boolean isVisible() {
-				return false;
+				return true;
 			}
 		});
 
-		add(new ProductAdminEditPanel("tete") {
-			@Override
-			public void onSubmit(AjaxRequestTarget target, IModel<Product> productModel) {
 
-			}
-
-			@Override
-			public void onCancel(AjaxRequestTarget target) {
-
-			}
-		});
 
 
 	}

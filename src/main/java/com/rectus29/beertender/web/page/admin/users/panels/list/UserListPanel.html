@@ -2,25 +2,29 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns:wicket="http://wicket.apache.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <wicket:panel>
-	<div class="actionZone pull-right">
-		<a href="#" class="btn btn-primary btn-sm" wicket:id="add">
-			<wicket:message key="add"/>
-		</a>
-		<a href="#" class="btn btn-warning btn-sm" wicket:id="enroll">
-			Inviter
-		</a>
-	</div>
-
-    <form wicket:id="form" class="form-inline">
-		<div class="form-group">
-		<input  class="form-control form-control-sm" wicket:id="name" placeholder="Rechercher"/>
-        <a class="btn btn-light btn-sm" wicket:id="filterSubmitButton"><wicket:message key="filter"/></a>
+	<div class="actionRow">
+		<div class="actionZone pull-right">
+			<a href="#" class="btn btn-primary btn-sm" wicket:id="add">
+				<wicket:message key="add"/>
+			</a>
+			<a href="#" class="btn btn-warning btn-sm" wicket:id="enroll">
+				Inviter
+			</a>
 		</div>
-    </form>
+		<form wicket:id="form" class="form-inline">
+			<div class="form-group">
+				<input class="form-control form-control-sm" wicket:id="name" placeholder="Rechercher"/>
+				<a class="btn btn-light btn-sm" wicket:id="filterSubmitButton">
+					<wicket:message key="filter"/>
+				</a>
+			</div>
+		</form>
+	</div>
     <table class="table table-striped">
         <thead>
         <tr>

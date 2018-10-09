@@ -11,6 +11,7 @@ import com.rectus29.beertender.service.IserviceProductDefinition;
 import com.rectus29.beertender.tools.ImageUtils;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.component.multipledropdownchoice.MultipleDropDownChoice;
+import com.rectus29.beertender.web.component.productimage.ProductImage;
 import com.rectus29.beertender.web.component.switchbutton.SwitchButton;
 import com.rectus29.beertender.web.page.admin.productDefinition.edit.ProductDefifnitionAdminEditPanel;
 import org.apache.logging.log4j.LogManager;
@@ -127,6 +128,8 @@ public abstract class ProductAdminEditPanel extends Panel {
                         Arrays.asList(State.values()),
                         new ChoiceRenderer<>("name")
                 ).setRequired(true));
+
+                add(new ProductImage("productImg", productIModel));
 
                 add(fileUpload = new FileUploadField("defimg"));
 
