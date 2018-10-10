@@ -375,8 +375,14 @@
 			<version>1.4.197</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.graphql-java/graphql-java -->
+		<dependency>
+			<groupId>com.graphql-java</groupId>
+			<artifactId>graphql-java</artifactId>
+			<version>10.0</version>
+		</dependency>
 
-    </dependencies>
+	</dependencies>
 
     <developers>
         <developer>

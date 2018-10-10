@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+	<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+</head>
 <body>
 <wicket:head>
     <style>
@@ -12,9 +15,12 @@
         <div class="card-deck mb-3 text-center" wicket:id="wmc">
             <div class="card mb-4 box-shadow" wicket:id="lv">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal" wicket:id="productName">Free</h4>
+                    <h5 class="my-0 font-weight-normal" wicket:id="productName">Free</h5>
                 </div>
                 <div class="card-body">
+					<div class="categHolder">
+						<div class="badge badge-info" wicket:id="rvCateg"><span wicket:id="categBadge">New</span></div>
+					</div>
 					<div>
 						<img class="img-fluid cardProductImg" wicket:id="productImage" alt="Beer Bootle">
 					</div>

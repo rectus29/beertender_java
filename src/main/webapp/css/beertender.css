@@ -66,7 +66,7 @@ body {
 	font-family: sans-serif;
 }
 
-tr.userRow td{
+tr.userRow td {
 	background-color: rgba(255, 247, 0, 0.29);
 }
 
@@ -74,11 +74,11 @@ tr.userRow td{
 	color: white;
 }
 
-#userBlock a{
+#userBlock a {
 	color: white;
 }
 
-#userBlock a:hover{
+#userBlock a:hover {
 	color: white;
 	text-decoration: none;
 }
@@ -96,7 +96,7 @@ li.nav-item a.active {
 	background: #ffffff7a;
 }
 
-li.nav-item li.nav-item{
+li.nav-item li.nav-item {
 	padding: 0 0 0 25px;
 }
 
@@ -105,14 +105,13 @@ li.nav-item li.nav-item{
 	padding: 15px 15px 15px 0px;
 }
 
-li.nav-item ul.nav{
+li.nav-item ul.nav {
 	display: none;
 }
 
-li.nav-item.active ul.nav{
+li.nav-item.active ul.nav {
 	display: block;
 }
-
 
 li.nav-item.nav-pills {
 	margin-bottom: 2px;
@@ -123,14 +122,13 @@ li.nav-item.nav-pills {
 
 }
 
-.cardProductImg{
+.cardProductImg {
 	height: 200px;
 }
 
 .TimeFrameDetail {
 	margin: 0 0 15px 0;
 }
-
 
 .sidebar {
 	position: fixed;
@@ -182,5 +180,20 @@ li.nav-item.nav-pills {
 }
 
 .actionRow {
-	padding:  0px 0px 15px 0px;
+	padding: 0px 0px 15px 0px;
+}
+
+.card-body {
+	position: relative;
+}
+
+.card-body .categHolder {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+
+.categHolder .badge {
+	display: block;
+	margin: 2px 1px;
 }

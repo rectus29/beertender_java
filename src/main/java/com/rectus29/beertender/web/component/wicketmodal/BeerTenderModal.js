@@ -1198,7 +1198,7 @@
             "<div class=\"w_right\" id='"+idRight+"'>"+
             "<div class=\"w_content_1\" onmousedown=\"Wicket.Event.stop(event);\">"+
             "<div class=\"w_caption\"  id=\""+idCaption+"\">"+
-                "<a class=\"w_close\" style=\"z-index:1\" href=\"#\">&times;</a>"+
+                "<a class=\"w_close\" style=\"z-index:1\" href=\"#\"><i class=\"fa fa-times\"></i></a>"+
             "<h3 id=\""+idCaptionText+"\" class=\"w_captionText\"></h3>"+
             "</div>"+
 

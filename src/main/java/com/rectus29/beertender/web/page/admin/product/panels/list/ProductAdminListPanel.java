@@ -120,7 +120,7 @@ public class ProductAdminListPanel extends Panel {
 				item.add(new AjaxLink("edit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						modal.setTitle(new ResourceModel("UserEditPanel.editUser").getObject());
+						modal.setTitle("Editer un produit");
 						modal.setContent(new ProductAdminEditPanel(modal.getContentId(), item.getModel()) {
 							@Override
 							public void onSubmit(AjaxRequestTarget target, IModel<Product> productImodel) {

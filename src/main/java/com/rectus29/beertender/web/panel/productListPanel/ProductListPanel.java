@@ -8,12 +8,14 @@ import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.productimage.ProductImage;
 import com.rectus29.beertender.web.page.product.ProductPage;
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -21,6 +23,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 
 public class ProductListPanel extends Panel {
@@ -68,7 +71,12 @@ public class ProductListPanel extends Panel {
                                 new PageParameters().add(ProductPage.PRODUCT_ID, item.getModelObject().getId())
                         )
                 );
-
+                item.add(new ListView<Category>("rvCateg", item.getModelObject().getCategoryList()){
+					@Override
+					protected void populateItem(ListItem<Category> item) {
+						item.add(new Label("categBadge", item.getModelObject().getName()));
+					}
+				});
             }
         });
 
