@@ -58,7 +58,6 @@ public class ServiceMail implements IserviceMail, ServletContextAware {
 
 
 	public void sendRestoreMail(final User user, final String session) {
-
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
@@ -74,6 +73,11 @@ public class ServiceMail implements IserviceMail, ServletContextAware {
 			}
 		};
 		this.mailSender.send(preparator);
+	}
+
+	@Override
+	public void sendEnrolmentMail(User enrollUser) {
+
 	}
 
 	public ServletContext getServletContext() {

@@ -3,6 +3,7 @@ package com.rectus29.beertender.entities;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.tools.StringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.UUID;
 public class User extends GenericEntity<User> implements DecorableElement {
 
     @Column(nullable = false)
-    private String password;
+    private String password = RandomStringUtils.random(64);
     @Column(nullable = false, unique = true, length = 36)
     private String uuid = UUID.randomUUID().toString();
     @Column(nullable = false, unique = true)
@@ -75,8 +76,9 @@ public class User extends GenericEntity<User> implements DecorableElement {
         return state;
     }
 
-    public void setState(State state) {
+    public User setState(State state) {
         this.state = state;
+        return this;
     }
 
     public String getSalt() {
@@ -91,8 +93,9 @@ public class User extends GenericEntity<User> implements DecorableElement {
         return role;
     }
 
-    public void setRole(Role role) {
+    public User setRole(Role role) {
         this.role = role;
+        return this;
     }
 
     public boolean hasRole(String roleName) {

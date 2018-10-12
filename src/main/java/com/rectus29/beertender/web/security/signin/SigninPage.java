@@ -88,7 +88,6 @@ public class SigninPage extends BasePage {
 			throw new RestartResponseException(MaintenancePage.class);
 		}
 		continueToOriginalDestination();
-		setResponsePage(getApplication().getHomePage());
 	}
 
 	@Override

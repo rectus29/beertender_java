@@ -12,4 +12,6 @@ public interface IserviceMail {
 	public void sendEmail(final Long userId, final String subject, final String content);
 
 	public void sendRestoreMail(final User user, final String session);
+
+	public void sendEnrolmentMail(User enrollUser);
 }

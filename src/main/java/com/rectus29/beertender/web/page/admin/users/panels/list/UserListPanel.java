@@ -27,8 +27,8 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
-import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
@@ -192,9 +192,17 @@ public class UserListPanel extends Panel {
 			public void onClick(AjaxRequestTarget target) {
 				modal.setTitle("Inviter un nouveau memebre");
 				modal.setContent(new EnrollPanel(modal.getContentId()){
+					@Override
+					protected void onSubmit(AjaxRequestTarget target, IModel<User> enrollUserModel) {
+						modal.close(target);
+					}
 
+					@Override
+					protected void onCancel(AjaxRequestTarget target) {
+						modal.close(target);
+					}
 				});
-				modal.show(target, BeerTenderModal.ModalFormat.AUTO);
+				modal.show(target, BeerTenderModal.ModalFormat.SMALL);
 			}
 		});
     }

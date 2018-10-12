@@ -53,7 +53,6 @@ public class Config implements Serializable{
 		XMLExportFolder.mkdirs();
 		dateFormater = new SimpleDateFormat(dateFormat);
 		durationFormater = new PeriodFormatterBuilder()
-				//                .appendDays().printZeroAlways().appendSeparator(":")
 				.appendHours().printZeroAlways().minimumPrintedDigits(2).appendSeparator(":")
 				.appendMinutes().printZeroAlways().minimumPrintedDigits(2).appendSeparator(":")
 				.appendSeconds().printZeroAlways().minimumPrintedDigits(2)
