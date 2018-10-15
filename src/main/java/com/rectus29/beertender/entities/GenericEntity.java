@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @MappedSuperclass
-public abstract class GenericEntity<T> implements DomainObject, Serializable, Comparable<T> {
+public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
@@ -39,7 +39,9 @@ public abstract class GenericEntity<T> implements DomainObject, Serializable, Co
 		this.updated = updated;
 	}
 
-	public abstract int compareTo(T object);
+	public int compareTo(T object){
+		return defaultCompareTo(object);
+	}
 
 	protected int defaultCompareTo(T object){
 		return this.getId().compareTo(((GenericEntity)object).getId());
