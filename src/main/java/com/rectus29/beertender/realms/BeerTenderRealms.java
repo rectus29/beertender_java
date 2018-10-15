@@ -36,7 +36,7 @@ import java.util.UUID;
 @Component
 public class BeerTenderRealms extends AuthorizingRealm {
 
-	public static final String REALM_NAME = "GoogleOauthRealm";
+	public static final String REALM_NAME = "BeerTenderRealm";
 	private static final Logger logger = LogManager.getLogger(BeerTenderRealms.class);
 	protected IserviceUser serviceUser;
 

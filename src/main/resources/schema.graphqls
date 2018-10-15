@@ -1,0 +1,46 @@
+schema {
+	query: Query
+	mutation: Mutation
+}
+
+type Query {
+
+}
+
+type Mutation {
+
+}
+
+type Category {
+
+}
+
+type Link {
+	id: ID!
+	url: String!
+	description: String
+}
+
+type User {
+	id: ID!
+	name: String!
+	email: String
+	password: String
+}
+
+type SigninPayload {
+	token: String
+	user: User
+}
+
+input AuthData {
+	email: String!
+	password: String!
+}
+#
+#input LinkFilter {
+#	description_contains: String
+#	url_contains: String
+#}
+#
+#scalar DateTime

@@ -196,4 +196,5 @@ li.nav-item.nav-pills {
 .categHolder .badge {
 	display: block;
 	margin: 2px 1px;
+	width: fit-content;
 }
