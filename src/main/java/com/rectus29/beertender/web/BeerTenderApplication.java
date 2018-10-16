@@ -47,7 +47,6 @@ public class BeerTenderApplication extends WebApplication {
 	private static final Logger log = LogManager.getLogger(BeerTenderApplication.class);
 
 	private Config config;
-	private String realmsName = BeerTenderRealms.class.getSimpleName();
 
 	@Override
 	public void init() {
@@ -117,11 +116,11 @@ public class BeerTenderApplication extends WebApplication {
 	}
 
 	public BeerTenderRealms getRealms() {
-		return (BeerTenderRealms) WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext()).getBean(realmsName);
+		return (BeerTenderRealms) WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext()).getBean( BeerTenderRealms.class.getSimpleName());
 	}
 
 	public void updateRights() {
-		((BeerTenderRealms) WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext()).getBean(realmsName)).clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+		((BeerTenderRealms) WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext()).getBean( BeerTenderRealms.class.getSimpleName())).clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
 	}
 
 	@Override

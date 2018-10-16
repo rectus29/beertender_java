@@ -59,6 +59,6 @@
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
     </bean>
     <bean id="BeerTenderRealms" class="com.rectus29.beertender.realms.BeerTenderRealms"/>
-    <bean id="GoogleOauthRealms" class="com.rectus29.beertender.realms.GoogleOauthRealm"/>
+    <bean id="GoogleOauthRealms" class="com.rectus29.beertender.realms.GoogleOauthRealms"/>
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>

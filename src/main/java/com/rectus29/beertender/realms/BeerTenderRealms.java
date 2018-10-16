@@ -36,7 +36,7 @@ import java.util.UUID;
 @Component
 public class BeerTenderRealms extends AuthorizingRealm {
 
-	public static final String REALM_NAME = "BeerTenderRealm";
+	public static final String REALM_NAME = "BeerTenderRealms";
 	private static final Logger logger = LogManager.getLogger(BeerTenderRealms.class);
 	protected IserviceUser serviceUser;
 
@@ -44,7 +44,7 @@ public class BeerTenderRealms extends AuthorizingRealm {
 	 * Instantiates a new Eve tool realms.
 	 */
 	public BeerTenderRealms() {
-		setName("BeerTenderRealms");
+		setName(REALM_NAME);
 		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
 		matcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
 		matcher.setHashIterations(1024);
@@ -66,12 +66,12 @@ public class BeerTenderRealms extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		User user = serviceUser.getByProperty("email", token.getUsername(), true);
+		User user = this.serviceUser.getByProperty("email", token.getUsername(), true);
 		if (user != null) {
 			if (user.getUserAuthentificationType() == UserAuthentificationType.NONE) {
 				//set login mode
 				user.setUserAuthentificationType(UserAuthentificationType.EMBED);
-				user = serviceUser.save(user);
+				user = this.serviceUser.save(user);
 			}
 			return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(Base64.decode(user.getSalt())), getName());
 		} else {
@@ -89,7 +89,7 @@ public class BeerTenderRealms extends AuthorizingRealm {
 		Long userId;
 		try {
 			userId = (Long) principals.fromRealm(getName()).iterator().next();
-			User user = serviceUser.get(userId);
+			User user = this.serviceUser.get(userId);
 			if (user != null) {
 				SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 				//apply permission for core only

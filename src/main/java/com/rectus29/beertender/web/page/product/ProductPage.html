@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <head>
-	<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+    <link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+    <link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
 </head>
 <body>
 <wicket:extend>
     <div class="container productContainer white-element">
+
+        <div class="productPrice pull-right" wicket:id="beerPrize"></div>
+        <h2 class="productName" wicket:id="beerName"></h2>
+        <hr>
         <div class="row">
             <div class="col-md-4">
-                <img class="img-fluid" alt="beerImg" wicket:id="beerImg" style="height: 350px;">
+                <img class="rounded " alt="beerImg" wicket:id="beerImg" style="height: 350px;">
             </div>
             <div class="col-md-8">
-                <h2 wicket:id="beerName"></h2>
-                <div wicket:id="beerText"></div>
-                <div wicket:id="beerPrize"></div>
+
+                <div class="productDesc" wicket:id="beerText"></div>
                 <a href="#" wicket:id="addToCartLink" class="btn btn-primary">Ajouter à la commande</a>
             </div>
         </div>

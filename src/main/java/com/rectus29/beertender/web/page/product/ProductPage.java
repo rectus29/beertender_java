@@ -46,7 +46,7 @@ public class ProductPage extends BeerTenderPage {
         super.onInitialize();
         add(new ProductImage("beerImg", productIModel));
         add(new Label("beerName", productIModel.getObject().getName()));
-        add(new Label("beerText", productIModel.getObject().getDescription()));
+        add(new Label("beerText", productIModel.getObject().getDescription()).setEscapeModelStrings(false));
         add(new CurrencyLabel("beerPrize", new Model<BigDecimal>(productIModel.getObject().getPrice())));
         add(new AjaxLink("addToCartLink") {
             @Override

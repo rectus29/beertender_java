@@ -1,18 +1,23 @@
 package com.rectus29.beertender.web.page.base;
 
 import com.rectus29.beertender.event.RefreshEvent;
+import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.web.BeerTenderApplication;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.page.home.HomePage;
 import com.rectus29.beertender.web.panel.cartmodalpanel.CartModalPanel;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -51,6 +56,21 @@ public class BeerTenderBasePage extends ProtectedPage {
 
 		add(new BookmarkablePageLink<HomePage>("homeLink", HomePage.class));
 		add(new Label("login", serviceUser.getCurrentUser().getFormatedName()));
+		add(new Link("runAsUsual") {
+			@Override
+			public void onClick() {
+				PrincipalCollection pc = SecurityUtils.getSubject().getPreviousPrincipals();
+				SecurityUtils.getSubject().releaseRunAs();
+				BeerTenderRealms realms = ((BeerTenderApplication) BeerTenderApplication.get()).getRealms();
+				realms.clearCachedAuthorizationInfo(pc);
+				setResponsePage(HomePage.class);
+			}
+
+			@Override
+			protected void onConfigure() {
+				setVisibilityAllowed(SecurityUtils.getSubject().isRunAs());
+			}
+		});
 		add(new BookmarkablePageLink("admin", AdminPage.class) {
 			@Override
 			public boolean isVisible() {

@@ -31,13 +31,12 @@ import java.util.UUID;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 @Component
-public class GoogleOauthRealm extends BeerTenderRealms {
+public class GoogleOauthRealms extends BeerTenderRealms {
 
-	public static final String REALM_NAME = "GoogleOauthRealm";
-	protected IserviceUser serviceUser;
 	private Logger logger = LogManager.getLogger(BeerTenderRealms.class);
+	public static final String REALM_NAME = "GoogleOauthRealms";
 
-	public GoogleOauthRealm() {
+	public GoogleOauthRealms() {
 		setName(REALM_NAME);
 	}
 
@@ -50,7 +49,7 @@ public class GoogleOauthRealm extends BeerTenderRealms {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		GoogleOauthToken got = (GoogleOauthToken) token;
-		User user = serviceUser.getUserByMail(got.getGoogleEmail());
+		User user = this.serviceUser.getUserByMail(got.getGoogleEmail());
 		if (user != null) {
 			//if a first login with google
 			if (user.getUserAuthentificationType() == UserAuthentificationType.NONE) {
@@ -62,14 +61,13 @@ public class GoogleOauthRealm extends BeerTenderRealms {
 				user.setPassword("NO-PASSWORD-" + UUID.randomUUID().toString());
 				//set login mode
 				user.setUserAuthentificationType(UserAuthentificationType.GOOGLE);
-				user = serviceUser.save(user);
+				user = this.serviceUser.save(user);
 			}
 			if (user.getUserAuthentificationType() == UserAuthentificationType.GOOGLE) {
 				//auth
 				SimpleAuthenticationInfo auth = new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(Base64.decode(user.getSalt())), getName());
 				return auth;
 			}
-
 		}
 		return null;
 	}

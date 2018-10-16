@@ -198,3 +198,16 @@ li.nav-item.nav-pills {
 	margin: 2px 1px;
 	width: fit-content;
 }
+
+.totalLabel {
+	text-align: right;
+	font-weight: bold;
+}
+
+.modal-button-row {
+    text-align: right;
+}
+
+.productPrice {
+    font-size: 2rem;
+}
