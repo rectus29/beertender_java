@@ -1,42 +1,81 @@
+# java.util.Date implementation
+scalar Date
+# java.time.LocalDate implementation
+scalar LocalDate
+# java.time.LocalDateTime implementation
+scalar LocalDateTime
+# java.time.LocalTime implementation
+scalar LocalTime
+
 schema {
 	query: Query
-	mutation: Mutation
+#	mutation: Mutation
 }
 
 type Query {
+	allCateg: [Category]
+}
+#
+#type Mutation {
+#
+#}
 
+
+enum State {
+	DISABLE
+	ENABLE
+	PENDING
+	DELETED
+	ERROR
 }
 
-type Mutation {
-
+type Date {
+	date : String
 }
 
 type Category {
-
+	id: ID!,
+	created: Date!,
+	updated: Date!,
+	name:  String,
+	shortName: String,
+	description: String,
+#	productList: [Product],
+	state: State
 }
 
-type Link {
-	id: ID!
-	url: String!
-	description: String
-}
-
-type User {
-	id: ID!
-	name: String!
-	email: String
-	password: String
-}
-
-type SigninPayload {
-	token: String
-	user: User
-}
-
-input AuthData {
-	email: String!
-	password: String!
-}
+#type Product {
+#	id: ID!,
+#	created: Date!,
+#	updated: Date!,
+#	productDefinition: String,
+#	price: int!,
+#	packaging: String,
+#	fileImage: String,
+#	categoryList: [Category]
+#	state: State
+#}
+#
+#
+#
+#type User {
+#	id: ID!,
+#	created: Date!,
+#	updated: Date!,
+#	name: String!
+#	email: String
+#	password: String
+#}
+#
+#type SigninPayload {
+#	token: String
+#	user: User
+#}
+#
+#input AuthData {
+#	email: String!
+#	password: String!
+#}
 #
 #input LinkFilter {
 #	description_contains: String

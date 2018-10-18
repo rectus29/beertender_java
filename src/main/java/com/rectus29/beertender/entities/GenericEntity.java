@@ -9,15 +9,15 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date created = new Date();
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date updated = new Date();
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
 	public Long getId() {
 		return id;
