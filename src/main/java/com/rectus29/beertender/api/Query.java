@@ -5,6 +5,7 @@ import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.impl.ServiceCategory;
 import com.rectus29.beertender.spring.AppContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -17,10 +18,11 @@ import java.util.List;
 
 public class Query implements GraphQLQueryResolver {
 
+	@Autowired
 	private IserviceCategory serviceCategory;
 
 	public Query() {
-		this.serviceCategory = AppContext.getApplicationContext().getBean("serviceCategory", ServiceCategory.class);
+		this.serviceCategory = AppContext.getApplicationContext().getBean("serviceCategory", IserviceCategory.class);
 	}
 
 	public List<Category> allCateg() {
