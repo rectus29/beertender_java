@@ -8,7 +8,6 @@
 <wicket:extend>
     <div class="container productContainer white-element">
 
-        <div class="productPrice pull-right" wicket:id="beerPrize"></div>
         <h2 class="productName" wicket:id="beerName"></h2>
         <hr>
         <div class="row">
@@ -18,7 +17,17 @@
             <div class="col-md-8">
 
                 <div class="productDesc" wicket:id="beerText"></div>
-                <a href="#" wicket:id="addToCartLink" class="btn btn-primary">Ajouter à la commande</a>
+
+				<form wicket:id="form" style=" background: #efefef;padding: 5px;height: 80px;">
+					<div class="productPrice" wicket:id="beerPrize" style="display: inline-block; margin: 15px 0 0 15px;"></div>
+					<div style="display: inline-block; margin:15px 0 0 15px;">
+						<input type="number" wicket:id="qte" placeholder="Quantité">
+					</div>
+					<a href="#" wicket:id="addToCart" class="btn btn-primary  pull-right" style="margin: 15px 15px 0 0;">Ajouter à la commande</a>
+					<div wicket:id="feed"></div>
+				</form>
+
+
             </div>
         </div>
     </div>

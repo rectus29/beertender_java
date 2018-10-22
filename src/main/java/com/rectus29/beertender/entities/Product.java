@@ -44,6 +44,7 @@ public class Product extends GenericEntity<Product> {
 	private State state = State.ENABLE;
 
 	public Product() {
+		this.productDefinition = new ProductDefinition();
 	}
 
 	public ProductDefinition getProductDefinition() {

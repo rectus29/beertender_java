@@ -36,8 +36,9 @@ public class ProductDefinition extends GenericEntity<ProductDefinition> {
 		return name;
 	}
 
-	public void setName(String name) {
+	public ProductDefinition setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getDescription() {

@@ -36,8 +36,9 @@ public class Packaging extends GenericEntity<Packaging>{
 		return name;
 	}
 
-	public void setName(String name) {
+	public Packaging setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public List<Product> getProductList() {

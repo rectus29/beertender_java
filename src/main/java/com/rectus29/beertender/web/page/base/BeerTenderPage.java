@@ -21,7 +21,6 @@ public class BeerTenderPage extends BeerTenderBasePage {
     private IserviceUser serviceUser;
     @SpringBean(name = "serviceOrder")
     private IserviceOrder serviceOrder;
-    private Label nbProductLabel;
 
     public BeerTenderPage() {
     }
@@ -38,12 +37,5 @@ public class BeerTenderPage extends BeerTenderBasePage {
     protected void onInitialize() {
         super.onInitialize();
         add((new MenuPanel("menuPanel")).setOutputMarkupId(true));
-    }
-
-    @Override
-    public void onEvent(IEvent event) {
-        if (event.getPayload() instanceof RefreshEvent) {
-            ((RefreshEvent) event.getPayload()).getTarget().add(nbProductLabel);
-        }
     }
 }

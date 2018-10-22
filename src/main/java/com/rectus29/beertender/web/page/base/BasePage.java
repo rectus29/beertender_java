@@ -41,6 +41,7 @@ public class BasePage extends WebPage implements TitleContributor {
 
     public String getTitle() {
         final StringBuilder title = new StringBuilder();
+		title.append(" - ");
         title.append(getTitleContribution());
         visitChildren(new IVisitor<Component, Object>() {
             public void component(Component component, IVisit<Object> objectIVisit) {
