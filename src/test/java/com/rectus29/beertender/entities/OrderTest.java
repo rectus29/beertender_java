@@ -17,14 +17,13 @@ public class OrderTest {
 
 	@Test
 	public void addProduct() {
-
 		TimeFrame dummyTimeFrame = new TimeFrame();
 		Order toTestOrder = new Order();
 		toTestOrder.setTimeFrame(dummyTimeFrame);
 
-		ProductDefinition pd1  = new ProductDefinition().setName("product1");
-		ProductDefinition pd2  = new ProductDefinition().setName("product2");
-		ProductDefinition pd3  = new ProductDefinition().setName("product3");
+		ProductDefinition pd1 = new ProductDefinition().setName("product1");
+		ProductDefinition pd2 = new ProductDefinition().setName("product2");
+		ProductDefinition pd3 = new ProductDefinition().setName("product3");
 
 		Product product1 = new Product();
 		product1.setProductDefinition(pd1);
