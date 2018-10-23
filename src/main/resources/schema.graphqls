@@ -2,11 +2,6 @@
 scalar Date
 scalar BigDecimal
 
-schema {
-	query: Query
-	mutation: Mutation
-}
-
 type Query {
 	allCateg: [Category]
 	getCateg(id: ID!): Category
@@ -19,7 +14,15 @@ type Query {
 }
 
 type Mutation {
+    saveProduct(product: inputProduct): OperationResult
+    saveCategory(category: inputCategory): OperationResult
+    saveUser(user: inputUser): OperationResult
+}
 
+
+type OperationResult{
+    object : String
+    cause : String
 }
 
 enum State {
@@ -70,7 +73,18 @@ type User {
 	state:State
 }
 
+input inputProduct{
 
+
+}
+input inputCategory{
+
+
+}
+input inputUser{
+
+
+}
 #
 #type SigninPayload {
 #	token: String

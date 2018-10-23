@@ -1,11 +1,12 @@
 package com.rectus29.beertender.api.resolver;
 
+
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.rectus29.beertender.api.OperationResult;
-import com.rectus29.beertender.entities.Product;
+import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.State;
-import com.rectus29.beertender.service.IserviceProduct;
+import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.spring.AppContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,28 +25,28 @@ import java.util.Optional;
 /*                Date: 24/10/2018               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class ProductResolver implements GraphQLQueryResolver, GraphQLMutationResolver {
+public class UserResolver implements GraphQLQueryResolver, GraphQLMutationResolver {
 
     @Autowired
-    private IserviceProduct serviceProduct;
+    private IserviceUser serviceUser;
 
-    public ProductResolver() {
-        this.serviceProduct = AppContext.getApplicationContext().getBean("serviceProduct", IserviceProduct.class);
+    public UserResolver() {
+        this.serviceUser = AppContext.getApplicationContext().getBean("serviceUser", IserviceUser.class);
     }
 
-    public List<Product> allProduct(Optional<State> state) {
+    public User getUser(Long id) {
+        return serviceUser.get(id);
+    }
+
+    public List<User> allUser(Optional<State> state) {
         if (state.isPresent()) {
-            return serviceProduct.getAll(Arrays.asList(state.get()));
+            return serviceUser.getAll(Arrays.asList(state.get()));
         } else {
-            return serviceProduct.getAll();
+            return serviceUser.getAll();
         }
     }
 
-    public Product getProduct(Long id) {
-        return serviceProduct.get(id);
-    }
-
-    public OperationResult saveProduct(Product product){
+    public OperationResult saveUser(User user){
         return null;
     }
 }

@@ -2,7 +2,10 @@ package com.rectus29.beertender.api;
 
 
 import com.coxautodev.graphql.tools.SchemaParser;
+import com.rectus29.beertender.api.resolver.CategoryResolver;
 import com.rectus29.beertender.api.resolver.ProductResolver;
+import com.rectus29.beertender.api.resolver.UserResolver;
+import com.rectus29.beertender.api.typeresolver.ProductTypeResolver;
 import com.rectus29.beertender.api.scalar.GraphQLBigDecimal;
 import com.rectus29.beertender.api.scalar.GraphQLDate;
 import graphql.servlet.AbstractGraphQLHttpServlet;
@@ -29,9 +32,10 @@ public class GraphQLEndpoint extends AbstractGraphQLHttpServlet {
 				SchemaParser.newParser()
 						.file("schema.graphqls")
 						.resolvers(
-								new Query(),
-								new Mutation(),
-								new ProductResolver()/*,
+								new ProductResolver(),
+								new UserResolver(),
+								new CategoryResolver(),
+								new ProductTypeResolver()/*,
 						new SigninResolver()*/
 						)
 						.scalars(
