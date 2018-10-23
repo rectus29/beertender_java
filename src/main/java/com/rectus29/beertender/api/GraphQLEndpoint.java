@@ -2,9 +2,9 @@ package com.rectus29.beertender.api;
 
 
 import com.coxautodev.graphql.tools.SchemaParser;
-import com.rectus29.beertender.service.IserviceCategory;
-import com.rectus29.beertender.service.impl.ServiceCategory;
-import com.rectus29.beertender.spring.AppContext;
+import com.rectus29.beertender.api.resolver.ProductResolver;
+import com.rectus29.beertender.api.scalar.GraphQLBigDecimal;
+import com.rectus29.beertender.api.scalar.GraphQLDate;
 import graphql.servlet.AbstractGraphQLHttpServlet;
 import graphql.servlet.GraphQLInvocationInputFactory;
 import graphql.servlet.GraphQLObjectMapper;
@@ -30,8 +30,13 @@ public class GraphQLEndpoint extends AbstractGraphQLHttpServlet {
 						.file("schema.graphqls")
 						.resolvers(
 								new Query(),
-								new Mutation()/*,
+								new Mutation(),
+								new ProductResolver()/*,
 						new SigninResolver()*/
+						)
+						.scalars(
+								new GraphQLDate(),
+								new GraphQLBigDecimal()
 						)
 						.build()
 						.makeExecutableSchema()

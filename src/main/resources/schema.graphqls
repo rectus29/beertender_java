@@ -1,36 +1,33 @@
 # java.util.Date implementation
 scalar Date
-# java.time.LocalDate implementation
-scalar LocalDate
-# java.time.LocalDateTime implementation
-scalar LocalDateTime
-# java.time.LocalTime implementation
-scalar LocalTime
+scalar BigDecimal
 
 schema {
 	query: Query
-#	mutation: Mutation
+	mutation: Mutation
 }
 
 type Query {
 	allCateg: [Category]
-}
-#
-#type Mutation {
-#
-#}
+	getCateg(id: ID!): Category
 
+	allProduct(state: State): [Product]
+	getProduct(id: ID!): Product
+
+	allUser(state: State): [User]
+	getUser(id: ID!): User
+}
+
+type Mutation {
+
+}
 
 enum State {
-	DISABLE
-	ENABLE
-	PENDING
-	DELETED
+	DISABLE,
+	ENABLE,
+	PENDING,
+	DELETED,
 	ERROR
-}
-
-type Date {
-	date : String
 }
 
 type Category {
@@ -40,32 +37,40 @@ type Category {
 	name:  String,
 	shortName: String,
 	description: String,
-#	productList: [Product],
+	#	productList: [Product],
 	state: State
 }
 
-#type Product {
-#	id: ID!,
-#	created: Date!,
-#	updated: Date!,
-#	productDefinition: String,
-#	price: int!,
-#	packaging: String,
-#	fileImage: String,
-#	categoryList: [Category]
-#	state: State
-#}
-#
-#
-#
-#type User {
-#	id: ID!,
-#	created: Date!,
-#	updated: Date!,
-#	name: String!
-#	email: String
-#	password: String
-#}
+type Product {
+	id: ID!,
+	created: Date!,
+	updated: Date!,
+	productDefinition: ProductDefinition,
+	price: BigDecimal!,
+	packaging: String,
+	fileImage: String,
+	categoryList: [Category],
+	state: State
+}
+
+type ProductDefinition {
+	name: String,
+	description: String
+}
+
+type User {
+	id: ID!,
+	created: Date!,
+	updated: Date!,
+	uuid: String!,
+	firstName: String,
+	lastName: String,
+	role: String!,
+	email: String!,
+	state:State
+}
+
+
 #
 #type SigninPayload {
 #	token: String
@@ -82,4 +87,3 @@ type Category {
 #	url_contains: String
 #}
 #
-#scalar DateTime

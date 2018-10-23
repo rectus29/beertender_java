@@ -1,7 +1,9 @@
 package com.rectus29.beertender.service.impl;
 
 import com.rectus29.beertender.entities.Category;
+import com.rectus29.beertender.entities.Order;
 import com.rectus29.beertender.entities.Product;
+import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.session.BeerTenderFilter;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -55,4 +57,16 @@ public class ServiceProduct extends GenericManagerImpl<Product, Long> implements
         result.addAll((List<Product>) getHibernateTemplate().findByCriteria(detachedCriteria));
         return result;
     }
+
+
+	@Override
+	public List<Product> getAll(List<State> stateList) {
+		List<Product>  out =(List<Product>) getHibernateTemplate()
+				.findByCriteria(
+						getDetachedCriteria()
+								.add(Restrictions.in("state", stateList)
+								)
+				);
+		return out;
+	}
 }

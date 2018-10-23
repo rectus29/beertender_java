@@ -1,7 +1,10 @@
 package com.rectus29.beertender.service;
 
 import com.rectus29.beertender.entities.User;
+import com.rectus29.beertender.enums.State;
 import org.apache.shiro.subject.Subject;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,5 +21,7 @@ public interface IserviceUser extends GenericManager<User, Long> {
     public User getUserByUsername(String groupName);
 
     public User getUserByMail(String property);
+
+	public List<User> getAll(List<State> stateArray);
 
 }
