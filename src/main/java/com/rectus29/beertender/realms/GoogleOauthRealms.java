@@ -1,6 +1,7 @@
 package com.rectus29.beertender.realms;
 
 import com.rectus29.beertender.entities.User;
+import com.rectus29.beertender.entities.resource.impl.AvatarResource;
 import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.service.IserviceUser;
 import org.apache.logging.log4j.LogManager;
@@ -61,6 +62,7 @@ public class GoogleOauthRealms extends BeerTenderRealms {
 				user.setPassword("NO-PASSWORD-" + UUID.randomUUID().toString());
 				//set login mode
 				user.setUserAuthentificationType(UserAuthentificationType.GOOGLE);
+				user.setAvatarImage(new AvatarResource().setImageBytes(got.getAvatarBytes()));
 				user = this.serviceUser.save(user);
 			}
 			if (user.getUserAuthentificationType() == UserAuthentificationType.GOOGLE) {

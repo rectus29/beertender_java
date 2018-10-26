@@ -1,5 +1,7 @@
 package com.rectus29.beertender.entities;
 
+import com.rectus29.beertender.entities.resource.impl.AvatarResource;
+import com.rectus29.beertender.entities.resource.impl.ImageResource;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.tools.StringUtils;
@@ -36,6 +38,8 @@ public class User extends GenericEntity<User> implements DecorableElement {
     private Date restoreSessionDate;
     @Column
     private String restoreSession;
+    @OneToOne(cascade = CascadeType.ALL)
+    private AvatarResource avatarImage;
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
@@ -44,11 +48,16 @@ public class User extends GenericEntity<User> implements DecorableElement {
     private UserAuthentificationType userAuthentificationType = UserAuthentificationType.NONE;
 
     @Override
-    public String getFormatedName() {
+    public String getFormattedName() {
         return ((StringUtils.isNotBlank(firstName)) ? firstName : "") + " " + ((StringUtils.isNotBlank(lastName)) ? lastName.toUpperCase() : "");
     }
 
-    public String getPassword() {
+	@Override
+	public ImageResource getDecoration() {
+		return getAvatarImage();
+	}
+
+	public String getPassword() {
         return password;
     }
 
@@ -161,7 +170,16 @@ public class User extends GenericEntity<User> implements DecorableElement {
         this.firstName = firstName;
     }
 
-    @Override
+	public AvatarResource getAvatarImage() {
+		return avatarImage;
+	}
+
+	public User setAvatarImage(AvatarResource avatarImage) {
+		this.avatarImage = avatarImage;
+		return this;
+	}
+
+	@Override
     public int compareTo(User object) {
         return defaultCompareTo(object);
     }

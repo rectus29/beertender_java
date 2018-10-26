@@ -41,12 +41,12 @@ public class OrderSummaryChildPanel extends Panel {
 		ListView rv = new ListView<Order>("orderRv", timeFrameModel.getObject().getOrderList()){
 			@Override
 			protected void populateItem(ListItem<Order> item) {
-				item.add(new Label("user", item.getModelObject().getUser().getFormatedName()));
+				item.add(new Label("user", item.getModelObject().getUser().getFormattedName()));
 				item.add(new AjaxLink("orderEditLink"){
                     @Override
                     public void onClick(AjaxRequestTarget ajaxRequestTarget) {
                         modal.setContent(new OrderEditPanel(modal.getContentId(), item.getModel()));
-                        modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormatedName() );
+                        modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName() );
                         modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
                     }
                 });

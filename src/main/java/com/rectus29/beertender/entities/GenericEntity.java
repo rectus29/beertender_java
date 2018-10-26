@@ -10,7 +10,7 @@ import java.util.Date;
 public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)

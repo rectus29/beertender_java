@@ -12,6 +12,7 @@ package com.rectus29.beertender.entities;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
+import com.rectus29.beertender.entities.resource.impl.ImageResource;
 import com.rectus29.beertender.enums.State;
 import org.hibernate.type.BlobType;
 
@@ -36,9 +37,8 @@ public class Product extends GenericEntity<Product> {
 	@ManyToMany(mappedBy = "productList")
 	private List<Category> categoryList = new ArrayList<>();
 
-	@Lob
-	@Column(columnDefinition = "BLOB")
-	private byte[] fileImage;
+	@ManyToOne
+	private ImageResource fileImage;
 
 
 	private State state = State.ENABLE;
@@ -95,11 +95,11 @@ public class Product extends GenericEntity<Product> {
 		this.categoryList = categoryList;
 	}
 
-	public byte[] getFileImage() {
+	public ImageResource getFileImage() {
 		return fileImage;
 	}
 
-	public void setFileImage(byte[] fileImage) {
+	public void setFileImage(ImageResource fileImage) {
 		this.fileImage = fileImage;
 	}
 

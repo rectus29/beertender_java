@@ -11,9 +11,10 @@ public class GoogleOauthToken implements AuthenticationToken {
 
 	private String googleEmail;
 	private String name;
-	String familyName;
-	String givenName;
-	String userId;
+	private String familyName;
+	private String givenName;
+	private String userId;
+	private byte[] avatarBytes;
 
 	public GoogleOauthToken(String googleEmail) {
 		this.googleEmail = googleEmail;
@@ -71,6 +72,15 @@ public class GoogleOauthToken implements AuthenticationToken {
 
 	public GoogleOauthToken setUserId(String userId) {
 		this.userId = userId;
+		return this;
+	}
+
+	public byte[] getAvatarBytes() {
+		return avatarBytes;
+	}
+
+	public GoogleOauthToken setAvatarBytes(byte[] avatar) {
+		this.avatarBytes = avatar;
 		return this;
 	}
 }

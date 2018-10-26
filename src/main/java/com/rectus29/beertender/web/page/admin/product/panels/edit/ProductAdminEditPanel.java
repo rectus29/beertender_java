@@ -3,6 +3,7 @@ package com.rectus29.beertender.web.page.admin.product.panels.edit;
 import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.entities.ProductDefinition;
+import com.rectus29.beertender.entities.resource.impl.ImageResource;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IservicePackaging;
@@ -155,7 +156,7 @@ public abstract class ProductAdminEditPanel extends Panel {
 						//set definition in product
 						productIModel.getObject().setProductDefinition(productDefinitionIModel.getObject());
 						if(fileUpload.getFileUpload() != null && ImageUtils.isAnImage(fileUpload.getFileUpload().getBytes())){
-                            productIModel.getObject().setFileImage(fileUpload.getFileUpload().getBytes());
+                            productIModel.getObject().setFileImage(new ImageResource().setImageBytes(fileUpload.getFileUpload().getBytes()));
 						}
 						productIModel.setObject(serviceProduct.save(productIModel.getObject()));
 						success(new ResourceModel("success").getObject());

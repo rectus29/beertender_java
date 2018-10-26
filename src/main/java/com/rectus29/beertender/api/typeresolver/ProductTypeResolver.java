@@ -17,8 +17,8 @@ public class ProductTypeResolver implements GraphQLResolver<Product> {
 	}
 
 	public String fileImage(Product product) {
-		if (product.getFileImage() != null && product.getFileImage().length > 0) {
-			return Base64.encodeBase64String(product.getFileImage());
+		if (product.getFileImage() != null && product.getFileImage().getImageBytes().length > 0) {
+			return Base64.encodeBase64String(product.getFileImage().getImageBytes());
 		} else {
 			return "";
 		}

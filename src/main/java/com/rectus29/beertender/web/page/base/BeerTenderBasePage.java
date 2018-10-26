@@ -5,6 +5,7 @@ import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.BeerTenderApplication;
+import com.rectus29.beertender.web.component.avatarimage.AvatarImage;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.AdminPage;
@@ -55,7 +56,8 @@ public class BeerTenderBasePage extends ProtectedPage {
 		super.onInitialize();
 
 		add(new BookmarkablePageLink<HomePage>("homeLink", HomePage.class));
-		add(new Label("login", serviceUser.getCurrentUser().getFormatedName()));
+		add(new Label("login", serviceUser.getCurrentUser().getFormattedName()));
+		add(new AvatarImage("avatarImg"));
 		add(new Link("runAsUsual") {
 			@Override
 			public void onClick() {

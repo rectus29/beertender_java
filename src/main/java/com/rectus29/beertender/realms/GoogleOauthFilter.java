@@ -7,18 +7,27 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.rectus29.beertender.tools.StringUtils;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpState;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URLConnection;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -83,13 +92,33 @@ public class GoogleOauthFilter implements Filter {
 		String familyName = (String) payload.get("family_name");
 		String givenName = (String) payload.get("given_name");
 
+		//retrieve user avatar from google
+		byte[] avatarBytes = null;
+		try {
+			HttpClient client = new HttpClient();
+			GetMethod get = new GetMethod(pictureUrl);
+			int httpStatus = client.executeMethod(get);
+			if(HttpStatus.SC_OK == httpStatus){
+				byte[] temp  = get.getResponseBody();
+				//check it's an image
+				Boolean isImage = ImageIO.read(new ByteArrayInputStream(temp)) != null;
+				if(isImage){
+					avatarBytes = temp;
+				}
+			}
+		} catch (IOException e) {
+			logger.error("Error while retrieving user avatar from google", e);
+		}
+
+
 		logger.debug("GoogleOauth user login: {}", email);
 
 		final GoogleOauthToken token = new GoogleOauthToken(email)
 				.setName(name)
 				.setFamilyName(familyName)
 				.setGivenName(givenName)
-				.setUserId(userId);
+				.setUserId(userId)
+				.setAvatarBytes(avatarBytes);
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login(token);

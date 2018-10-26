@@ -35,12 +35,12 @@ public class ProductImage extends Image {
 			if (model.getObject().getFileImage() == null) {
 				throw new BeerTenderException("no image set use default");
 			}
-			Boolean isImage = ImageIO.read(new ByteArrayInputStream(model.getObject().getFileImage())) != null;
+			Boolean isImage = ImageIO.read(new ByteArrayInputStream(model.getObject().getFileImage().getImageBytes())) != null;
 			if (isImage) {
 				DynamicImageResource imageResource = new DynamicImageResource() {
 					@Override
 					protected byte[] getImageData(Attributes attributes) {
-						return model.getObject().getFileImage();
+						return model.getObject().getFileImage().getImageBytes();
 					}
 				};
 				setImageResource(imageResource);
