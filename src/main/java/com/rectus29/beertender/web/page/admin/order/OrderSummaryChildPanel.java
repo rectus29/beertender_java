@@ -7,6 +7,7 @@ import com.rectus29.beertender.web.component.formattednumberlabel.NumericLabel;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.order.edit.OrderEditPanel;
+import com.rectus29.beertender.web.panel.lazyloadPanel.LazyLoadPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
@@ -53,9 +54,9 @@ public class OrderSummaryChildPanel extends Panel {
 				item.add(new AjaxLink("orderPrintLink"){
 					@Override
 					public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-						modal.setContent(new OrderEditPanel(modal.getContentId(), item.getModel()));
-						modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName() );
-						modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
+						modal.setContent(new LazyLoadPanel(modal.getContentId()));
+						modal.setTitle("Export Excel");
+						modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.SMALL);
 					}
 				});
 				item.add(new ListView<OrderItem>("orderItemRv", item.getModelObject().getOrderItemList()) {
