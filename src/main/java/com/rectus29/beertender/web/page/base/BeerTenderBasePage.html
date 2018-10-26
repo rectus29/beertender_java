@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<head>
+	<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+</head>
 <body>
 <wicket:extend>
     <nav class="navbar navbar-light fixed-top navbar-dark bg-dark justify-content-between">
@@ -16,7 +19,7 @@
                 </span>
             </a>
             &nbsp;|&nbsp;
-			<img wicket:id="avatarImg" class="image rounded-circle">
+			<img wicket:id="avatarImg" class="image rounded-circle" id="avatarImg">
             <wicket:label wicket:id="login"></wicket:label>&nbsp;|&nbsp;
             <wicket:enclosure>
                 <a href="#" wicket:id="admin"><i class="fa fa-cogs"></i>&nbsp;Admin</a>&nbsp;|&nbsp;

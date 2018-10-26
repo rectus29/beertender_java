@@ -50,6 +50,14 @@ public class OrderSummaryChildPanel extends Panel {
                         modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
                     }
                 });
+				item.add(new AjaxLink("orderPrintLink"){
+					@Override
+					public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+						modal.setContent(new OrderEditPanel(modal.getContentId(), item.getModel()));
+						modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName() );
+						modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
+					}
+				});
 				item.add(new ListView<OrderItem>("orderItemRv", item.getModelObject().getOrderItemList()) {
 					@Override
 					protected void populateItem(ListItem<OrderItem> item) {

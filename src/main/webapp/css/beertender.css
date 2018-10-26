@@ -211,3 +211,7 @@ li.nav-item.nav-pills {
 .productPrice {
     font-size: 2rem;
 }
+
+#avatarImg {
+	height: 35px;
+}
