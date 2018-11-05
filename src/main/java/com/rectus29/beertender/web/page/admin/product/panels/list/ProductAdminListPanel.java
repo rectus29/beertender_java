@@ -147,6 +147,7 @@ public class ProductAdminListPanel extends Panel {
 					public void onClick(AjaxRequestTarget target) {
 						//serviceUser.disable(item.getModelObject());
 						ldm.detach();
+						modal.close(target);
 						target.add(wmc);
 					}
 

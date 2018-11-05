@@ -1,5 +1,6 @@
 package com.rectus29.beertender.web.page.product;
 
+import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Order;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.enums.ErrorCode;
@@ -7,6 +8,7 @@ import com.rectus29.beertender.event.RefreshEvent;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.productimage.ProductImage;
@@ -21,6 +23,9 @@ import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
@@ -64,7 +69,19 @@ public class ProductPage extends BeerTenderPage {
         add(new Label("beerName", productIModel.getObject().getName()));
         add(new Label("beerText", productIModel.getObject().getDescription()).setEscapeModelStrings(false));
 
-		add((this.form = new Form("form"))
+		add(new ListView<Category>("rvCateg", productIModel.getObject().getCategoryList()){
+			@Override
+			protected void populateItem(ListItem<Category> item) {
+				item.add(new Label("categBadge", item.getModelObject().getName()));
+			}
+		});
+
+		add((this.form = new Form("form"){
+					@Override
+					public boolean isVisible() {
+						return BeerTenderSession.get().isOrderEnable();
+					}
+				})
 				.add(new NumberTextField<Integer>("qte", new PropertyModel<Integer>(this, "qte")))
 				.add(new AjaxSubmitLink("addToCart") {
 					@Override
@@ -85,7 +102,6 @@ public class ProductPage extends BeerTenderPage {
 						}
 						target.add(form);
 						send(getApplication(), Broadcast.BREADTH, new RefreshEvent(target));
-
 					}
 				})
 				.add(new BootstrapFeedbackPanel("feed").setOutputMarkupId(true))

@@ -16,6 +16,10 @@ import javax.persistence.*;
 @DiscriminatorValue("IMAGE")
 public class ImageResource extends Resource {
 
+	@Lob
+	@Column(columnDefinition = "BLOB")
+	private byte[] imageBytes;
+
 	public ImageResource() {
 		this.setResourceType(ResourceType.IMAGE);
 	}
@@ -24,10 +28,6 @@ public class ImageResource extends Resource {
 		this();
 		this.imageBytes = imageBytes;
 	}
-
-	@Lob
-	@Column(columnDefinition = "BLOB")
-	private byte[] imageBytes;
 
 	public byte[] getImageBytes() {
 		return imageBytes;

@@ -1,9 +1,6 @@
 package com.rectus29.beertender.web.page.admin.productDefinition.edit;
 
-import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.entities.ProductDefinition;
-import com.rectus29.beertender.service.IservicePackaging;
-import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.service.IserviceProductDefinition;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import org.apache.logging.log4j.LogManager;
@@ -50,11 +47,8 @@ public abstract class ProductDefifnitionAdminEditPanel extends Panel {
 			@Override
 			protected void onInitialize() {
 				super.onInitialize();
-				//add wmc
-
-				add(new TextField<>("defName", new PropertyModel<String>(productDefinitionIModel,"name")).setRequired(true));
-				add(new TextArea<>("defDesc", new PropertyModel<String>(productDefinitionIModel,"description")).setRequired(true));
-
+				add(new TextField<>("defName", new PropertyModel<String>(productDefinitionIModel, "name")).setRequired(true));
+				add(new TextArea<>("defDesc", new PropertyModel<String>(productDefinitionIModel, "description")).setRequired(true));
 				add(new AjaxSubmitLink("submit") {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target, Form form) {

@@ -14,7 +14,12 @@ import javax.persistence.*;
 @Entity(name = "AvatarResource")
 @Table(name = "avatarresource")
 @DiscriminatorValue("AVATAR")
-public class AvatarResource extends ImageResource {
+public class AvatarResource extends Resource {
+
+	@Lob
+	@Column(columnDefinition = "BLOB")
+	private byte[] imageBytes;
+
 
 	public AvatarResource() {
 		this.setResourceType(Resource.ResourceType.AVATAR);
@@ -22,11 +27,16 @@ public class AvatarResource extends ImageResource {
 
 	public AvatarResource(byte[] imageBytes) {
 		this();
-		this.setImageBytes(imageBytes);
+		this.imageBytes = imageBytes;
 	}
 
-	@Override
-	public AvatarResource setImageBytes(byte[] fileImage) {
-		return (AvatarResource) super.setImageBytes(fileImage);
+	public byte[] getImageBytes() {
+		return imageBytes;
 	}
+
+	public AvatarResource setImageBytes(byte[] fileImage) {
+		this.imageBytes = fileImage;
+		return this;
+	}
+
 }

@@ -1,7 +1,6 @@
 package com.rectus29.beertender.entities;
 
-import com.rectus29.beertender.entities.resource.Resource;
-import com.rectus29.beertender.entities.resource.impl.ImageResource;
+import com.rectus29.beertender.entities.resource.impl.AvatarResource;
 
 /**
  * The interface Decorable element.
@@ -12,5 +11,5 @@ public interface DecorableElement {
 
 	String getFormattedName();
 
-	ImageResource getDecoration();
+	AvatarResource getDecoration();
 }

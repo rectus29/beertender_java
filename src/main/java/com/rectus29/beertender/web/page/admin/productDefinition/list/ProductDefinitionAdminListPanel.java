@@ -8,6 +8,7 @@ import com.rectus29.beertender.web.component.confirmation.ConfirmationLink;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.product.panels.edit.ProductAdminEditPanel;
 import com.rectus29.beertender.web.page.admin.productDefinition.edit.ProductDefifnitionAdminEditPanel;
+import com.rectus29.beertender.web.page.admin.users.panels.edit.UserEditPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -72,7 +73,6 @@ public class ProductDefinitionAdminListPanel extends Panel {
 		add((form = new Form("form")).setOutputMarkupId(true));
 		form.add(new TextField<>("name", new PropertyModel<String>(this, "name")));
 		form.add(new AjaxSubmitLink("filterSubmitButton") {
-
 			@Override
 			public void onSubmit(AjaxRequestTarget target, Form form) {
 				ldm.detach();
@@ -96,7 +96,7 @@ public class ProductDefinitionAdminListPanel extends Panel {
 				item.add(new AjaxLink("edit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						modal.setTitle(new ResourceModel("UserEditPanel.editUser").getObject());
+						modal.setTitle("Editer une definition");
 						modal.setContent(new ProductDefifnitionAdminEditPanel(modal.getContentId(), item.getModel()){
 							@Override
 							public void onSubmit(AjaxRequestTarget target, IModel<ProductDefinition> productModel) {
@@ -110,7 +110,7 @@ public class ProductDefinitionAdminListPanel extends Panel {
 								modal.close(target);
 							}
 						});
-						modal.show(target);
+						modal.show(target, BeerTenderModal.ModalFormat.LARGE);
 					}
 
 					@Override
@@ -123,6 +123,7 @@ public class ProductDefinitionAdminListPanel extends Panel {
 					public void onClick(AjaxRequestTarget target) {
 						//serviceUser.disable(item.getModelObject());
 						ldm.detach();
+						modal.close(target);
 						target.add(wmc);
 					}
 
@@ -158,7 +159,7 @@ public class ProductDefinitionAdminListPanel extends Panel {
 						modal.close(target);
 					}
 				});
-				modal.show(target, BeerTenderModal.ModalFormat.MEDIUM);
+				modal.show(target, BeerTenderModal.ModalFormat.LARGE);
 			}
 		});
 

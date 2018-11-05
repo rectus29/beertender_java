@@ -12,20 +12,26 @@ package com.rectus29.beertender.session;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
+import com.rectus29.beertender.service.IserviceTimeFrame;
 import org.apache.shiro.SecurityUtils;
 import org.apache.wicket.Session;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class BeerTenderSession extends WebSession {
 
+	@SpringBean(name = "serviceTimeFrame")
+	private IserviceTimeFrame serviceTimeFrame;
 	private BeerTenderFilter tenderFilter = new BeerTenderFilter();
+	private boolean isOrderEnable;
 
 
 	public BeerTenderSession(Request request) {
 		super(request);
 		Injector.get().inject(this);
+		isOrderEnable = serviceTimeFrame.getCurrentTimeFrame() != null;
 	}
 
 	public static BeerTenderSession get() {
@@ -46,5 +52,9 @@ public class BeerTenderSession extends WebSession {
 			this.tenderFilter = new BeerTenderFilter();
 		}
 		return this.tenderFilter;
+	}
+
+	public boolean isOrderEnable(){
+		return this.isOrderEnable;
 	}
 }
