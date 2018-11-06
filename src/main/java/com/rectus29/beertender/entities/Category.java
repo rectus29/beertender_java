@@ -20,7 +20,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "category")
-public class Category extends GenericEntity<Category>{
+public class Category extends BasicGenericEntity<Category>{
 
     private String name;
 
@@ -29,7 +29,7 @@ public class Category extends GenericEntity<Category>{
     @Column(columnDefinition = "MEDIUMTEXT")
     private String description;
 
-    @ManyToMany
+    @ManyToMany(targetEntity = Product.class, mappedBy = "categoryList")
     private List<Product> productList = new ArrayList<>();
 
     private Boolean isRoot = false;

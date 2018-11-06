@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "timeframe",
 		uniqueConstraints = @UniqueConstraint(name = "state_unique", columnNames = "state")
 )
-public class TimeFrame extends GenericEntity {
+public class TimeFrame extends BasicGenericEntity<TimeFrame> {
 
 	private String name;
 
@@ -75,7 +75,7 @@ public class TimeFrame extends GenericEntity {
 	}
 
 	@Override
-	public int compareTo(Object object) {
+	public int compareTo(TimeFrame object) {
 		return defaultCompareTo(object);
 	}
 }

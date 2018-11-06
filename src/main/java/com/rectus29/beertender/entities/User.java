@@ -14,7 +14,7 @@ import java.util.UUID;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "users")
-public class User extends GenericEntity<User> implements DecorableElement {
+public class User extends BasicGenericEntity<User> implements DecorableElement {
 
 	@Column(nullable = false)
 	private String password = RandomStringUtils.random(64);

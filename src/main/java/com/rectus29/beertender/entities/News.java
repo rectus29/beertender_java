@@ -9,7 +9,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "news")
-public class News extends GenericEntity<News> {
+public class News extends BasicGenericEntity<News> {
 
     @Column
     private String title;

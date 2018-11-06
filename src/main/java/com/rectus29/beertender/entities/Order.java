@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Entity
 @Table(name = "bills")
-public class Order extends GenericEntity<Order> {
+public class Order extends BasicGenericEntity<Order> {
 
 	@OneToMany(targetEntity = OrderItem.class, cascade = CascadeType.ALL, mappedBy = "referenceOrder")
 	private List<OrderItem> orderItemList = new ArrayList<>();

@@ -1,7 +1,5 @@
 package com.rectus29.beertender.entities;
 
-import com.rectus29.beertender.serializers.GenericEntitySerialier;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -9,9 +7,6 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	private Long id;
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date created = new Date();
@@ -19,13 +14,9 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date updated = new Date();
 
-	public Long getId() {
-		return id;
-	}
+	public abstract Long getId();
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	public abstract void setId(Long id);
 
 	public Date getCreated() {
 		return created;

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "config")
-public class Config extends GenericEntity<Config>{
+public class Config extends BasicGenericEntity<Config>{
 
 	@Column(name = "ke", nullable = false, length = 65536)
 	private String key;

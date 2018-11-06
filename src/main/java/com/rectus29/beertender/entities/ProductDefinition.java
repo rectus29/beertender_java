@@ -20,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "productdefinition")
-public class ProductDefinition extends GenericEntity<ProductDefinition> {
+public class ProductDefinition extends BasicGenericEntity<ProductDefinition> {
 
 	private String name;
 

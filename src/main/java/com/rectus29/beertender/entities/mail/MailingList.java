@@ -12,7 +12,7 @@ package com.rectus29.beertender.entities.mail;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.entities.GenericEntity;
+import com.rectus29.beertender.entities.BasicGenericEntity;
 import com.rectus29.beertender.entities.User;
 
 import javax.persistence.Column;
@@ -25,7 +25,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "mailinglist")
-public class MailingList extends GenericEntity<MailingList> {
+public class MailingList extends BasicGenericEntity<MailingList> {
 
     @Column
     private String name;

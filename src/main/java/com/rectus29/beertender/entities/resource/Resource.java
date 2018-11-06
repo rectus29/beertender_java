@@ -21,21 +21,23 @@ import java.util.UUID;
 )
 public abstract class Resource extends GenericEntity<Resource> {
 
-	protected enum ResourceType {
-		IMAGE,
-		AVATAR,
-		DOCUMENT
-	}
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	private String uid = UUID.randomUUID().toString();
-
 	private ResourceType resourceType = ResourceType.DOCUMENT;
 
-	protected Resource(){}
+	protected Resource() {
+	}
 
-	protected Resource setResourceType(ResourceType resourceType) {
-		this.resourceType = resourceType;
-		return this;
+	@Override
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getUid() {
@@ -44,5 +46,16 @@ public abstract class Resource extends GenericEntity<Resource> {
 
 	public ResourceType getResourceType() {
 		return resourceType;
+	}
+
+	protected Resource setResourceType(ResourceType resourceType) {
+		this.resourceType = resourceType;
+		return this;
+	}
+
+	protected enum ResourceType {
+		IMAGE,
+		AVATAR,
+		DOCUMENT
 	}
 }

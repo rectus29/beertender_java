@@ -23,7 +23,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "product")
-public class Product extends GenericEntity<Product> {
+public class Product extends BasicGenericEntity<Product> {
 
 	@ManyToOne
 	private ProductDefinition productDefinition;
@@ -34,7 +34,7 @@ public class Product extends GenericEntity<Product> {
 	@ManyToOne
 	private Packaging packaging;
 
-	@ManyToMany(mappedBy = "productList")
+	@ManyToMany
 	private List<Category> categoryList = new ArrayList<>();
 
 	@ManyToOne

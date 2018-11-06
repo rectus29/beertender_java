@@ -16,7 +16,7 @@ import java.util.Objects;
 /*-----------------------------------------------------*/
 @Entity
 @Table(name = "packaging")
-public class Packaging extends GenericEntity<Packaging>{
+public class Packaging extends BasicGenericEntity<Packaging>{
 
 	private String name;
 

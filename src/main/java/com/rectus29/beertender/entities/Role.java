@@ -14,7 +14,7 @@ import java.util.Set;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "role")
-public class Role extends GenericEntity<Role> {
+public class Role extends BasicGenericEntity<Role> {
 
 	@Column
 	private String name;

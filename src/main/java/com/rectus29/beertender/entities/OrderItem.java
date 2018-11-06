@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "bills_item")
-public class OrderItem extends GenericEntity<OrderItem> {
+public class OrderItem extends BasicGenericEntity<OrderItem> {
 
 	@ManyToOne(targetEntity = Order.class)
 	private Order referenceOrder;

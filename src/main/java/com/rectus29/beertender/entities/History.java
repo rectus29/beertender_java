@@ -13,7 +13,7 @@ import java.util.Date;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "history")
-public class History extends GenericEntity<History> {
+public class History extends BasicGenericEntity<History> {
 
     @Column(name = "action", nullable = false, length = 65536)
     private String action = "";

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="permission")
-public class Permission extends GenericEntity<Permission> {
+public class Permission extends BasicGenericEntity<Permission> {
 
     @Column
     private String codeString;
