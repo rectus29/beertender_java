@@ -64,6 +64,7 @@ public class ProductListPanel extends Panel {
             protected void populateItem(ListItem<Product> item) {
                 item.add(new ProductImage("productImage", item.getModel()));
                 item.add(new Label("productName", item.getModelObject().getName()));
+                item.add(new Label("packaging", item.getModelObject().getPackaging().getName()));
                 item.add(new CurrencyLabel("price", new Model<>(item.getModelObject().getPrice())));
                 item.add(new BookmarkablePageLink<ProductPage>(
                                 "btnProduct",
