@@ -14,6 +14,7 @@ import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.page.home.HomePage;
 import com.rectus29.beertender.web.panel.cartmodalpanel.CartModalPanel;
+import com.rectus29.beertender.web.security.signout.SignoutPage;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.wicket.MarkupContainer;
@@ -63,6 +64,7 @@ public class BeerTenderBasePage extends ProtectedPage {
 		super.onInitialize();
 
 		add(new BookmarkablePageLink<HomePage>("homeLink", HomePage.class));
+		add(new BookmarkablePageLink<SignoutPage>("logoutLink", SignoutPage.class));
 		add(new Label("login", serviceUser.getCurrentUser().getFormattedName()));
 		add(new AvatarImage("avatarImg"));
 		add(new Link("runAsUsual") {

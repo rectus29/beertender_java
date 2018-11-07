@@ -35,7 +35,7 @@ public class ServicePackaging extends GenericManagerImpl<Packaging, Long> implem
 		List<Packaging> out = new ArrayList<>();
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(this.getEntityClass());
 		detachedCriteria.add(Restrictions.in("state",stateList));
-		out.addAll((List<Packaging>)getHibernateTemplate().findByCriteria(getDetachedCriteria()));
+		out.addAll((List<Packaging>)getHibernateTemplate().findByCriteria(detachedCriteria));
 		return out;
 	}
 

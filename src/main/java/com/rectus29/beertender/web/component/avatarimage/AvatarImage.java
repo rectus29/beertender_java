@@ -80,7 +80,7 @@ public class AvatarImage extends Image {
 	protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
 		if (isDefaultImg) {
-			tag.put("src", ((BeerTenderApplication) Application.get()).getAppCtx().getApplicationName() + "/img/defaultAvatar.jpg");
+			tag.put("src", ((BeerTenderApplication) Application.get()).getAppCtx().getApplicationName() + "/img/defaultAvatar.png");
 		}
 	}
 }

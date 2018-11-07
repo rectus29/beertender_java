@@ -38,11 +38,6 @@ public class BeerTenderSession extends WebSession {
 		return (BeerTenderSession) Session.get();
 	}
 
-	public boolean logout() {
-		SecurityUtils.getSubject().logout();
-		return true;
-	}
-
 	public boolean isAuthenticated() {
 		return SecurityUtils.getSubject().isAuthenticated();
 	}

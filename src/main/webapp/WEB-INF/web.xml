@@ -37,6 +37,10 @@
 			<param-value>true</param-value>
 		</init-param>
     </filter>
+	<filter>
+		<filter-name>ShiroLogoutFilter</filter-name>
+		<filter-class>org.apache.shiro.web.filter.authc.LogoutFilter</filter-class>
+	</filter>
     <filter>
         <filter-name>WicketFilter</filter-name>
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
@@ -57,6 +61,10 @@
     <filter-mapping>
         <filter-name>ShiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ShiroLogoutFilter</filter-name>
+        <url-pattern>/logout</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>WicketFilter</filter-name>
