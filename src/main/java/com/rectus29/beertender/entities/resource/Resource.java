@@ -12,7 +12,6 @@ import java.util.UUID;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 @Entity
-@Table(name = "resource")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(
 		discriminatorType = DiscriminatorType.STRING,

@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class AvatarResource extends Resource {
 
 	@Lob
-	@Column(columnDefinition = "BLOB")
+	@Column(columnDefinition = "LONGBLOB")
 	private byte[] imageBytes;
 
 
