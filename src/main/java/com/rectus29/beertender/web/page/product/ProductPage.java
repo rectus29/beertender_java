@@ -67,6 +67,7 @@ public class ProductPage extends BeerTenderPage {
         super.onInitialize();
         add(new ProductImage("beerImg", productIModel));
         add(new Label("beerName", productIModel.getObject().getName()));
+        add(new Label("beerPack", productIModel.getObject().getPackaging().getName()));
         add(new Label("beerText", productIModel.getObject().getDescription()).setEscapeModelStrings(false));
 
 		add(new ListView<Category>("rvCateg", productIModel.getObject().getCategoryList()){

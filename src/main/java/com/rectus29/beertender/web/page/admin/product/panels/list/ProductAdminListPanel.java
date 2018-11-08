@@ -5,6 +5,7 @@ import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.service.IserviceProduct;
+import com.rectus29.beertender.web.component.BSPagingNavigator.BSPagingNavigator;
 import com.rectus29.beertender.web.component.confirmation.ConfirmationLink;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
@@ -158,7 +159,7 @@ public class ProductAdminListPanel extends Panel {
 				});
 			}
 		});
-		add((navigator = new PagingNavigator("navigator", plv) {
+		add((navigator = new BSPagingNavigator("navigator", plv) {
 			@Override
 			public boolean isVisible() {
 				return ldm.getObject().size() > NB_ITEMS_BY_PAGE;

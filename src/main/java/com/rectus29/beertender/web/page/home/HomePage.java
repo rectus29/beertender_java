@@ -10,6 +10,7 @@ import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.tools.StringUtils;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import com.rectus29.beertender.web.panel.productListPanel.ProductListPanel;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
