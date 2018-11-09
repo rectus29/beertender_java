@@ -29,6 +29,7 @@
         <thead>
         <tr>
             <th>#</th>
+            <th>Auth</th>
             <th><wicket:message key="name"/></th>
             <th><wicket:message key="mail"/></th>
             <th><wicket:message key="role"/></th>
@@ -39,6 +40,9 @@
         <tbody wicket:id="wmc">
         <tr wicket:id="sorting">
             <td wicket:id="id"></td>
+            <td >
+				<i class="fa" wicket:id="auth"></i>
+			</td>
             <td wicket:id="lastName"></td>
             <td wicket:id="email">[name]</td>
             <td wicket:id="role">[role]</td>
