@@ -101,10 +101,10 @@ public class UserListPanel extends Panel {
 				item.add(new Label("auth").add(
 						new AttributeAppender("class",
 								(item.getModelObject().getUserAuthentificationType().equals(UserAuthentificationType.GOOGLE))
-										? "fa-google"
+										? " fa-google"
 										: (item.getModelObject().getUserAuthentificationType().equals(UserAuthentificationType.EMBED))
-										? "fa-key" :
-										"fa-lock")
+										? " fa-key" :
+										" fa-lock")
 						)
 				);
 				item.add(new Label("lastName", item.getModelObject().getFormattedName()));

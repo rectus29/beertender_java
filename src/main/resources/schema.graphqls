@@ -14,9 +14,9 @@ type Query {
 }
 
 type Mutation {
-    saveProduct(product: inputProduct): OperationResult
-    saveCategory(category: inputCategory): OperationResult
-    saveUser(user: inputUser): OperationResult
+    #saveProduct(product: inputProduct): OperationResult
+    #saveCategory(category: inputCategory): OperationResult
+   # saveUser(user: inputUser): OperationResult
 }
 
 
@@ -73,18 +73,18 @@ type User {
 	state:State
 }
 
-input inputProduct{
+#input inputProduct{
 
 
-}
-input inputCategory{
+#}
+#input inputCategory{
 
 
-}
-input inputUser{
+#}
+#input inputUser{
 
 
-}
+#}
 #
 #type SigninPayload {
 #	token: String
