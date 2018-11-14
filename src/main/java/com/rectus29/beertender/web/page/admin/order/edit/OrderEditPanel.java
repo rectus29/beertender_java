@@ -2,6 +2,7 @@ package com.rectus29.beertender.web.page.admin.order.edit;
 
 import com.rectus29.beertender.entities.Order;
 import com.rectus29.beertender.enums.State;
+import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.web.panel.cart.OrderPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -11,6 +12,8 @@ import org.apache.wicket.markup.html.basic.EnumLabel;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /*-----------------------------------------------------*/
 /*      _____           _               ___   ___      */
@@ -25,11 +28,17 @@ import org.apache.wicket.model.IModel;
 /*-----------------------------------------------------*/
 public class OrderEditPanel extends Panel {
 
+    @SpringBean(name = "serviceOrder")
+    private IserviceOrder serviceOrder;
     private IModel<Order> orderIModel;
 
     public OrderEditPanel(String id, IModel<Order> model) {
-        super(id, model);
+        super(id);
         this.orderIModel = model;
+    }
+
+    public OrderEditPanel(String contentId, Order orderObject) {
+        this(contentId, new Model<>(orderObject));
     }
 
     @Override
@@ -38,18 +47,18 @@ public class OrderEditPanel extends Panel {
 
         add(new Label("TimeFrame", orderIModel.getObject().getTimeFrame().getName()));
         add(new EnumLabel<State>("orderState", orderIModel.getObject().getState()));
-        add(new OrderPanel("orderPanel"));
+        add(new OrderPanel("orderPanel", orderIModel));
 
         add(new AjaxLink("submit") {
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-
+                onSave(ajaxRequestTarget, orderIModel);
             }
         });
         add(new AjaxLink("cancel") {
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-
+                onCancel(ajaxRequestTarget, null);
             }
         });
 

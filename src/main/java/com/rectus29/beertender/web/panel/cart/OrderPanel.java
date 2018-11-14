@@ -17,6 +17,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -37,24 +38,33 @@ public class OrderPanel extends Panel {
 
     public OrderPanel(String id) {
         super(id);
+        ldm = new LoadableDetachableModel<List<OrderItem>>() {
+            @Override
+            protected List<OrderItem> load() {
+                Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
+                if(order != null){
+                    return (List<OrderItem>)order.getOrderItemList();
+                }else{
+                    setResponsePage(ErrorPage.class, new PageParameters().add("errorCode", ErrorCode.NO_ORDER_FOUND));
+                }
+                return new ArrayList<>();
+            }
+        };
+    }
+
+    public OrderPanel(String panelId, IModel<Order> orderIModel) {
+        super(panelId);
+        ldm = new LoadableDetachableModel<List<OrderItem>>() {
+            @Override
+            protected List<OrderItem> load() {
+                return orderIModel.getObject().getOrderItemList();
+            }
+        };
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
-        ldm = new LoadableDetachableModel<List<OrderItem>>() {
-            @Override
-            protected List<OrderItem> load() {
-            	Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
-					if(order != null){
-            			return (List<OrderItem>)order.getOrderItemList();
-					}else{
-            			setResponsePage(ErrorPage.class, new PageParameters().add("errorCode", ErrorCode.NO_ORDER_FOUND));
-					}
-					return new ArrayList<>();
-            }
-        };
 
         wmc = new WebMarkupContainer("wmc");
         add(wmc.setOutputMarkupId(true));
