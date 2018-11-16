@@ -9,16 +9,25 @@ import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.order.edit.OrderEditPanel;
 import com.rectus29.beertender.web.panel.lazyloadPanel.LazyLoadPanel;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.DownloadLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 
 /*-----------------------------------------------------*/
@@ -67,15 +76,21 @@ public class OrderSummaryChildPanel extends Panel {
                     }
                 };
 				item.add(editLink);
-				AjaxLink printOrder = new AjaxLink("orderPrintLink"){
+				item.add(new DownloadLink("orderPrintLink", new LoadableDetachableModel<File>() {
 					@Override
-					public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-						modal.setContent(new LazyLoadPanel(modal.getContentId()));
-						modal.setTitle("Export Excel");
-						modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.SMALL);
+					protected File load() {
+						try {
+							File outputFile = new File("Commande.xls");
+							Workbook wb = new HSSFWorkbook();
+							Sheet sheet = wb.createSheet();
+							sheet.createRow(0).createCell(0).setCellValue(item.getModelObject().getUser().getFormattedName());
+							((HSSFWorkbook) wb).write(outputFile);
+							return outputFile;
+						} catch (IOException e) {
+							return null;
+						}
 					}
-				};
-				item.add(printOrder);
+				}));
 				item.add(new ListView<OrderItem>("orderItemRv", item.getModelObject().getOrderItemList()) {
 					@Override
 					protected void populateItem(ListItem<OrderItem> item) {
