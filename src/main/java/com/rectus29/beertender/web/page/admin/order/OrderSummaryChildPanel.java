@@ -10,6 +10,7 @@ import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.order.edit.OrderEditPanel;
 import com.rectus29.beertender.web.panel.lazyloadPanel.LazyLoadPanel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -83,8 +84,36 @@ public class OrderSummaryChildPanel extends Panel {
 							File outputFile = new File("Commande.xls");
 							Workbook wb = new HSSFWorkbook();
 							Sheet sheet = wb.createSheet();
-							sheet.createRow(0).createCell(0).setCellValue(item.getModelObject().getUser().getFormattedName());
+
+							sheet.createRow(0).createCell(0).setCellValue(item.getModelObject().getTimeFrame().getName());
+							sheet.getRow(0).createCell(2).setCellValue("date  de cloture");
+							sheet.getRow(0).createCell(3).setCellValue(item.getModelObject().getTimeFrame().getEndDate());
+
+							sheet.createRow(1).createCell(0).setCellValue("Utilisateur");
+							sheet.getRow(1).createCell(1).setCellValue(item.getModelObject().getUser().getFormattedName());
+							sheet.getRow(1).createCell(2).setCellValue("Commande");
+							sheet.getRow(1).createCell(3).setCellValue("#" + item.getModelObject().getId());
+
+							//build productHeader
+							Row itemRowHeader = sheet.createRow(9);
+							itemRowHeader.createCell(0).setCellValue("Produit");
+							itemRowHeader.createCell(1).setCellValue("Packaging");
+							itemRowHeader.createCell(2).setCellValue("PU");
+							itemRowHeader.createCell(3).setCellValue("Qte");
+							itemRowHeader.createCell(4).setCellValue("Total");
+							int itemRowStart = 10;
+							for(OrderItem temp: item.getModelObject().getOrderItemList()){
+								Row itemRow = sheet.createRow(itemRowStart);
+								itemRow.createCell(0).setCellValue(temp.getProduct().getName());
+								itemRow.createCell(1).setCellValue(temp.getProduct().getPackaging().getName());
+								itemRow.createCell(2).setCellValue(temp.getProductPrice().longValue());
+								itemRow.createCell(3).setCellValue(temp.getQuantity());
+								itemRow.createCell(4).setCellValue(temp.getSum());
+								itemRowStart++;
+							}
+
 							((HSSFWorkbook) wb).write(outputFile);
+							wb.close();
 							return outputFile;
 						} catch (IOException e) {
 							return null;

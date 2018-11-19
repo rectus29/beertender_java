@@ -108,7 +108,12 @@ public class OrderPanel extends Panel {
                         target.add(wmc);
                         send(getApplication(), Broadcast.BREADTH, new RefreshEvent(target));
                     }
-                });
+
+					@Override
+					public boolean isEnabled() {
+						return item.getModelObject().getQuantity() > 1;
+					}
+				});
             }
         };
         wmc.add(lv.setOutputMarkupId(true));
