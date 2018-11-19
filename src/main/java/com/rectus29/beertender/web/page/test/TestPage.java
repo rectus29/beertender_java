@@ -6,6 +6,7 @@ import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.web.component.switchbutton.SwitchButton;
 import com.rectus29.beertender.web.page.admin.product.panels.edit.ProductAdminEditPanel;
 import com.rectus29.beertender.web.page.base.BasePage;
+import com.rectus29.beertender.web.panel.serverloadpanel.ServerLoadpanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.model.IModel;
@@ -29,6 +30,8 @@ public class TestPage extends BasePage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+
+		add(new ServerLoadpanel("test"));
 
 
 		add(new SwitchButton("box") {
