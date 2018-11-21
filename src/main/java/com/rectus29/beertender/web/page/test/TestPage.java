@@ -30,7 +30,7 @@ public class TestPage extends BasePage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-
+//Test
 		add(new ServerLoadpanel("test"));
 
 
