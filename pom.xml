@@ -50,6 +50,11 @@
 					</webResources>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M1</version>
+            </plugin>
 		</plugins>
 		<!--<finalName>${project.artifactId}-${project.version}-r${buildNumber}</finalName>-->
 	</build>
