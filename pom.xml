@@ -41,6 +41,13 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Specification-Title>${project.name}</Specification-Title>
+                            <Specification-Version>${project.version}</Specification-Version>
+                            <Implementation-Version>${build.number}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
 					<webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
 					<webResources>
 						<resource>
