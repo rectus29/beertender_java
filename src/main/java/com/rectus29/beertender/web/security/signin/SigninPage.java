@@ -11,9 +11,11 @@ import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManag
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.apache.wicket.Application;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.PropertyModel;
@@ -57,6 +59,7 @@ public class SigninPage extends BasePage {
 		form.add(new PasswordTextField("password", new PropertyModel<String>(this, "password")));
 		form.add(new CheckBox("rememberMe", new PropertyModel<Boolean>(this, "rememberMe")));
 		form.add((feed = new BootstrapFeedbackPanel("feedback")).setOutputMarkupId(true));
+		form.add(new Label("versionNumber", Application.get().getClass().getPackage().getImplementationVersion()));
 
 	}
 
