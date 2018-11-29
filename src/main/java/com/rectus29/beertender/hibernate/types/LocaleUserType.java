@@ -1,4 +1,4 @@
-package com.rectus29.beertender.types;
+package com.rectus29.beertender.hibernate.types;
 
 import org.apache.commons.lang3.LocaleUtils;
 import org.hibernate.HibernateException;

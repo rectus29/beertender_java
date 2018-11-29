@@ -6,9 +6,11 @@ import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.tools.StringUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 @SuppressWarnings("serial")
@@ -45,6 +47,9 @@ public class User extends BasicGenericEntity<User> implements DecorableElement {
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private UserAuthentificationType userAuthentificationType = UserAuthentificationType.NONE;
+	@Column
+	@Type(type = "com.rectus29.hibernate.types.LocaleUserType")
+	private Locale userLocale = Locale.FRANCE ;
 
 	@Override
 	public String getFormattedName() {
@@ -175,6 +180,15 @@ public class User extends BasicGenericEntity<User> implements DecorableElement {
 
 	public User setAvatarImage(AvatarResource avatarImage) {
 		this.avatarImage = avatarImage;
+		return this;
+	}
+
+	public Locale getUserLocale() {
+		return userLocale;
+	}
+
+	public User setUserLocale(Locale userLocale) {
+		this.userLocale = userLocale;
 		return this;
 	}
 
