@@ -36,6 +36,11 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.wicketstuff.shiro.annotation.AnnotationsShiroAuthorizationStrategy;
 import org.wicketstuff.shiro.authz.ShiroUnauthorizedComponentListener;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 /*-----------------------------------------------------*/
 /* User: Rectus for          Date: 21/12/12 11:22 	   */
 /*                                                     */
@@ -47,6 +52,9 @@ public class BeerTenderApplication extends WebApplication {
 	private static final Logger log = LogManager.getLogger(BeerTenderApplication.class);
 
 	private Config config;
+	private String buildNumber;
+	private String buildDate;
+	private String version;
 
 	@Override
 	public void init() {
@@ -101,7 +109,16 @@ public class BeerTenderApplication extends WebApplication {
 			SecurePackageResourceGuard guard = (SecurePackageResourceGuard) packageResourceGuard;
 			//add pattren ti guard here for ressources model access
 		}
+
+		try {
+			loadBeerTenderProperties();
+		} catch (IOException e) {
+			log.error("Error while loading property file");
+		}
+
 	}
+
+
 
 	public ApplicationContext getAppCtx() {
 		return WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
@@ -126,5 +143,41 @@ public class BeerTenderApplication extends WebApplication {
 	@Override
 	public Session newSession(Request request, Response response) {
 		return new BeerTenderSession(request);
+	}
+
+	private void loadBeerTenderProperties() throws IOException {
+		//retrieve version info from properties
+		InputStream inputStream = null;
+		try {
+			Properties prop = new Properties();
+			inputStream = getClass().getClassLoader().getResourceAsStream("beertender.properties");
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("version property file not found in the classpath");
+			}
+			// get the property value and print it out
+			this.buildDate = prop.getProperty("user");
+			this.buildNumber = prop.getProperty("company1");
+			this.version = prop.getProperty("company2");
+		} catch (Exception e) {
+			log.error("Error while parsing versio property file", e);
+		} finally {
+			if(inputStream != null){
+				inputStream.close();
+			}
+		}
+	}
+
+	public String getBuildNumber() {
+		return buildNumber;
+	}
+
+	public String getBuildDate() {
+		return buildDate;
+	}
+
+	public String getVersion() {
+		return version;
 	}
 }

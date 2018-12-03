@@ -48,7 +48,7 @@ public class User extends BasicGenericEntity<User> implements DecorableElement {
 	@Enumerated(EnumType.STRING)
 	private UserAuthentificationType userAuthentificationType = UserAuthentificationType.NONE;
 	@Column
-	@Type(type = "com.rectus29.hibernate.types.LocaleUserType")
+	@Type(type = "com.rectus29.beertender.hibernate.types.LocaleUserType")
 	private Locale userLocale = Locale.FRANCE ;
 
 	@Override
