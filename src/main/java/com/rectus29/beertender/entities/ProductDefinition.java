@@ -12,15 +12,18 @@ package com.rectus29.beertender.entities;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
+import com.rectus29.beertender.entities.translation.TranslatableEntity;
+import com.rectus29.beertender.entities.translation.Translation;
 import com.rectus29.beertender.enums.State;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 @Entity
 @Table(name = "productdefinition")
-public class ProductDefinition extends BasicGenericEntity<ProductDefinition> {
+public class ProductDefinition extends BasicGenericEntity<ProductDefinition>{
 
 	private String name;
 
