@@ -1,8 +1,11 @@
 <html>
 <body>
-<h3>Bonjour ${user.email}</h3>
+	<img src="${server_url}/api/mailtracker.png?mailtoken=${trackingToken}">
+<h3>Bonjour ${user.name}</h3>
 <div>
-   ${content}
+	Bienvenu dans le BeerTender, suivez le lien pour vous connectez,<br/>
+	<br/>
+	<a href="${server_url}/enroll/${mailToken}"></a>
 </div>
 </body>
 

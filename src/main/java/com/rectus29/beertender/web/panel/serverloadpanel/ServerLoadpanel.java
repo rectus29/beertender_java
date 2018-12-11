@@ -8,7 +8,7 @@ import java.io.File;
 import java.lang.management.ManagementFactory;
 
 /*-----------------------------------------------------*/
-/*                     Adelya                          */
+/*                     Rectus29                        */
 /*                                                     */
 /*                Date: 19/11/2018 14:35               */
 /*                 All right reserved                  */

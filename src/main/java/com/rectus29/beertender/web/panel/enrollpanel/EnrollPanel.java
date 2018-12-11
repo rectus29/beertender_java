@@ -68,7 +68,7 @@ public class EnrollPanel extends Panel {
 						userModel.setObject(serviceUser.save(userModel.getObject()));
 						success(new ResourceModel("success").getObject());
 						target.add(form);
-						serviceMail.sendEnrolmentMail(userModel.getObject());
+						serviceMail.sendEnrollmentMail(userModel.getObject());
 						EnrollPanel.this.onSubmit(target, userModel);
 					}
 				})

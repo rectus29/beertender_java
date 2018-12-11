@@ -13,7 +13,7 @@ import java.sql.Types;
 import java.util.Locale;
 
 /*-----------------------------------------------------*/
-/*                     Adelya                          */
+/*                     Rectus29                        */
 /*                                                     */
 /*                Date: 08/11/2018 14:36               */
 /*                 All right reserved                  */

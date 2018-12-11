@@ -1,19 +1,15 @@
 package com.rectus29.beertender.service;
 
+import com.rectus29.beertender.entities.Token;
 import com.rectus29.beertender.entities.User;
+import com.rectus29.beertender.enums.TokenType;
 
 /*-----------------------------------------------------*/
 /*                                                     */
 /*                Date: 27/09/2018 14:41               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public interface IserviceMail {
+public interface IserviceToken extends GenericManager<Token, Long> {
 
-	public void sendEmail(final Long userId, final String subject, final String content);
-
-	public void sendRestoreMail(final User user, final String session);
-
-	public void sendEnrollmentMail(User enrollUser);
-
-	public void trackMail(String mailToken);
+	public Token generateTokenFor(User user, TokenType tokenType);
 }
