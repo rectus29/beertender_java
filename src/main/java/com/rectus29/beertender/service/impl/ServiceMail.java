@@ -1,13 +1,16 @@
 package com.rectus29.beertender.service.impl;
 
+import com.rectus29.beertender.constant.BeertenderConstant;
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.TokenType;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceMail;
 import com.rectus29.beertender.service.IserviceToken;
 import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.web.BeerTenderApplication;
 import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -24,8 +27,6 @@ import static org.springframework.ui.freemarker.FreeMarkerTemplateUtils.processT
 
 @Service("serviceMail")
 public class ServiceMail implements IserviceMail, ServletContextAware {
-	private final static String DEFAULTFROMMAIL = "";
-	private final static String DEFAULTTOWOCMAIL = "";
 	private JavaMailSender mailSender;
 	private Configuration freemarkerConfiguration;
 	private IserviceUser serviceUser;
@@ -48,7 +49,7 @@ public class ServiceMail implements IserviceMail, ServletContextAware {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 				message.setTo(serviceConfig.getByKey("assistanceDefaultMail").getValue());
-				message.setFrom(DEFAULTFROMMAIL);
+				message.setFrom(BeerTenderApplication.getInstance().getDefaultSenderMail());
 				message.setSubject(subject);
 				HashMap model = new HashMap<String, Object>();
 				model.put("user", user);
@@ -66,10 +67,11 @@ public class ServiceMail implements IserviceMail, ServletContextAware {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 				message.setTo(user.getEmail());
-				message.setFrom(DEFAULTFROMMAIL);
+				message.setFrom(BeerTenderApplication.getInstance().getDefaultSenderMail());
 				message.setSubject("BeerTender - Restoration de votre mot de passe");
 				Map model = new HashMap();
 				model.put("user", user);
+				model.put("trackingToken", serviceToken.generateTokenFor(user, TokenType.MAILTRACKINGTOKEN));
 				model.put("uid", session);
 				model.put("server_url", serviceConfig.getByKey("server_url").getValue());
 				String text = processTemplateIntoString(freemarkerConfiguration.getTemplate("restorePasswordMail.ftl"), model);
@@ -89,7 +91,7 @@ public class ServiceMail implements IserviceMail, ServletContextAware {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 				message.setTo(enrollUser.getEmail());
-				message.setFrom(DEFAULTFROMMAIL);
+				message.setFrom(BeerTenderApplication.getInstance().getDefaultSenderMail());
 				message.setSubject("BeerTender - Bienvenue");
 				Map model = new HashMap();
 				model.put("user", enrollUser);

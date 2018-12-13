@@ -1,8 +1,10 @@
 package com.rectus29.beertender.web;
 
+import com.rectus29.beertender.constant.BeertenderConstant;
 import com.rectus29.beertender.event.DispatchOnEventMethod;
 import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.session.BeerTenderSession;
+import com.rectus29.beertender.tools.StringUtils;
 import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.page.billspage.BillsPage;
 import com.rectus29.beertender.web.page.home.HomePage;
@@ -10,6 +12,7 @@ import com.rectus29.beertender.web.page.mailbox.MailBoxPage;
 import com.rectus29.beertender.web.page.product.ProductPage;
 import com.rectus29.beertender.web.page.profile.ProfilePage;
 import com.rectus29.beertender.web.page.test.TestPage;
+import com.rectus29.beertender.web.security.enrollpage.EnrollmentPage;
 import com.rectus29.beertender.web.security.error.ErrorPage;
 import com.rectus29.beertender.web.security.forgotpassword.ForgotPasssword;
 import com.rectus29.beertender.web.security.maintenancepage.MaintenancePage;
@@ -52,9 +55,10 @@ public class BeerTenderApplication extends WebApplication {
 	private static final Logger log = LogManager.getLogger(BeerTenderApplication.class);
 
 	private Config config;
-	private String buildNumber;
-	private String buildDate;
-	private String version;
+	private String buildNumber = "00";
+	private String buildDate = "00";
+	private String version = "DEV";
+	private Properties properties = new Properties();
 
 	@Override
 	public void init() {
@@ -93,6 +97,7 @@ public class BeerTenderApplication extends WebApplication {
 
 		mountPage("unauthorized", UnauthorizedPage.class);
 		mountPage("restorepassword/${uid}", RestorePasswordPage.class);
+		mountPage("enroll/${token}", EnrollmentPage.class);
 		mountPage("forgotPasssword", ForgotPasssword.class);
 		mountPage("logout", SignoutPage.class);
 		mountPage("login", SigninPage.class);
@@ -118,6 +123,9 @@ public class BeerTenderApplication extends WebApplication {
 
 	}
 
+	public static BeerTenderApplication getInstance(){
+		return (BeerTenderApplication) get();
+	}
 
 
 	public ApplicationContext getAppCtx() {
@@ -160,6 +168,7 @@ public class BeerTenderApplication extends WebApplication {
 			this.buildDate = prop.getProperty("user");
 			this.buildNumber = prop.getProperty("company1");
 			this.version = prop.getProperty("company2");
+			this.properties = prop;
 		} catch (Exception e) {
 			log.error("Error while parsing versio property file", e);
 		} finally {
@@ -167,6 +176,10 @@ public class BeerTenderApplication extends WebApplication {
 				inputStream.close();
 			}
 		}
+	}
+
+	public Object getProperty(String propertyName){
+		return this.properties.get(propertyName);
 	}
 
 	public String getBuildNumber() {
@@ -179,5 +192,10 @@ public class BeerTenderApplication extends WebApplication {
 
 	public String getVersion() {
 		return version;
+	}
+
+	public String getDefaultSenderMail(){
+		String defaultSender = (String) this.getProperty(BeertenderConstant.DEFAULTFROMMAIL);
+		return (StringUtils.isNotBlank(defaultSender))? defaultSender : "noMail@nomail.fr";
 	}
 }

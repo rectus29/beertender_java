@@ -84,14 +84,14 @@
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <!-- ells Spring to put transactional advice on any class or method that has an @Transactional annotation on it  -->
+    <!-- tells Spring to put transactional advice on any class or method that has an @Transactional annotation on it  -->
     <tx:annotation-driven/>
 
     <!-- Mail configuration -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.server.com"/>
-        <property name="username" value="sender@server.com"/>
-        <property name="password" value="pass4sender"/>
+        <property name="host" value="127.0.0.1"/>
+        <!--<property name="username" value="sender@server.com"/>-->
+        <!--<property name="password" value="pass4sender"/>-->
         <property name="port" value="25"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>

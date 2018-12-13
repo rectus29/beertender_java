@@ -3,9 +3,8 @@ package com.rectus29.beertender.entities;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.enums.TokenType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 /*-----------------------------------------------------*/
@@ -18,7 +17,8 @@ import java.util.UUID;
 @Table(name = "token")
 public class Token extends BasicGenericEntity<Token> {
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 50)
+	@Enumerated(EnumType.STRING)
 	private TokenType tokenType;
 
 	@Column(nullable = false)
@@ -32,6 +32,10 @@ public class Token extends BasicGenericEntity<Token> {
 
 	@Column(columnDefinition = "varchar(255)")
 	private String token = UUID.randomUUID().toString();
+
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date expirationDate;
 
 	protected Token() {
 	}
@@ -83,5 +87,21 @@ public class Token extends BasicGenericEntity<Token> {
 	public Token setToken(String token) {
 		this.token = token;
 		return this;
+	}
+
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	public Token setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
+		return this;
+	}
+
+	public Boolean isExpired(){
+		if(this.state != State.DISABLE && this.state != State.DELETED){
+			return (this.getExpirationDate() != null) && this.getExpirationDate().after(new Date());
+		}
+		return true;
 	}
 }
