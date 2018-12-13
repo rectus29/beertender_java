@@ -67,12 +67,7 @@ public class BeerTenderRealms extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		User user = this.serviceUser.getByProperty("email", token.getUsername(), true);
-		if (user != null) {
-			if (user.getUserAuthentificationType() == UserAuthentificationType.NONE) {
-				//set login mode
-				user.setUserAuthentificationType(UserAuthentificationType.EMBED);
-				user = this.serviceUser.save(user);
-			}
+		if (user != null && user.getUserAuthentificationType() != UserAuthentificationType.NONE) {
 			return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(Base64.decode(user.getSalt())), getName());
 		} else {
 			return null;

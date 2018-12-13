@@ -1,5 +1,7 @@
 package com.rectus29.beertender.tools;
 
+import com.rectus29.beertender.realms.BeerTenderRealms;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
  * Time: 17:53
  * To change this template use File | Settings | File Templates.
  */
-public class SecureUtils {
+public class SecurityUtils extends org.apache.shiro.SecurityUtils {
 
     static public String toSHA256Hex(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
