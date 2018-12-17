@@ -165,9 +165,9 @@ public class BeerTenderApplication extends WebApplication {
 				throw new FileNotFoundException("version property file not found in the classpath");
 			}
 			// get the property value and print it out
-			this.buildDate = prop.getProperty("user");
-			this.buildNumber = prop.getProperty("company1");
-			this.version = prop.getProperty("company2");
+			this.buildDate = StringUtils.isNotBlank(prop.getProperty("build.date"))? prop.getProperty("build.date"): buildDate;
+			this.buildNumber = StringUtils.isNotBlank(prop.getProperty("build.revision"))? prop.getProperty("build.revision"): buildNumber;
+			this.version = StringUtils.isNotBlank(prop.getProperty("build.version"))? prop.getProperty("build.version"): version;
 			this.properties = prop;
 		} catch (Exception e) {
 			log.error("Error while parsing versio property file", e);
