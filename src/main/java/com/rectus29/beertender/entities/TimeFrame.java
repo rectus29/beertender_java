@@ -4,6 +4,7 @@ import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.tools.DateUtils;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -77,5 +78,25 @@ public class TimeFrame extends BasicGenericEntity<TimeFrame> {
 	@Override
 	public int compareTo(TimeFrame object) {
 		return defaultCompareTo(object);
+	}
+
+	public BigDecimal getOrderSum() {
+		BigDecimal out = BigDecimal.ZERO;
+		for(Order temp : this.getOrderList()){
+			if(temp.getState() == State.ENABLE){
+				out = out.add(temp.getOrderPrice());
+			}
+		}
+		return null;
+	}
+
+	public BigDecimal getOrderPaid() {
+		BigDecimal out = BigDecimal.ZERO;
+		for(Order temp : this.getOrderList()){
+			if(temp.getState() == State.DISABLE){
+				out = out.add(temp.getOrderPrice());
+			}
+		}
+		return null;
 	}
 }

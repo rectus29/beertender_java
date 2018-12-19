@@ -9,6 +9,7 @@ import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.*;
 import java.io.File;
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -27,14 +28,14 @@ public class Config implements Serializable{
 	private IserviceConfig serviceConfig;
     private static Config ourInstance = new Config();
     public static final String RESOURCE_PATH = "files";
-	private Folder uploadFolder = null, avatarFolder = null, characterFolder = null, corporationFolder= null, itemFolder = null,  rootFolder = null,XMLExportFolder = null,  resourceFolder = null;
+	private Folder uploadFolder = null, rootFolder = null,XMLExportFolder = null,  resourceFolder = null;
 	private String dateFormat = "dd/MM/yyyy";
     private String fullDateFormat = dateFormat + " HH:mm:ss";
 	private SimpleDateFormat dateFormater;
 	private PeriodFormatter durationFormater;
     private DecimalFormat formatter;
     private DecimalFormat currencyFormatter;
-    private String defaultColor[] = {"#FFAA00", "#877F13", "#C4A64C", "#BF3E21", "#A61F2B", "#5C1644", "#BF6374", "#872858", "#541154", "#BDB738", "#E5C85B", "#0C83B4"};
+    private String defaultColor[] = {};
 
     public Config() {
 
@@ -62,12 +63,6 @@ public class Config implements Serializable{
 		currencyFormatter = new DecimalFormat("###,###,###,###.00");
 		resourceFolder = new Folder(rootFolder, File.separator + RESOURCE_PATH);
 		resourceFolder.mkdirs();
-		avatarFolder = new Folder( resourceFolder  + File.separator + "avatar");
-		avatarFolder.mkdirs();
-		corporationFolder = new Folder( avatarFolder  + File.separator + "corporation");
-		corporationFolder.mkdirs();
-		characterFolder = new Folder( avatarFolder  + File.separator + "character");
-		characterFolder.mkdirs();
 		dateFormat = "dd/MM/yyyy";
 		fullDateFormat = dateFormat + " HH:mm:ss";
 		this.serviceConfig = (IserviceConfig)  AppContext.getApplicationContext().getBean("serviceConfig");
@@ -106,14 +101,6 @@ public class Config implements Serializable{
         return new Folder(rootFolder, File.separator + RESOURCE_PATH + File.separator + "product");
     }
 
-	public Folder getAvatarFolder() {
-		return avatarFolder;
-	}
-
-	public void setAvatarFolder(Folder avatarFolder) {
-		this.avatarFolder = avatarFolder;
-	}
-
 	public String getDefaultColor() {
         String out = "";
 		for (String aDefaultColor : defaultColor) {
@@ -133,22 +120,6 @@ public class Config implements Serializable{
     public String dateFormat(Date date) {
         return dateFormater.format(date);
     }
-
-	public Folder getCharacterFolder() {
-		return characterFolder;
-	}
-
-	public void setCharacterFolder(Folder characterFolder) {
-		this.characterFolder = characterFolder;
-	}
-
-	public Folder getCorporationFolder() {
-		return corporationFolder;
-	}
-
-	public void setCorporationFolder(Folder corporationFolder) {
-		this.corporationFolder = corporationFolder;
-	}
 
 	public String dateHourFormat(Date date) {
         dateFormater.applyPattern(getFullDateFormat());

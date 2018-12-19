@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
-<head>
-	<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
-</head>
-<body>
-<wicket:extend>
-	<nav class="navbar navbar-light fixed-top navbar-dark bg-dark justify-content-between">
-		<a class="navbar-brand" href="/" wicket:id="homeLink">
-			<img src="img/beer.png" width="30" height="30" alt="" class="d-inline-block align-top">
-			BeerTender
-		</a>
-		<div id="userBlock">
-			<a href="#" wicket:id="cartLink">
-				<span class="badge badge-light" wicket:id="badge"/>
-			</a>
-			&nbsp;|&nbsp;
-			<img wicket:id="avatarImg" class="image rounded-circle" id="avatarImg">
-			<span class="d-none d-md-inline" wicket:id="login"></span>
-			&nbsp;|&nbsp;
-			<wicket:enclosure>
-				<a href="#" wicket:id="admin"><i class="fa fa-cogs"></i>&nbsp;Admin</a>&nbsp;|&nbsp;
-			</wicket:enclosure>
-			<wicket:enclosure>
-				<a href="#" wicket:id="runAsUsual"><i class="fa fa-cogs"></i>&nbsp;reprendre son rôle</a>&nbsp;|&nbsp;
-			</wicket:enclosure>
-			<a wicket:id="logoutLink" href="logout"><i class="fa fa-sign-out"></i></a>
-		</div>
+	<head>
+		<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+	</head>
+	<body>
+		<wicket:extend>
+			<nav class="navbar  navbar-light fixed-top navbar-dark bg-dark justify-content-between">
+				<div class="container">
+					<a class="navbar-brand" href="/" wicket:id="homeLink">
+						<img src="img/beer.png" width="30" height="30" alt="" class="d-inline-block align-top">
+						BeerTender
+					</a>
+					<div id="userBlock">
+						<a href="#" wicket:id="cartLink">
+							<span class="badge badge-light" wicket:id="badge"/>
+						</a>
+						&nbsp;|&nbsp;
+						<img wicket:id="avatarImg" class="image rounded-circle" id="avatarImg">
+						<span class="d-none d-md-inline" wicket:id="login"></span>
+						&nbsp;|&nbsp;
+						<wicket:enclosure>
+							<a href="#" wicket:id="admin"><i class="fa fa-cogs"></i>&nbsp;Admin</a>&nbsp;|&nbsp;
+						</wicket:enclosure>
+						<wicket:enclosure>
+							<a href="#" wicket:id="runAsUsual"><i class="fa fa-cogs"></i>&nbsp;reprendre son rôle</a>&nbsp;|&nbsp;
+						</wicket:enclosure>
+						<a wicket:id="logoutLink" href="logout"><i class="fa fa-sign-out"></i></a>
+					</div>
+				</div>
+			</nav>
+			<div id="body-spacer" class="container">
+				<wicket:child/>
+			</div>
 
-	</nav>
-	<div id="body-spacer">
-		<wicket:child/>
-	</div>
+			<div wicket:id="modal"/>
 
-	<div wicket:id="modal"/>
+			<wicket:fragment wicket:id="badgeFrag1">
+				<span wicket:id="nbProduct"/>&nbsp;
+				<i class="fa fa-shopping-cart"></i>&nbsp;
+				<span wicket:id="cartCostLabel"/>
+			</wicket:fragment>
+			<wicket:fragment wicket:id="badgeFrag2">
+				Pas de commande en cours
+			</wicket:fragment>
 
-	<wicket:fragment  wicket:id="badgeFrag1">
-		<span wicket:id="nbProduct"/>&nbsp;
-		<i class="fa fa-shopping-cart"></i>&nbsp;
-		<span wicket:id="cartCostLabel"/>
-	</wicket:fragment>
-	<wicket:fragment  wicket:id="badgeFrag2">
-		Pas de commande en cours
-	</wicket:fragment>
+		</wicket:extend>
 
-</wicket:extend>
-
-</body>
+	</body>
 </html>

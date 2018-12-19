@@ -11,12 +11,12 @@ import java.util.Map;
 /*                Date: 18/02/16 11:20                 */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class PlotDataObject implements Serializable {
+public class SeriesDataObject implements Serializable {
 
     private String label;
-    private Map<Date, Double> data;
+    private Map<Object, Number> data;
 
-    public PlotDataObject(Map<Date, Double> data, String label) {
+    public SeriesDataObject(Map<Object, Number> data, String label) {
         this.data = data;
         this.label = label;
     }
@@ -29,11 +29,11 @@ public class PlotDataObject implements Serializable {
         this.label = label;
     }
 
-    public Map<Date, Double> getData() {
+    public Map<Object, Number> getData() {
         return data;
     }
 
-    public void setData(HashMap<Date, Double> data) {
+    public void setData(HashMap<Object, Number> data) {
         this.data = data;
     }
 }

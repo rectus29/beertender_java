@@ -4,6 +4,7 @@ import com.rectus29.beertender.entities.Token;
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.enums.UserAuthentificationType;
+import com.rectus29.beertender.exception.BeerTenderException;
 import com.rectus29.beertender.service.IserviceToken;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.validator.PasswordPolicyValidator;
@@ -27,6 +28,8 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import java.util.Objects;
 
 /*-----------------------------------------------------*/
 /*                     rectus29                        */
@@ -57,15 +60,14 @@ public class EnrollmentPage extends BasePage {
 		tokenString = parameters.get("token").toString();
 		try {
 			token = serviceToken.getByProperty("token", tokenString, true);
-			if (token != null) {
-				if (token.isExpired()) {
-					throw new Exception("Votre lien n'est plus valable");
-				} else {
-					//retrieve the user for the given token
-					user = serviceUser.get(token.getObjectId());
+			if (token != null && !token.isExpired()) {
+				//retrieve the user for the given token
+				user = serviceUser.get(token.getObjectId());
+				if(user == null || !Objects.equals(user.getState(), State.PENDING)){
+					throw new BeerTenderException("unknow user or user state");
 				}
 			} else {
-				throw new Exception("Information de session invalide");
+				throw new BeerTenderException("Information de session invalide");
 			}
 		} catch (Exception ex) {
 			error(ex.getMessage());
@@ -79,9 +81,9 @@ public class EnrollmentPage extends BasePage {
 			@Override
 			protected void onInitialize() {
 				super.onInitialize();
-				add(new EmailTextField("mail", new PropertyModel<String>(EnrollmentPage.this, "emailString")).setRequired(true));
-				add((mdp1 = new PasswordTextField("mdp1", new PropertyModel<String>(EnrollmentPage.this, "mdp1String"))).add(new PasswordPolicyValidator()).setRequired(true));
-				add((mdp2 = new PasswordTextField("mdp2", new PropertyModel<String>(EnrollmentPage.this, "mdp2String"))).add(new PasswordPolicyValidator()).setRequired(true));
+				add(new EmailTextField("mail", new PropertyModel<>(EnrollmentPage.this, "emailString")).setRequired(true));
+				add((mdp1 = new PasswordTextField("mdp1", new PropertyModel<>(EnrollmentPage.this, "mdp1String"))).add(new PasswordPolicyValidator()).setRequired(true));
+				add((mdp2 = new PasswordTextField("mdp2", new PropertyModel<>(EnrollmentPage.this, "mdp2String"))).add(new PasswordPolicyValidator()).setRequired(true));
 				add(new EqualPasswordInputValidator(mdp1, mdp2));
 				add(new AjaxSubmitLink("submit") {
 					@Override
@@ -95,9 +97,9 @@ public class EnrollmentPage extends BasePage {
 							//burn the token
 							token.setState(State.DISABLE);
 							serviceToken.save(token);
-							info("Votre mot de passe a été changé avec succés,\n vous pouvez maintenant vous connecter à la platforme");
+							info("Merci pour votre inscription vous pouvez maintenant vous connecter <a href=\"\">Connection</a>");
 						} else {
-							info("Le mail saisi est inconnu");
+							error("Le mail saisi est inconnu");
 						}
 						ajaxRequestTarget.add(feed);
 					}

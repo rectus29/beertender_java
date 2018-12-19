@@ -18,9 +18,9 @@ import java.lang.reflect.Type;
 /*                Date: 23/09/2016 12:08                */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class GenericEntitySerialier implements JsonSerializer<GenericEntity>, JsonDeserializer<GenericEntity> {
+public class GenericEntitySerializer implements JsonSerializer<GenericEntity>, JsonDeserializer<GenericEntity> {
 
-	private static final Logger log = LogManager.getLogger(GenericEntitySerialier.class);
+	private static final Logger log = LogManager.getLogger(GenericEntitySerializer.class);
 	private static final String CLASSNAME = "CLAZZ";
 	private static final String INSTANCE  = "INSTANCE";
 

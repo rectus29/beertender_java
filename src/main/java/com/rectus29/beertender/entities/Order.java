@@ -1,6 +1,7 @@
 package com.rectus29.beertender.entities;
 
 
+import com.rectus29.beertender.entities.payment.Payment;
 import com.rectus29.beertender.enums.State;
 
 import javax.persistence.*;
@@ -31,6 +32,9 @@ public class Order extends BasicGenericEntity<Order> {
 	@ManyToOne(targetEntity = TimeFrame.class)
 	@JoinColumn(name = "timeframe_id", nullable = false)
 	private TimeFrame timeFrame;
+
+//	@ManyToOne
+	private Payment payment;
 
 	public Order() {
 	}

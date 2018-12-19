@@ -1,14 +1,8 @@
 package com.rectus29.beertender.web.page.base;
 
-import com.rectus29.beertender.event.RefreshEvent;
-import com.rectus29.beertender.service.IserviceOrder;
-import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.panel.menupanel.MenuPanel;
-import org.apache.wicket.event.IEvent;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -16,11 +10,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 public class BeerTenderPage extends BeerTenderBasePage {
-
-    @SpringBean(name = "serviceUser")
-    private IserviceUser serviceUser;
-    @SpringBean(name = "serviceOrder")
-    private IserviceOrder serviceOrder;
 
     public BeerTenderPage() {
     }

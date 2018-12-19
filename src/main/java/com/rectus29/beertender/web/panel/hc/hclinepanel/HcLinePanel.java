@@ -1,6 +1,9 @@
 package com.rectus29.beertender.web.panel.hc.hclinepanel;
 
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.Config;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
@@ -8,7 +11,6 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -33,15 +35,9 @@ public abstract class HcLinePanel extends Panel {
     private String legendPosition = "so";
     private String step = "1 month";
     private String legendPlacement = "outside";
-    private int lineWidth = 2;
-    private int ticksNumber = 6;
     private boolean legend = true;
-    private int legendMargin = 30;
-    private int angle = 0;
-    private Date xStart;
-    private Date xStop;
     private Label chart;
-    private ArrayList<PlotDataObject> innerDataTable = new ArrayList<PlotDataObject>();
+    private List<SeriesDataObject> seriesObjectList = new ArrayList<SeriesDataObject>();
 
     public HcLinePanel(String id) {
         super(id);
@@ -78,24 +74,10 @@ public abstract class HcLinePanel extends Panel {
     private String getJS() {
         WebSession.get().getClientInfo().getUserAgent();
         String graph = "" +
-                "Highcharts.setOptions({                                                                                                                    \n" +
-                "   lang: {                                                                                                                                 \n" +
-                "       loading: 'Chargement...',                                                                                                           \n" +
-                "       months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin','Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],   \n" +
-                "       shortMonths: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jui', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],                                 \n" +
-                "       weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],                                                \n" +
-                "       decimalPoint: ',',                                                                                                                  \n" +
-                "       resetZoom: 'retour',                                                                                                                \n" +
-                "       resetZoomTitle: 'Reset zoom level 1:1',                                                                                             \n" +
-                "       thousandsSep: ' '                                                                                                                   \n" +
-                "   }                                                                                                                                       \n" +
-                "});                                                                                                                                        \n" +
                 "       var chart" + chart.getMarkupId() + " =new Highcharts.Chart({                                                                            \n" +
                 "	        chart: {                                                                                                                        \n" +
-                "		        renderTo: '" + chart.getMarkupId() + "',                                                                                    \n";
-        if (!WebSession.get().getClientInfo().getUserAgent().toLowerCase().contains("ipad") && !WebSession.get().getClientInfo().getUserAgent().toLowerCase().contains("iphone"))
-            graph += "zoomType: 'xy', \n";
-        graph += "               defaultSeriesType: 'line',                                                                                                  \n" +
+                "		        renderTo: '" + chart.getMarkupId() + "',                                                                                    \n" +
+        		 "               defaultSeriesType: 'line',                                                                                                  \n" +
                 "	    	    spacingRight: 20,                                                                                                          \n" +
                 "               //animation: false                                                                                                          \n" +
                 "	        },                                                                                                                              \n" +
@@ -104,7 +86,8 @@ public abstract class HcLinePanel extends Panel {
                 "               text: null                                                                                                                  \n" +
                 "           },                                                                                                                              \n" +
                 "           legend:{                                                                                                                        \n" +
-                "               enabled: " + legend + "                                                                                                     \n" +
+                "               enabled: " + legend + "," +
+				"				placement: " + this.legendPlacement + "                                                                                     \n" +
                 "           },                                                                                                                              \n" +
                 "           xAxis: {                                                                                                                        \n" +
                 "	            type: 'datetime',                                                                                                           \n" +
@@ -147,81 +130,52 @@ public abstract class HcLinePanel extends Panel {
                 "               line :{                                                                                                                     \n" +
                 "                   marker:{                                                                                                                \n" +
                 "                       enabled:false,                                                                                                      \n" +
-                "                       states: {                                                                                                            \n" +
-                "                           hover: {                            \n" +
-                "                               enabled: true,                  \n" +
-                "                               symbol: 'circle',               \n" +
-                "                               radius: 5,                          \n" +
-                "                               lineWidth: 1                        \n" +
-                "                           }                                   \n" +
-                "                       }                           \n" +
-                "                   }                                       \n" +
-                "               }                                       \n" +
-                "           },                                      \n" +
-                "           series: [" + getData() + "],                \n" +
-                "           navigation: {                               \n" +
-                "               menuItemStyle: {                \n" +
-                "                   fontSize: '10px'            \n" +
-                "               }                           \n" +
-                "           }                                              \n" +
+                "                       states: {                                                                                                           \n" +
+                "                           hover: {                            																			\n" +
+                "                               enabled: true,                  																			\n" +
+                "                               symbol: 'circle',               																			\n" +
+                "                               radius: 5,                     																				\n" +
+                "                               lineWidth: 1                    																			\n" +
+                "                           }                                   																			\n" +
+                "                       }                           																						\n" +
+                "                   }                                     																				  	\n" +
+                "               }                                   																				    	\n" +
+                "           },                                    																				  			\n" +
+                "           series: [" + buildData() + "],        																				        	\n" +
+                "           navigation: {                        																				       		\n" +
+                "               menuItemStyle: {               																				 				\n" +
+                "                   fontSize: '10px'           																				 				\n" +
+                "               }                         																				  					\n" +
+                "           }                                          																				    	\n" +
                 "       });";
         return graph;
 
     }
 
-    public abstract String getData();
+    public abstract List<SeriesDataObject> getData();
 
-    public String buildData(ArrayList<PlotDataObject> dataList) {
-        this.innerDataTable = dataList;
+    private String buildData() {
+        this.seriesObjectList = getData();
         //variables de sortie
-        String out = "";
+		JsonObject out = new JsonObject();
         //construction des données plus des labels
-        for (PlotDataObject tempObject : this.innerDataTable) {
-            out += "{name:'" + tempObject.getLabel() + "',data:[";
-            Set entries = tempObject.getData().entrySet();
-            Iterator it = entries.iterator();
-            boolean first = true;
-            while (it.hasNext()) {
-                Map.Entry entry = (Map.Entry) it.next();
-                if (first) {
-                    xStart = (Date) entry.getKey();
-                    first = false;
-                }
-                String[] date = new java.sql.Date(((Date) entry.getKey()).getTime()).toString().split(" ")[0].split("-");
-                int month = Integer.valueOf(date[1]);
-                out += "[Date.UTC(" + date[0] + "," + (month - 1) + "," + Integer.valueOf(date[2]) + ")," + entry.getValue() + "],\n";
-            }
-            out += "]},";
+        for (SeriesDataObject tempObject : this.seriesObjectList) {
+            out.addProperty("name", tempObject.getLabel());
+            //iter on each plot in series
+			JsonArray dataArray = new JsonArray();
+			for( Map.Entry<Object, Number> entry : tempObject.getData().entrySet()){
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("x", entry.getKey().toString());
+				jsonObject.addProperty("y",entry.getValue());
+				dataArray.add(jsonObject);
+			}
+            out.add("data", dataArray);
         }
-        //nettoyage derniere virgule
-        out = (out.length() > 0) ? out.substring(0, out.length() - 1) : out;
-        return out;
+        return out.toString();
     }
-
-    //construction des labels depuis le table de ref
-    public String buildSeries() {
-        String out = "[";
-        for (PlotDataObject temp : this.innerDataTable) {
-            //out += "{label:'" + temp.getLabel() + "'},";
-            out += "'" + temp.getLabel() + "',";
-        }
-        //nettoyage derniere virgule
-        out = out.substring(0, out.length() - 1) + "]";
-        return out;
-    }
-
-    public String angleXAxis() {
-        if (angle != 0) {
-            return ", angle:-" + angle;
-        } else {
-            return "";
-        }
-    }
-
 
 	public String getColor() {
 		return Config.get().getDefaultColor();
 	}
-
 
 }

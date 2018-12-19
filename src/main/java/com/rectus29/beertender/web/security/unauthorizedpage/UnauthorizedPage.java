@@ -1,34 +1,36 @@
 package com.rectus29.beertender.web.security.unauthorizedpage;
 
 import com.rectus29.beertender.web.page.base.BasePage;
-import com.rectus29.beertender.web.panel.footerpanel.FooterPanel;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
+import com.rectus29.beertender.web.page.home.HomePage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /*-----------------------------------------------------*/
-/* User: Rectus for          Date: 21/12/12 11:22 */
+/*                     Rectus_29                       */
 /*                                                     */
+/*                Date: 08/08/2018 16:04               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
 public class UnauthorizedPage extends BasePage {
 
-    private static final Logger log = LogManager.getLogger(UnauthorizedPage.class);
+	public UnauthorizedPage() {}
 
-    public UnauthorizedPage(){}
+	public UnauthorizedPage(IModel model) {
+		super(model);
+	}
 
-    public UnauthorizedPage(IModel model) {
-        super(model);
-    }
+	public UnauthorizedPage(PageParameters parameters) {
+		super(parameters);
+	}
 
-    public UnauthorizedPage(PageParameters parameters) {
-        super(parameters);
-    }
-
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
-        add(new FooterPanel("footerPanel").setOutputMarkupId(true));
-    }
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		add(new BookmarkablePageLink<HomePage>("homeLink", HomePage.class));
+		add(new BookmarkablePageLink<HomePage>("backHomeLink", HomePage.class));
+	}
 }
