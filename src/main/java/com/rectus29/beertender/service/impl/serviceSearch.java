@@ -1,5 +1,7 @@
 package com.rectus29.beertender.service.impl;
 
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
 import com.rectus29.beertender.entities.search.ISearchable;
 import com.rectus29.beertender.service.IserviceSearch;
 import org.apache.logging.log4j.LogManager;
@@ -9,9 +11,9 @@ import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.MatchAllDocsQuery;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.util.Version;
 import org.apache.shiro.subject.Subject;
 import org.hibernate.*;
+import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.reflections.Reflections;
@@ -19,30 +21,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 @Service("serviceSearch")
 public class serviceSearch implements IserviceSearch {
 
 	private static final Logger log = LogManager.getLogger(serviceSearch.class);
-
+	private static Multimap<Class, Field> indexedFieldByClassMap = LinkedListMultimap.create();
 	private SessionFactory sessionFactory;
-	private static Map<Class, List<Field>> indexedFieldByClassMap = new HashMap<>();
 
 	public serviceSearch() {
 		//create cache of the indexed file
 		log.debug("create cache of searchable field");
 		Reflections reflections = new Reflections("com.rectus29.beertender.entities");
 		Set<Class<? extends ISearchable>> classes = reflections.getSubTypesOf(ISearchable.class);
-		for(Class tempClass : classes){
-			List<Field> fieldList = new ArrayList<>();
-			for(Field tempField : tempClass.getFields()){
-				if(tempField.isAnnotationPresent(org.hibernate.search.annotations.Field.class)){
-					fieldList.add(tempField);
+		for (Class tempClass : classes) {
+			for (Field tempField : tempClass.getFields()) {
+				if (tempField.isAnnotationPresent(org.hibernate.search.annotations.Field.class)) {
+					indexedFieldByClassMap.put(tempClass, tempField);
 				}
 			}
-			indexedFieldByClassMap.put(tempClass, fieldList);
 		}
 	}
 
@@ -56,16 +57,20 @@ public class serviceSearch implements IserviceSearch {
 		List<ISearchable> result = null;
 		try {
 			FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
-			MultiFieldQueryParser parser = new MultiFieldQueryParser(new String[]{"id", "name", "meta", "resourceType.name"}, new FrenchAnalyzer());
+			List<String> allFieldsAsString = new ArrayList<>();
+			for (Field temp : indexedFieldByClassMap.values()) {
+				allFieldsAsString.add(temp.getName());
+			}
+			MultiFieldQueryParser parser = new MultiFieldQueryParser(allFieldsAsString.toArray(new String[]{}), new FrenchAnalyzer());
 			Query query;
-
 			//Si on ne met pas de criteres, on renvoie tout
-			if (searchPattern.length() != 0)
+			if (searchPattern.length() != 0) {
 				query = parser.parse(searchPattern);
-			else
+			} else {
 				query = new MatchAllDocsQuery();
-			org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query);
-			result = hibQuery.list();
+			}
+			FullTextQuery fullTextQuery = fullTextSession.createFullTextQuery(query);
+			result = fullTextQuery.list();
 		} catch (ParseException e) {
 			log.warn(e);
 
@@ -99,10 +104,10 @@ public class serviceSearch implements IserviceSearch {
 
 	}
 
-	public void initIndex(){
+	public void initIndex() {
 		Reflections reflections = new Reflections("com.rectus29.beertender.entities");
 		Set<Class<? extends ISearchable>> classes = reflections.getSubTypesOf(ISearchable.class);
-		for(Class tempClass : classes){
+		for (Class tempClass : classes) {
 			initialIndex(tempClass);
 		}
 	}
