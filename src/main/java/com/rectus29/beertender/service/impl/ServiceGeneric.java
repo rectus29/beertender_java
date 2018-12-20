@@ -22,7 +22,7 @@ public class ServiceGeneric<T> extends GenericManagerImpl<GenericEntity, Long> i
 
     @Override
     public GenericEntity save(GenericEntity object) {
-//        object.setUpdated(new Date());
+        object.setUpdated(new Date());
         return super.save(object);
     }
 

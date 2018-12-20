@@ -14,7 +14,6 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 	protected Date created = new Date();
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	@Version
 	protected Date updated = new Date();
 	@Column(nullable = false)
 	protected State state = State.ENABLE;
