@@ -25,8 +25,6 @@ public class User extends BasicGenericEntity<User> implements DecorableElement {
 	@Column(nullable = false, unique = true)
 	private String email;
 	@Column
-	private State state = State.ENABLE;
-	@Column
 	private String firstName;
 	@Column
 	private String lastName;
@@ -83,15 +81,6 @@ public class User extends BasicGenericEntity<User> implements DecorableElement {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public User setState(State state) {
-		this.state = state;
-		return this;
 	}
 
 	public String getSalt() {

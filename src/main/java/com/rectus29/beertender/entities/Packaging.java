@@ -29,8 +29,6 @@ public class Packaging extends BasicGenericEntity<Packaging>{
 	@OneToMany(mappedBy = "packaging")
 	private List<Product> productList = new ArrayList<>();
 
-	private State state = State.ENABLE;
-
 	public Packaging() {
 	}
 
@@ -51,10 +49,6 @@ public class Packaging extends BasicGenericEntity<Packaging>{
 		this.productList = productList;
 	}
 
-	public State getState() {
-		return state;
-	}
-
 	public String getShortName() {
 		return shortName;
 	}
@@ -63,9 +57,6 @@ public class Packaging extends BasicGenericEntity<Packaging>{
 		this.shortName = shortName;
 	}
 
-	public void setState(State state) {
-		this.state = state;
-	}
 
 	public Integer getSortOrder() {
 		return sortOrder;

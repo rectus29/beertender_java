@@ -12,25 +12,26 @@ package com.rectus29.beertender.entities;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.entities.translation.TranslatableEntity;
-import com.rectus29.beertender.entities.translation.Translation;
-import com.rectus29.beertender.enums.State;
 
-import javax.persistence.*;
+import com.rectus29.beertender.entities.search.ISearchable;
+import org.hibernate.search.annotations.Field;
+
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Entity
 @Table(name = "productdefinition")
-public class ProductDefinition extends BasicGenericEntity<ProductDefinition>{
+public class ProductDefinition extends BasicGenericEntity<ProductDefinition> implements ISearchable {
 
 	private String name;
 
+	@Field(name = "description")
 	@Column(columnDefinition = "MEDIUMTEXT")
 	private String description;
-
-	private State state = State.ENABLE;
 
 	public ProductDefinition() {
 	}
@@ -50,14 +51,6 @@ public class ProductDefinition extends BasicGenericEntity<ProductDefinition>{
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
 	}
 
 	@Override

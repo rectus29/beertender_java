@@ -1,5 +1,7 @@
 package com.rectus29.beertender.entities;
 
+import com.rectus29.beertender.enums.State;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,7 +14,10 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 	protected Date created = new Date();
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
+	@Version
 	protected Date updated = new Date();
+	@Column(nullable = false)
+	protected State state = State.ENABLE;
 
 	public abstract Long getId();
 
@@ -28,6 +33,15 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public T setState(State state) {
+		this.state = state;
+		return (T) this;
 	}
 
 	public int compareTo(T object){

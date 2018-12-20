@@ -21,9 +21,6 @@ public class Token extends BasicGenericEntity<Token> {
 	@Enumerated(EnumType.STRING)
 	private TokenType tokenType;
 
-	@Column(nullable = false)
-	private State state = State.PENDING;
-
 	@Column
 	private String objectType;
 
@@ -38,9 +35,11 @@ public class Token extends BasicGenericEntity<Token> {
 	private Date expirationDate;
 
 	protected Token() {
+		this.state = State.PENDING;
 	}
 
 	public Token(TokenType tokenType) {
+		this();
 		this.tokenType = tokenType;
 	}
 

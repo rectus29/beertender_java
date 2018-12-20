@@ -34,7 +34,6 @@ public class Category extends BasicGenericEntity<Category>{
 
     private Boolean isRoot = false;
 
-    private State state = State.ENABLE;
 
     public Category() {
     }
@@ -69,14 +68,6 @@ public class Category extends BasicGenericEntity<Category>{
 
     public void setProductList(List<Product> productList) {
         this.productList = productList;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
     }
 
 	public String getShortName() {

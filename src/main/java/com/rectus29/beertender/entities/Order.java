@@ -26,20 +26,19 @@ public class Order extends BasicGenericEntity<Order> {
 	@ManyToOne
 	private User user;
 
-	@Column
-	private State state = State.PENDING;
-
 	@ManyToOne(targetEntity = TimeFrame.class)
 	@JoinColumn(name = "timeframe_id", nullable = false)
 	private TimeFrame timeFrame;
 
-//	@ManyToOne
+	@ManyToOne
 	private Payment payment;
 
 	public Order() {
+		this.state = State.PENDING;
 	}
 
 	public Order(User user, TimeFrame timeFrame) {
+		this();
 		this.user = user;
 		this.timeFrame = timeFrame;
 	}
@@ -112,14 +111,6 @@ public class Order extends BasicGenericEntity<Order> {
 
 	public void setTimeFrame(TimeFrame timeFrame) {
 		this.timeFrame = timeFrame;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
 	}
 
 	@Override

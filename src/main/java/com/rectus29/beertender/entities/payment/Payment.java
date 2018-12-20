@@ -1,8 +1,10 @@
 package com.rectus29.beertender.entities.payment;
 
 import com.rectus29.beertender.entities.BasicGenericEntity;
+import com.rectus29.beertender.entities.Order;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /*-----------------------------------------------------*/
@@ -14,6 +16,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "payment")
 public class Payment extends BasicGenericEntity<Payment> {
-
+		
+	@OneToOne
+	private Order order;
 
 }

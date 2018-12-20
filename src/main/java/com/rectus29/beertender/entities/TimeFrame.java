@@ -27,12 +27,11 @@ public class TimeFrame extends BasicGenericEntity<TimeFrame> {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate = DateUtils.addMonths(new Date(), 2);
 
-	private State state = State.PENDING;
-
 	@OneToMany(mappedBy = "timeFrame")
 	private List<Order> orderList = new ArrayList<>();
 
 	public TimeFrame() {
+		this.state = State.PENDING;
 	}
 
 	public String getName() {
@@ -57,14 +56,6 @@ public class TimeFrame extends BasicGenericEntity<TimeFrame> {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
 	}
 
 	public List<Order> getOrderList() {

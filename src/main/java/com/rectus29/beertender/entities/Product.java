@@ -40,9 +40,6 @@ public class Product extends BasicGenericEntity<Product> {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private ImageResource fileImage;
 
-
-	private State state = State.ENABLE;
-
 	public Product() {
 		this.productDefinition = new ProductDefinition();
 	}
@@ -69,14 +66,6 @@ public class Product extends BasicGenericEntity<Product> {
 
 	public void setPackaging(Packaging packaging) {
 		this.packaging = packaging;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
 	}
 
 	public String getName(){
