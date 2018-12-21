@@ -10,7 +10,9 @@ package com.rectus29.beertender.web.page.admin.server;
 
 import com.rectus29.beertender.entities.Config;
 import com.rectus29.beertender.service.IserviceConfig;
+import com.rectus29.beertender.service.IserviceSearch;
 import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.service.impl.serviceSearch;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.page.admin.server.panels.SchedulerPanel;
@@ -35,6 +37,8 @@ public class ServerAdminPanel extends Panel {
 	private IserviceConfig serviceConfig;
 	@SpringBean(name = "serviceUser")
 	private IserviceUser serviceUser;
+	@SpringBean(name = "serviceSearch")
+	private IserviceSearch serviceSearch;
 	private boolean isSuperAdmin;
 	private String msgAdmin;
 	private String supportAdr;
@@ -50,6 +54,13 @@ public class ServerAdminPanel extends Panel {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+
+		add(new AjaxLink("indexLink") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				serviceSearch.initIndex();
+			}
+		});
 
 		final WebMarkupContainer wmcStatus = new WebMarkupContainer("status") {
 			@Override

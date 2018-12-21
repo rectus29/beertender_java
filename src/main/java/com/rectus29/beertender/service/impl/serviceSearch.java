@@ -53,7 +53,6 @@ public class serviceSearch implements IserviceSearch {
 	}
 
 	public List<ISearchable> searchLucene(String searchPattern) {
-
 		List<ISearchable> result = null;
 		try {
 			FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());

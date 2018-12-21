@@ -76,6 +76,9 @@
                 <prop key="hibernate.c3p0.timeout">300</prop>
                 <prop key="hibernate.c3p0.max_statements">50</prop>
                 <prop key="connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</prop>
+				<prop key="hibernate.search.default.directory_provider">filesystem</prop>
+				<prop key="hibernate.search.default.indexBase">/lucene/indexes</prop>
+				<prop key="hibernate.search.default.optimizer.operation_limit.max">500</prop>
             </props>
         </property>
     </bean>

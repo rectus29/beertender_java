@@ -15,6 +15,7 @@ package com.rectus29.beertender.entities;
 
 import com.rectus29.beertender.entities.search.ISearchable;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 
 import javax.persistence.Column;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Indexed
 @Table(name = "productdefinition")
 public class ProductDefinition extends BasicGenericEntity<ProductDefinition> implements ISearchable {
 
