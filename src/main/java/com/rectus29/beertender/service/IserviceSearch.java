@@ -14,9 +14,9 @@ import java.util.List;
 /*-----------------------------------------------------*/
 public interface IserviceSearch {
 
-	public List<ISearchable> searchLucene(String searchPattern);
+	public List<ISearchable> search(String searchPattern);
 
-	public List<ISearchable> searchLucene(String searchPattern, Class<? extends ISearchable> classToSearch, Subject user) throws ParseException;
+	public List<ISearchable> search(String searchPattern, Class<? extends ISearchable> classToSearch, Subject user) throws ParseException;
 
 	public void initialIndex(Class<? extends ISearchable> classToIndex);
 

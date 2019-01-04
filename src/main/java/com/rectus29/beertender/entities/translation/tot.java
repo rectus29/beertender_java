@@ -1,11 +1,6 @@
 package com.rectus29.beertender.entities.translation;
 //
-//import com.adelya.AdelyaObject;
-//import com.adelya.core.AdelyaProcessException;
-//import com.adelya.madeleine.util.GlobalLog;
-//import com.adelya.madeleine.util.ReflectUtil;
-//import com.adelya.translation.impl.SimpleTranslationsImpl;
-//
+
 //import javax.persistence.MappedSuperclass;
 //import java.beans.PropertyDescriptor;
 //import java.lang.reflect.Field;
@@ -21,7 +16,7 @@ package com.rectus29.beertender.entities.translation;
 ///*                 All right reserved                  */
 ///*-----------------------------------------------------*/
 //@MappedSuperclass
-//public abstract class AdelyaTranslatableObject<T extends AdTranslation> extends AdelyaObject {
+//public abstract class YoloTranslatableObject<T extends AdTranslation> extends YoloObject {
 //
 //	public static final String defaultErrorMsg = "No translations found for field ";
 //	public static final String noAnnotatedErrorMsg = "The given field is not annotated as translatable ";

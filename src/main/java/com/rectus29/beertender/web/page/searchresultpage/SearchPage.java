@@ -1,6 +1,10 @@
 package com.rectus29.beertender.web.page.searchresultpage;
 
 import com.rectus29.beertender.web.page.base.BeerTenderBasePage;
+import com.rectus29.beertender.web.panel.lazyloadPanel.LazyLoadPanel;
+import org.apache.wicket.Component;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /*-----------------------------------------------------*/
@@ -9,21 +13,27 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 /*                Date: 21/12/2018 17:26               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class SearchResultPage extends BeerTenderBasePage {
+public class SearchPage extends BeerTenderBasePage {
 
 	public static final String SEARCH = "search";
-	private String searchString;
+	private IModel<String> searchStringModel = new Model<>();
 
-	public SearchResultPage(PageParameters parameters) {
+	public SearchPage(PageParameters parameters) {
 		super(parameters);
 		if (parameters.get(SEARCH) != null) {
-			searchString = parameters.get(SEARCH).toString();
+			searchStringModel = new Model<>(parameters.get(SEARCH).toString());
 		}
 	}
 
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+		add(new LazyLoadPanel("searchPanel") {
+			@Override
+			public Component getLazyLoadComponent(String markupId) {
+				return new SearchResultPanel(markupId, searchStringModel);
+			}
+		});
 
 	}
 }

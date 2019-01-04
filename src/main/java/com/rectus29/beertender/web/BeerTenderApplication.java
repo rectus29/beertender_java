@@ -11,6 +11,7 @@ import com.rectus29.beertender.web.page.home.HomePage;
 import com.rectus29.beertender.web.page.mailbox.MailBoxPage;
 import com.rectus29.beertender.web.page.product.ProductPage;
 import com.rectus29.beertender.web.page.profile.ProfilePage;
+import com.rectus29.beertender.web.page.searchresultpage.SearchPage;
 import com.rectus29.beertender.web.page.test.TestPage;
 import com.rectus29.beertender.web.security.enrollpage.EnrollmentPage;
 import com.rectus29.beertender.web.security.error.ErrorPage;
@@ -94,6 +95,7 @@ public class BeerTenderApplication extends WebApplication {
 		mountPage("home/#{package}/#{category}", getHomePage());
 		mountPage("order/", BillsPage.class);
 		mountPage("maintenance/", MaintenancePage.class);
+		mountPage("search/#{search}", SearchPage.class);
 
 		mountPage("unauthorized", UnauthorizedPage.class);
 		mountPage("restorepassword/${uid}", RestorePasswordPage.class);

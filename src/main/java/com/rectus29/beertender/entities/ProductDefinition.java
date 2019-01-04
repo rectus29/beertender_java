@@ -14,6 +14,8 @@ package com.rectus29.beertender.entities;
 
 
 import com.rectus29.beertender.entities.search.ISearchable;
+import org.apache.lucene.analysis.fr.FrenchAnalyzer;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
@@ -26,12 +28,14 @@ import java.util.List;
 
 @Entity
 @Indexed
+@Analyzer(impl = FrenchAnalyzer.class)
 @Table(name = "productdefinition")
 public class ProductDefinition extends BasicGenericEntity<ProductDefinition> implements ISearchable {
 
+	@Field
 	private String name;
 
-	@Field(name = "description")
+	@Field
 	@Column(columnDefinition = "MEDIUMTEXT")
 	private String description;
 

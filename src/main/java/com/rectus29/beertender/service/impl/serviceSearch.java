@@ -4,11 +4,14 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import com.rectus29.beertender.entities.search.ISearchable;
 import com.rectus29.beertender.service.IserviceSearch;
+import com.rectus29.beertender.tools.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.fr.FrenchAnalyzer;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.MatchAllDocsQuery;
 import org.apache.lucene.search.Query;
 import org.apache.shiro.subject.Subject;
@@ -22,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,9 +43,9 @@ public class serviceSearch implements IserviceSearch {
 		Reflections reflections = new Reflections("com.rectus29.beertender.entities");
 		Set<Class<? extends ISearchable>> classes = reflections.getSubTypesOf(ISearchable.class);
 		for (Class tempClass : classes) {
-			for (Field tempField : tempClass.getFields()) {
+			for (Field tempField : tempClass.getDeclaredFields()) {
 				if (tempField.isAnnotationPresent(org.hibernate.search.annotations.Field.class)) {
-					indexedFieldByClassMap.put(tempClass, tempField);
+					this.indexedFieldByClassMap.put(tempClass, tempField);
 				}
 			}
 		}
@@ -52,18 +56,19 @@ public class serviceSearch implements IserviceSearch {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public List<ISearchable> searchLucene(String searchPattern) {
+	public List<ISearchable> search(String searchPattern) {
 		List<ISearchable> result = null;
 		try {
 			FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
-			List<String> allFieldsAsString = new ArrayList<>();
-			for (Field temp : indexedFieldByClassMap.values()) {
+			Set<String> allFieldsAsString = new HashSet<>();
+			for (Field temp : this.indexedFieldByClassMap.values()) {
 				allFieldsAsString.add(temp.getName());
 			}
 			MultiFieldQueryParser parser = new MultiFieldQueryParser(allFieldsAsString.toArray(new String[]{}), new FrenchAnalyzer());
+//			QueryParser parser = new QueryParser("name", new FrenchAnalyzer());
 			Query query;
 			//Si on ne met pas de criteres, on renvoie tout
-			if (searchPattern.length() != 0) {
+			if (StringUtils.isNotBlank(searchPattern)) {
 				query = parser.parse(searchPattern);
 			} else {
 				query = new MatchAllDocsQuery();
@@ -79,12 +84,12 @@ public class serviceSearch implements IserviceSearch {
 	}
 
 
-	public List<ISearchable> searchLucene(String searchPattern, Class<? extends ISearchable> classToSearch, Subject user) throws ParseException {
+	public List<ISearchable> search(String searchPattern, Class<? extends ISearchable> classToSearch, Subject user) throws ParseException {
 
 		List<ISearchable> result = null;
 		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
 
-		MultiFieldQueryParser parser = new MultiFieldQueryParser(new String[]{"id", "name", "meta", "resourceType.name"}, new FrenchAnalyzer());
+		MultiFieldQueryParser parser = new MultiFieldQueryParser(new String[]{"id", "name", "description"}, new FrenchAnalyzer());
 		//MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_31, new String[]{"id", "name", "meta", "resourceType.name"}, new StandardAnalyzer(Version.LUCENE_31));
 		Query query;
 
@@ -106,7 +111,14 @@ public class serviceSearch implements IserviceSearch {
 	public void initIndex() {
 		Reflections reflections = new Reflections("com.rectus29.beertender.entities");
 		Set<Class<? extends ISearchable>> classes = reflections.getSubTypesOf(ISearchable.class);
+		this.indexedFieldByClassMap.clear();
 		for (Class tempClass : classes) {
+			//for each searchable class retrieve annotated field
+			for(Field temp : tempClass.getDeclaredFields()){
+				if(temp.isAnnotationPresent(org.hibernate.search.annotations.Field.class)){
+					this.indexedFieldByClassMap.put(tempClass, temp);
+				}
+			}
 			initialIndex(tempClass);
 		}
 	}
