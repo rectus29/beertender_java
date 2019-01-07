@@ -12,7 +12,6 @@ import com.rectus29.beertender.entities.Config;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceSearch;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.service.impl.serviceSearch;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.page.admin.server.panels.SchedulerPanel;
@@ -41,8 +40,6 @@ public class ServerAdminPanel extends Panel {
 	private IserviceSearch serviceSearch;
 	private boolean isSuperAdmin;
 	private String msgAdmin;
-	private String supportAdr;
-	private String supportPhone;
 	private String server_url;
 
 
