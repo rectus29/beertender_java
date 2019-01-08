@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /*-----------------------------------------------------*/
@@ -38,13 +39,13 @@ public class SearchPanel extends Panel {
 	protected void onInitialize() {
 		super.onInitialize();
 		String searchString = "";
-		add(new Form("searchForm")
-				.setDefaultModel(new CompoundPropertyModel(this))
-				.add(new TextField("searchString"))
-				.add(new AjaxFormSubmitBehavior("onSubmit") {
+		Form form;
+		add((form = new Form("searchForm"))
+				.add(new TextField<>("searchString", new PropertyModel<String>(SearchPanel.this, "searchString")))
+				.add(new AjaxFormSubmitBehavior(form, "submit") {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target) {
-						SearchPanel.this.onSubmit(target, searchString);
+						SearchPanel.this.onSubmit(target, SearchPanel.this.searchString);
 					}
 				})
 		);
@@ -57,6 +58,6 @@ public class SearchPanel extends Panel {
 	 * @param searchString	the searchstring submitted
 	 */
 	protected void onSubmit(AjaxRequestTarget target, String searchString){
-		SearchPanel.this.setResponsePage(SearchPage.class, new PageParameters().add(SearchPage.SEARCH, searchString));
+		setResponsePage(SearchPage.class, new PageParameters().add(SearchPage.SEARCH, searchString));
 	}
 }
