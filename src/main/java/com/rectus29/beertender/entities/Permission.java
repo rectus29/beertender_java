@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="permission")
-public class Permission extends BasicGenericEntity<Permission> {
+public class Permission extends BasicGenericEntity<Permission> implements Comparable<Permission> {
 
     @Column
     private String codeString;
@@ -41,8 +41,11 @@ public class Permission extends BasicGenericEntity<Permission> {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return this.getId().equals(((Permission) obj).getId());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Permission that = (Permission) o;
+        return codeString.equals(that.codeString);
     }
 
     @Override
