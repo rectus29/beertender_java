@@ -1,7 +1,9 @@
 package com.rectus29.beertender.web.page.admin.order;
 
+import com.google.common.collect.HashMultimap;
 import com.rectus29.beertender.entities.Order;
 import com.rectus29.beertender.entities.OrderItem;
+import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.entities.TimeFrame;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.web.component.formattednumberlabel.NumericLabel;
@@ -29,6 +31,11 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /*-----------------------------------------------------*/
@@ -52,6 +59,37 @@ public class OrderSummaryChildPanel extends Panel {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+
+		add(new CurrencyLabel("orderSum", timeFrameModel.getObject().getOrderSum()));
+		add(new CurrencyLabel("orderpaid", timeFrameModel.getObject().getOrderPaid()));
+		add(new Label("orderAttendees", timeFrameModel.getObject().getOrderList().size()));
+
+		double nbProduct =0d;
+		timeFrameModel.getObject().getOrderList().stream().map((order)-> nbProduct + order.getOrderItemList().size());
+		add(new Label("orderProdNb", nbProduct));
+
+		add(new ListView<Map.Entry<Product, Long>>("orderProductRv", new Model<ArrayList<Map.Entry<Product, Long>>>(){
+			@Override
+			public ArrayList<Map.Entry<Product, Long>> getObject() {
+				HashMap<Product, Long> out = new HashMap<>();
+				for(Order tempOrder : timeFrameModel.getObject().getOrderList()){
+					for(OrderItem tempOrderItem : tempOrder.getOrderItemList()){
+						if(out.get(tempOrderItem.getProduct()) != null){
+							out.put(tempOrderItem.getProduct(), out.get(tempOrderItem.getProduct()) + tempOrderItem.getQuantity());
+						}else{
+							out.put(tempOrderItem.getProduct(), tempOrderItem.getQuantity());
+						}
+					}
+				}
+				return new ArrayList<>(out.entrySet());
+			}
+		}) {
+			@Override
+			protected void populateItem(ListItem<Map.Entry<Product, Long>> item) {
+				item.add(new Label("prod", item.getModelObject().getKey()));
+				item.add(new NumericLabel<>("nb", item.getModelObject().getValue()));
+			}
+		});
 
 		ListView rv = new ListView<Order>("orderRv", timeFrameModel.getObject().getOrderList()){
 			@Override

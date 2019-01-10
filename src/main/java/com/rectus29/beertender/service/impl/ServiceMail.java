@@ -1,16 +1,15 @@
 package com.rectus29.beertender.service.impl;
 
-import com.rectus29.beertender.constant.BeertenderConstant;
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.TokenType;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceMail;
 import com.rectus29.beertender.service.IserviceToken;
 import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.tools.DateUtils;
 import com.rectus29.beertender.web.BeerTenderApplication;
 import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -19,6 +18,7 @@ import org.springframework.web.context.ServletContextAware;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,7 +81,7 @@ public class ServiceMail implements IserviceMail, ServletContextAware {
 		this.sendMail(preparator);
 	}
 
-	public void trackMail(String token){
+	public void trackMail(String token) {
 
 	}
 
@@ -96,7 +96,7 @@ public class ServiceMail implements IserviceMail, ServletContextAware {
 				Map model = new HashMap();
 				model.put("user", enrollUser);
 				model.put("trackingToken", serviceToken.generateTokenFor(enrollUser, TokenType.MAILTRACKINGTOKEN));
-				model.put("mailToken", serviceToken.generateTokenFor(enrollUser, TokenType.SUBSCRIPTIONMAILTOKEN));
+				model.put("mailToken", serviceToken.generateTokenFor(enrollUser, TokenType.SUBSCRIPTIONMAILTOKEN, DateUtils.addDays(new Date(), 7)));
 				model.put("server_url", serviceConfig.getByKey("server_url").getValue());
 				String text = processTemplateIntoString(freemarkerConfiguration.getTemplate("enrollMail.ftl"), model);
 				message.setText(text, true);
@@ -105,7 +105,7 @@ public class ServiceMail implements IserviceMail, ServletContextAware {
 		this.sendMail(preparator);
 	}
 
-	private void sendMail(MimeMessagePreparator preparator){
+	private void sendMail(MimeMessagePreparator preparator) {
 		//this.save()
 		this.mailSender.send(preparator);
 	}

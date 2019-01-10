@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * User: rectus_29
  * Date: 5 juil. 2010
@@ -27,6 +29,16 @@ public class ServiceToken extends GenericManagerImpl<Token, Long> implements Ise
 		Token token = new Token(tokenType);
 		token.setObjectType(User.class.getName());
 		token.setObjectId(user.getId());
+		token = this.save(token);
+		return token;
+	}
+
+	@Override
+	public Token generateTokenFor(User user, TokenType tokenType, Date expirationDate) {
+		Token token = new Token(tokenType);
+		token.setObjectType(User.class.getName());
+		token.setObjectId(user.getId());
+		token.setExpirationDate(expirationDate);
 		token = this.save(token);
 		return token;
 	}
