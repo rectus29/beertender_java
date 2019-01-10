@@ -1,10 +1,15 @@
 package com.rectus29.beertender.web.panel.searchpanel;
 
+import com.rectus29.beertender.tools.StringUtils;
 import com.rectus29.beertender.web.page.searchresultpage.SearchPage;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /*-----------------------------------------------------*/
@@ -13,26 +18,49 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 /*                Date: 21/12/2018 15:05               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class searchpanel extends Panel {
+public class SearchPanel extends Panel {
 
 	private String searchString;
 
-	public searchpanel(String id) {
+	public SearchPanel(String id) {
 		super(id);
+	}
+
+	public SearchPanel(String id, String search) {
+		super(id);
+		this.searchString = search;
+	}
+
+	public SearchPanel(String id, IModel<String> model) {
+		super(id, model);
+		this.searchString = model.getObject();
 	}
 
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		String searchString = "";
-		add(new Form("searchForm") {
+		if(StringUtils.isBlank(searchString)){
+            searchString = getPage().getPageParameters().get(SearchPage.SEARCH).toString();
+        }
+		Form form;
+		add((form = new Form("searchForm"))
+				.add(new TextField<>("searchString", new PropertyModel<String>(SearchPanel.this, "searchString")))
+				.add(new AjaxFormSubmitBehavior(form, "submit") {
 					@Override
-					protected void onSubmit() {
-						searchpanel.this.setResponsePage(SearchPage.class, new PageParameters().add(SearchPage.SEARCH, searchString));
+					protected void onSubmit(AjaxRequestTarget target) {
+						SearchPanel.this.onSubmit(target, SearchPanel.this.searchString);
 					}
-				}
-						.setDefaultModel(new CompoundPropertyModel(this))
-						.add(new TextField("searchString"))
+				})
 		);
+	}
+
+
+	/**
+	 * default on submit behaviour
+	 * @param target 		the ajaxtarget
+	 * @param searchString	the searchstring submitted
+	 */
+	protected void onSubmit(AjaxRequestTarget target, String searchString){
+		setResponsePage(SearchPage.class, new PageParameters().add(SearchPage.SEARCH, searchString));
 	}
 }

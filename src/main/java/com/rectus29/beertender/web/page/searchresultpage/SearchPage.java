@@ -31,14 +31,6 @@ public class SearchPage extends BeerTenderPage {
 	protected void onInitialize() {
 		super.onInitialize();
 
-		add(new SearchPanel("searchFormPanel", searchStringModel){
-				@Override
-				protected void onSubmit(AjaxRequestTarget target, String searchString) {
-					super.onSubmit(target, searchString);
-				}
-			}
-		);
-
 		add(new LazyLoadPanel("resultPanel") {
 			@Override
 			public Component getLazyLoadComponent(String markupId) {
@@ -47,4 +39,9 @@ public class SearchPage extends BeerTenderPage {
 		});
 
 	}
+
+    @Override
+    public String getTitleContribution() {
+        return "Recherche";
+    }
 }
