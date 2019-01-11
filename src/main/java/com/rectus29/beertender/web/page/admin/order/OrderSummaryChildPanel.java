@@ -5,6 +5,7 @@ import com.rectus29.beertender.entities.Order;
 import com.rectus29.beertender.entities.OrderItem;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.entities.TimeFrame;
+import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.web.component.formattednumberlabel.NumericLabel;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
@@ -62,10 +63,22 @@ public class OrderSummaryChildPanel extends Panel {
 
 		add(new CurrencyLabel("orderSum", timeFrameModel.getObject().getOrderSum()));
 		add(new CurrencyLabel("orderpaid", timeFrameModel.getObject().getOrderPaid()));
-		add(new Label("orderAttendees", timeFrameModel.getObject().getOrderList().size()));
 
 		double nbProduct =0d;
-		timeFrameModel.getObject().getOrderList().stream().map((order)-> nbProduct + order.getOrderItemList().size());
+		double nbAttendees =0d;
+		for(Order temp:timeFrameModel.getObject().getOrderList()){
+			if(temp.getState() != State.DELETED){
+				if(temp.getOrderItemList().size() > 0){
+					nbAttendees = nbAttendees++;
+				}
+
+				for(OrderItem tempItem : temp.getOrderItemList()){
+					nbProduct = tempItem.getQuantity();
+				}
+			}
+		}
+
+		add(new Label("orderAttendees", nbAttendees));
 		add(new Label("orderProdNb", nbProduct));
 
 		add(new ListView<Map.Entry<Product, Long>>("orderProductRv", new Model<ArrayList<Map.Entry<Product, Long>>>(){
@@ -95,7 +108,7 @@ public class OrderSummaryChildPanel extends Panel {
 			@Override
 			protected void populateItem(final ListItem<Order> item) {
 				item.add(new Label("user", item.getModelObject().getUser().getFormattedName()));
-				AjaxLink editLink =	new AjaxLink("orderEditLink"){
+				item.add(new AjaxLink("orderEditLink"){
                     @Override
                     public void onClick(AjaxRequestTarget ajaxRequestTarget) {
                         modal.setContent(new OrderEditPanel(modal.getContentId(), item.getModel()){
@@ -113,8 +126,28 @@ public class OrderSummaryChildPanel extends Panel {
                         modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName() );
                         modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
                     }
-                };
-				item.add(editLink);
+				});
+
+//				item.add(new AjaxLink("orderPaymentLink"){
+//					@Override
+//					public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+//						modal.setContent(new OrderPayPanel(modal.getContentId(), item.getModel()){
+//							@Override
+//							protected void onSave(AjaxRequestTarget target, IModel<Order> orderIModel) {
+//								serviceOrder.save(orderIModel.getObject());
+//								modal.close(target);
+//							}
+//
+//							@Override
+//							protected void onCancel(AjaxRequestTarget target, IModel<Order> orderIModel) {
+//								modal.close(target);
+//							}
+//						});
+//						modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName() );
+//						modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
+//					}
+//				});
+
 				item.add(new DownloadLink("orderPrintLink", new LoadableDetachableModel<File>() {
 					@Override
 					protected File load() {

@@ -30,8 +30,8 @@ public class Order extends BasicGenericEntity<Order> {
 	@JoinColumn(name = "timeframe_id", nullable = false)
 	private TimeFrame timeFrame;
 
-	@ManyToOne
-	private Payment payment;
+	@OneToMany(targetEntity = Payment.class, mappedBy = "order")
+	private List<Payment> paymentList =  new ArrayList<>();
 
 	public Order() {
 		this.state = State.PENDING;
