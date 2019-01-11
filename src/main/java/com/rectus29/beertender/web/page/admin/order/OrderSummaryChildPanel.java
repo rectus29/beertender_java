@@ -11,6 +11,7 @@ import com.rectus29.beertender.web.component.formattednumberlabel.NumericLabel;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.order.edit.OrderEditPanel;
+import com.rectus29.beertender.web.page.admin.order.pay.OrderPayPanel;
 import com.rectus29.beertender.web.panel.lazyloadPanel.LazyLoadPanel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -128,25 +129,25 @@ public class OrderSummaryChildPanel extends Panel {
                     }
 				});
 
-//				item.add(new AjaxLink("orderPaymentLink"){
-//					@Override
-//					public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-//						modal.setContent(new OrderPayPanel(modal.getContentId(), item.getModel()){
-//							@Override
-//							protected void onSave(AjaxRequestTarget target, IModel<Order> orderIModel) {
-//								serviceOrder.save(orderIModel.getObject());
-//								modal.close(target);
-//							}
-//
-//							@Override
-//							protected void onCancel(AjaxRequestTarget target, IModel<Order> orderIModel) {
-//								modal.close(target);
-//							}
-//						});
-//						modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName() );
-//						modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
-//					}
-//				});
+				item.add(new AjaxLink("orderPaymentLink"){
+					@Override
+					public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+						modal.setContent(new OrderPayPanel(modal.getContentId(), item.getModel()){
+							@Override
+							protected void onSave(AjaxRequestTarget target, IModel<Order> orderIModel) {
+								serviceOrder.save(orderIModel.getObject());
+								modal.close(target);
+							}
+
+							@Override
+							protected void onCancel(AjaxRequestTarget target, IModel<Order> orderIModel) {
+								modal.close(target);
+							}
+						});
+						modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName() );
+						modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
+					}
+				});
 
 				item.add(new DownloadLink("orderPrintLink", new LoadableDetachableModel<File>() {
 					@Override

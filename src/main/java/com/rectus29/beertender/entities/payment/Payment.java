@@ -26,8 +26,10 @@ public abstract class Payment extends GenericEntity<Payment> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
+	@Column
 	@Enumerated(EnumType.STRING)
-	protected PaymentMethod paymentMethod;
+	protected PaymentMethod paymentMethod = PaymentMethod.CHEQUE;
+	@Column
 	protected BigDecimal amount = BigDecimal.ZERO;
 	@ManyToOne
 	protected User user;
