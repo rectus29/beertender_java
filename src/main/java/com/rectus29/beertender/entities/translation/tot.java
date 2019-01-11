@@ -74,11 +74,11 @@ package com.rectus29.beertender.entities.translation;
 //		return out;
 //	}
 //
-//	protected  AdelyaTranslatableObject addTranslation(T adTranslation){
+//	protected  TranslatableObject addTranslation(T adTranslation){
 //		try {
 //			Field field = ReflectUtil.getField(this.getClass(), adTranslation.getFieldName());
 //			if(!field.isAnnotationPresent(Translatable.class)){
-//				throw new AdelyaProcessException("non translatable Field" + field.getName());
+//				throw new ProcessException("non translatable Field" + field.getName());
 //			}
 //			this.getTranslationList().add(adTranslation);
 //		} catch (Exception e) {
