@@ -40,7 +40,7 @@ type Category {
 	name:  String,
 	shortName: String,
 	description: String,
-	#	productList: [Product],
+	productList: [Product],
 	state: State
 }
 

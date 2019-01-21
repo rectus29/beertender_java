@@ -24,17 +24,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Service("serviceSearch")
 public class serviceSearch implements IserviceSearch {
 
 	private static final Logger log = LogManager.getLogger(serviceSearch.class);
-	private static Multimap<Class, Field> indexedFieldByClassMap = LinkedListMultimap.create();
+	private Multimap<Class, Field> indexedFieldByClassMap = LinkedListMultimap.create();
 	private SessionFactory sessionFactory;
 
 	public serviceSearch() {
@@ -89,7 +86,12 @@ public class serviceSearch implements IserviceSearch {
 		List<ISearchable> result = null;
 		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
 
-		MultiFieldQueryParser parser = new MultiFieldQueryParser(new String[]{"id", "name", "description"}, new FrenchAnalyzer());
+		List<String> fieldNameList = new ArrayList<>();
+		for(Field temp : this.indexedFieldByClassMap.get(classToSearch)){
+			fieldNameList.add(temp.getName());
+		}
+
+		MultiFieldQueryParser parser = new MultiFieldQueryParser(fieldNameList.toArray(new String[]{}), new FrenchAnalyzer());
 		//MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_31, new String[]{"id", "name", "meta", "resourceType.name"}, new StandardAnalyzer(Version.LUCENE_31));
 		Query query;
 
