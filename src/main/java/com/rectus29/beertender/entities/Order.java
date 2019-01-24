@@ -113,6 +113,15 @@ public class Order extends BasicGenericEntity<Order> {
 		this.timeFrame = timeFrame;
 	}
 
+	public List<Payment> getPaymentList() {
+		return paymentList;
+	}
+
+	public Order setPaymentList(List<Payment> paymentList) {
+		this.paymentList = paymentList;
+		return this;
+	}
+
 	@Override
 	public int compareTo(Order object) {
 		return defaultCompareTo(object);

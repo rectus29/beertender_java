@@ -17,21 +17,21 @@ import org.apache.wicket.model.IModel;
 import java.io.Serializable;
 import java.util.Date;
 
-public class MismaDateLabel<T extends Date> extends Label {
+public class DateLabel<T extends Date> extends Label {
 
-    public MismaDateLabel(String id) {
+    public DateLabel(String id) {
         super(id);
     }
 
-    public MismaDateLabel(String id, String label) {
+    public DateLabel(String id, String label) {
         super(id, label);
     }
 
-    public MismaDateLabel(String id, Serializable label) {
+    public DateLabel(String id, Serializable label) {
         super(id, label);
     }
 
-    public MismaDateLabel(String id, IModel<?> model) {
+    public DateLabel(String id, IModel<?> model) {
         super(id, model);
     }
 

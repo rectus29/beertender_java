@@ -15,8 +15,6 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date updated = new Date();
-	@Column(nullable = false)
-	protected State state = State.ENABLE;
 
 	public abstract Long getId();
 
@@ -32,15 +30,6 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public T setState(State state) {
-		this.state = state;
-		return (T) this;
 	}
 
 	public int compareTo(T object){

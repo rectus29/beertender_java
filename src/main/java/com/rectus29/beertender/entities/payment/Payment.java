@@ -2,8 +2,10 @@ package com.rectus29.beertender.entities.payment;
 
 import com.rectus29.beertender.entities.GenericEntity;
 import com.rectus29.beertender.entities.Order;
+import com.rectus29.beertender.entities.StateLessGenericEntity;
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.PaymentMethod;
+import com.rectus29.beertender.enums.PaymentStatus;
 import com.rectus29.beertender.enums.State;
 
 import javax.persistence.*;
@@ -22,7 +24,7 @@ import java.util.UUID;
 		name = "paymentMethod",
 		discriminatorType = DiscriminatorType.INTEGER
 )
-public abstract class Payment extends GenericEntity<Payment> {
+public abstract class Payment extends StateLessGenericEntity<Payment> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
@@ -35,9 +37,11 @@ public abstract class Payment extends GenericEntity<Payment> {
 	protected User user;
 	@ManyToOne
 	protected Order order;
+	@Column
+	@Enumerated(EnumType.STRING)
+	private PaymentStatus paymentStatus = PaymentStatus.WAITING;
 
 	protected Payment() {
-		this.state = State.PENDING;
 	}
 
 	@Override
@@ -56,17 +60,6 @@ public abstract class Payment extends GenericEntity<Payment> {
 
 	public Payment setUser(User user) {
 		this.user = user;
-		return this;
-	}
-
-	@Override
-	public State getState() {
-		return state;
-	}
-
-	@Override
-	public Payment setState(State state) {
-		this.state = state;
 		return this;
 	}
 
