@@ -14,9 +14,9 @@ import java.util.Locale;
 /*                Date: 27/11/2018 19:58                */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public interface TranslatableEntity  {
+public interface TranslatableEntity<T extends Translation> {
 
-    public List<Translation> getTranslationList();
+	List<T> getTranslationList();
 
-    public Translation getTranslation(String field, Locale locale);
+	T getTranslation(String field, Locale locale);
 }

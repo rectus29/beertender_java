@@ -74,7 +74,7 @@ public class TimeFrame extends BasicGenericEntity<TimeFrame> {
 	public BigDecimal getOrderSum() {
 		BigDecimal out = BigDecimal.ZERO;
 		for(Order temp : this.getOrderList()){
-			if(temp.getState() == State.PENDING){
+			if(temp.getState() != State.DISABLE || temp.getState() != State.DELETED ){
 				out = out.add(temp.getOrderPrice());
 			}
 		}
@@ -84,7 +84,7 @@ public class TimeFrame extends BasicGenericEntity<TimeFrame> {
 	public BigDecimal getOrderPaid() {
 		BigDecimal out = BigDecimal.ZERO;
 		for(Order temp : this.getOrderList()){
-			if(temp.getState() == State.DISABLE){
+			if(temp.getState() == State.ENABLE){
 				out = out.add(temp.getOrderPrice());
 			}
 		}

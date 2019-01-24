@@ -1,4 +1,4 @@
-package com.rectus29.beertender.entities.translation;
+package com.rectus29.beertender.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -28,8 +28,7 @@ public class HibernateSessionFactory implements ApplicationListener<ContextRefre
 
     private static final Logger log = LogManager.getLogger(HibernateSessionFactory.class);
 
-    private Map<Class<? extends GenericEntity>, GenericManager<?, Long>> services
-            = new HashMap<Class<? extends GenericEntity>, GenericManager<?, Long>>();
+    private Map<Class<? extends GenericEntity>, GenericManager<?, Long>> services = new HashMap<Class<? extends GenericEntity>, GenericManager<?, Long>>();
 
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         ApplicationContext ctx = contextRefreshedEvent.getApplicationContext();
