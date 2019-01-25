@@ -1,6 +1,5 @@
 package com.rectus29.beertender.web.page.admin.order;
 
-import com.google.common.collect.HashMultimap;
 import com.rectus29.beertender.entities.Order;
 import com.rectus29.beertender.entities.OrderItem;
 import com.rectus29.beertender.entities.Product;
@@ -12,7 +11,6 @@ import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.order.edit.OrderEditPanel;
 import com.rectus29.beertender.web.page.admin.order.pay.OrderPayPanel;
-import com.rectus29.beertender.web.panel.lazyloadPanel.LazyLoadPanel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -31,12 +29,9 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -65,15 +60,15 @@ public class OrderSummaryChildPanel extends Panel {
 		add(new CurrencyLabel("orderSum", timeFrameModel.getObject().getOrderSum()));
 		add(new CurrencyLabel("orderpaid", timeFrameModel.getObject().getOrderPaid()));
 
-		double nbProduct =0d;
-		double nbAttendees =0d;
-		for(Order temp:timeFrameModel.getObject().getOrderList()){
-			if(temp.getState() != State.DELETED){
-				if(temp.getOrderItemList().size() > 0){
-					nbAttendees = nbAttendees++;
+		double nbProduct = 0d;
+		double nbAttendees = 0d;
+		for (Order temp : timeFrameModel.getObject().getOrderList()) {
+			if (temp.getState() != State.DELETED) {
+				if (temp.getOrderItemList().size() > 0) {
+					nbAttendees++;
 				}
 
-				for(OrderItem tempItem : temp.getOrderItemList()){
+				for (OrderItem tempItem : temp.getOrderItemList()) {
 					nbProduct = tempItem.getQuantity();
 				}
 			}
@@ -82,15 +77,15 @@ public class OrderSummaryChildPanel extends Panel {
 		add(new Label("orderAttendees", nbAttendees));
 		add(new Label("orderProdNb", nbProduct));
 
-		add(new ListView<Map.Entry<Product, Long>>("orderProductRv", new Model<ArrayList<Map.Entry<Product, Long>>>(){
+		add(new ListView<Map.Entry<Product, Long>>("orderProductRv", new Model<ArrayList<Map.Entry<Product, Long>>>() {
 			@Override
 			public ArrayList<Map.Entry<Product, Long>> getObject() {
 				HashMap<Product, Long> out = new HashMap<>();
-				for(Order tempOrder : timeFrameModel.getObject().getOrderList()){
-					for(OrderItem tempOrderItem : tempOrder.getOrderItemList()){
-						if(out.get(tempOrderItem.getProduct()) != null){
+				for (Order tempOrder : timeFrameModel.getObject().getOrderList()) {
+					for (OrderItem tempOrderItem : tempOrder.getOrderItemList()) {
+						if (out.get(tempOrderItem.getProduct()) != null) {
 							out.put(tempOrderItem.getProduct(), out.get(tempOrderItem.getProduct()) + tempOrderItem.getQuantity());
-						}else{
+						} else {
 							out.put(tempOrderItem.getProduct(), tempOrderItem.getQuantity());
 						}
 					}
@@ -105,34 +100,14 @@ public class OrderSummaryChildPanel extends Panel {
 			}
 		});
 
-		ListView rv = new ListView<Order>("orderRv", timeFrameModel.getObject().getOrderList()){
+		ListView rv = new ListView<Order>("orderRv", timeFrameModel.getObject().getOrderList()) {
 			@Override
 			protected void populateItem(final ListItem<Order> item) {
 				item.add(new Label("user", item.getModelObject().getUser().getFormattedName()));
-				item.add(new AjaxLink("orderEditLink"){
-                    @Override
-                    public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                        modal.setContent(new OrderEditPanel(modal.getContentId(), item.getModel()){
-							@Override
-							protected void onSave(AjaxRequestTarget target, IModel<Order> orderIModel) {
-								serviceOrder.save(orderIModel.getObject());
-								modal.close(target);
-							}
-
-							@Override
-							protected void onCancel(AjaxRequestTarget target, IModel<Order> orderIModel) {
-								modal.close(target);
-							}
-						});
-                        modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName() );
-                        modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
-                    }
-				});
-
-				item.add(new AjaxLink("orderPaymentLink"){
+				item.add(new AjaxLink("orderEditLink") {
 					@Override
 					public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-						modal.setContent(new OrderPayPanel(modal.getContentId(), item.getModel()){
+						modal.setContent(new OrderEditPanel(modal.getContentId(), item.getModel()) {
 							@Override
 							protected void onSave(AjaxRequestTarget target, IModel<Order> orderIModel) {
 								serviceOrder.save(orderIModel.getObject());
@@ -144,7 +119,27 @@ public class OrderSummaryChildPanel extends Panel {
 								modal.close(target);
 							}
 						});
-						modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName() );
+						modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName());
+						modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
+					}
+				});
+
+				item.add(new AjaxLink("orderPaymentLink") {
+					@Override
+					public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+						modal.setContent(new OrderPayPanel(modal.getContentId(), item.getModel()) {
+							@Override
+							protected void onSave(AjaxRequestTarget target, IModel<Order> orderIModel) {
+								serviceOrder.save(orderIModel.getObject());
+								modal.close(target);
+							}
+
+							@Override
+							protected void onCancel(AjaxRequestTarget target, IModel<Order> orderIModel) {
+								modal.close(target);
+							}
+						});
+						modal.setTitle("#" + item.getModelObject().getId() + " - " + item.getModelObject().getUser().getFormattedName());
 						modal.show(ajaxRequestTarget, BeerTenderModal.ModalFormat.MEDIUM);
 					}
 				});
@@ -154,7 +149,7 @@ public class OrderSummaryChildPanel extends Panel {
 					protected File load() {
 						try {
 							File outputFile = new File("Commande.xls");
-							Workbook wb = new HSSFWorkbook();
+							HSSFWorkbook wb = new HSSFWorkbook();
 							Sheet sheet = wb.createSheet();
 
 							sheet.createRow(0).createCell(0).setCellValue(item.getModelObject().getTimeFrame().getName());
@@ -174,7 +169,7 @@ public class OrderSummaryChildPanel extends Panel {
 							itemRowHeader.createCell(3).setCellValue("Qte");
 							itemRowHeader.createCell(4).setCellValue("Total");
 							int itemRowStart = 10;
-							for(OrderItem temp: item.getModelObject().getOrderItemList()){
+							for (OrderItem temp : item.getModelObject().getOrderItemList()) {
 								Row itemRow = sheet.createRow(itemRowStart);
 								itemRow.createCell(0).setCellValue(temp.getProduct().getName());
 								itemRow.createCell(1).setCellValue(temp.getProduct().getPackaging().getName());
@@ -184,7 +179,7 @@ public class OrderSummaryChildPanel extends Panel {
 								itemRowStart++;
 							}
 
-							((HSSFWorkbook) wb).write(outputFile);
+							wb.write(outputFile);
 							wb.close();
 							return outputFile;
 						} catch (IOException e) {
@@ -199,7 +194,7 @@ public class OrderSummaryChildPanel extends Panel {
 						item.add(new Label("type", item.getModelObject().getProduct().getPackaging().getName()));
 						item.add(new NumericLabel("qte", item.getModelObject().getQuantity()));
 						item.add(new CurrencyLabel("unitPrice", new PropertyModel<OrderItem>(item.getModelObject(), "quantity")));
-						item.add(new CurrencyLabel("total", new Model(item.getModelObject().getSum())));
+						item.add(new CurrencyLabel("total", item.getModelObject().getSum()));
 					}
 				});
 				item.add(new CurrencyLabel("orderTotal", new Model<>(item.getModelObject().getOrderPrice())));

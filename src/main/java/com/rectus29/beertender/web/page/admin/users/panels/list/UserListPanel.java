@@ -42,12 +42,10 @@ import java.util.List;
 
 public class UserListPanel extends Panel {
 
-	final static int NB_USERS_BY_PAGE = 20;
 	private static final Logger log = LogManager.getLogger(UserListPanel.class);
 	@SpringBean(name = "serviceUser")
 	private IserviceUser serviceUser;
 	private String name;
-	private Form form;
 	private WebMarkupContainer wmc;
 	private LoadableDetachableModel<List<User>> ldm;
 	private PageableListView plv;
@@ -67,34 +65,34 @@ public class UserListPanel extends Panel {
 			protected List<User> load() {
 				List<User> out;
 				if (name != null && name.length() > 2)
-					out = new ArrayList<User>(serviceUser.getAllByProperty("userName", name));
+					out = new ArrayList<>(serviceUser.getAllByProperty("userName", name));
 				else
 					out = serviceUser.getAll();
 				return out;
 			}
 		};
 
-		add((form = new Form("form")).setOutputMarkupId(true));
-		form.add(new TextField<String>("name", new PropertyModel<String>(this, "name")));
-		form.add(new AjaxSubmitLink("filterSubmitButton") {
+		add(new Form("form")
+				.add(new TextField<String>("name", new PropertyModel<>(this, "name")))
+				.add(new AjaxSubmitLink("filterSubmitButton") {
+					@Override
+					public void onSubmit(AjaxRequestTarget target, Form form) {
+						ldm.detach();
+						target.add(wmc, form, navigator);
+					}
 
-			@Override
-			public void onSubmit(AjaxRequestTarget target, Form form) {
-				ldm.detach();
-				target.add(wmc, form, navigator);
-			}
-
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
-				target.add(form);
-			}
-		});
+					@Override
+					protected void onError(AjaxRequestTarget target, Form<?> form) {
+						target.add(form);
+					}
+				})
+				.setOutputMarkupId(true)
+		);
 
 		wmc = new WebMarkupContainer("wmc");
-		wmc.setOutputMarkupId(true);
-		add(wmc);
+		add(wmc.setOutputMarkupId(true));
 
-		wmc.add(plv = new PageableListView<User>("sorting", ldm, NB_USERS_BY_PAGE) {
+		wmc.add(plv = new PageableListView<User>("sorting", ldm, getNbUsersByPage()) {
 			@Override
 			protected void populateItem(final ListItem<User> item) {
 				item.add(new Label("id", item.getModelObject().getId() + ""));
@@ -139,7 +137,7 @@ public class UserListPanel extends Panel {
 				item.add(new ConfirmationLink("remove", new ResourceModel("UserEditPanel.confirmMsg2").getObject()) {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						//serviceUser.disable(item.getModelObject());
+						serviceUser.disable(item.getModelObject());
 						ldm.detach();
 						target.add(wmc);
 					}
@@ -170,7 +168,7 @@ public class UserListPanel extends Panel {
 		add((navigator = new PagingNavigator("navigator", plv) {
 			@Override
 			public boolean isVisible() {
-				return ldm.getObject().size() > NB_USERS_BY_PAGE;
+				return ldm.getObject().size() > getNbUsersByPage();
 			}
 		}).setOutputMarkupId(true));
 
@@ -215,5 +213,9 @@ public class UserListPanel extends Panel {
 				modal.show(target, BeerTenderModal.ModalFormat.SMALL);
 			}
 		});
+	}
+
+	protected int getNbUsersByPage(){
+		return 20;
 	}
 }
