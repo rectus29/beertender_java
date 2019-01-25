@@ -36,7 +36,6 @@ import java.util.List;
 /*-----------------------------------------------------*/
 public class TimeFrameAdminListPanel extends Panel {
 
-	final static int NB_Items_BY_PAGE = 20;
 	private static final Logger log = LogManager.getLogger(TimeFrameAdminListPanel.class);
 	@SpringBean(name = "serviceTimeFrame")
 	private IserviceTimeFrame serviceTimeFrame;
@@ -86,7 +85,7 @@ public class TimeFrameAdminListPanel extends Panel {
 
 		add((wmc = new WebMarkupContainer("wmc")).setOutputMarkupId(true));
 
-		wmc.add(plv = new PageableListView<TimeFrame>("sorting", ldm, NB_Items_BY_PAGE) {
+		wmc.add(plv = new PageableListView<TimeFrame>("sorting", ldm, getItemsByPage()) {
 			@Override
 			protected void populateItem(final ListItem<TimeFrame> item) {
 				item.add(new Label("id", item.getModelObject().getId() + ""));
@@ -137,7 +136,7 @@ public class TimeFrameAdminListPanel extends Panel {
 		add((navigator = new PagingNavigator("navigator", plv) {
 			@Override
 			public boolean isVisible() {
-				return ldm.getObject().size() > NB_Items_BY_PAGE;
+				return ldm.getObject().size() > getItemsByPage();
 			}
 		}).setOutputMarkupId(true));
 
@@ -164,5 +163,9 @@ public class TimeFrameAdminListPanel extends Panel {
 		});
 
 
+	}
+
+	protected int getItemsByPage(){
+		return 20;
 	}
 }
