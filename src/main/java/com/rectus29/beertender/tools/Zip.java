@@ -10,10 +10,6 @@ import org.apache.commons.compress.utils.IOUtils;
 import java.io.*;
 import java.util.zip.Deflater;
 import java.util.zip.ZipOutputStream;
-/*import java.util.zip.Deflater;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream; */
 
 public class Zip {
 
@@ -273,13 +269,4 @@ public class Zip {
             throws IOException {
         decompress(new File(fileName));
     }
-
-
-     public static void main(String[] args)
-         throws IOException {
-     Zip.compressFiles(new File("D:\\temp\\unjf"), new File("D:\\toto.zip"));
-     //Zip.compress(new File("D:\\temp\\unjf\\css"), new File("D:\\toto.zip"));
-     //Zip.compress(new File("D:\\temp\\unjf\\css\\colorbox.css"), new File("D:\\toto.zip"));
-     //Zip.decompress("C:\\test.zip", ".", false);
  }
-}

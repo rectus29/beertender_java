@@ -18,8 +18,6 @@ import org.apache.shiro.util.SimpleByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 
 /*-----------------------------------------------------*/
 /*      _____           _               ___   ___      */
@@ -34,16 +32,16 @@ import java.util.UUID;
 /*-----------------------------------------------------*/
 
 @Component
-public class BeerTenderRealms extends AuthorizingRealm {
+public class BeerTenderApiRealms extends AuthorizingRealm {
 
-	public static final String REALM_NAME = "BeerTenderRealms";
-	private static final Logger logger = LogManager.getLogger(BeerTenderRealms.class);
+	public static final String REALM_NAME = "BeerTenderApiRealms";
+	private static final Logger logger = LogManager.getLogger(BeerTenderApiRealms.class);
 	protected IserviceUser serviceUser;
 
 	/**
 	 * Instantiates a new Eve tool realms.
 	 */
-	public BeerTenderRealms() {
+	public BeerTenderApiRealms() {
 		setName(REALM_NAME);
 		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
 		matcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);

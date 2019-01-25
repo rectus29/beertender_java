@@ -20,7 +20,7 @@ public class ServicePermission extends GenericManagerImpl<Permission, Long> impl
     }
 
     public Permission save(Permission c) {
-        return this.save(c);
+        return super.save(c);
     }
 
 }

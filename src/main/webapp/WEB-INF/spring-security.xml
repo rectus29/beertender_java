@@ -16,7 +16,6 @@
         </property>
 		<property name="authenticator" ref="authenticator" />
         <property name="cacheManager" ref="cacheManager"/>
-        <property name="sessionMode" value="native"/>
         <property name="sessionManager">
             <bean class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
                 <property name="sessionListeners">

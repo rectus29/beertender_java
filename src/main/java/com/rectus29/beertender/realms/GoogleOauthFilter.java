@@ -36,9 +36,9 @@ import java.net.URLConnection;
 /*-----------------------------------------------------*/
 public class GoogleOauthFilter implements Filter {
 
-	Logger logger = LoggerFactory.getLogger(GoogleOauthFilter.class);
+	private Logger logger = LoggerFactory.getLogger(GoogleOauthFilter.class);
 	public void init(FilterConfig filterConfig) throws ServletException {
-
+		//nothing special here
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

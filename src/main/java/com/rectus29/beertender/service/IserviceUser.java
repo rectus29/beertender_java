@@ -14,14 +14,15 @@ import java.util.List;
  */
 public interface IserviceUser extends GenericManager<User, Long> {
 
-    public User getCurrentUser();
+    User getCurrentUser();
 
-    public User getUser(Subject subject);
+    User getUser(Subject subject);
 
-    public User getUserByUsername(String groupName);
+    User getUserByUsername(String groupName);
 
-    public User getUserByMail(String property);
+    User getUserByMail(String property);
 
-	public List<User> getAll(List<State> stateArray);
+	List<User> getAll(List<State> stateArray);
 
+	void disable(User modelObject);
 }
