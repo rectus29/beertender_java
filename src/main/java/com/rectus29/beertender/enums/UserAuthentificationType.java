@@ -13,5 +13,5 @@ package com.rectus29.beertender.enums;
 /*-----------------------------------------------------*/
 
 public enum UserAuthentificationType {
-    NONE, EMBED, GOOGLE
+    NONE, EMBED, GOOGLE, API
 }
