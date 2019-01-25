@@ -32,11 +32,8 @@ public class ServiceUser extends GenericManagerImpl<User, Long> implements Iserv
 	public User getUser(Subject subject) {
 		Long id = (Long) subject.getPrincipal();
 		if (id != null) {
-			// they are either authenticated or remembered from a previous com..mismastore.session,
-			// so return the user:
 			return get(id);
 		} else {
-			//not logged in or remembered:
 			return null;
 		}
 	}
@@ -62,22 +59,30 @@ public class ServiceUser extends GenericManagerImpl<User, Long> implements Iserv
 
 	@Override
 	public List<User> getAll(List<State> stateArray) {
-		List<User> out = (List<User>) getHibernateTemplate()
+		return (List<User>) getHibernateTemplate()
 				.findByCriteria(
 						getDetachedCriteria()
 								.add(Restrictions.in("state", stateArray)
 								)
 				);
-		return out;
 	}
 
+	@Override
+	public void disable(User userToDisable) {
+		userToDisable.setState(State.DELETED);
+		save(userToDisable);
+	}
 
 	public User getUserByMail(String property) {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class);
 		detachedCriteria.add(Restrictions.eq("email", property));
 		List<User> result = (List<User>) getHibernateTemplate().findByCriteria(detachedCriteria);
-		if (result.size() > 0) return result.get(0);
-		return null;
+		if (result.size() > 0) {
+			return result.get(0);
+		} else {
+			return null;
+		}
+
 	}
 
 }
