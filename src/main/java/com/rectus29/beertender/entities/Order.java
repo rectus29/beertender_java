@@ -2,6 +2,7 @@ package com.rectus29.beertender.entities;
 
 
 import com.rectus29.beertender.entities.payment.Payment;
+import com.rectus29.beertender.enums.PaymentStatus;
 import com.rectus29.beertender.enums.State;
 
 import javax.persistence.*;

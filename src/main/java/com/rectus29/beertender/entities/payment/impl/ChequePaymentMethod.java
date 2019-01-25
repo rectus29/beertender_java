@@ -27,4 +27,13 @@ public class ChequePaymentMethod extends Payment {
 		super();
 		this.chequeNumber = chequeNumber;
 	}
+
+	public String getChequeNumber() {
+		return chequeNumber;
+	}
+
+	public ChequePaymentMethod setChequeNumber(String chequeNumber) {
+		this.chequeNumber = chequeNumber;
+		return this;
+	}
 }

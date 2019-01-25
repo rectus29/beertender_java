@@ -1,8 +1,12 @@
 package com.rectus29.beertender.entities;
 
-import com.rectus29.beertender.enums.State;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,9 +14,12 @@ import java.util.Date;
 public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 
 	@Column
+	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date created = new Date();
+
 	@Column
+	@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date updated = new Date();
 
@@ -32,12 +39,13 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 		this.updated = updated;
 	}
 
-	public int compareTo(T object){
+	@Override
+	public int compareTo(T object) {
 		return defaultCompareTo(object);
 	}
 
-	protected int defaultCompareTo(T object){
-		return this.getId().compareTo(((GenericEntity)object).getId());
+	protected int defaultCompareTo(T object) {
+		return this.getId().compareTo(((GenericEntity) object).getId());
 	}
 
 }

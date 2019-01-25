@@ -49,6 +49,10 @@ public class User extends BasicGenericEntity<User> implements DecorableElement {
 	@Type(type = "com.rectus29.beertender.hibernate.types.LocaleUserType")
 	private Locale userLocale = Locale.FRANCE ;
 
+	protected User() {
+		//a user cannot be instanciate at null
+	}
+
 	@Override
 	public String getFormattedName() {
 		return ((StringUtils.isNotBlank(firstName)) ? firstName : "") + " " + ((StringUtils.isNotBlank(lastName)) ? lastName.toUpperCase() : "");
