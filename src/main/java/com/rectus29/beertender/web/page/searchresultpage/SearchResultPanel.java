@@ -42,7 +42,7 @@ public class SearchResultPanel extends Panel {
 			protected void populateItem(ListItem<ISearchable> item) {
 				ProductDefinition pd = (ProductDefinition )item.getModelObject();
 				item.add(new Label("name", pd.getName()));
-				item.add(new Label("description", pd.getDescription().substring(0, 250) + "..."));
+				item.add(new Label("description", pd.getDescription().substring(0, (pd.getDescription().length() > 250) ? 250 : pd.getDescription().length()) + "..."));
 			}
 		});
 

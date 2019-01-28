@@ -15,8 +15,8 @@ import org.apache.lucene.search.MatchAllDocsQuery;
 import org.apache.lucene.search.Query;
 import org.apache.shiro.subject.Subject;
 import org.hibernate.CacheMode;
-import org.hibernate.FlushMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -134,11 +134,10 @@ public class serviceSearch implements IserviceSearch {
 	}
 
 	public void initialIndex(Class<? extends ISearchable> classToIndex) throws InterruptedException {
-		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
-		fullTextSession.setHibernateFlushMode(FlushMode.MANUAL);
 		//purge the index for the given entity type
-		fullTextSession.purgeAll(classToIndex);
+		purgeIndexFor(classToIndex);
 		//reload entity to index
+		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
 		fullTextSession
 				.createIndexer(classToIndex)
 				.batchSizeToLoadObjects(25)
@@ -150,7 +149,13 @@ public class serviceSearch implements IserviceSearch {
 		//optimize index
 		optimizeIndex(classToIndex);
 		fullTextSession.clear();
-		fullTextSession.close();
+	}
+
+	private void purgeIndexFor(Class<? extends ISearchable> classToIndex) {
+		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
+		Transaction tx = fullTextSession.beginTransaction();
+		fullTextSession.purgeAll(classToIndex);
+		tx.commit();
 	}
 
 	public void optimizeIndex(Class<? extends ISearchable> classToIndex) {
