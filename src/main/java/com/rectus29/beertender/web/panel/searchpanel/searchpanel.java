@@ -17,20 +17,20 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 /*                Date: 21/12/2018 15:05               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class SearchPanel extends Panel {
+public class searchpanel extends Panel {
 
 	private String searchString;
 
-	public SearchPanel(String id) {
+	public searchpanel(String id) {
 		super(id);
 	}
 
-	public SearchPanel(String id, String search) {
+	public searchpanel(String id, String search) {
 		super(id);
 		this.searchString = search;
 	}
 
-	public SearchPanel(String id, IModel<String> model) {
+	public searchpanel(String id, IModel<String> model) {
 		super(id, model);
 		this.searchString = model.getObject();
 	}
@@ -43,11 +43,11 @@ public class SearchPanel extends Panel {
 		}
 		Form form;
 		add((form = new Form("searchForm"))
-				.add(new TextField<>("searchString", new PropertyModel<String>(SearchPanel.this, "searchString")))
+				.add(new TextField<>("searchString", new PropertyModel<String>(searchpanel.this, "searchString")))
 				.add(new AjaxFormSubmitBehavior(form, "submit") {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target) {
-						SearchPanel.this.onSubmit(target, SearchPanel.this.searchString);
+						searchpanel.this.onSubmit(target, searchpanel.this.searchString);
 					}
 				})
 		);
