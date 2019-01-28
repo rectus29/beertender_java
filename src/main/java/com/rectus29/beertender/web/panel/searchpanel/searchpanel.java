@@ -1,6 +1,5 @@
 package com.rectus29.beertender.web.panel.searchpanel;
 
-import com.rectus29.beertender.tools.StringUtils;
 import com.rectus29.beertender.web.page.searchresultpage.SearchPage;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
@@ -39,9 +38,7 @@ public class SearchPanel extends Panel {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		if(StringUtils.isBlank(searchString)){
-            searchString = getPage().getPageParameters().get(SearchPage.SEARCH).toString();
-        }
+		String searchString = "";
 		Form form;
 		add((form = new Form("searchForm"))
 				.add(new TextField<>("searchString", new PropertyModel<String>(SearchPanel.this, "searchString")))
