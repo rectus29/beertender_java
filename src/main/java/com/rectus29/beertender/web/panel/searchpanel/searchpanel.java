@@ -1,12 +1,12 @@
 package com.rectus29.beertender.web.panel.searchpanel;
 
+import com.rectus29.beertender.tools.StringUtils;
 import com.rectus29.beertender.web.page.searchresultpage.SearchPage;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -38,7 +38,9 @@ public class SearchPanel extends Panel {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		String searchString = "";
+		if (StringUtils.isBlank(searchString)) {
+			searchString = getPage().getPageParameters().get(SearchPage.SEARCH).toString();
+		}
 		Form form;
 		add((form = new Form("searchForm"))
 				.add(new TextField<>("searchString", new PropertyModel<String>(SearchPanel.this, "searchString")))
@@ -54,10 +56,11 @@ public class SearchPanel extends Panel {
 
 	/**
 	 * default on submit behaviour
-	 * @param target 		the ajaxtarget
-	 * @param searchString	the searchstring submitted
+	 *
+	 * @param target       the ajaxtarget
+	 * @param searchString the searchstring submitted
 	 */
-	protected void onSubmit(AjaxRequestTarget target, String searchString){
+	protected void onSubmit(AjaxRequestTarget target, String searchString) {
 		setResponsePage(SearchPage.class, new PageParameters().add(SearchPage.SEARCH, searchString));
 	}
 }
