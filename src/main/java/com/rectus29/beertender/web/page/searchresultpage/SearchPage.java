@@ -2,9 +2,7 @@ package com.rectus29.beertender.web.page.searchresultpage;
 
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import com.rectus29.beertender.web.panel.lazyloadPanel.LazyLoadPanel;
-import com.rectus29.beertender.web.panel.searchpanel.SearchPanel;
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -40,8 +38,8 @@ public class SearchPage extends BeerTenderPage {
 
 	}
 
-    @Override
-    public String getTitleContribution() {
-        return "Recherche";
-    }
+	@Override
+	public String getTitleContribution() {
+		return "Recherche";
+	}
 }

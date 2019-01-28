@@ -3,19 +3,20 @@ package com.rectus29.beertender.service.impl;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import com.rectus29.beertender.entities.search.ISearchable;
+import com.rectus29.beertender.hibernate.search.monitor.BeerTenderIndexingProgressMonitor;
 import com.rectus29.beertender.service.IserviceSearch;
 import com.rectus29.beertender.tools.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.lucene.analysis.fr.FrenchAnalyzer;
-import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.MatchAllDocsQuery;
 import org.apache.lucene.search.Query;
 import org.apache.shiro.subject.Subject;
-import org.hibernate.*;
+import org.hibernate.CacheMode;
+import org.hibernate.FlushMode;
+import org.hibernate.SessionFactory;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -24,7 +25,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Service("serviceSearch")
@@ -83,7 +87,7 @@ public class serviceSearch implements IserviceSearch {
 
 	public List<ISearchable> search(String searchPattern, Class<? extends ISearchable> classToSearch, Subject user) throws ParseException {
 
-		List<ISearchable> result = null;
+		List<ISearchable> result;
 		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
 
 		List<String> fieldNameList = new ArrayList<>();
@@ -103,7 +107,7 @@ public class serviceSearch implements IserviceSearch {
 				query = new MatchAllDocsQuery();
 		else
 			query = new MatchAllDocsQuery();
-		org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query, classToSearch);
+		org.hibernate.query.Query hibQuery = fullTextSession.createFullTextQuery(query, classToSearch);
 		result = hibQuery.list();
 
 		return result;
@@ -121,34 +125,32 @@ public class serviceSearch implements IserviceSearch {
 					this.indexedFieldByClassMap.put(tempClass, temp);
 				}
 			}
-			initialIndex(tempClass);
+			try {
+				initialIndex(tempClass);
+			} catch (InterruptedException e) {
+				log.error("Error while init lucene index", e);
+			}
 		}
 	}
 
-	public void initialIndex(Class<? extends ISearchable> classToIndex) {
+	public void initialIndex(Class<? extends ISearchable> classToIndex) throws InterruptedException {
 		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
-		fullTextSession.setFlushMode(FlushMode.MANUAL);
-		fullTextSession.setCacheMode(CacheMode.IGNORE);
-
+		fullTextSession.setHibernateFlushMode(FlushMode.MANUAL);
+		//purge the index for the given entity type
 		fullTextSession.purgeAll(classToIndex);
-		fullTextSession.getSearchFactory().optimize(classToIndex);
-
-		ScrollableResults results = fullTextSession.createCriteria(classToIndex).scroll(ScrollMode.FORWARD_ONLY);
-
-		//on processe les ressources par batch de 1000 pour ne pas dÃ©passer la mÃ©moire de la VM
-		int index = 0;
-		int BATCH_SIZE = 1000;
-		while (results.next()) {
-			index++;
-			fullTextSession.index(results.get(0));
-			if (index % BATCH_SIZE == 0) {
-				fullTextSession.flushToIndexes();
-				fullTextSession.clear();
-			}
-		}
-		//ne pas oublier les derniers
-		fullTextSession.flushToIndexes();
+		//reload entity to index
+		fullTextSession
+				.createIndexer(classToIndex)
+				.batchSizeToLoadObjects(25)
+				.cacheMode(CacheMode.NORMAL)
+				.threadsToLoadObjects(12)
+				.idFetchSize(150)
+				.progressMonitor(new BeerTenderIndexingProgressMonitor())
+				.startAndWait();
+		//optimize index
+		optimizeIndex(classToIndex);
 		fullTextSession.clear();
+		fullTextSession.close();
 	}
 
 	public void optimizeIndex(Class<? extends ISearchable> classToIndex) {

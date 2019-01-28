@@ -12,22 +12,30 @@ package com.rectus29.beertender.entities;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.enums.State;
+import com.rectus29.beertender.entities.search.ISearchable;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Indexed
 @Table(name = "category")
-public class Category extends BasicGenericEntity<Category>{
+public class Category extends BasicGenericEntity<Category> implements ISearchable {
 
-    private String name;
+	@Field
+	private String name;
 
     private String shortName;
 
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String description;
+	@Field
+	@Column(columnDefinition = "MEDIUMTEXT")
+	private String description;
 
     @ManyToMany(targetEntity = Product.class, mappedBy = "categoryList")
     private List<Product> productList = new ArrayList<>();

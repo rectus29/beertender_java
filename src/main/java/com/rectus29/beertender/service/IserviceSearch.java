@@ -18,7 +18,7 @@ public interface IserviceSearch {
 
 	public List<ISearchable> search(String searchPattern, Class<? extends ISearchable> classToSearch, Subject user) throws ParseException;
 
-	public void initialIndex(Class<? extends ISearchable> classToIndex);
+	public void initialIndex(Class<? extends ISearchable> classToIndex) throws InterruptedException;
 
 	public void initIndex();
 }

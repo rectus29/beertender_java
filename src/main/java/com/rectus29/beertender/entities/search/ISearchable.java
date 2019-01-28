@@ -9,4 +9,8 @@ package com.rectus29.beertender.entities.search;
 public interface ISearchable {
 
 	Long getId();
+
+	String getName();
+
+	String getDescription();
 }

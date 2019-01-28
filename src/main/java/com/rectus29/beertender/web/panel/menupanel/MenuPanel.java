@@ -21,7 +21,7 @@ import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.page.home.HomePage;
-import com.rectus29.beertender.web.panel.searchpanel.SearchPanel;
+import com.rectus29.beertender.web.panel.searchpanel.searchpanel;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -57,7 +57,7 @@ public class MenuPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new SearchPanel("searchPanel"));
+		add(new searchpanel("searchPanel"));
         add((new WebMarkupContainer("wmc") {
             @Override
             protected void onInitialize() {
