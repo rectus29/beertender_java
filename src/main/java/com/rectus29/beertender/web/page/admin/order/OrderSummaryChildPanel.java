@@ -14,7 +14,6 @@ import com.rectus29.beertender.web.page.admin.order.pay.OrderPayPanel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
@@ -67,13 +66,11 @@ public class OrderSummaryChildPanel extends Panel {
 				if (temp.getOrderItemList().size() > 0) {
 					nbAttendees++;
 				}
-
 				for (OrderItem tempItem : temp.getOrderItemList()) {
 					nbProduct = tempItem.getQuantity();
 				}
 			}
 		}
-
 		add(new Label("orderAttendees", nbAttendees));
 		add(new Label("orderProdNb", nbProduct));
 

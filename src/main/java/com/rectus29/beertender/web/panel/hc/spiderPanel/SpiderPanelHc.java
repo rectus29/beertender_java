@@ -1,16 +1,13 @@
 package com.rectus29.beertender.web.panel.hc.spiderPanel;
 
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.Config;
-import com.rectus29.beertender.web.panel.hc.GraphPanel;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
+import com.rectus29.beertender.web.panel.hc.HcGraphPanel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.io.Serializable;
@@ -21,9 +18,9 @@ import java.util.*;
  * Date: 09/02/11
  * Time: 16:39
  */
-public abstract class SpiderPanel extends GraphPanel {
+public abstract class SpiderPanelHc extends HcGraphPanel {
 
-	private static final Logger log = LogManager.getLogger(SpiderPanel.class);
+	private static final Logger log = LogManager.getLogger(SpiderPanelHc.class);
 
 	@SpringBean(name = "serviceUser")
 	private IserviceUser serviceUser;
@@ -42,17 +39,17 @@ public abstract class SpiderPanel extends GraphPanel {
 
 	private Label chart;
 
-	public SpiderPanel(String id) {
+	public SpiderPanelHc(String id) {
 		super(id);
 	}
 
-	public SpiderPanel(String id, String width, String height) {
+	public SpiderPanelHc(String id, String width, String height) {
 		super(id);
 		this.height = height;
 		this.width = width;
 	}
 
-	public SpiderPanel(String id, String width, String height, boolean legend) {
+	public SpiderPanelHc(String id, String width, String height, boolean legend) {
 		super(id);
 		this.height = height;
 		this.width = width;

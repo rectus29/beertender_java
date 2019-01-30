@@ -8,9 +8,7 @@ import com.rectus29.beertender.enums.State;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * User: rectus_29
@@ -32,7 +30,8 @@ public class Order extends BasicGenericEntity<Order> {
 	private TimeFrame timeFrame;
 
 	@OneToMany(targetEntity = Payment.class, mappedBy = "order")
-	private List<Payment> paymentList =  new ArrayList<>();
+	private List<Payment> paymentList = new ArrayList<>();
+	private PaymentStatus paymentStatus = PaymentStatus.WAITING;
 
 	public Order() {
 		this.state = State.PENDING;
@@ -42,6 +41,15 @@ public class Order extends BasicGenericEntity<Order> {
 		this();
 		this.user = user;
 		this.timeFrame = timeFrame;
+	}
+
+	public PaymentStatus getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public Order setPaymentStatus(PaymentStatus paymentStatus) {
+		this.paymentStatus = paymentStatus;
+		return this;
 	}
 
 	public User getUser() {
@@ -59,7 +67,7 @@ public class Order extends BasicGenericEntity<Order> {
 		return res;
 	}
 
-	public int getNbProductInOrder(){
+	public int getNbProductInOrder() {
 		int nbProduct = 0;
 		for (OrderItem orderItem : orderItemList)
 			nbProduct += orderItem.getQuantity();
@@ -70,8 +78,8 @@ public class Order extends BasicGenericEntity<Order> {
 		OrderItem toAdd = new OrderItem(product, qte, this);
 		if (orderItemList.contains(toAdd)) {
 			OrderItem foundItem = null;
-			for(OrderItem item : orderItemList){
-				if(toAdd.equals(item)){
+			for (OrderItem item : orderItemList) {
+				if (toAdd.equals(item)) {
 					foundItem = item;
 					break;
 				}
@@ -88,13 +96,13 @@ public class Order extends BasicGenericEntity<Order> {
 	}
 
 	public Order removeProduct(Product product) {
-        OrderItem toRemove = new OrderItem(product, 0l, this);
-        for(OrderItem item : orderItemList){
-            if(toRemove.equals(item)){
-                orderItemList.remove(item);
-                break;
-            }
-        }
+		OrderItem toRemove = new OrderItem(product, 0l, this);
+		for (OrderItem item : orderItemList) {
+			if (toRemove.equals(item)) {
+				orderItemList.remove(item);
+				break;
+			}
+		}
 		return this;
 	}
 

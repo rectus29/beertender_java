@@ -1,5 +1,6 @@
 package com.rectus29.beertender.entities;
 
+import com.rectus29.beertender.enums.PaymentStatus;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.tools.DateUtils;
 
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /*-----------------------------------------------------*/
 /*                Date: 13/07/2018 10:01               */
@@ -73,8 +75,8 @@ public class TimeFrame extends BasicGenericEntity<TimeFrame> {
 
 	public BigDecimal getOrderSum() {
 		BigDecimal out = BigDecimal.ZERO;
-		for(Order temp : this.getOrderList()){
-			if(temp.getState() != State.DISABLE || temp.getState() != State.DELETED ){
+		for (Order temp : this.getOrderList()) {
+			if (temp.getState() != State.DISABLE || temp.getState() != State.DELETED) {
 				out = out.add(temp.getOrderPrice());
 			}
 		}
@@ -83,8 +85,9 @@ public class TimeFrame extends BasicGenericEntity<TimeFrame> {
 
 	public BigDecimal getOrderPaid() {
 		BigDecimal out = BigDecimal.ZERO;
-		for(Order temp : this.getOrderList()){
-			if(temp.getState() == State.ENABLE){
+		//for each active order count the paid one
+		for (Order temp : this.getOrderList()) {
+			if (Objects.equals(temp.getState(), State.ENABLE) && Objects.equals(temp.getPaymentStatus(), PaymentStatus.PAID)) {
 				out = out.add(temp.getOrderPrice());
 			}
 		}

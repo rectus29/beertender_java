@@ -1,59 +1,18 @@
 package com.rectus29.beertender.web.panel.hc.piePanel;
 
-import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.Config;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.rectus29.beertender.web.panel.hc.HcGraphPanel;
 
-import java.io.Serializable;
-import java.util.*;
+import java.util.Map;
 
 /**
  * User: Rectus
  * Date: 09/02/11
  * Time: 16:39
  */
-public abstract class HcPiePanel extends Panel {
+public abstract class HcPiePanel extends HcGraphPanel {
 
-	private static final Logger log = LogManager.getLogger(HcPiePanel.class);
-
-	@SpringBean(name = "serviceUser")
-	private IserviceUser serviceUser;
-
-	private String height = "300px";
-
-	private String width = "400px";
-
-	private String legendPosition = "so";
-
-	private String step = "1 month";
-
-	private String legendPlacement = "outside";
-
-	private int lineWidth = 2;
-
-	private int ticksNumber = 6;
-
-	private boolean legend = true;
-
-	private int legendMargin = 30;
-
-	private int angle = 0;
-
-	private Date xStart;
-
-	private Date xStop;
-
-	private Label chart;
-
-	private ArrayList<PlotDataObject> innerDataTable = new ArrayList<PlotDataObject>();
 
 	public HcPiePanel(String id) {
 		super(id);
@@ -73,20 +32,7 @@ public abstract class HcPiePanel extends Panel {
 	}
 
 	@Override
-	protected void onInitialize() {
-		super.onInitialize();
-		chart = new Label("chart1");
-		chart.add(new AttributeModifier("style", "width:" + (width) + "; margin:auto; height:" + (height) + ";"));
-		chart.setOutputMarkupId(true);
-		add(chart);
-	}
-
-	@Override public void renderHead(IHeaderResponse response) {
-		super.renderHead(response);
-		response.render(OnDomReadyHeaderItem.forScript(getJS()));
-	}
-
-	private String getJS() {
+	protected String getJS() {
 		String graph = "" +
 				"Highcharts.setOptions({                                                                                                                    \n" +
 				"   lang: {                                                                                                                                 \n" +
@@ -129,7 +75,7 @@ public abstract class HcPiePanel extends Panel {
 				"                   showInLegend: true                                                                                                      \n" +
 				"               }                                                                                                                           \n" +
 				"           },                                                                                                                              \n" +
-				"           series: [" + getData() + "],                                                                                                    \n" +
+				"           series: [" + buildData() + "],                                                                                                    \n" +
 				"           navigation: {                                                                                                                   \n" +
 				"               menuItemStyle: {                                                                                                            \n" +
 				"                   fontSize: '10px'                                                                                                        \n" +
@@ -140,97 +86,27 @@ public abstract class HcPiePanel extends Panel {
 				"           }                                                                                                                               \n" +
 				"       });";
 		return graph;
-
 	}
 
-	public abstract String getData();
+	public abstract PieDataObject getData();
 
-	public String buildData(Map<String, Double> data) {
-		String out = "{data:[";
-		Set entries = data.entrySet();
-		Iterator it = entries.iterator();
-		while (it.hasNext()) {
-			Map.Entry entry = (Map.Entry) it.next();
-			String entryString = (String) entry.getKey();
-
-			out += "['" + entryString.replaceAll("'", "\\\\'") + "'," + entry.getValue() + "],\n";
+	private String buildData() {
+		//outputDataObject
+		JsonObject out = new JsonObject();
+		//retreive data
+		PieDataObject data = getData();
+		if (data != null) {
+			out.addProperty("name", data.getName());
+			out.addProperty("colorByPoint", true);
+			JsonArray dataArray = new JsonArray();
+			for (Map.Entry<String, Number> temp : data.getData().entrySet()) {
+				JsonObject dataPoint = new JsonObject();
+				dataPoint.addProperty("name", temp.getKey());
+				dataPoint.addProperty("y", temp.getValue());
+				dataArray.add(dataPoint);
+			}
+			out.add("data", dataArray);
 		}
-		out += "]},";
-
-		//nettoyage derniere virgule
-		out = out.substring(0, out.length() - 1);
-		return out;
+		return out.toString();
 	}
-
-	public String buildDataWithColor(HashMap<String, HashMap<String, Object>> data) {
-		TreeMap<String, HashMap<String, Object>> dato = new TreeMap<String, HashMap<String, Object>>(data);
-		String out = "";
-		//out += "{name:'" + tempObject.getLabel() + "',data:[";
-		out += "{data:[";
-		Set<Map.Entry<String, HashMap<String, Object>>> entries = dato.entrySet();
-		Iterator<Map.Entry<String, HashMap<String, Object>>> it = entries.iterator();
-		while (it.hasNext()) {
-			Map.Entry<String, HashMap<String, Object>> entry = it.next();
-			String entryString = (String) entry.getKey();
-			out += "{name: '" + entryString.replaceAll("'", "\\\\'") + "', color: '" + entry.getValue().get("color") + "',y: " + entry.getValue().get("value") + "},\n";
-		}
-		out += "]},";
-
-		//nettoyage derniere virgule
-		out = out.substring(0, out.length() - 1);
-		return out;
-	}
-
-	//construction des labels de puis le table de ref
-	public String buildSeries() {
-		String out = "[";
-		for (PlotDataObject temp : this.innerDataTable) {
-			//out += "{label:'" + temp.getLabel() + "'},";
-			out += "'" + temp.getLabel() + "',";
-		}
-		//nettoyage derniere virgule
-		out = out.substring(0, out.length() - 1) + "]";
-		return out;
-	}
-
-	public String angleXAxis() {
-		if (angle != 0) {
-			return ", angle:-" + angle;
-		} else {
-			return "";
-		}
-	}
-
-	public String getColor() {
-		return Config.get().getDefaultColor();
-	}
-
-	public class PlotDataObject implements Serializable {
-
-		private String label;
-
-		private HashMap<Date, Double> data;
-
-		public PlotDataObject(HashMap<Date, Double> data, String label) {
-			this.data = data;
-			this.label = label;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		public void setLabel(String label) {
-			this.label = label;
-		}
-
-		public HashMap<Date, Double> getData() {
-			return data;
-		}
-
-		public void setData(HashMap<Date, Double> data) {
-			this.data = data;
-		}
-	}
-
 }
