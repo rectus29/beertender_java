@@ -4,8 +4,14 @@ html {
 }
 
 body {
-	/*background: fixed url("../img/slider.jpg") no-repeat center 0;*/
-	background-size: cover;
+	margin: 0;
+	font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 0.9rem;
+	font-weight: 300;
+	line-height: 1.5;
+	color: #cfd2da;
+	text-align: left;
+	background-color: #252830;
 }
 
 @media (min-width: 768px) {
@@ -32,6 +38,8 @@ body {
 
 .card-deck .card {
 	min-width: 220px;
+	background: #252830;
+	border: 1px solid #434857;
 }
 
 .border-top {
@@ -101,7 +109,6 @@ li.nav-item li.nav-item {
 }
 
 .tab-panel {
-	background: white;
 	padding: 15px 15px 15px 0px;
 }
 

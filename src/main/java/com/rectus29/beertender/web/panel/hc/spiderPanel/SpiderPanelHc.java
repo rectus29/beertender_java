@@ -114,6 +114,11 @@ public abstract class SpiderPanelHc extends HcGraphPanel {
 
 	}
 
+	public String getData() {
+		return "";
+	}
+
+
 	/**
 	 * builData : build javascript Array String with the HM provide in parameter
 	 *
