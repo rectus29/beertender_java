@@ -1,4 +1,4 @@
-package com.rectus29.beertender.web.panel.hc.piePanel;
+package com.rectus29.beertender.web.panel.hc.hcpiePanel;
 
 import java.util.HashMap;
 
@@ -13,6 +13,10 @@ public class PieDataObject {
 	private String name;
 
 	private HashMap<String, Number> data = new HashMap<>();
+
+	public PieDataObject(String name) {
+		this.name = name;
+	}
 
 	public PieDataObject(String name, HashMap<String, Number> data) {
 		this.name = name;
@@ -30,6 +34,11 @@ public class PieDataObject {
 
 	public HashMap<String, Number> getData() {
 		return data;
+	}
+
+	public PieDataObject addData(String serieLabel, Number serieValue) {
+		data.put(serieLabel, serieValue);
+		return this;
 	}
 
 	public PieDataObject setData(HashMap<String, Number> data) {

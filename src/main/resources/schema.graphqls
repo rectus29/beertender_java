@@ -16,7 +16,7 @@ type Query {
 type Mutation {
     #saveProduct(product: inputProduct): OperationResult
     #saveCategory(category: inputCategory): OperationResult
-   # saveUser(user: inputUser): OperationResult
+	#saveUser(user: inputUser): OperationResult
 }
 
 

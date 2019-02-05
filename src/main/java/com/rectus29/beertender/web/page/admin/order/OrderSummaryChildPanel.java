@@ -11,6 +11,8 @@ import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.order.edit.OrderEditPanel;
 import com.rectus29.beertender.web.page.admin.order.pay.OrderPayPanel;
+import com.rectus29.beertender.web.panel.hc.hcpiePanel.HcPiePanel;
+import com.rectus29.beertender.web.panel.hc.hcpiePanel.PieDataObject;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -73,6 +75,22 @@ public class OrderSummaryChildPanel extends Panel {
 		}
 		add(new Label("orderAttendees", nbAttendees));
 		add(new Label("orderProdNb", nbProduct));
+
+		add(new HcPiePanel("graph") {
+			@Override
+			public PieDataObject getData() {
+				PieDataObject pdo = new PieDataObject("plop");
+				pdo.addData("yo", 10);
+				pdo.addData("ya", 10);
+				pdo.addData("yi", 10);
+				return pdo;
+			}
+
+			@Override
+			public String getTitle() {
+				return "Repartition par type";
+			}
+		});
 
 		add(new ListView<Map.Entry<Product, Long>>("orderProductRv", new Model<ArrayList<Map.Entry<Product, Long>>>() {
 			@Override

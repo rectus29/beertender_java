@@ -9,14 +9,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
 /*-----------------------------------------------------*/
-/*      _____           _               ___   ___      */
-/*     |  __ \         | |             |__ \ / _ \     */
-/*     | |__) |___  ___| |_ _   _ ___     ) | (_) |    */
-/*     |  _  // _ \/ __| __| | | / __|   / / \__, |    */
-/*     | | \ \  __/ (__| |_| |_| \__ \  / /_   / /     */
-/*     |_|  \_\___|\___|\__|\__,_|___/ |____| /_/      */
+/*						Rectus29					   */
 /*                                                     */
-/*                Date: 30/09/2015 16:59                */
+/*                Date: 30/09/2015 16:59               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 public abstract class HcGraphPanel extends Panel {
@@ -38,6 +33,10 @@ public abstract class HcGraphPanel extends Panel {
 
 	public String getColor() {
 		return Config.get().getDefaultColor();
+	}
+
+	public String getTitle() {
+		return "null";
 	}
 
 	@Override

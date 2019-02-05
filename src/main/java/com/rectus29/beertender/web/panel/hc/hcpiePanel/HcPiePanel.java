@@ -1,4 +1,4 @@
-package com.rectus29.beertender.web.panel.hc.piePanel;
+package com.rectus29.beertender.web.panel.hc.hcpiePanel;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -51,11 +51,10 @@ public abstract class HcPiePanel extends HcGraphPanel {
 				"		        renderTo: '" + chart.getMarkupId() + "',                                                                                    \n" +
 				"               defaultSeriesType: 'pie',                                                                                                   \n" +
 				"	    	    spacingRight: 20                                                                                                            \n" +
-				"               //animation: false                                                                                                          \n" +
 				"	        },                                                                                                                              \n" +
 				"           colors: [" + getColor() + "],                                                                                                   \n" +
 				"           title: {                                                                                                                        \n" +
-				"               text: null                                                                                                                  \n" +
+				"               text: " + getTitle() + "                                                                                                                  \n" +
 				"           },                                                                                                                              \n" +
 				"           legend:{                                                                                                                        \n" +
 				"               enabled: " + legend + "                                                                                                     \n" +
