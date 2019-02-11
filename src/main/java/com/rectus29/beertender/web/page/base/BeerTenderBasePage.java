@@ -65,8 +65,7 @@ public class BeerTenderBasePage extends ProtectedPage {
 
 		add(new BookmarkablePageLink<HomePage>("homeLink", HomePage.class));
 		add(new BookmarkablePageLink<SignoutPage>("logoutLink", SignoutPage.class));
-		add(new Label("login", serviceUser.getCurrentUser().getFormattedName()));
-		add(new AvatarImage("avatarImg"));
+
 		add(new Link("runAsUsual") {
 			@Override
 			public void onClick() {

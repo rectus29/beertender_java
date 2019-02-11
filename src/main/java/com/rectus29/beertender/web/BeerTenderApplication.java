@@ -66,6 +66,7 @@ public class BeerTenderApplication extends WebApplication {
 		super.init();
 		log.debug("Init Beertender application");
 		getDebugSettings().setAjaxDebugModeEnabled(true);
+        getMarkupSettings().setStripWicketTags(true);
 		//gestion de l'annotation @OnEvent
 		getFrameworkSettings().add(new DispatchOnEventMethod());
 		//gestion de spring

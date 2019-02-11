@@ -2,19 +2,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 <body>
 <wicket:extend>
-    <div class="container-fluid">
-		<div id="hambugerHolder" class="d-block d-md-none">
-			<a href="#">
-				<i class="fa fa-bars"></i>
-			</a>
-		</div>
-        <div class="row">
-            <div class="col-md-2 sidebar d-none d-md-block" wicket:id="menuPanel" style="padding: 0px;"></div>
-            <div class="col-md-10 col-sm-12 ml-sm-auto pt-3 px-4">
-                <wicket:child/>
-            </div>
+
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <p class="centered">
+                    <a href="profile.html">
+                        <img wicket:id="avatarImg" class="img-circle" width="80">
+                    </a>
+                </p>
+                <h5 class="centered" wicket:id="login">Sam Soffes</h5>
+
+                <li class="mt">
+                    <a class="active" href="index.html">
+                        <i class="fa fa-beer"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="mt" wicket:id="menuPanel">
+                    <a class="active" href="index.html">
+                        <i class="fa fa-beer"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-    </div>
+    </aside>
+    <section id="main-content">
+        <section class="wrapper">
+            <wicket:child/>
+        </section>
+    </section>
 </wicket:extend>
 </body>
 </html>

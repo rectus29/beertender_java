@@ -1,8 +1,12 @@
 package com.rectus29.beertender.web.page.base;
 
+import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.web.component.avatarimage.AvatarImage;
 import com.rectus29.beertender.web.panel.menupanel.MenuPanel;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -10,6 +14,9 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 public class BeerTenderPage extends BeerTenderBasePage {
+
+    @SpringBean(name = "serviceUser")
+    private IserviceUser serviceUser;
 
     public BeerTenderPage() {
     }
@@ -25,6 +32,10 @@ public class BeerTenderPage extends BeerTenderBasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
+
+        add(new Label("login", serviceUser.getCurrentUser().getFormattedName()));
+        add(new AvatarImage("avatarImg"));
+
         add((new MenuPanel("menuPanel")).setOutputMarkupId(true));
     }
 }

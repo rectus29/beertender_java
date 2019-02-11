@@ -1,48 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
-	<body>
-		<wicket:extend>
-			<nav class="navbar  navbar-light fixed-top navbar-dark bg-dark justify-content-between">
-				<div class="container">
-					<a class="navbar-brand" href="/" wicket:id="homeLink">
-						<img src="img/beer.png" width="30" height="30" alt="" class="d-inline-block align-top">
-						BeerTender
-					</a>
+<body>
+<wicket:extend>
+    <section id="container">
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            </div>
+            <!--logo start-->
+            <a href="/" wicket:id="homeLink" class="logo">
+                <img src="img/beer.png" width="30" height="30" alt="" class="d-inline-block align-top">
+                <b><span>Beer</span>Tender</b>
+            </a>
+            <!--logo end-->
+            <div class="nav notify-row" id="top_menu">
+                <!--  notification start -->
+                <ul class="nav top-menu">
+                    <!-- inbox dropdown start-->
+                    <li id="header_inbox_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="badge bg-warning">5</span>
+                        </a>
+                        <ul class="dropdown-menu extended inbox">
+                            <div class="notify-arrow notify-arrow-yellow"></div>
+                            <li>
+                                <p class="yellow">You have 5 new messages</p>
+                            </li>
+                            <li>
+                                <a href="index.html#">
+                                    <span class="photo"><img alt="avatar" src="img/ui-zac.jpg"></span>
+                                    <span class="subject">
+                  <span class="from">Zac Snider</span>
+                  <span class="time">Just now</span>
+                  </span>
+                                    <span class="message">
+                  Hi mate, how is everything?
+                  </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#" wicket:id="cartLink">
+                                    <span class="badge badge-light" wicket:id="badge"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- inbox dropdown end -->
+                </ul>
+                <!--  notification end -->
+            </div>
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    <wicket:enclosure>
+                        <li><a class="logout" href="#" wicket:id="admin"><i class="fa fa-cogs"></i>&nbsp;Admin</a></li>
+                    </wicket:enclosure>
+                    <wicket:enclosure>
+                        <li><a class="logout" href="#" wicket:id="runAsUsual"><i class="fa fa-cogs"></i>&nbsp;reprendre son rôle</a></li>
+                    </wicket:enclosure>
+                    <li><a class="logout" wicket:id="logoutLink" href="#">Logout</a></li>
+                </ul>
+            </div>
+        </header>
+        <wicket:child/>
 
-					<div id="userBlock">
-						<a href="#" wicket:id="cartLink">
-							<span class="badge badge-light" wicket:id="badge"/>
-						</a>
-						&nbsp;|&nbsp;
-						<img wicket:id="avatarImg" class="image rounded-circle" id="avatarImg">
-						<span class="d-none d-md-inline" wicket:id="login"></span>
-						&nbsp;|&nbsp;
-						<wicket:enclosure>
-							<a href="#" wicket:id="admin"><i class="fa fa-cogs"></i>&nbsp;Admin</a>&nbsp;|&nbsp;
-						</wicket:enclosure>
-						<wicket:enclosure>
-							<a href="#" wicket:id="runAsUsual"><i class="fa fa-cogs"></i>&nbsp;reprendre son rôle</a>&nbsp;|&nbsp;
-						</wicket:enclosure>
-						<a wicket:id="logoutLink" href="logout"><i class="fa fa-sign-out"></i></a>
-					</div>
-				</div>
-			</nav>
-			<div id="body-spacer" class="container">
-				<wicket:child/>
-			</div>
+    </section>
+    <div wicket:id="modal"/>
+    <wicket:fragment wicket:id="badgeFrag1">
+        <span wicket:id="nbProduct"/>&nbsp;
+        <i class="fa fa-shopping-cart"></i>&nbsp;
+        <span wicket:id="cartCostLabel"/>
+    </wicket:fragment>
+    <wicket:fragment wicket:id="badgeFrag2">
+        Pas de commande en cours
+    </wicket:fragment>
 
-			<div wicket:id="modal"/>
+</wicket:extend>
 
-			<wicket:fragment wicket:id="badgeFrag1">
-				<span wicket:id="nbProduct"/>&nbsp;
-				<i class="fa fa-shopping-cart"></i>&nbsp;
-				<span wicket:id="cartCostLabel"/>
-			</wicket:fragment>
-			<wicket:fragment wicket:id="badgeFrag2">
-				Pas de commande en cours
-			</wicket:fragment>
-
-		</wicket:extend>
-
-	</body>
+</body>
 </html>
