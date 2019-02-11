@@ -1,38 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org" lang="fr">
 <head>
-<wicket:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<meta name="author" content="Rectus29">
     <title wicket:id="title"></title>
 
-    <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
-    <script src="js/jquery-ui.1.11.4.min.js" type="text/javascript"></script>
-
-	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
-	<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
-	<script src="js/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+	<script src="lib/jquery/jquery.min.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/Beertender.js" type="text/javascript"></script>
-    <link href="css/beertender.css" rel="stylesheet"/>
-	<link href="https://bootstrap-themes.github.io/dashboard/assets/css/toolkit-inverse.csss" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/font-awesome.min.css">
 
-	<link href="assets/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet">
-	<script src="assets/bootstrap-toggle/js/bootstrap-toggle.js"></script>
+	<!-- Bootstrap core CSS -->
+	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!--external css-->
+	<link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="css/dashio.css">
+	<link rel="stylesheet" type="text/css" href="css/dashio-responsive.css"/>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+	<!--Custom /css -->
+	<link href="css/beertender.css" rel="stylesheet"/>
+	<link href="css/beertender-responsive.css" rel="stylesheet"/>
 
+	<!--<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>-->
+	<!--<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet"/>-->
+	<!--<script src="js/bootstrap/bootstrap.min.js" type="text/javascript"></script>-->
+	<!--<script src="js/highChartsv4/highcharts.js" type="text/javascript"></script>-->
+
+	<!--<link href="https://bootstrap-themes.github.io/dashboard/assets/css/toolkit-inverse.csss" rel="stylesheet"/>-->
+	<!--<link rel="stylesheet" href="css/font-awesome.min.css">-->
+
+	<!--<link href="assets/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet">-->
+	<!--<script src="assets/bootstrap-toggle/js/bootstrap-toggle.js"></script>-->
+
+	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />-->
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>-->
+
+	<!-- Google Auth -->
 	<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
 
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta http-equiv="cache-control" content="no-cache"/>
-    <meta http-equiv="pragma" content="no-cache"/>
-    <meta http-equiv="expires" content="-1"/>
+	<link href="img/beer.png" rel="icon">
+	<link href="img/beer.png" rel="apple-touch-icon">
     <link rel="shortcut icon" type="image/x-icon" href="img/beer.png"/>
 
-</wicket:head>
 </head>
 <body>
-<wicket:child />
+	<wicket:child/>
+
 </body>
 </html>

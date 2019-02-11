@@ -8,16 +8,19 @@ import com.rectus29.beertender.web.BeerTenderApplication;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.page.base.BasePage;
 import com.rectus29.beertender.web.security.maintenancepage.MaintenancePage;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.apache.wicket.Application;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.EmailTextField;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -56,9 +59,9 @@ public class SigninPage extends BasePage {
 				}
 			}
 		}).setOutputMarkupId(true));
-		form.add(new EmailTextField("username", new PropertyModel<String>(this, "username")));
-		form.add(new PasswordTextField("password", new PropertyModel<String>(this, "password")));
-		form.add(new CheckBox("rememberMe", new PropertyModel<Boolean>(this, "rememberMe")));
+		form.add(new EmailTextField("username", new PropertyModel<>(this, "username")));
+		form.add(new PasswordTextField("password", new PropertyModel<>(this, "password")));
+		form.add(new CheckBox("rememberMe", new PropertyModel<>(this, "rememberMe")));
 		form.add((feed = new BootstrapFeedbackPanel("feedback")).setOutputMarkupId(true));
 		form.add(new Label("versionNumber", ((BeerTenderApplication) getApplication()).getVersion()));
 
@@ -96,7 +99,7 @@ public class SigninPage extends BasePage {
 
 	@Override
 	public String getTitleContribution() {
-		return "Connection";
+		return "Connexion";
 	}
 
 	@Override

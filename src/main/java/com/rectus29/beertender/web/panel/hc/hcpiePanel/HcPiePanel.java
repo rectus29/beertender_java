@@ -54,7 +54,7 @@ public abstract class HcPiePanel extends HcGraphPanel {
 				"	        },                                                                                                                              \n" +
 				"           colors: [" + getColor() + "],                                                                                                   \n" +
 				"           title: {                                                                                                                        \n" +
-				"               text: " + getTitle() + "                                                                                                                  \n" +
+				"               text: '" + getTitle() + "'                                                                                                                  \n" +
 				"           },                                                                                                                              \n" +
 				"           legend:{                                                                                                                        \n" +
 				"               enabled: " + legend + "                                                                                                     \n" +
