@@ -2,7 +2,8 @@
 <html xmlns:wicket="http://wicket.apache.org">
 	<wicket:head>
 		<script>
-			$(document).on('click', '#signinButton', function () {
+			$(document).on('click', '#signinButton', function (e) {
+			    e.preventDefault();
 				$('#signinButton i').toggleClass('fa-spin');
 				// signInCallback defined in step 6.
 				auth2.grantOfflineAccess().then(signInCallback);
