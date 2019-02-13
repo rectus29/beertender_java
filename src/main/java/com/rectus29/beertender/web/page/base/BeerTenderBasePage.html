@@ -20,30 +20,31 @@
                     <li id="header_inbox_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                             <i class="fa fa-shopping-cart"></i>
-                            <span class="badge bg-warning">5</span>
+							<span class="badge bg-warning" wicket:id="cartNbProduct">0</span>
                         </a>
                         <ul class="dropdown-menu extended inbox">
                             <div class="notify-arrow notify-arrow-yellow"></div>
                             <li>
-                                <p class="yellow">You have 5 new messages</p>
+								<p class="yellow">Votre panier</p>
                             </li>
-                            <li>
+							<li wicket:id="cartLv">
                                 <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="img/ui-zac.jpg"></span>
+									<span class="photo"><img alt="avatar" src="img/beer.png" wicket:id="productImg"></span>
                                     <span class="subject">
-                  <span class="from">Zac Snider</span>
-                  <span class="time">Just now</span>
-                  </span>
-                                    <span class="message">
-                  Hi mate, how is everything?
-                  </span>
+									  <span class="from" wicket:id="productName">Zac Snider</span>
+									  <span class="time" wicket:id="qte">Just now</span>
+								  	</span>
+									<span class="message" wicket:id="productPackage">
+									</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="index.html#" wicket:id="cartLink">
-                                    <span class="badge badge-light" wicket:id="badge"/>
+							<wicket:enclosure>
+								<li>
+									<a href="#" wicket:id="cartLink">
+										Voir la commande
                                 </a>
                             </li>
+							</wicket:enclosure>
                         </ul>
                     </li>
                     <!-- inbox dropdown end -->
@@ -66,15 +67,6 @@
 
     </section>
     <div wicket:id="modal"/>
-    <wicket:fragment wicket:id="badgeFrag1">
-        <span wicket:id="nbProduct"/>&nbsp;
-        <i class="fa fa-shopping-cart"></i>&nbsp;
-        <span wicket:id="cartCostLabel"/>
-    </wicket:fragment>
-    <wicket:fragment wicket:id="badgeFrag2">
-        Pas de commande en cours
-    </wicket:fragment>
-
 </wicket:extend>
 
 </body>

@@ -1,6 +1,8 @@
 package com.rectus29.beertender.web.page.base;
 
 import com.rectus29.beertender.entities.Order;
+import com.rectus29.beertender.entities.OrderItem;
+import com.rectus29.beertender.enums.ErrorCode;
 import com.rectus29.beertender.event.RefreshEvent;
 import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.service.IserviceOrder;
@@ -8,29 +10,28 @@ import com.rectus29.beertender.service.IserviceTimeFrame;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.BeerTenderApplication;
-import com.rectus29.beertender.web.component.avatarimage.AvatarImage;
-import com.rectus29.beertender.web.component.labels.CurrencyLabel;
+import com.rectus29.beertender.web.component.productimage.ProductImage;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.AdminPage;
+import com.rectus29.beertender.web.page.billspage.BillsPage;
 import com.rectus29.beertender.web.page.home.HomePage;
-import com.rectus29.beertender.web.panel.cartmodalpanel.CartModalPanel;
+import com.rectus29.beertender.web.security.error.ErrorPage;
 import com.rectus29.beertender.web.security.signout.SignoutPage;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -88,28 +89,43 @@ public class BeerTenderBasePage extends ProtectedPage {
 			}
 		});
 
-
-		add(new AjaxLink("cartLink") {
+		LoadableDetachableModel<List<OrderItem>> ldm = new LoadableDetachableModel<List<OrderItem>>() {
 			@Override
-			public void onClick(AjaxRequestTarget target) {
-				modal.setTitle("Votre Panier");
-				modal.setContent(new CartModalPanel(modal.getContentId()));
-				modal.show(target);
-			}
-
-			@Override
-			public boolean isEnabled() {
-				return BeerTenderSession.get().isOrderEnable();
-			}
-
-			@Override
-			protected void onInitialize() {
-				super.onInitialize();
-				if (BeerTenderSession.get().isOrderEnable()) {
-					add(new BadgeFragment1("badge", "badgeFrag1", BeerTenderBasePage.this));
+			protected List<OrderItem> load() {
+				Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
+				if (order != null) {
+					return (List<OrderItem>) order.getOrderItemList();
 				} else {
-					add(new BadgeFragment2("badge", "badgeFrag2", BeerTenderBasePage.this));
+					setResponsePage(ErrorPage.class, new PageParameters().add("errorCode", ErrorCode.NO_ORDER_FOUND));
 				}
+				return new ArrayList<>();
+			}
+		};
+
+		add((nbProductLabel = new Label("cartNbProduct", ldm.getObject().size()) {
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				setVisible(ldm.getObject().size() > 0);
+			}
+		}).setOutputMarkupId(true));
+
+		add(new ListView<OrderItem>("cartLv", ldm) {
+			@Override
+			protected void populateItem(ListItem<OrderItem> item) {
+				item.add(new ProductImage("productImg", item.getModelObject().getProduct()));
+				item.add(new Label("productName", item.getModelObject().getProduct().getName()));
+				item.add(new Label("qte", "x" + item.getModelObject().getQuantity()));
+				item.add(new Label("productPackage", item.getModelObject().getProduct().getPackaging().getName()));
+			}
+		});
+
+
+		add(new BookmarkablePageLink("cartLink", BillsPage.class) {
+			@Override
+			protected void onConfigure() {
+				super.onConfigure();
+				setVisibilityAllowed(BeerTenderSession.get().isOrderEnable());
 			}
 		});
 		add((modal = new BeerTenderModal("modal")).setOutputMarkupId(true));
@@ -119,48 +135,7 @@ public class BeerTenderBasePage extends ProtectedPage {
 	public void onEvent(IEvent event) {
 		if (event.getPayload() instanceof RefreshEvent) {
 			((RefreshEvent) event.getPayload()).getTarget()
-					.add(nbProductLabel, cartCostLabel);
-		}
-	}
-
-	private class BadgeFragment1 extends Fragment {
-
-		public BadgeFragment1(String id, String markupId, MarkupContainer markupProvider) {
-			super(id, markupId, markupProvider);
-		}
-
-		@Override
-		protected void onInitialize() {
-			super.onInitialize();
-			add((nbProductLabel = new Label("nbProduct", new LoadableDetachableModel<Integer>() {
-				@Override
-				protected Integer load() {
-					Order currentOrder = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
-					if (currentOrder != null) {
-						return currentOrder.getNbProductInOrder();
-					} else {
-						return 0;
-					}
-				}
-			})).setOutputMarkupId(true));
-			add((cartCostLabel = new CurrencyLabel("cartCostLabel", new LoadableDetachableModel<BigDecimal>() {
-				@Override
-				protected BigDecimal load() {
-					Order currentOrder = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
-					if (currentOrder != null) {
-						return currentOrder.getOrderPrice();
-					} else {
-						return BigDecimal.ZERO;
-					}
-				}
-			})).setOutputMarkupId(true));
-		}
-	}
-
-	private class BadgeFragment2 extends Fragment {
-
-		public BadgeFragment2(String id, String markupId, MarkupContainer markupProvider) {
-			super(id, markupId, markupProvider);
+					.add(nbProductLabel);
 		}
 	}
 }

@@ -10,6 +10,7 @@ import org.apache.wicket.Application;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.DynamicImageResource;
 
 import javax.imageio.ImageIO;
@@ -27,10 +28,19 @@ public class ProductImage extends Image {
 	private IModel<Product> model;
 	private boolean isDefaultImg = false;
 
+	public ProductImage(String id, Product model) {
+		super(id);
+		this.model = new Model<>(model);
+	}
+
 	public ProductImage(String id, IModel<Product> productModel) {
 		super(id);
 		this.model = productModel;
+	}
 
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
 		try {
 			if (model.getObject().getFileImage() == null) {
 				throw new BeerTenderException("no image set use default");
@@ -52,7 +62,6 @@ public class ProductImage extends Image {
 			log.debug(ex);
 			isDefaultImg = true;
 		}
-
 
 	}
 
