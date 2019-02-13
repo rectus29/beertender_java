@@ -8,3 +8,5 @@ http://www.h2database.com/html/cheatSheet.html
 
 hibernate search reference
 https://docs.jboss.org/hibernate/stable/search/reference/en-US/html_single/#example-configuring-directory-providers
+
+https://templatemag.com/demo/Dashio/

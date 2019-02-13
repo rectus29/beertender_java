@@ -6,16 +6,14 @@ import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
-import com.rectus29.beertender.web.component.productimage.ProductImage;
 import com.rectus29.beertender.web.page.product.ProductPage;
-import org.apache.wicket.Component;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -23,7 +21,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 
 public class ProductListPanel extends Panel {
@@ -62,8 +59,9 @@ public class ProductListPanel extends Panel {
         wmc.add(new ListView<Product>("lv", ldm) {
             @Override
             protected void populateItem(ListItem<Product> item) {
-                item.add(new ProductImage("productImage", item.getModel()));
+//                item.add(new ProductImage("productImage", item.getModel()));
                 item.add(new Label("productName", item.getModelObject().getName()));
+				item.add(new Label("shortdesc", StringUtils.left(item.getModelObject().getProductDefinition().getDescription(), 110)));
                 item.add(new Label("packaging", item.getModelObject().getPackaging().getName()));
                 item.add(new CurrencyLabel("price", new Model<>(item.getModelObject().getPrice())));
                 item.add(new BookmarkablePageLink<ProductPage>(
