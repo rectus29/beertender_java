@@ -76,7 +76,7 @@ public class BillsPage extends BeerTenderPage {
 		add(new Label("tfEndDate", Config.get().dateFormat(timeFrame.getEndDate())));
 		add(new Label("billsCode", order.getId()));
 		add(new CurrencyLabel("billsTotal", order.getOrderPrice()));
-		add(new CurrencyLabel("billsTotal2", order.getOrderPrice()));
+		wmc.add(new CurrencyLabel("billsTotal2", order.getOrderPrice()));
 
 		ListView lv = new ListView<OrderItem>("lvCartRow", ldm) {
 			@Override

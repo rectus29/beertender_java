@@ -3,7 +3,11 @@ a.logo span {
 }
 
 .icn-container {
-	font-size: 1.9em;
+    font-size: 1.9em;
+}
+
+.custom-box {
+    min-height: 500px;
 }
 
 
