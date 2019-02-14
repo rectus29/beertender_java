@@ -6,13 +6,9 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.rectus29.beertender.tools.StringUtils;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -27,7 +23,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URLConnection;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -111,7 +106,7 @@ public class GoogleOauthFilter implements Filter {
 		}
 
 
-		logger.debug("GoogleOauth user login: {}", email);
+		logger.info("GoogleOauth user login: {}", email);
 
 		final GoogleOauthToken token = new GoogleOauthToken(email)
 				.setName(name)
@@ -127,7 +122,7 @@ public class GoogleOauthFilter implements Filter {
 			httpResponse.addHeader("auth", "Ok");
 			return;
 		} catch (AuthenticationException e) {
-			logger.info("User cannot be authenticated. Probably not provisioned yet? Will respond with 401.", e);
+			logger.error("User cannot be authenticated. Probably not provisioned yet? Will respond with 401.", e);
 			httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unknown user");
 			return;
 		}

@@ -2,16 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
 	<body>
 		<wicket:panel>
-			<div id="searchBlock">
-				<form action="#" wicket:id="searchForm">
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<div class="input-group-text"><i class="fa fa-search"></i></div>
-						</div>
-						<input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Recherche" wicket:id="searchString">
-					</div>
-				</form>
-			</div>
+			<form action="#" wicket:id="searchForm">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-search"></i></span>
+					<input type="text" class="form-control" placeholder="Recherche" wicket:id="searchString">
+				</div>
+			</form>
 		</wicket:panel>
 	</body>
 </html>
