@@ -5,10 +5,49 @@
 </head>
 <body>
 <wicket:extend>
-    <div class="container-fluid spaced-container">
-        <div wicket:id="tabPanel">
-        </div>
-    </div>
+
+	<aside>
+		<div id="sidebar" class="nav-collapse ">
+			<ul class="sidebar-menu" id="nav-accordion">
+				<li class="sub-menu">
+					<a href="#" wicket:id="orderLink">
+						<i class="fa fa-beer"></i>
+						<span><wicket:message key="admin.menu.commande"/></span>
+					</a>
+				</li>
+				<li class="sub-menu">
+					<a href="#" wicket:id="productLink">
+						<i class="fa fa-beer"></i>
+						<span><wicket:message key="admin.menu.product"/></span>
+					</a>
+				</li>
+				<li class="sub-menu">
+					<a href="#" wicket:id="timeframeLink">
+						<i class="fa fa-beer"></i>
+						<span><wicket:message key="admin.menu.timeframe"/></span>
+					</a>
+				</li>
+				<li class="sub-menu">
+					<a href="#" wicket:id="usersLink">
+						<i class="fa fa-beer"></i>
+						<span><wicket:message key="admin.menu.users"/></span>
+					</a>
+				</li>
+				<li class="sub-menu">
+					<a href="#" wicket:id="serverLink">
+						<i class="fa fa-beer"></i>
+						<span><wicket:message key="admin.menu.server"/></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</aside>
+	<section id="main-content">
+		<section class="wrapper">
+			<div class="mt" wicket:id="panel">
+			</div>
+		</section>
+	</section>
 </wicket:extend>
 </body>
 </html>

@@ -6,27 +6,24 @@ package com.rectus29.beertender.web.page.admin;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.web.component.bookmarkabletabbedpanel.BookmarkableNamedTab;
-import com.rectus29.beertender.web.component.bookmarkabletabbedpanel.BookmarkableTabbedPanel;
 import com.rectus29.beertender.web.page.admin.order.OrderSummaryPanel;
 import com.rectus29.beertender.web.page.admin.product.ProductAdminPanel;
 import com.rectus29.beertender.web.page.admin.server.ServerAdminPanel;
 import com.rectus29.beertender.web.page.admin.timeframe.TimeFrameAdminPanel;
 import com.rectus29.beertender.web.page.admin.users.UserAdminPanel;
 import com.rectus29.beertender.web.page.base.BeerTenderBasePage;
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.wicketstuff.shiro.ShiroConstraint;
 import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @ShiroSecurityConstraint(
 		constraint = ShiroConstraint.HasPermission, value = "admin:access"
 )
 public class AdminPage extends BeerTenderBasePage {
+
+	private String PANEL = "panel";
 
 	public AdminPage() {
 	}
@@ -34,65 +31,26 @@ public class AdminPage extends BeerTenderBasePage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+		String pp = getPageParameters().get(PANEL).toString();
 
-		List<BookmarkableNamedTab> panelList = new ArrayList<>();
-		panelList.add(new BookmarkableNamedTab(new Model<String>("Commandes")) {
-			@Override
-			public WebMarkupContainer getPanel(String panelId) {
-				return new OrderSummaryPanel(panelId);
-			}
+		add(new BookmarkablePageLink<AdminPage>("orderLink", AdminPage.class, new PageParameters().add(PANEL, "order")));
+		add(new BookmarkablePageLink<AdminPage>("productLink", AdminPage.class, new PageParameters().add(PANEL, "product")));
+		add(new BookmarkablePageLink<AdminPage>("timeframeLink", AdminPage.class, new PageParameters().add(PANEL, "timeframe")));
+		add(new BookmarkablePageLink<AdminPage>("usersLink", AdminPage.class, new PageParameters().add(PANEL, "users")));
+		add(new BookmarkablePageLink<AdminPage>("serverLink", AdminPage.class, new PageParameters().add(PANEL, "server")));
 
-			@Override
-			public String getName() {
-				return "commande";
-			}
-		});
-		panelList.add(new BookmarkableNamedTab(new Model<String>("Produits")) {
-			@Override
-			public WebMarkupContainer getPanel(String panelId) {
-				return new ProductAdminPanel(panelId);
-			}
-
-			@Override
-			public String getName() {
-				return "product";
-			}
-		});
-		panelList.add(new BookmarkableNamedTab(new Model<String>("Time Frame")) {
-			@Override
-			public WebMarkupContainer getPanel(String panelId) {
-				return new TimeFrameAdminPanel(panelId);
-			}
-
-			@Override
-			public String getName() {
-				return "timeframe";
-			}
-		});
-		panelList.add(new BookmarkableNamedTab(new Model<String>("Utilisateur")) {
-			@Override
-			public WebMarkupContainer getPanel(String panelId) {
-				return new UserAdminPanel(panelId);
-			}
-
-			@Override
-			public String getName() {
-				return "users";
-			}
-		});
-		panelList.add(new BookmarkableNamedTab(new Model<String>("Serveur")) {
-			@Override
-			public WebMarkupContainer getPanel(String panelId) {
-				return new ServerAdminPanel(panelId);
-			}
-
-			@Override
-			public String getName() {
-				return "server";
-			}
-
-		});
-		add(new BookmarkableTabbedPanel<>("tabPanel", panelList, getPageParameters()));
+		//set panel for the given pageparametner
+		if ("product".equals(pp)) {
+			add(new ProductAdminPanel("panel"));
+		} else if ("timeframe".equals(pp)) {
+			add(new TimeFrameAdminPanel("panel"));
+		} else if ("users".equals(pp)) {
+			add(new UserAdminPanel("panel"));
+		} else if ("server".equals(pp)) {
+			add(new ServerAdminPanel("panel"));
+		} else {
+			add(new OrderSummaryPanel("panel"));
+		}
 	}
 
 	@Override
