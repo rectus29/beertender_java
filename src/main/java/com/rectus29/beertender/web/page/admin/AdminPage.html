@@ -11,8 +11,8 @@
 			<ul class="sidebar-menu" id="nav-accordion">
 				<li class="sub-menu">
 					<a href="#" wicket:id="orderLink">
-						<i class="fa fa-beer"></i>
-						<span><wicket:message key="admin.menu.commande"/></span>
+						<i class="fa fa-dashboard"></i>
+						<span><wicket:message key="admin.menu.dashboard"/></span>
 					</a>
 				</li>
 				<li class="sub-menu">
@@ -23,19 +23,19 @@
 				</li>
 				<li class="sub-menu">
 					<a href="#" wicket:id="timeframeLink">
-						<i class="fa fa-beer"></i>
+						<i class="fa fa-calendar"></i>
 						<span><wicket:message key="admin.menu.timeframe"/></span>
 					</a>
 				</li>
 				<li class="sub-menu">
 					<a href="#" wicket:id="usersLink">
-						<i class="fa fa-beer"></i>
+						<i class="fa fa-users"></i>
 						<span><wicket:message key="admin.menu.users"/></span>
 					</a>
 				</li>
 				<li class="sub-menu">
 					<a href="#" wicket:id="serverLink">
-						<i class="fa fa-beer"></i>
+						<i class="fa fa-server"></i>
 						<span><wicket:message key="admin.menu.server"/></span>
 					</a>
 				</li>
@@ -43,9 +43,7 @@
 		</div>
 	</aside>
 	<section id="main-content">
-		<section class="wrapper">
-			<div class="mt" wicket:id="panel">
-			</div>
+		<section class="wrapper" wicket:id="panel">
 		</section>
 	</section>
 </wicket:extend>

@@ -1,88 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
-<head>
-	<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
-</head>
-<body>
-<wicket:panel>
-	<div id="orderInfo" class="row">
-		<div class="col-md-6">
-			<div>Montant total : <span wicket:id="orderSum"/></div>
-			<div>Montant collecté : <span wicket:id="orderpaid"/><a href="#">Info paiment</a></div>
-			<div>Nombre de personne : <span wicket:id="orderAttendees"/></div>
-			<div>Nombre carton : <span wicket:id="orderProdNb"/></div>
-		</div>
-		<div class="col-md-6">
-			<table class="table table-striped">
-				<thead>
-				<tr>
-					<th>Produit</th>
-					<th>Nb</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr wicket:id="orderProductRv">
-					<td wicket:id="prod"></td>
-					<td wicket:id="nb"></td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<table class="table table-striped table-sm">
-		<thead class="thead-dark">
-		<tr>
-			<th>Utilisateur</th>
-			<th>Produit</th>
-			<th>Packaging</th>
-			<th>Qte</th>
-			<th>PU</th>
-			<th>Total</th>
-		</tr>
-		</thead>
-		<tbody>
-		<wicket:container wicket:id="orderRv">
-			<tr class="userRow">
-				<td colspan="5" wicket:id="user"></td>
-				<td colspan="1" >
-					<div class="btn-group ">
-						<button class="btn btn-dark btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-							<wicket:message key="action"/>
-							<span class="caret"></span>
-						</button>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#" wicket:id="orderEditLink">
-								<i class="fa fa-edit"></i>&nbsp;Editer
-							</a>
-							<a class="dropdown-item" href="#" wicket:id="orderPaymentLink">
-								<i class="fa fa-euro"></i>&nbsp;Paiement
-							</a>
-							<a class="dropdown-item" href="#" wicket:id="orderPrintLink">
-								<i class="fa fa-print"></i>&nbsp;Imprimer
-							</a>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<wicket:container wicket:id="orderItemRv">
-			<tr>
-				<td></td>
-				<td wicket:id="product"></td>
-				<td wicket:id="type"></td>
-				<td wicket:id="qte"></td>
-				<td wicket:id="unitPrice"></td>
-				<td wicket:id="total"></td>
-			</tr>
-			</wicket:container>
-			<tr class="userTotalRow">
-				<td colspan="5" class="totalLabel">Total</td>
-				<td colspan="1" wicket:id="orderTotal"></td>
-			</tr>
-		</wicket:container>
-		</tbody>
-	</table>
-    <div wicket:id="modal"></div>
+	<head>
+		<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+	</head>
+	<body>
+		<wicket:panel>
 
-</wicket:panel>
-</body>
+			<div class="col-md-6">
+				<div class="showback">
+					<div>Montant total : <span wicket:id="orderSum"/></div>
+					<div>Montant collecté : <span wicket:id="orderpaid"/><a href="#">Info paiment</a></div>
+					<div>Nombre de personne : <span wicket:id="orderAttendees"/></div>
+					<div>Nombre carton : <span wicket:id="orderProdNb"/></div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="showback">
+					<table class="table table-striped">
+						<thead>
+						<tr>
+							<th>Produit</th>
+							<th>Nb</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr wicket:id="orderProductRv">
+							<td wicket:id="prod"></td>
+							<td wicket:id="nb"></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<table class="table table-striped table-sm">
+					<thead class="thead-dark">
+					<tr>
+						<th>Utilisateur</th>
+						<th>Produit</th>
+						<th>Packaging</th>
+						<th>Qte</th>
+						<th>PU</th>
+						<th>Total</th>
+					</tr>
+					</thead>
+					<tbody>
+					<wicket:container wicket:id="orderRv">
+						<tr class="userRow">
+							<td colspan="5" wicket:id="user"></td>
+							<td colspan="1">
+								<div class="btn-group ">
+									<button class="btn btn-dark btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+										<wicket:message key="action"/>
+										<span class="caret"></span>
+									</button>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" href="#" wicket:id="orderEditLink">
+											<i class="fa fa-edit"></i>&nbsp;Editer
+										</a>
+										<a class="dropdown-item" href="#" wicket:id="orderPaymentLink">
+											<i class="fa fa-euro"></i>&nbsp;Paiement
+										</a>
+										<a class="dropdown-item" href="#" wicket:id="orderPrintLink">
+											<i class="fa fa-print"></i>&nbsp;Imprimer
+										</a>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<wicket:container wicket:id="orderItemRv">
+							<tr>
+								<td></td>
+								<td wicket:id="product"></td>
+								<td wicket:id="type"></td>
+								<td wicket:id="qte"></td>
+								<td wicket:id="unitPrice"></td>
+								<td wicket:id="total"></td>
+							</tr>
+						</wicket:container>
+						<tr class="userTotalRow">
+							<td colspan="4"></td>
+							<td class="totalLabel">Total</td>
+							<td wicket:id="orderTotal"></td>
+						</tr>
+					</wicket:container>
+					</tbody>
+				</table>
+			</div>
+			<div wicket:id="modal"></div>
+
+		</wicket:panel>
+	</body>
 </html>

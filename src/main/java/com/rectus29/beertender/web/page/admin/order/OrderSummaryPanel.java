@@ -41,15 +41,21 @@ public class OrderSummaryPanel extends Panel {
 	protected void onInitialize() {
 		super.onInitialize();
 		this.timeFrameModel = new Model<TimeFrame>(serviceTimeFrame.getCurrentTimeFrame());
-				add((form = new Form("orderSelectionForm")).setOutputMarkupId(true));
+		add((form = new Form("orderSelectionForm")).setOutputMarkupId(true));
 		LoadableDetachableModel<List<TimeFrame>> ldmOrder = new LoadableDetachableModel<List<TimeFrame>>() {
 			@Override
 			protected List<TimeFrame> load() {
+				for (TimeFrame temp : serviceTimeFrame.getAll()) {
+					if (temp.getState().isEnable()) {
+						timeFrameModel = new Model<>(temp);
+						break;
+					}
+				}
 				return serviceTimeFrame.getAll();
 			}
 		};
-		form.add(new DropDownChoice<TimeFrame>(
-						"oroderSelector",
+		form.add(new DropDownChoice<>(
+				"orderSelector",
 						timeFrameModel,
 						ldmOrder,
 						new ChoiceRenderer<TimeFrame>() {
@@ -68,6 +74,10 @@ public class OrderSummaryPanel extends Panel {
 			}
 		});
 		//place emptyPanel by default
-		add((childPanel = new EmptyPanel("panel")).setOutputMarkupId(true));
+		add((childPanel = (timeFrameModel != null)
+						? new OrderSummaryChildPanel("panel", timeFrameModel)
+						: new EmptyPanel("panel")
+				).setOutputMarkupId(true)
+		);
 	}
 }

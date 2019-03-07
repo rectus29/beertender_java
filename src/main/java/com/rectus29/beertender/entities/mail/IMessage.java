@@ -11,5 +11,5 @@ package com.rectus29.beertender.entities.mail;
 /*                Date: 12/08/2016 14:21                */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class InternalMail implements IMail {
+public interface IMessage {
 }

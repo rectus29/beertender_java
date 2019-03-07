@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
-<head>
-	<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
-	<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
-    <link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
-</head>
-<body>
-<wicket:extend>
+	<head>
+		<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+		<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+		<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
+	</head>
+	<body>
+		<wicket:extend>
 
-	<div class="mt row">
-		<div class="col-md-12">
-			<h3 class="productName"><i class="fa fa-angle-right"></i>&nbsp;<span wicket:id="beerName"></span></h3>
-		<div class="productPack pull-right" wicket:id="beerPack"></div>
+			<div class="mt row">
+				<div class="col-md-12">
+					<h3 class="productName"><i class="fa fa-angle-right"></i>&nbsp;<span wicket:id="beerName"></span></h3>
+					<div class="productPack pull-right" wicket:id="beerPack"></div>
 
-			<div class="row mt">
-				<div class="col-md-4 showback">
-                <img class="rounded img-fluid" alt="beerImg" wicket:id="beerImg" style="height: 350px;">
-            </div>
-				<div class="col-md-8 showback">
-
-                <div class="productDesc" wicket:id="beerText"></div>
-				<div class="categHolder">
-					<div class="badge badge-dark" wicket:id="rvCateg"><span wicket:id="categBadge">New</span></div>
-				</div>
-				<form wicket:id="form" style=" background: #efefef;padding: 5px;height: 80px;">
-					<div class="productPrice" wicket:id="beerPrize" style="display: inline-block; margin: 15px 0 0 15px;"></div>
-					<div style="display: inline-block; margin:15px 0 0 15px;">
-						<input type="number" wicket:id="qte" placeholder="Quantité">
+					<div class="row mt">
+						<wicket:enclosure>
+							<div class="col-md-4 showback">
+								<img class="rounded img-fluid" alt="beerImg" wicket:id="beerImg" style="height: 350px;">
+							</div>
+						</wicket:enclosure>
+						<div class="col-md showback">
+							<div class="productDesc" wicket:id="beerText"></div>
+							<div class="categHolder">
+								<div class="badge badge-dark" wicket:id="rvCateg"><span wicket:id="categBadge">New</span></div>
+							</div>
+							<form wicket:id="form" style=" background: #efefef;padding: 5px;height: 80px;">
+								<div class="productPrice" wicket:id="beerPrize" style="display: inline-block; margin: 15px 0 0 15px;"></div>
+								<div style="display: inline-block; margin:15px 0 0 15px;">
+									<input type="number" wicket:id="qte" placeholder="Quantité">
+								</div>
+								<a href="#" wicket:id="addToCart" class="btn btn-primary  pull-right" style="margin: 15px 15px 0 0;">Ajouter à la commande</a>
+								<div wicket:id="feed"></div>
+							</form>
+						</div>
 					</div>
-					<a href="#" wicket:id="addToCart" class="btn btn-primary  pull-right" style="margin: 15px 15px 0 0;">Ajouter à la commande</a>
-					<div wicket:id="feed"></div>
-				</form>
-
-
-            </div>
-        </div>
-		</div>
-    </div>
-</wicket:extend>
-</body>
+				</div>
+			</div>
+		</wicket:extend>
+	</body>
 </html>

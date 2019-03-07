@@ -13,19 +13,15 @@ import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFee
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.component.productimage.ProductImage;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
-import com.rectus29.beertender.web.page.billspage.BillsPage;
 import com.rectus29.beertender.web.security.error.ErrorPage;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.event.Broadcast;
-import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
@@ -65,7 +61,7 @@ public class ProductPage extends BeerTenderPage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new ProductImage("beerImg", productIModel));
+		add(new ProductImage("beerImg", productIModel).setVisible(null != productIModel.getObject().getFileImage()));
         add(new Label("beerName", productIModel.getObject().getName()));
         add(new Label("beerPack", productIModel.getObject().getPackaging().getName()));
         add(new Label("beerText", productIModel.getObject().getDescription()).setEscapeModelStrings(false));

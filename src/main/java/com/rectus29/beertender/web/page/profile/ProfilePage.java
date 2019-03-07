@@ -1,43 +1,37 @@
 package com.rectus29.beertender.web.page.profile;
 
+import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.web.component.avatarimage.AvatarImage;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
-import com.rectus29.beertender.web.page.profile.account.AccountPanel;
-import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /*-----------------------------------------------------*/
-/*      _____           _               ___   ___      */
-/*     |  __ \         | |             |__ \ / _ \     */
-/*     | |__) |___  ___| |_ _   _ ___     ) | (_) |    */
-/*     |  _  // _ \/ __| __| | | / __|   / / \__, |    */
-/*     | | \ \  __/ (__| |_| |_| \__ \  / /_   / /     */
-/*     |_|  \_\___|\___|\__|\__,_|___/ |____| /_/      */
-/*                                                     */
+/*						rectus29					   */
 /*                Date: 28/02/2016                     */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 public class ProfilePage extends BeerTenderPage {
 
-    public static String PANEL = "panel";
-    public static String APIKEY = "apikey";
-    public static String CHARACTER = "character";
-    public static String ACCOUNT = "account";
-    private Panel panel;
+	@SpringBean(name = "serviceUser")
+	private IserviceUser serviceUser;
 
-    public ProfilePage() {
-    }
+	public ProfilePage() {
+	}
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
 
+		add(new Label("userName", serviceUser.getCurrentUser().getFormattedName()));
+		add(new Label("userRole", serviceUser.getCurrentUser().getRole().getName()));
+		add(new AvatarImage("userAvatar", new Model(serviceUser.getCurrentUser())));
+	}
 
-        add(panel = new AccountPanel("panel"));
-
-    }
-
-    @Override
-    public String getTitleContribution() {
-        return "Account management";
-    }
+	@Override
+	public String getTitleContribution() {
+		return "Account";
+	}
 
 }
