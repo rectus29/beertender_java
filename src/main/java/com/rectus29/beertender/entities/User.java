@@ -1,7 +1,6 @@
 package com.rectus29.beertender.entities;
 
 import com.rectus29.beertender.entities.resource.impl.AvatarResource;
-import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.tools.StringUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -16,7 +15,7 @@ import java.util.UUID;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "users")
-public class User extends BasicGenericEntity<User> implements DecorableElement {
+public class User extends BasicGenericEntity<User> implements IDecorableElement {
 
 	@Column(nullable = false)
 	private String password = RandomStringUtils.random(64);

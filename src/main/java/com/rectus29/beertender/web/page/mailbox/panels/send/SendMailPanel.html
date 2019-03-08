@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd" xmlns="http://www.w3.org/1999/xhtml">
+	<body>
+		<wicket:panel>
+			<form wicket:id="form" class="form form-horizontal">
+
+				<div class="control-group">
+					<label class="control-label" wicket:for="to">
+						<wicket:message key="to"/>
+					</label>
+					<div class="controls">
+						<input type="text" wicket:id="to">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" wicket:for="from">
+						<wicket:message key="from"/>
+					</label>
+					<div class="controls">
+						<input type="text" wicket:id="from">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" wicket:for="subject">
+						<wicket:message key="object"/>
+					</label>
+					<div class="controls">
+						<input type="text" wicket:id="subject">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						<textarea wicket:id="text" class="span4"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						<a href="#" class="btn btn-primary" wicket:id="submit">
+							<wicket:message key="submit"/>
+						</a>
+						<a href="#" class="btn" wicket:id="cancel">
+							<wicket:message key="cancel"/>
+						</a>
+					</div>
+				</div>
+				<div wicket:id="feed"/>
+			</form>
+		</wicket:panel>
+	</body>
+</html>

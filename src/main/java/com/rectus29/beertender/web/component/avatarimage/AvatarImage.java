@@ -1,6 +1,6 @@
 package com.rectus29.beertender.web.component.avatarimage;
 
-import com.rectus29.beertender.entities.DecorableElement;
+import com.rectus29.beertender.entities.IDecorableElement;
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.exception.BeerTenderException;
 import com.rectus29.beertender.service.IserviceUser;
@@ -9,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.ComponentTag;
-import org.apache.wicket.markup.html.WebComponent;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -18,7 +17,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 
 /*------------------------------------------------------*/
 /* User: Rectus_29      Date: 06/03/12 18:28 			*/
@@ -31,7 +29,7 @@ public class AvatarImage extends Image {
 	private static final Logger log = LogManager.getLogger(AvatarImage.class);
 	@SpringBean(name = "serviceUser")
 	private IserviceUser serviceUser;
-	private IModel<? extends DecorableElement> model;
+	private IModel<? extends IDecorableElement> model;
 	private boolean isDefaultImg = false;
 
 	public AvatarImage(String id) {
@@ -45,7 +43,7 @@ public class AvatarImage extends Image {
 		init();
 	}
 
-	public AvatarImage(String id, IModel<DecorableElement> userIModel)  {
+	public AvatarImage(String id, IModel<IDecorableElement> userIModel) {
 		super(id);
 		this.model = userIModel;
 		init();

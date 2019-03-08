@@ -8,7 +8,7 @@ import org.hibernate.search.indexes.interceptor.IndexingOverride;
 /*-----------------------------------------------------*/
 /*                     Rectus29                        */
 /*                                                     */
-/*                   Date: 28/01/2019                     */
+/*                   Date: 28/01/2019                  */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 public class BasicGenericEntityInterceptor implements EntityIndexingInterceptor<BasicGenericEntity> {

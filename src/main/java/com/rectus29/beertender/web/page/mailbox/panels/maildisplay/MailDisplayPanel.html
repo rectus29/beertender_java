@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd" xmlns="http://www.w3.org/1999/xhtml">
+	<body>
+		<wicket:panel>
+			<div class="row-fluid mail-header">
+				<div class="span8 mail-sender">
+
+					<img height="32" width="32" wicket:id="avatar" align="left"/>
+
+					<div>
+						<wicket:message key="from"/>
+						&nbsp;<span wicket:id="userLink"/></div>
+					<div>
+						<wicket:message key="to"/>
+						&nbsp;<span wicket:id="target"/></div>
+				</div>
+				<div class="span4 ">
+					<div class="mail-date">
+						<wicket:message key="date"/>
+						<span wicket:id="date"/>
+					</div>
+					<div class="btn-group pull-right" wicket:id="buttonContainer">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							Action
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#" wicket:id="replyLink"><i class="icon-reply"/>&nbsp;
+									<wicket:message key="reply"/>
+								</a>
+							</li>
+							<!--<li>
+								<a href="#" wicket:id="archiveLink"><i class="icon-inbox"/>&nbsp;
+									<span wicket:id="archiveLabel"/>
+								</a>
+							</li>
+							<li>
+								<a href="#" wicket:id="markAsNotReadLink"><i class="icon-flag"/>&nbsp;
+									<span wicket:id="markAsNotReadLabel"/>
+								</a>
+							</li>-->
+							<!--<li>-->
+							<!--<a href="#" target="_blank" wicket:id="print"><i class="icon-print"/>&nbsp;-->
+							<!--<wicket:message key="print"/>-->
+							<!--</a>-->
+							<!--</li>-->
+							<!--<li>
+								<a href="#" wicket:id="deleteLink"><i class="icon-trash"/>&nbsp;
+									<span wicket:id="deleteLabel"/>
+								</a>
+							</li>-->
+						</ul>
+					</div>
+				</div>
+
+			</div>
+			<div class="mail-content" wicket:id="mailData">
+
+			</div>
+
+		</wicket:panel>
+	</body>
+</html>

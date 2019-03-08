@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd" xmlns="http://www.w3.org/1999/xhtml">
+	<body>
+		<wicket:panel>
+			<h1>
+				<wicket:message key="messageBox"/>
+			</h1>
+			<div>
+				<form wicket:id="form">
+					<div class="row-fluid">
+						<div class="btn-toolbar span12">
+							<div class="btn-group">
+								<a href="" wicket:id="archiveAll" class="btn" wicket:message="title:MailBoxDisplay.archive" title="">
+									<i class="icon-inbox"/>&nbsp;<wicket:message key="MailBoxDisplay.archive"/>
+								</a>
+								<a href="" wicket:id="markAll" class="btn" wicket:message="title:markAsNotRead" title="">
+									<i class="icon-remove-circle"/>&nbsp;<wicket:message key="markAsNotRead"/>
+								</a>
+								<a href="" wicket:id="markAsReadAll" class="btn" wicket:message="title:markAsRead" title="">
+									<i class="icon-ok-circle"/>&nbsp;<wicket:message key="markAsRead"/>
+								</a>
+								<a href="" wicket:id="deleteAll" class="btn" wicket:message="title:delete" title="">
+									<i class="icon-trash"/>&nbsp;<wicket:message key="delete"/>
+								</a>
+								<a href="" wicket:id="restoreAll" class="btn" wicket:message="title:delete" title="">
+									<i class="icon-chevron-up"/>&nbsp;<wicket:message key="restore"/>
+								</a>
+								<a href="" wicket:id="unarchiveAll" class="btn" wicket:message="title:delete" title="">
+									<i class="icon-chevron-up"/>&nbsp;<wicket:message key="unarchive"/>
+								</a>
+							</div>
+							<span class="label pull-right nb-messages"><span wicket:id="nb"/>&nbsp;<wicket:message key="mail"/></span>
+						</div>
+					</div>
+					<table class="table table-condensed table-hover table-striped">
+						<thead>
+						<tr>
+							<th><input type="checkbox" wicket:id="checkAll"/></th>
+							<th/>
+							<th>
+								<wicket:message key="subject"/>
+							</th>
+							<th>
+								<wicket:message key="date"/>
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr wicket:id="lvRecipient">
+							<td class="span1"><input wicket:id="check" type="checkbox"/><label wicket:for="check"><span></span></label></td>
+							<td class="span2">
+								<i wicket:id="tag"></i>&nbsp;<span wicket:id="from"></span>
+							</td>
+							<td class="span7">
+								<a class="table-link" wicket:id="link2" href="#"><span class="blue" wicket:id="subject"/></a>
+							</td>
+							<td class="span2" wicket:id="date">
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<div wicket:id="nav"></div>
+				</form>
+			</div>
+			<div wicket:id="mailPreview" style="background:white; border:1px solid #ccc;">  <!-- Changer la position du style -->
+				<div wicket:id="mailContent">
+
+				</div>
+			</div>
+			<div wicket:id="modal"/>
+		</wicket:panel>
+	</body>
+</html>
