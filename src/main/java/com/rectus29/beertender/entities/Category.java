@@ -16,16 +16,15 @@ import com.rectus29.beertender.entities.search.ISearchable;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Indexed
-@Table(name = "category")
+@Table(name = "category", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Category extends BasicGenericEntity<Category> implements ISearchable {
 
 	@Field

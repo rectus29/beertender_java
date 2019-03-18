@@ -13,7 +13,9 @@ import java.util.Set;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "role")
+@Table(name = "role", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Role extends BasicGenericEntity<Role> {
 
 	@Column

@@ -17,7 +17,9 @@ import java.util.Objects;
 /*-----------------------------------------------------*/
 @Entity
 @Table(name = "timeframe",
-		uniqueConstraints = @UniqueConstraint(name = "state_unique", columnNames = "state")
+		uniqueConstraints = @UniqueConstraint(name = "state_unique", columnNames = "state"),
+		indexes = {
+				@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
 )
 public class TimeFrame extends BasicGenericEntity<TimeFrame> {
 

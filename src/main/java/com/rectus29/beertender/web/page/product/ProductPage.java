@@ -33,7 +33,7 @@ import java.math.BigDecimal;
 
 public class ProductPage extends BeerTenderPage {
 
-    public static String PRODUCT_ID = "productId";
+	public static String PRODUCT_UID = "productUniqueId";
 	private Integer qte = null;
 	private Form form= null;
 
@@ -43,16 +43,16 @@ public class ProductPage extends BeerTenderPage {
 	private IserviceUser serviceUser;
 	@SpringBean(name = "serviceOrder")
 	private IserviceOrder serviceOrder;
-    private StringValue productId;
+	private StringValue productUniqueId;
     private IModel<Product> productIModel;
 
     public ProductPage(PageParameters parameters) {
         super(parameters);
-        this.productId = getPageParameters().get(PRODUCT_ID);
-        if (this.productId.isNull() || this.productId.isEmpty()) {
+		this.productUniqueId = getPageParameters().get(PRODUCT_UID);
+		if (this.productUniqueId.isNull() || this.productUniqueId.isEmpty()) {
             setResponsePage(ErrorPage.class, new PageParameters().add("ErrorCode", 422));
         }
-        this.productIModel = new Model<>(serviceProduct.get(this.productId.toLong()));
+		this.productIModel = new Model<>(serviceProduct.getByUniqueId(this.productUniqueId.toString()));
         if (productIModel.getObject() == null) {
             setResponsePage(ErrorPage.class, new PageParameters().add("ErrorCode", 404));
         }

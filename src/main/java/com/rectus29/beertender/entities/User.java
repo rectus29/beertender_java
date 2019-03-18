@@ -14,7 +14,9 @@ import java.util.UUID;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class User extends BasicGenericEntity<User> implements IDecorableElement {
 
 	@Column(nullable = false)

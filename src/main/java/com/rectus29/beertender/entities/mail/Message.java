@@ -15,7 +15,9 @@ import java.util.List;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 @Entity
-@Table(name = "message")
+@Table(name = "message", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Message extends BasicGenericEntity<Message> {
 	@Column
 	private String subject;

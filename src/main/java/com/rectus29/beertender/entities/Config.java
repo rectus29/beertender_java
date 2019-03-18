@@ -2,6 +2,7 @@ package com.rectus29.beertender.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
@@ -9,7 +10,9 @@ import javax.persistence.Table;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "config")
+@Table(name = "config", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Config extends BasicGenericEntity<Config>{
 
 	@Column(name = "ke", nullable = false, length = 65536)

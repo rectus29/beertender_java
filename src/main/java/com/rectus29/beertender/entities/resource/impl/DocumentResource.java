@@ -13,7 +13,9 @@ import javax.persistence.*;
 
 
 @Entity(name = "DocumentResource")
-@Table(name = "documentresource")
+@Table(name = "documentresource", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 @DiscriminatorValue("DOCUMENT")
 public class DocumentResource extends Resource {
 

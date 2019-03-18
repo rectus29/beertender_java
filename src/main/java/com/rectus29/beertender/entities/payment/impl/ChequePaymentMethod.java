@@ -4,6 +4,7 @@ import com.rectus29.beertender.entities.payment.Payment;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /*-----------------------------------------------------*/
@@ -14,7 +15,9 @@ import javax.persistence.Table;
 /*-----------------------------------------------------*/
 
 @Entity(name = "ChequePaymentMethod")
-@Table(name = "payment_cheque")
+@Table(name = "payment_cheque", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 @DiscriminatorValue("CHEQUE")
 public class ChequePaymentMethod extends Payment {
 

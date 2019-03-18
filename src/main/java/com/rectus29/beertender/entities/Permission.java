@@ -2,6 +2,7 @@ package com.rectus29.beertender.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
@@ -12,7 +13,9 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="permission")
+@Table(name = "permission", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Permission extends BasicGenericEntity<Permission> implements Comparable<Permission> {
 
     @Column

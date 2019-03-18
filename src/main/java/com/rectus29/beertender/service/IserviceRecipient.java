@@ -8,7 +8,7 @@ import java.util.List;
 /*-----------------------------------------------------*/
 /*                     Rectus29                        */
 /*                                                     */
-/*                   Date: 08/03/2019                     */
+/*                   Date: 08/03/2019                  */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 public interface IserviceRecipient extends GenericManager<Recipient, Long> {

@@ -1,7 +1,6 @@
 package com.rectus29.beertender.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +11,9 @@ import java.util.Date;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "history")
+@Table(name = "history", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class History extends BasicGenericEntity<History> {
 
     @Column(name = "action", nullable = false, length = 65536)

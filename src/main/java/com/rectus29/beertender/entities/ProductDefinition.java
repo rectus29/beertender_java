@@ -22,12 +22,15 @@ import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
 @Indexed(interceptor = BasicGenericEntityInterceptor.class)
 @Analyzer(impl = FrenchAnalyzer.class)
-@Table(name = "productdefinition")
+@Table(name = "productdefinition", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class ProductDefinition extends BasicGenericEntity<ProductDefinition> implements ISearchable {
 
 	@Field

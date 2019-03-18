@@ -14,7 +14,9 @@ import java.util.UUID;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 @Entity
-@Table(name = "token")
+@Table(name = "token", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Token extends BasicGenericEntity<Token> {
 
 	@Column(nullable = false, length = 50)

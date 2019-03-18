@@ -1,10 +1,7 @@
 package com.rectus29.beertender.entities;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -14,7 +11,9 @@ import java.util.Objects;
  * Time: 14:32
  */
 @Entity
-@Table(name = "bills_item")
+@Table(name = "bills_item", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class OrderItem extends BasicGenericEntity<OrderItem> {
 
 	@ManyToOne(targetEntity = Order.class)

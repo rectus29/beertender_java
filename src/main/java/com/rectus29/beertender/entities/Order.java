@@ -16,7 +16,9 @@ import java.util.List;
  * Time: 15:13
  */
 @Entity
-@Table(name = "bills")
+@Table(name = "bills", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Order extends BasicGenericEntity<Order> {
 
 	@OneToMany(targetEntity = OrderItem.class, cascade = CascadeType.ALL, mappedBy = "referenceOrder")

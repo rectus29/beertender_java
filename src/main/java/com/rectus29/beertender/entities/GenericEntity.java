@@ -9,6 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 @MappedSuperclass
 public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
@@ -23,9 +24,16 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date updated = new Date();
 
+	@Column(nullable = false, columnDefinition = "varchar(128)")
+	private String uniqueId = UUID.randomUUID().toString();
+
 	public abstract Long getId();
 
 	public abstract void setId(Long id);
+
+	public String getUniqueId() {
+		return uniqueId;
+	}
 
 	public Date getCreated() {
 		return created;

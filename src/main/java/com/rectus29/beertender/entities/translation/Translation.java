@@ -2,10 +2,10 @@ package com.rectus29.beertender.entities.translation;
 
 import com.rectus29.beertender.entities.BasicGenericEntity;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import java.util.Locale;
 
@@ -21,7 +21,9 @@ import java.util.Locale;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 @Entity
-@Table( name = "translation")
+@Table(name = "translation", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Translation extends BasicGenericEntity<Translation> {
 
     @Column(nullable = false)

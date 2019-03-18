@@ -8,7 +8,9 @@ import java.util.Date;
  * Date: 09/07/12
  */
 @Entity
-@Table(name = "news")
+@Table(name = "news", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class News extends BasicGenericEntity<News> {
 
     @Column

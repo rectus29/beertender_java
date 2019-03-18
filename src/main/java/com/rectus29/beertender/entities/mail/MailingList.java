@@ -9,16 +9,15 @@ package com.rectus29.beertender.entities.mail;
 import com.rectus29.beertender.entities.BasicGenericEntity;
 import com.rectus29.beertender.entities.User;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
-@Table(name = "mailinglist")
+@Table(name = "mailinglist", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class MailingList extends BasicGenericEntity<MailingList> {
 
     @Column

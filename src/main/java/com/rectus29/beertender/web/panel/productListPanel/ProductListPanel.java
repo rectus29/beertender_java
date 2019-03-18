@@ -67,7 +67,7 @@ public class ProductListPanel extends Panel {
                 item.add(new BookmarkablePageLink<ProductPage>(
                                 "btnProduct",
                                 ProductPage.class,
-                                new PageParameters().add(ProductPage.PRODUCT_ID, item.getModelObject().getId())
+						new PageParameters().add(ProductPage.PRODUCT_UID, item.getModelObject().getUniqueId())
                         )
                 );
                 item.add(new ListView<Category>("rvCateg", item.getModelObject().getCategoryList()){

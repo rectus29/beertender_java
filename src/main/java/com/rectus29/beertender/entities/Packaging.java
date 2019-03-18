@@ -1,10 +1,7 @@
 package com.rectus29.beertender.entities;
 
-import com.rectus29.beertender.entities.resource.impl.ImageResource;
-import com.rectus29.beertender.enums.State;
-
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -17,7 +14,9 @@ import java.util.Objects;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 @Entity
-@Table(name = "packaging")
+@Table(name = "packaging", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Packaging extends BasicGenericEntity<Packaging>{
 
 	private String name;

@@ -6,7 +6,6 @@ import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceRecipient;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import java.util.List;
 @Service("serviceRecipient")
 public class ServiceRecipient extends GenericManagerImpl<Recipient, Long> implements IserviceRecipient {
 
-	@Autowired
 	public ServiceRecipient() {
 		super(Recipient.class);
 	}

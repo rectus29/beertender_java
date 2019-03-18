@@ -12,7 +12,9 @@ import javax.persistence.*;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 @Entity
-@Table(name = "recipient")
+@Table(name = "recipient", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Recipient extends BasicGenericEntity<Recipient> {
 	@Column
 	private Boolean readed = false;

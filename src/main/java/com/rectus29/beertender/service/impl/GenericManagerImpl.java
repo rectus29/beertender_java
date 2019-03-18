@@ -5,6 +5,7 @@ package com.rectus29.beertender.service.impl;/**
 
 import com.rectus29.beertender.enums.SortOrder;
 import com.rectus29.beertender.service.GenericManager;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
@@ -135,13 +136,26 @@ public abstract class GenericManagerImpl<T, PK extends Serializable> implements 
 
         if (entity == null) {
             log.warn("Uh oh, '" + this.persistentClass + "' object with id '" + id + "' not found...");
-            //throw new ObjectRetrievalFailureException(this.persistentClass, id);
-        }
+		}
 
-        return entity;
-    }
+		return entity;
+	}
 
-    /**
+	@Override
+	public T getByUniqueId(String uid) {
+		if (StringUtils.isNotBlank(uid)) {
+			DetachedCriteria crit = DetachedCriteria.forClass(this.persistentClass).add(Restrictions.eq("uniqueId", uid));
+			T entity = (T) hibernateTemplate.findByCriteria(crit).get(0);
+			if (entity == null) {
+				log.warn("Uh oh, '" + this.persistentClass + "' object with id '" + uid + "' not found...");
+			}
+			return entity;
+		} else {
+			return null;
+		}
+	}
+
+	/**
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
@@ -167,7 +181,6 @@ public abstract class GenericManagerImpl<T, PK extends Serializable> implements 
 
     public int countByNamedQuery(String queryName, Map<String, Object> queryParams) {
         Query query = getNamedQuery(getSession(), queryName);
-
         for (String s : queryParams.keySet()) {
             query.setParameter(s, queryParams.get(s));
         }

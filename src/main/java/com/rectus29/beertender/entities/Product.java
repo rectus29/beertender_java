@@ -1,20 +1,12 @@
 package com.rectus29.beertender.entities;
 
 /*-----------------------------------------------------*/
-/*      _____           _               ___   ___      */
-/*     |  __ \         | |             |__ \ / _ \     */
-/*     | |__) |___  ___| |_ _   _ ___     ) | (_) |    */
-/*     |  _  // _ \/ __| __| | | / __|   / / \__, |    */
-/*     | | \ \  __/ (__| |_| |_| \__ \  / /_   / /     */
-/*     |_|  \_\___|\___|\__|\__,_|___/ |____| /_/      */
-/*                                                     */
+/*                        Rectus29                     */
 /*                Date: 08/06/2016 19:59                */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
 import com.rectus29.beertender.entities.resource.impl.ImageResource;
-import com.rectus29.beertender.enums.State;
-import org.hibernate.type.BlobType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "product")
+@Table(name = "product", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 public class Product extends BasicGenericEntity<Product> {
 
 	@ManyToOne
@@ -68,11 +62,11 @@ public class Product extends BasicGenericEntity<Product> {
 		this.packaging = packaging;
 	}
 
-	public String getName(){
+	public String getName() {
 		return this.getProductDefinition().getName();
 	}
 
-	public String getDescription(){
+	public String getDescription() {
 		return this.getProductDefinition().getDescription();
 	}
 

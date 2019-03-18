@@ -12,7 +12,9 @@ import javax.persistence.*;
 /*-----------------------------------------------------*/
 
 @Entity(name = "ImageResource")
-@Table(name = "imageresource")
+@Table(name = "imageresource", indexes = {
+		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+)
 @DiscriminatorValue("IMAGE")
 public class ImageResource extends Resource {
 
