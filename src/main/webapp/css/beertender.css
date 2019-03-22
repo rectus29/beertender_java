@@ -10,4 +10,19 @@ a.logo span {
     min-height: 500px;
 }
 
+/* PROFILE PAGE CONF */
+.product-pic img {
+	height: 130px;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border: 10px solid #f1f2f7;
+	margin-top: 20px;
+}
+
+.productPrice {
+	color: #48cfad;
+	size: 13px;
+}
+
+
 
