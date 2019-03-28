@@ -14,14 +14,13 @@ package com.rectus29.beertender.entities;
 
 import com.rectus29.beertender.entities.search.ISearchable;
 import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Indexed
+//@Indexed
 @Table(name = "category", indexes = {
 		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
 )
