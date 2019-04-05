@@ -3,7 +3,10 @@ package com.rectus29.beertender.entities.mail;
 import com.rectus29.beertender.entities.BasicGenericEntity;
 import com.rectus29.beertender.entities.User;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /*-----------------------------------------------------*/
 /*                     Rectus29                        */
@@ -11,10 +14,10 @@ import javax.persistence.*;
 /*                   Date: 08/03/2019                  */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-@Entity
-@Table(name = "recipient", indexes = {
-		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
-)
+//@Entity
+//@Table(name = "recipient", indexes = {
+//		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+//)
 public class Recipient extends BasicGenericEntity<Recipient> {
 	@Column
 	private Boolean readed = false;

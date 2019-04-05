@@ -98,7 +98,7 @@ public class Order extends BasicGenericEntity<Order> {
 	}
 
 	public Order removeProduct(Product product) {
-		OrderItem toRemove = new OrderItem(product, 0l, this);
+		OrderItem toRemove = new OrderItem(product, 0L, this);
 		for (OrderItem item : orderItemList) {
 			if (toRemove.equals(item)) {
 				orderItemList.remove(item);

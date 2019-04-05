@@ -1,6 +1,7 @@
 package com.rectus29.beertender.tools;
 
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,7 +18,7 @@ public class CalendarUtils {
 
     private static final Logger log = LogManager.getLogger(CalendarUtils.class);
 
-    	private static long dayInMs = (60 * 60 * 24 * 1000);
+	private static long dayInMs = (60 * 60 * 24 * 1000);
 	private static long hourInMs = (60 * 60 * 1000);
 
     public static int getMonth(Date day){

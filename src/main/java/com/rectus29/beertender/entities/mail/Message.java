@@ -4,7 +4,10 @@ import com.rectus29.beertender.entities.BasicGenericEntity;
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.MessageType;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +17,10 @@ import java.util.List;
 /*                Date: 12/08/2016 14:21               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-@Entity
-@Table(name = "message", indexes = {
-		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
-)
+//@Entity
+//@Table(name = "message", indexes = {
+//		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+//)
 public class Message extends BasicGenericEntity<Message> {
 	@Column
 	private String subject;

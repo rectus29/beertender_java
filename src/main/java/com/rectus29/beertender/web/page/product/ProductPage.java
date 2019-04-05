@@ -61,7 +61,7 @@ public class ProductPage extends BeerTenderPage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-		add(new ProductImage("beerImg", productIModel).setVisible(null != productIModel.getObject().getFileImage()));
+		add(new ProductImage("beerImg", productIModel));
         add(new Label("beerName", productIModel.getObject().getName()));
         add(new Label("beerPack", productIModel.getObject().getPackaging().getName()));
         add(new Label("beerText", productIModel.getObject().getDescription()).setEscapeModelStrings(false));
@@ -79,7 +79,7 @@ public class ProductPage extends BeerTenderPage {
 						return BeerTenderSession.get().isOrderEnable();
 					}
 				})
-				.add(new NumberTextField<Integer>("qte", new PropertyModel<Integer>(this, "qte")))
+				.add(new NumberTextField<>("qte", new PropertyModel<Integer>(this, "qte")))
 				.add(new AjaxSubmitLink("addToCart") {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -94,7 +94,7 @@ public class ProductPage extends BeerTenderPage {
 							);
 							serviceOrder.save(order);
 							success("Ajout réalisé avec succés");
-						}else{
+						} else {
 							info("Veuillez saisir une quantité");
 						}
 						target.add(form);

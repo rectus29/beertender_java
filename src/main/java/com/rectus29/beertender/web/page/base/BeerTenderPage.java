@@ -64,15 +64,11 @@ public class BeerTenderPage extends BeerTenderBasePage {
 			@Override
 			protected List<Packaging> load() {
 				List<Packaging> out = servicePackaging.getAll(Arrays.asList(State.ENABLE));
-				Collections.sort(out, new Comparator<Packaging>() {
-					@Override
-					public int compare(Packaging o1, Packaging o2) {
-						return o1.getSortOrder().compareTo(o2.getSortOrder());
-					}
-				});
+				Collections.sort(out, Comparator.comparing(Packaging::getSortOrder));
 				return out;
 			}
 		};
+
 		add(new ListView<Packaging>("rvLink", model) {
 			@Override
 			protected void populateItem(ListItem<Packaging> listItem) {
