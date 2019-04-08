@@ -10,3 +10,7 @@ hibernate search reference
 https://docs.jboss.org/hibernate/stable/search/reference/en-US/html_single/#example-configuring-directory-providers
 
 https://templatemag.com/demo/Dashio/
+
+
+Spring configuration by annotation 
+http://javaetmoi.com/2014/06/spring-framework-java-configuration/
