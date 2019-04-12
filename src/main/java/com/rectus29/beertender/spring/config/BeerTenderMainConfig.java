@@ -1,4 +1,4 @@
-package com.rectus29.beertender;
+package com.rectus29.beertender.spring.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
@@ -18,9 +18,12 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
 import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
@@ -32,13 +35,14 @@ import java.util.Properties;
 /*-----------------------------------------------------*/
 @Configuration
 @Import(value = {
-		SecurityConfig.class
+		SecurityConfig.class,
+		SchedulerConfig.class
 })
 @EnableScheduling()
-
+@EnableTransactionManagement
 @ComponentScan(basePackages = {"com.rectus29.beertender"})
-public class BeerTenderMainConfiguration {
-	private static final Logger LOG = LoggerFactory.getLogger(BeerTenderMainConfiguration.class);
+public class BeerTenderMainConfig {
+	private static final Logger LOG = LoggerFactory.getLogger(BeerTenderMainConfig.class);
 	@Autowired
 	private Environment env;
 
@@ -73,7 +77,7 @@ public class BeerTenderMainConfiguration {
 	}
 
 	@Bean
-	public ComboPooledDataSource comboPooledDataSource() throws PropertyVetoException {
+	public ComboPooledDataSource dataSource() throws PropertyVetoException {
 		ComboPooledDataSource dataSource = new ComboPooledDataSource();
 		dataSource.setDriverClass("com.mysql.jdbc.Driver");
 		dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1/beer_tender");
@@ -87,9 +91,9 @@ public class BeerTenderMainConfiguration {
 
 	@Bean
 	@Autowired
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(ComboPooledDataSource comboPooledDataSource, HibernateJpaVendorAdapter hibernateJpaVendorAdapter) {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(ComboPooledDataSource dataSource, HibernateJpaVendorAdapter hibernateJpaVendorAdapter) {
 		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-		entityManagerFactory.setDataSource(comboPooledDataSource);
+		entityManagerFactory.setDataSource(dataSource);
 		entityManagerFactory.setJpaVendorAdapter(hibernateJpaVendorAdapter);
 
 		return entityManagerFactory;
@@ -97,22 +101,26 @@ public class BeerTenderMainConfiguration {
 
 
 	@Bean
-	@Autowired
-	public LocalSessionFactoryBean sessionFactoryBean(ComboPooledDataSource comboPooledDataSource) {
-		LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
-		localSessionFactoryBean.setDataSource(comboPooledDataSource);
-		localSessionFactoryBean.setPackagesToScan("com.rectus29.beertender.entities");
-		localSessionFactoryBean.setHibernateProperties(hibernateProperties());
-		return localSessionFactoryBean;
+	public LocalSessionFactoryBean sessionFactory() {
+		try {
+			LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
+			localSessionFactoryBean.setDataSource(dataSource());
+			localSessionFactoryBean.setPackagesToScan("com.rectus29.beertender.entities");
+			localSessionFactoryBean.setHibernateProperties(hibernateProperties());
+			return localSessionFactoryBean;
+		} catch (PropertyVetoException e) {
+			LOG.error("Error while session factory init", e);
+			return null;
+		}
 	}
 
 	@Bean
 	@Autowired
-	public HibernateTransactionManager hibernateTransactionManager(ComboPooledDataSource comboPooledDataSource, LocalSessionFactoryBean sessionFactoryBean) {
-		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-		transactionManager.setSessionFactory((SessionFactory) sessionFactoryBean);
-		transactionManager.setDataSource(comboPooledDataSource);
-		return transactionManager;
+	public PlatformTransactionManager transactionManager(DataSource comboPooledDataSource, SessionFactory sessionFactory) {
+		HibernateTransactionManager txManager = new HibernateTransactionManager();
+		txManager.setSessionFactory(sessionFactory().getObject());
+		txManager.setDataSource(comboPooledDataSource);
+		return txManager;
 	}
 
 	@Bean

@@ -36,6 +36,7 @@ import org.apache.wicket.settings.RequestCycleSettings;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.apache.wicket.util.lang.Bytes;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.wicketstuff.shiro.annotation.AnnotationsShiroAuthorizationStrategy;
 import org.wicketstuff.shiro.authz.ShiroUnauthorizedComponentListener;
@@ -50,7 +51,6 @@ import java.util.Properties;
 /*                                                     */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-
 public class BeerTenderApplication extends WebApplication {
 
 	private static final Logger log = LogManager.getLogger(BeerTenderApplication.class);
@@ -63,6 +63,7 @@ public class BeerTenderApplication extends WebApplication {
 
 	@Override
 	public void init() {
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(BeerTenderApplication.class);
 		super.init();
 		log.debug("Init Beertender application");
 		getDebugSettings().setAjaxDebugModeEnabled(true);
