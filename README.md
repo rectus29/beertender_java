@@ -1,6 +1,20 @@
 # Beertender
 
-an appliction to manage beer buying, all java for the moment, the front may be replace by an REACT rich client application 
+an application to manage beer buying, all java for the moment, the front may be replace by an REACT rich client application
+
+
+#Workflow
+an order have multiple state :
+ - pending by default (the order is editable by customer and in an active timeframe)
+ - when the timeFrame come to his ends the order is place to lock when the timeframe is disable, customer cannot edit bills anymore 
+ -
+
+
+
+
+
+
+#Link Wall 
 
 ref link to h2 stub
 http://www.h2database.com/html/cheatSheet.html

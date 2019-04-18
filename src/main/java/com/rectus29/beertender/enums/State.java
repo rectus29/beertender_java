@@ -13,7 +13,7 @@ package com.rectus29.beertender.enums;
 /*-----------------------------------------------------*/
 
 public enum State {
-    DISABLE, ENABLE, PENDING, DELETED, ERROR;
+	DISABLE, ENABLE, PENDING, DELETED, ERROR, LOCKED;
 
 
 

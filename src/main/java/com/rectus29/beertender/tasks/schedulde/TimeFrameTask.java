@@ -1,17 +1,12 @@
 package com.rectus29.beertender.tasks.schedulde;
 
 /*-----------------------------------------------------*/
-/*      _____           _               ___   ___      */
-/*     |  __ \         | |             |__ \ / _ \     */
-/*     | |__) |___  ___| |_ _   _ ___     ) | (_) |    */
-/*     |  _  // _ \/ __| __| | | / __|   / / \__, |    */
-/*     | | \ \  __/ (__| |_| |_| \__ \  / /_   / /     */
-/*     |_|  \_\___|\___|\__|\__,_|___/ |____| /_/      */
-/*                                                     */
+/*                       Rectus29                      */
 /*                Date: 30/06/2016 15:20               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
+import com.rectus29.beertender.entities.Order;
 import com.rectus29.beertender.entities.TimeFrame;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceTimeFrame;
@@ -46,6 +41,10 @@ public class TimeFrameTask extends Task {
 			if(tf.getEndDate().before(new Date())){
 				log.debug("disable timeFrame #" + tf.getId());
 				tf.setState(State.DISABLE);
+				//lock all the linked Order
+				for (Order order : tf.getOrderList()) {
+					order.setState(State.LOCKED);
+				}
 			}
 		}
 		//enable the first found
@@ -53,6 +52,10 @@ public class TimeFrameTask extends Task {
 			if(tf.getStartDate().before(new Date()) && tf.getEndDate().after(new Date())){
 				log.debug("enable timeFrame #" + tf.getId());
 				tf.setState(State.ENABLE);
+				//unlock all the linked Order
+				for (Order order : tf.getOrderList()) {
+					order.setState(State.PENDING);
+				}
 			}
 		}
 
