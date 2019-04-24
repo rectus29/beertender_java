@@ -6,6 +6,7 @@ import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IservicePackaging;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
+import com.rectus29.beertender.tools.SecurityUtils;
 import com.rectus29.beertender.web.component.avatarimage.AvatarImage;
 import com.rectus29.beertender.web.page.home.HomePage;
 import com.rectus29.beertender.web.page.profile.ProfilePage;
@@ -54,7 +55,12 @@ public class BeerTenderPage extends BeerTenderBasePage {
 		super.onInitialize();
 
 
-		add(new BookmarkablePageLink<>("profilPageLink", ProfilePage.class)
+		add(new BookmarkablePageLink<ProfilePage>("profilPageLink", ProfilePage.class) {
+					@Override
+					public boolean isEnabled() {
+						return SecurityUtils.getSubject().isPermitted("profil:access");
+					}
+				}
 				.add(new AvatarImage("avatarImg"))
 		);
 		add(new Label("login", serviceUser.getCurrentUser().getFormattedName()));
