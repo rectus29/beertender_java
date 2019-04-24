@@ -13,8 +13,6 @@ import com.rectus29.beertender.tools.ImageUtils;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.component.multipledropdownchoice.MultipleDropDownChoice;
 import com.rectus29.beertender.web.component.productimage.ProductImage;
-import com.rectus29.beertender.web.component.switchbutton.SwitchButton;
-import com.rectus29.beertender.web.page.admin.productDefinition.edit.ProductDefifnitionAdminEditPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -27,8 +25,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.*;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import javax.imageio.ImageIO;
-import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,29 +96,29 @@ public abstract class ProductAdminEditPanel extends Panel {
                     }
                 }).setOutputMarkupId(true).setVisible(false));
 
-                add(new SwitchButton("editdef") {
-					@Override
-					public void onPush(AjaxRequestTarget target) {
-						defEditPanel.setVisible(!defEditPanel.isVisible());
-						ddc.setVisible(!ddc.isVisible());
-						target.add(wmc);
-					}
-
-					@Override
-					public void onRelease(AjaxRequestTarget target) {
-						onPush(target);
-					}
-
-					@Override
-					protected String getOnLabel() {
-						return "Editer";
-					}
-
-					@Override
-					protected String getOffLabel() {
-						return "Utiliser";
-					}
-				});
+//                add(new SwitchButton("editdef") {
+//					@Override
+//					public void onPush(AjaxRequestTarget target) {
+//						defEditPanel.setVisible(!defEditPanel.isVisible());
+//						ddc.setVisible(!ddc.isVisible());
+//						target.add(wmc);
+//					}
+//
+//					@Override
+//					public void onRelease(AjaxRequestTarget target) {
+//						onPush(target);
+//					}
+//
+//					@Override
+//					protected String getOnLabel() {
+//						return "Editer";
+//					}
+//
+//					@Override
+//					protected String getOffLabel() {
+//						return "Utiliser";
+//					}
+//				});
 
                 add(new DropDownChoice<>("state",
                         new PropertyModel<>(productIModel, "state"),
