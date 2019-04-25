@@ -11,7 +11,7 @@ import com.rectus29.beertender.entities.TimeFrame;
 import com.rectus29.beertender.service.IserviceTimeFrame;
 import com.rectus29.beertender.web.Config;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -31,7 +31,7 @@ public class OrderSummaryPanel extends Panel {
 
 	private Form form;
 	private Panel childPanel;
-	private IModel<TimeFrame> timeFrameModel;
+	private IModel<TimeFrame> timeFrameModel = new Model<>();
 
 	public OrderSummaryPanel(String id) {
 		super(id);
@@ -40,7 +40,7 @@ public class OrderSummaryPanel extends Panel {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		this.timeFrameModel = new Model<TimeFrame>(serviceTimeFrame.getCurrentTimeFrame());
+		this.timeFrameModel = new Model<>(serviceTimeFrame.getCurrentTimeFrame());
 		add((form = new Form("orderSelectionForm")).setOutputMarkupId(true));
 		LoadableDetachableModel<List<TimeFrame>> ldmOrder = new LoadableDetachableModel<List<TimeFrame>>() {
 			@Override
@@ -55,7 +55,7 @@ public class OrderSummaryPanel extends Panel {
 			}
 		};
 		form.add(new DropDownChoice<>(
-				"orderSelector",
+						"orderSelector",
 						timeFrameModel,
 						ldmOrder,
 						new ChoiceRenderer<TimeFrame>() {
@@ -64,15 +64,16 @@ public class OrderSummaryPanel extends Panel {
 								return object.getName() + " - " + Config.get().dateFormat(object.getEndDate()) + "(" + object.getState() + ")";
 							}
 						}
-				)
+				).add(new AjaxFormComponentUpdatingBehavior("change") {
+					@Override
+					protected void onUpdate(AjaxRequestTarget target) {
+						if (timeFrameModel.getObject() != null) {
+							childPanel = (Panel) childPanel.replaceWith(new OrderSummaryChildPanel("panel", timeFrameModel).setOutputMarkupId(true));
+							target.add(childPanel);
+						}
+					}
+				})
 		);
-		form.add(new AjaxButton("ajaxSubmit") {
-			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				childPanel = (Panel) childPanel.replaceWith(new OrderSummaryChildPanel("panel", timeFrameModel).setOutputMarkupId(true));
-				target.add(childPanel);
-			}
-		});
 		//place emptyPanel by default
 		add((childPanel = (timeFrameModel != null)
 						? new OrderSummaryChildPanel("panel", timeFrameModel)

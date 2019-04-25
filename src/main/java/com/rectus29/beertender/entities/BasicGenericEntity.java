@@ -1,8 +1,9 @@
 package com.rectus29.beertender.entities;
 
-import com.rectus29.beertender.enums.State;
-
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -16,9 +17,6 @@ public abstract class BasicGenericEntity<T> extends GenericEntity<T>{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
-	protected State state = State.ENABLE;
-
 	@Override
 	public Long getId() {
 		return id;
@@ -28,14 +26,4 @@ public abstract class BasicGenericEntity<T> extends GenericEntity<T>{
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public State getState() {
-		return state;
-	}
-
-	public T setState(State state) {
-		this.state = state;
-		return (T) this;
-	}
-
 }

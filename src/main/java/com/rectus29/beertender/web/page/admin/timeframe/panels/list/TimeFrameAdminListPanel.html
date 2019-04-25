@@ -40,19 +40,23 @@
 			<td wicket:id="endDate">[role]</td>
 			<td wicket:id="state">[role]</td>
 			<td>
-				<div class="btn-group ">
-					<button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-						<wicket:message key="action"/>
-						<span class="caret"></span>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						Action <span class="caret"></span>
 					</button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#" wicket:id="edit">
-							<i class="icon-edit"/>&nbsp;<wicket:message key="edit"/>
-						</a>
-						<a class="dropdown-item" href="#" wicket:id="remove">
-							<i class="icon-remove"/>&nbsp;<wicket:message key="delete"/>
-						</a>
-					</div>
+					<ul class="dropdown-menu">
+						<li>
+							<a class="dropdown-item" href="#" wicket:id="edit">
+								<i class="icon-edit"/>&nbsp;<wicket:message key="edit"/>
+							</a>
+						</li>
+						<li role="separator" class="divider"></li>
+						<li>
+							<a class="dropdown-item" href="#" wicket:id="remove">
+								<i class="icon-remove"/>&nbsp;<wicket:message key="delete"/>
+							</a>
+						</li>
+					</ul>
 				</div>
 			</td>
 		</tr>

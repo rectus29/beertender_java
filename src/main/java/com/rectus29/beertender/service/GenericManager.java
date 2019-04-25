@@ -73,6 +73,14 @@ public interface GenericManager<T, PK extends Serializable> {
 	T save(T object);
 
 	/**
+	 * Generic Method set object state to deleted
+	 *
+	 * @param object
+	 * @return the object updated
+	 */
+	T delete(T object);
+
+	/**
 	 * Generic method to delete an object based on class and id
 	 *
 	 * @param id the identifier (primary key) of the object to remove

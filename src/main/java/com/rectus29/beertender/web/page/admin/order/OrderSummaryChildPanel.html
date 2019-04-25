@@ -49,22 +49,28 @@
 						<tr class="userRow">
 							<td colspan="5" wicket:id="user"></td>
 							<td colspan="1">
-								<div class="btn-group ">
-									<button class="btn btn-dark btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-										<wicket:message key="action"/>
-										<span class="caret"></span>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										Action <span class="caret"></span>
 									</button>
-									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#" wicket:id="orderEditLink">
-											<i class="fa fa-edit"></i>&nbsp;Editer
-										</a>
-										<a class="dropdown-item" href="#" wicket:id="orderPaymentLink">
-											<i class="fa fa-euro"></i>&nbsp;Paiement
-										</a>
-										<a class="dropdown-item" href="#" wicket:id="orderPrintLink">
-											<i class="fa fa-print"></i>&nbsp;Imprimer
-										</a>
-									</div>
+									<ul class="dropdown-menu">
+										<li>
+											<a class="dropdown-item" href="#" wicket:id="orderEditLink">
+												<i class="fa fa-edit"></i>&nbsp;Editer
+											</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#" wicket:id="orderPaymentLink">
+												<i class="fa fa-euro"></i>&nbsp;Paiement
+											</a>
+										</li>
+										<li role="separator" class="divider"></li>
+										<li>
+											<a class="dropdown-item" href="#" wicket:id="orderPrintLink">
+												<i class="fa fa-print"></i>&nbsp;Imprimer
+											</a>
+										</li>
+									</ul>
 								</div>
 							</td>
 						</tr>

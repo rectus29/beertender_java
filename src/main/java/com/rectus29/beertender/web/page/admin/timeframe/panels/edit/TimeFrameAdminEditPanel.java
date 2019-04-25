@@ -3,13 +3,13 @@ package com.rectus29.beertender.web.page.admin.timeframe.panels.edit;
 import com.rectus29.beertender.entities.TimeFrame;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceTimeFrame;
+import com.rectus29.beertender.web.component.bootstrapdatefield.BootstrapDateField;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
-import org.apache.wicket.extensions.yui.calendar.DateField;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EnumChoiceRenderer;
 import org.apache.wicket.markup.html.form.Form;
@@ -58,25 +58,26 @@ public abstract class TimeFrameAdminEditPanel extends Panel {
 			@Override
 			protected void onInitialize() {
 				super.onInitialize();
-				add(new TextField("name", new PropertyModel<String>(timeFrameIModel, "name")).setRequired(true));
-				add(new DateField("startdate", new PropertyModel<Date>(timeFrameIModel, "startDate")).setRequired(true));
-				add(new DateField("enddate", new PropertyModel<Date>(timeFrameIModel, "endDate")).setRequired(true));
-				add(new DropDownChoice<State>("state",
-						new PropertyModel<State>(timeFrameIModel, "state"),
+				add(new TextField<>("name", new PropertyModel<String>(timeFrameIModel, "name")).setRequired(true));
+				add(new BootstrapDateField("startdate", new PropertyModel<Date>(timeFrameIModel, "startDate")).setRequired(true));
+				add(new BootstrapDateField("enddate", new PropertyModel<Date>(timeFrameIModel, "endDate")).setRequired(true));
+				add(new DropDownChoice<>("state",
+						new PropertyModel<>(timeFrameIModel, "state"),
 						Arrays.asList(State.values()),
-						new EnumChoiceRenderer<State>()
+						new EnumChoiceRenderer<>()
 				).setRequired(true));
 				add(new AjaxSubmitLink("submit") {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target, Form form) {
-						if(timeFrameIModel.getObject().getStartDate().after(timeFrameIModel.getObject().getEndDate())){
+						if (timeFrameIModel.getObject().getStartDate().after(timeFrameIModel.getObject().getEndDate())) {
 							error("les Dates ne sont pas correct");
-						}else{
+						} else {
 							serviceTimeFrame.save(timeFrameIModel.getObject());
 							success(new ResourceModel("success").getObject());
 							TimeFrameAdminEditPanel.this.onSubmit(target);
 						}
 					}
+
 					@Override
 					public void onError(AjaxRequestTarget target, Form<?> form) {
 						target.add(feed);

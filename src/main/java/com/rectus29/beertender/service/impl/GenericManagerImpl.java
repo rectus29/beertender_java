@@ -3,7 +3,9 @@ package com.rectus29.beertender.service.impl;/**
  * Date: 20 mai 2009
  */
 
+import com.rectus29.beertender.entities.GenericEntity;
 import com.rectus29.beertender.enums.SortOrder;
+import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.GenericManager;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -60,7 +62,7 @@ import java.util.*;
 
 
 @Transactional
-public abstract class GenericManagerImpl<T, PK extends Serializable> implements GenericManager<T, PK> {
+public abstract class GenericManagerImpl<T extends GenericEntity, PK extends Serializable> implements GenericManager<T, PK> {
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
@@ -171,6 +173,14 @@ public abstract class GenericManagerImpl<T, PK extends Serializable> implements 
     public T save(T object) {
         return hibernateTemplate.merge(object);
     }
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public T delete(T object) {
+		object.setState(State.DELETED);
+		return hibernateTemplate.merge(object);
+	}
 
     /**
      * {@inheritDoc}

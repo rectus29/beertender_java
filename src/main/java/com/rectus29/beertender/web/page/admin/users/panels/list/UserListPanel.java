@@ -80,7 +80,6 @@ public class UserListPanel extends Panel {
 						ldm.detach();
 						target.add(wmc, form, navigator);
 					}
-
 					@Override
 					protected void onError(AjaxRequestTarget target, Form<?> form) {
 						target.add(form);
@@ -198,7 +197,7 @@ public class UserListPanel extends Panel {
 		add(new AjaxLink("enroll") {
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				modal.setTitle("Inviter un nouveau memebre");
+				modal.setTitle("Inviter un nouveau membre");
 				modal.setContent(new EnrollPanel(modal.getContentId()) {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target, IModel<User> enrollUserModel) {
@@ -211,6 +210,11 @@ public class UserListPanel extends Panel {
 					}
 				});
 				modal.show(target, BeerTenderModal.ModalFormat.SMALL);
+			}
+
+			@Override
+			public boolean isVisible() {
+				return SecurityUtils.getSubject().isPermitted("admin:user:enroll");
 			}
 		});
 	}

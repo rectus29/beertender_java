@@ -121,7 +121,7 @@ public class TimeFrameAdminListPanel extends Panel {
 				item.add(new ConfirmationLink("remove", new ResourceModel("UserEditPanel.confirmMsg2").getObject()) {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						//serviceUser.disable(item.getModelObject());
+						serviceTimeFrame.delete(item.getModelObject());
 						ldm.detach();
 						target.add(wmc);
 					}

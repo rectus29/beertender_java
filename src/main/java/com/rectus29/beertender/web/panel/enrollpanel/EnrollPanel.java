@@ -18,11 +18,16 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.wicketstuff.shiro.ShiroConstraint;
+import org.wicketstuff.shiro.annotation.ShiroSecurityConstraint;
 
 /*-----------------------------------------------------*/
 /*                Date: 02/10/2018 13:46               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
+@ShiroSecurityConstraint(
+		constraint = ShiroConstraint.HasPermission, value = "admin:user:enroll"
+)
 public class EnrollPanel extends Panel {
 
 	@SpringBean(name = "serviceRole")

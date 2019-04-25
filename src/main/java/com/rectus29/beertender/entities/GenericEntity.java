@@ -1,5 +1,6 @@
 package com.rectus29.beertender.entities;
 
+import com.rectus29.beertender.enums.State;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -27,6 +28,9 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 	@Column(nullable = false, columnDefinition = "varchar(128)")
 	private String uniqueId = UUID.randomUUID().toString();
 
+	@Column(nullable = false)
+	protected State state = State.ENABLE;
+
 	public abstract Long getId();
 
 	public abstract void setId(Long id);
@@ -45,6 +49,15 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public T setState(State state) {
+		this.state = state;
+		return (T) this;
 	}
 
 	@Override
