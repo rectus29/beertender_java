@@ -79,17 +79,14 @@ public class Order extends BasicGenericEntity<Order> {
 	public Order addProduct(Product product, long qte) {
 		OrderItem toAdd = new OrderItem(product, qte, this);
 		if (orderItemList.contains(toAdd)) {
-			OrderItem foundItem = null;
 			for (OrderItem item : orderItemList) {
 				if (toAdd.equals(item)) {
-					foundItem = item;
-					break;
+					if (item.getQuantity() + toAdd.getQuantity() > 0) {
+						item.setQuantity(item.getQuantity() + toAdd.getQuantity());
+					} else {
+						removeProduct(product);
+					}
 				}
-			}
-			if (foundItem.getQuantity() + toAdd.getQuantity() > 0) {
-				foundItem.setQuantity(foundItem.getQuantity() + toAdd.getQuantity());
-			} else {
-				removeProduct(product);
 			}
 		} else {
 			orderItemList.add(new OrderItem(product, qte, this));

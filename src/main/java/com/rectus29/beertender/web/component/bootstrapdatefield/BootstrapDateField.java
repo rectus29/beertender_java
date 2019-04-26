@@ -8,8 +8,7 @@ import java.util.Date;
 
 /*-----------------------------------------------------*/
 /*                     Rectus29                        */
-/*                                                     */
-/*                   Date: 25/04/2019                     */
+/*                   Date: 25/04/2019                  */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 public class BootstrapDateField extends FormComponent {
