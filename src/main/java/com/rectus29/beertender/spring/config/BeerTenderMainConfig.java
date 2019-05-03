@@ -1,7 +1,6 @@
 package com.rectus29.beertender.spring.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
@@ -25,6 +24,8 @@ import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /*-----------------------------------------------------*/
@@ -76,13 +77,29 @@ public class BeerTenderMainConfig {
 		return hibernateJpaVendorAdapter;
 	}
 
+	@Bean(name = "beerTenderProperties")
+	public Properties getBeertenderProperties() {
+		Properties prop = new Properties();
+		try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("beertender.properties")) {
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file not found in the classpath");
+			}
+		} catch (Exception ex) {
+			LOG.error("Error while application properties read", ex);
+		}
+		return prop;
+	}
+
 	@Bean
-	public ComboPooledDataSource dataSource() throws PropertyVetoException {
+	@Autowired
+	public ComboPooledDataSource dataSource(Properties beerTenderProperties) throws PropertyVetoException {
 		ComboPooledDataSource dataSource = new ComboPooledDataSource();
-		dataSource.setDriverClass("com.mysql.jdbc.Driver");
-		dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1/beer_tender");
-		dataSource.setUser("root");
-		dataSource.setPassword("");
+		dataSource.setDriverClass(beerTenderProperties.getProperty("dataBase.driver"));
+		dataSource.setJdbcUrl(beerTenderProperties.getProperty("dataBase.url"));
+		dataSource.setUser(beerTenderProperties.getProperty("dataBase.user"));
+		dataSource.setPassword(beerTenderProperties.getProperty("dataBase.password"));
 		dataSource.setAutoCommitOnClose(true);
 		dataSource.setIdleConnectionTestPeriod(15);
 		dataSource.setMaxIdleTime(15);
@@ -101,10 +118,11 @@ public class BeerTenderMainConfig {
 
 
 	@Bean
-	public LocalSessionFactoryBean sessionFactory() {
+	@Autowired
+	public LocalSessionFactoryBean sessionFactory(Properties beerTenderProperties) {
 		try {
 			LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
-			localSessionFactoryBean.setDataSource(dataSource());
+			localSessionFactoryBean.setDataSource(dataSource(beerTenderProperties));
 			localSessionFactoryBean.setPackagesToScan("com.rectus29.beertender.entities");
 			localSessionFactoryBean.setHibernateProperties(hibernateProperties());
 			return localSessionFactoryBean;
@@ -116,9 +134,9 @@ public class BeerTenderMainConfig {
 
 	@Bean
 	@Autowired
-	public PlatformTransactionManager transactionManager(DataSource comboPooledDataSource, SessionFactory sessionFactory) {
+	public PlatformTransactionManager transactionManager(DataSource comboPooledDataSource, Properties beerTenderProperties) {
 		HibernateTransactionManager txManager = new HibernateTransactionManager();
-		txManager.setSessionFactory(sessionFactory().getObject());
+		txManager.setSessionFactory(sessionFactory(beerTenderProperties).getObject());
 		txManager.setDataSource(comboPooledDataSource);
 		return txManager;
 	}
