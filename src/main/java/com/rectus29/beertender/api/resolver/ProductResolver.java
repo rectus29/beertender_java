@@ -33,7 +33,7 @@ public class ProductResolver implements GraphQLQueryResolver, GraphQLMutationRes
         this.serviceProduct = AppContext.getApplicationContext().getBean("serviceProduct", IserviceProduct.class);
     }
 
-    public List<Product> allProduct(Optional<State> state) {
+	public List<Product> allProducts(Optional<State> state) {
         if (state.isPresent()) {
             return serviceProduct.getAll(Arrays.asList(state.get()));
         } else {

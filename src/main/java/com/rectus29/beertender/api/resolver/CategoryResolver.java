@@ -1,9 +1,9 @@
 package com.rectus29.beertender.api.resolver;
+
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.rectus29.beertender.api.OperationResult;
 import com.rectus29.beertender.entities.Category;
-import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.spring.AppContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class CategoryResolver implements GraphQLQueryResolver, GraphQLMutationRe
         this.serviceCategory = AppContext.getApplicationContext().getBean("serviceCategory", IserviceCategory.class);
     }
 
-    public List<Category> allCateg() {
+	public List<Category> allCategs() {
         return serviceCategory.getAll();
     }
 

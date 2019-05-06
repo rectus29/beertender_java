@@ -38,7 +38,7 @@ public class UserResolver implements GraphQLQueryResolver, GraphQLMutationResolv
         return serviceUser.get(id);
     }
 
-    public List<User> allUser(Optional<State> state) {
+	public List<User> allUsers(Optional<State> state) {
         if (state.isPresent()) {
             return serviceUser.getAll(Arrays.asList(state.get()));
         } else {

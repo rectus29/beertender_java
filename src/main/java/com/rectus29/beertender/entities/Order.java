@@ -36,7 +36,7 @@ public class Order extends BasicGenericEntity<Order> {
 	private PaymentStatus paymentStatus = PaymentStatus.WAITING;
 
 	public Order() {
-		this.state = State.PENDING;
+		this.state = State.ENABLE;
 	}
 
 	public Order(User user, TimeFrame timeFrame) {

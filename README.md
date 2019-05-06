@@ -4,13 +4,17 @@ an application to manage beer buying, all java for the moment, the front may be 
 
 
 #Workflow
-an order have multiple state :
- - pending by default (the order is editable by customer and in an active timeframe)
- - when the timeFrame come to his ends the order is place to lock when the timeframe is disable, customer cannot edit bills anymore 
- -
+###Order workflow
+ - ENABLE by default (the order is editable by customer and in an active timeframe)
+ - when the timeFrame come to his ends the order is place to PENDING when the timeframe is LOCKED (customer cannot edit the order anymore) 
+ - when the order is validate by admin the order pass to LOCKED, (customer and admin cannot edit the order anymore, but admin can unlock in case of ...) 
+ - when the timeFrame is set to DISABLED meaning all work is done by admin, the order beacome DISABLED too, note a TIMEFRAME cannot be DISABLED if a order is PENDING  
 
-
-
+###TimeFrame Workflow
+ - PENDING by default until activation
+ - ENABLE while in the defined timeFrame
+ - LOCKED at the end of the defined timeFrame
+ - DISABLED if all the order are LOCKED 
 
 
 
