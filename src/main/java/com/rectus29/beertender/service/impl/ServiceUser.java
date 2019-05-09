@@ -8,6 +8,7 @@ import org.apache.shiro.subject.Subject;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Service("serviceUser")
+@Transactional
 public class ServiceUser extends GenericManagerImpl<User, Long> implements IserviceUser {
 
 	public ServiceUser() {

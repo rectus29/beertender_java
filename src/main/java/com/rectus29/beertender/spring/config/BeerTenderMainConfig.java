@@ -142,6 +142,12 @@ public class BeerTenderMainConfig {
 	}
 
 	@Bean
+	@Autowired
+	public PlatformTransactionManager annotationDrivenTransactionManager(DataSource comboPooledDataSource, Properties beerTenderProperties) {
+		return transactionManager(comboPooledDataSource, beerTenderProperties);
+	}
+
+	@Bean
 	public JavaMailSenderImpl javaMailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost("127.0.0.1");

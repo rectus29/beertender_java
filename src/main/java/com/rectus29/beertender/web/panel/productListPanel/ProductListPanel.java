@@ -2,12 +2,17 @@ package com.rectus29.beertender.web.panel.productListPanel;
 
 import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Product;
+import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceProduct;
+import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.page.product.ProductPage;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -27,6 +32,8 @@ public class ProductListPanel extends Panel {
 
     @SpringBean(name = "serviceProduct")
     private IserviceProduct serviceProduct;
+	@SpringBean(name = "serviceUser")
+	private IserviceUser serviceUser;
     @SpringBean(name = "serviceCategory")
     private IserviceCategory serviceCategory;
     private List<Category> filter = new ArrayList<>();
@@ -76,6 +83,16 @@ public class ProductListPanel extends Panel {
 						item.add(new Label("categBadge", item.getModelObject().getName()));
 					}
 				});
+				item.add(new AjaxLink("bookmarkLink") {
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						User user = serviceUser.getCurrentUser().addBookmark(item.getModelObject());
+						serviceUser.save(user);
+						target.add(this);
+					}
+				}.add(new Label("bookmarkLabel")
+						.add(new AttributeModifier("class", (serviceUser.getCurrentUser().getProductBookmarkList().contains(item.getModelObject())) ? "fa fa-star" : "fa fa-star-o"))
+				).setOutputMarkupId(true));
             }
         });
 
