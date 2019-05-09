@@ -15,5 +15,5 @@ public interface IserviceSession {
     public void onStop(Session session);
     public void onExpiration(Session session);
 
-    public List<Subject> getConnectedSubjets();
+	public List<Subject> getConnectedSubjects();
 }

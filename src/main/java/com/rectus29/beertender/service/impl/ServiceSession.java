@@ -3,26 +3,21 @@ package com.rectus29.beertender.service.impl;
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceSession;
 import com.rectus29.beertender.service.IserviceUser;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /*-----------------------------------------------------*/
-/*      _____           _               ___   ___      */
-/*     |  __          | |             |__  / _      */
-/*     | |__) |___  ___| |_ _   _ ___     ) | (_) |    */
-/*     |  _  // _ / __| __| | | / __|   / / __, |    */
-/*     | |    __/ (__| |_| |_| __   / /_   / /     */
-/*     |_|  ____|___|__|__,_|___/ |____| /_/      */
-/*                                                     */
-/*                Date: 27/12/14 22:19                */
+/*                     	Rectus29                       */
+/*                Date: 27/12/14 22:19                 */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 @Service("serviceSession")
@@ -30,8 +25,7 @@ public class ServiceSession implements IserviceSession {
 
     private static final Logger log = LogManager.getLogger(ServiceSession.class);
     private IserviceUser serviceUser;
-
-    Set<Subject> subjectList = new HashSet<Subject>();
+	private HashMap<Serializable, Subject> subjectMap = new HashMap<>();
 
     @Autowired
     public ServiceSession(IserviceUser serviceUser) {
@@ -39,48 +33,36 @@ public class ServiceSession implements IserviceSession {
     }
 
     public void addSubject(Subject subject) {
-        subjectList.add(subject);
+		subjectMap.put(subject.getSession().getId(), subject);
     }
 
     public void onStop(Session session) {
-        Subject subjectToRemove = null;
-        for (Subject subject : subjectList) {
-            /*if (subject.getSession().getId().equals(com..mismastore.session.getId())) {
-                subjectToRemove = subject;
-                User u = serviceUser.getUser(subject);
-                log.debug(u.getLastName() + " vient de deco");
-                break;
-            } */
-        }
-        if (subjectToRemove != null)
-            subjectList.remove(subjectToRemove);
+		if (subjectMap.containsKey(session.getId())) {
+			User u = serviceUser.getUser(subjectMap.get(session.getId()));
+			log.debug(u.getFormattedName() + " vient de deco");
+			subjectMap.remove(session.getId());
+		}
     }
 
     public void onExpiration(Session session) {
-        Subject subjectToRemove = null;
-        for (Subject subject : subjectList) {
-            if (subject.getSession().getId().equals(session.getId())) {
-                subjectToRemove = subject;
-                User u = serviceUser.getUser(subject);
-                log.debug(u.getId() + " vient d'expirer");
-                break;
-            }
-        }
-        if (subjectToRemove != null)
-            subjectList.remove(subjectToRemove);
+		if (subjectMap.containsKey(session.getId())) {
+			User u = serviceUser.getUser(subjectMap.get(session.getId()));
+			log.debug(u.getFormattedName() + " vient d'expirer");
+			subjectMap.remove(session.getId());
+		}
     }
 
-    public List<Subject> getConnectedSubjets() {
+	public List<Subject> getConnectedSubjects() {
         cleanList();
-        return new ArrayList<Subject>(subjectList);
+		return new ArrayList<Subject>(subjectMap.values());
     }
 
     private void cleanList() {
-        for (Subject subject : subjectList) {
+		for (Subject subject : subjectMap.values()) {
             try {
                 subject.getSession().getLastAccessTime();
             } catch (Exception e) {
-                subjectList.remove(subject);
+				subjectMap.remove(subject);
             }
         }
     }

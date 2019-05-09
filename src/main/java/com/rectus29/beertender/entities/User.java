@@ -8,9 +8,7 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 @SuppressWarnings("serial")
 @Entity
@@ -49,6 +47,8 @@ public class User extends BasicGenericEntity<User> implements IDecorableElement 
 	@Column
 	@Type(type = "com.rectus29.beertender.hibernate.types.LocaleUserType")
 	private Locale userLocale = Locale.FRANCE ;
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<Product> productBookmarkList = new ArrayList<>();
 
 	public User() {
 	}
@@ -173,6 +173,22 @@ public class User extends BasicGenericEntity<User> implements IDecorableElement 
 
 	public User setAvatarImage(AvatarResource avatarImage) {
 		this.avatarImage = avatarImage;
+		return this;
+	}
+
+	public List<Product> getProductBookmarkList() {
+		return productBookmarkList;
+	}
+
+	public User setProductBookmarkList(List<Product> productBookmarkList) {
+		this.productBookmarkList = productBookmarkList;
+		return this;
+	}
+
+	public User addBookmark(Product product) {
+		if (!this.productBookmarkList.contains(product)) {
+			this.productBookmarkList.add(product);
+		}
 		return this;
 	}
 
