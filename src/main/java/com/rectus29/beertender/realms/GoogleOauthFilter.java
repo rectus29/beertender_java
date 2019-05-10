@@ -6,14 +6,17 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.rectus29.beertender.service.impl.ServiceSession;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.imageio.ImageIO;
 import javax.servlet.*;
@@ -24,16 +27,24 @@ import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
+
 /*-----------------------------------------------------*/
 /*                                                     */
 /*                Date: 21/09/2018 12:44               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
+@Transactional
 public class GoogleOauthFilter implements Filter {
+
+	//	@SpringBean(name = "serviceSession")
+	ServiceSession serviceSession;
 
 	private Logger logger = LoggerFactory.getLogger(GoogleOauthFilter.class);
 	public void init(FilterConfig filterConfig) throws ServletException {
 		//nothing special here
+		WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+		serviceSession = (ServiceSession) webApplicationContext.getBean("serviceSession");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -117,11 +128,12 @@ public class GoogleOauthFilter implements Filter {
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login(token);
+			serviceSession.addSubject(currentUser);
 			logger.debug("Authorized user locally: {}", currentUser);
 			httpResponse.setStatus(200);
 			httpResponse.addHeader("auth", "Ok");
 			return;
-		} catch (AuthenticationException e) {
+		} catch (Exception e) {
 			logger.error("User cannot be authenticated. Probably not provisioned yet? Will respond with 401.", e);
 			httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unknown user");
 			return;

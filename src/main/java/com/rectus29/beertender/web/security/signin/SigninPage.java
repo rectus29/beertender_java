@@ -1,6 +1,5 @@
 package com.rectus29.beertender.web.security.signin;
 
-import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.service.IserviceConfig;
 import com.rectus29.beertender.service.IserviceSession;
 import com.rectus29.beertender.service.IserviceUser;
@@ -90,9 +89,6 @@ public class SigninPage extends BasePage {
 	}
 
 	private void onSignInSucceeded() {
-		User u = serviceUser.getCurrentUser();
-		u.setLastLogin(new java.util.Date());
-		serviceUser.save(u);
 		if (serviceConfig.getByProperty("key", "maintenance_mod", true).getValue().equals("1") && !serviceUser.getCurrentUser().isAdmin()) {
 			throw new RestartResponseException(MaintenancePage.class);
 		}

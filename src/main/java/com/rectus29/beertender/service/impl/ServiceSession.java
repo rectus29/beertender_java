@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,6 +35,10 @@ public class ServiceSession implements IserviceSession {
 
     public void addSubject(Subject subject) {
 		subjectMap.put(subject.getSession().getId(), subject);
+		User u = serviceUser.getUser(subject);
+		u.setLastLogin(new Date());
+		serviceUser.save(u);
+		log.debug(u.getFormattedName() + " vient de se connecter");
     }
 
     public void onStop(Session session) {

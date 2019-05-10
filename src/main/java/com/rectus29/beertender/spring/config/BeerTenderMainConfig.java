@@ -19,10 +19,10 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
 import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -42,7 +42,7 @@ import java.util.Properties;
 @EnableScheduling()
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.rectus29.beertender"})
-public class BeerTenderMainConfig {
+public class BeerTenderMainConfig implements TransactionManagementConfigurer {
 	private static final Logger LOG = LoggerFactory.getLogger(BeerTenderMainConfig.class);
 	@Autowired
 	private Environment env;
@@ -133,18 +133,21 @@ public class BeerTenderMainConfig {
 	}
 
 	@Bean
-	@Autowired
-	public PlatformTransactionManager transactionManager(DataSource comboPooledDataSource, Properties beerTenderProperties) {
-		HibernateTransactionManager txManager = new HibernateTransactionManager();
-		txManager.setSessionFactory(sessionFactory(beerTenderProperties).getObject());
-		txManager.setDataSource(comboPooledDataSource);
-		return txManager;
+	public PlatformTransactionManager transactionManager() {
+		try {
+			HibernateTransactionManager txManager = new HibernateTransactionManager();
+			txManager.setSessionFactory(sessionFactory(getBeertenderProperties()).getObject());
+			txManager.setDataSource(dataSource(getBeertenderProperties()));
+			return txManager;
+		} catch (PropertyVetoException e) {
+			LOG.error("Error while transaction manager init", e);
+			return null;
+		}
 	}
 
-	@Bean
-	@Autowired
-	public PlatformTransactionManager annotationDrivenTransactionManager(DataSource comboPooledDataSource, Properties beerTenderProperties) {
-		return transactionManager(comboPooledDataSource, beerTenderProperties);
+	@Override
+	public PlatformTransactionManager annotationDrivenTransactionManager() {
+		return transactionManager();
 	}
 
 	@Bean
