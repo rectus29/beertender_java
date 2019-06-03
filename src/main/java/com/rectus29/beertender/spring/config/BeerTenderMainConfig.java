@@ -7,19 +7,13 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
 import javax.annotation.PostConstruct;
@@ -34,15 +28,14 @@ import java.util.Properties;
 /*                   Date: 08/04/2019                  */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-@Configuration
-@Import(value = {
-		SecurityConfig.class,
-		SchedulerConfig.class
-})
-@EnableScheduling()
-@EnableTransactionManagement
-@ComponentScan(basePackages = {"com.rectus29.beertender"})
-public class BeerTenderMainConfig implements TransactionManagementConfigurer {
+//@Configuration
+//@Import(value = {
+//		SecurityConfig.class,
+//		SchedulerConfig.class
+//})
+//@EnableTransactionManagement
+//@ComponentScan(basePackages = {"com.rectus29.beertender"})
+public class BeerTenderMainConfig /*implements TransactionManagementConfigurer */ {
 	private static final Logger LOG = LoggerFactory.getLogger(BeerTenderMainConfig.class);
 	@Autowired
 	private Environment env;
@@ -145,10 +138,10 @@ public class BeerTenderMainConfig implements TransactionManagementConfigurer {
 		}
 	}
 
-	@Override
+	/*@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return transactionManager();
-	}
+	}*/
 
 	@Bean
 	public JavaMailSenderImpl javaMailSender() {

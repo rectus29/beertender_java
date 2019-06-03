@@ -37,14 +37,14 @@ import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletConte
 @Transactional
 public class GoogleOauthFilter implements Filter {
 
-	//	@SpringBean(name = "serviceSession")
+	private Logger logger = LoggerFactory.getLogger(GoogleOauthFilter.class);
+
 	ServiceSession serviceSession;
 
-	private Logger logger = LoggerFactory.getLogger(GoogleOauthFilter.class);
 	public void init(FilterConfig filterConfig) throws ServletException {
 		//nothing special here
 		WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-		serviceSession = (ServiceSession) webApplicationContext.getBean("serviceSession");
+//		serviceSession = (ServiceSession) webApplicationContext.getBean("serviceSession");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -128,7 +128,9 @@ public class GoogleOauthFilter implements Filter {
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login(token);
-			serviceSession.addSubject(currentUser);
+			WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+			((ServiceSession) webApplicationContext.getBean("serviceSession")).addSubject(currentUser);
+//			serviceSession.addSubject(currentUser);
 			logger.debug("Authorized user locally: {}", currentUser);
 			httpResponse.setStatus(200);
 			httpResponse.addHeader("auth", "Ok");
