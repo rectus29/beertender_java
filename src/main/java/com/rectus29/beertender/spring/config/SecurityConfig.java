@@ -19,6 +19,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
 
@@ -28,7 +29,7 @@ import java.util.Arrays;
 /*                   Date: 08/04/2019                     */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-//@Configuration
+@Configuration
 public class SecurityConfig {
 
 	private final String cipherKey = "9Jo0hLz8XhDpPsOOYOnSUA==";
