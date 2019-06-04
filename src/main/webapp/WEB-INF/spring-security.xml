@@ -1,69 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+<!--http://www.springframework.org/schema/beans/spring-beans.xsd">-->
 
-	<bean id="ShiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-		<property name="securityManager" ref="securityManager"/>
-	</bean>
-
-
-	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<property name="realms">
-			<list>
-				<ref bean="BeerTenderRealms"/>
-				<ref bean="GoogleOauthRealms"/>
-			</list>
-		</property>
-		<property name="authenticator" ref="authenticator"/>
-		<property name="cacheManager" ref="cacheManager"/>
-		<property name="sessionManager">
-			<bean class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-				<property name="sessionListeners">
-					<list>
-						<bean class="com.rectus29.beertender.service.BeerTenderSessionListener"/>
-					</list>
-				</property>
-				<!--<property name="sessionValidationInterval" value="5000"/>-->
-			</bean>
-		</property>
-	</bean>
+<!--<bean id="ShiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">-->
+<!--<property name="securityManager" ref="securityManager"/>-->
+<!--</bean>-->
 
 
-	<bean id="myRememberMeManager"
-		  class="org.apache.shiro.web.mgt.CookieRememberMeManager">
-		<property name="cipherKey" ref="cipherKeyBytes"/>
-	</bean>
+<!--<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">-->
+<!--<property name="realms">-->
+<!--<list>-->
+<!--<ref bean="BeerTenderRealms"/>-->
+<!--<ref bean="GoogleOauthRealms"/>-->
+<!--</list>-->
+<!--</property>-->
+<!--<property name="authenticator" ref="authenticator"/>-->
+<!--<property name="cacheManager" ref="cacheManager"/>-->
+<!--<property name="sessionManager">-->
+<!--<bean class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">-->
+<!--<property name="sessionListeners">-->
+<!--<list>-->
+<!--<bean class="com.rectus29.beertender.service.BeerTenderSessionListener"/>-->
+<!--</list>-->
+<!--</property>-->
+<!--&lt;!&ndash;<property name="sessionValidationInterval" value="5000"/>&ndash;&gt;-->
+<!--</bean>-->
+<!--</property>-->
+<!--</bean>-->
 
 
-	<bean id="cipherKeyBytes"
-		  class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="targetClass" value="org.apache.shiro.codec.Base64"/>
-		<property name="targetMethod" value="decode"/>
-		<property name="arguments">
-			<list>
-				<value>9Jo0hLz8XhDpPsOOYOnSUA==</value>
-			</list>
-		</property>
-	</bean>
+<!--<bean id="myRememberMeManager"-->
+<!--class="org.apache.shiro.web.mgt.CookieRememberMeManager">-->
+<!--<property name="cipherKey" ref="cipherKeyBytes"/>-->
+<!--</bean>-->
 
-	<bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
-		<property name="realms">
-			<list>
-				<ref bean="BeerTenderRealms"/>
-				<ref bean="GoogleOauthRealms"/>
-			</list>
-		</property>
-		<property name="authenticationStrategy">
-			<bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>
-		</property>
-	</bean>
 
-	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
-	</bean>
-	<bean id="BeerTenderRealms" class="com.rectus29.beertender.realms.BeerTenderRealms"/>
-	<bean id="GoogleOauthRealms" class="com.rectus29.beertender.realms.GoogleOauthRealms"/>
-	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-</beans>
+<!--<bean id="cipherKeyBytes"-->
+<!--class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">-->
+<!--<property name="targetClass" value="org.apache.shiro.codec.Base64"/>-->
+<!--<property name="targetMethod" value="decode"/>-->
+<!--<property name="arguments">-->
+<!--<list>-->
+<!--<value>9Jo0hLz8XhDpPsOOYOnSUA==</value>-->
+<!--</list>-->
+<!--</property>-->
+<!--</bean>-->
+
+<!--<bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">-->
+<!--<property name="realms">-->
+<!--<list>-->
+<!--<ref bean="BeerTenderRealms"/>-->
+<!--<ref bean="GoogleOauthRealms"/>-->
+<!--</list>-->
+<!--</property>-->
+<!--<property name="authenticationStrategy">-->
+<!--<bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>-->
+<!--</property>-->
+<!--</bean>-->
+
+<!--<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">-->
+<!--<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>-->
+<!--</bean>-->
+<!--<bean id="BeerTenderRealms" class="com.rectus29.beertender.realms.BeerTenderRealms"/>-->
+<!--<bean id="GoogleOauthRealms" class="com.rectus29.beertender.realms.GoogleOauthRealms"/>-->
+<!--<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>-->
+<!--</beans>-->
