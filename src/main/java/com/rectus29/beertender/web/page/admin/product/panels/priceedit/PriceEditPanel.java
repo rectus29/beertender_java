@@ -4,6 +4,7 @@ import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.service.IserviceProduct;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -69,7 +70,8 @@ public class PriceEditPanel extends Panel {
 										Product pord = item.getModelObject();
 										serviceProduct.save(pord);
 										ldm.detach();
-										target.add(wmc);
+										this.getComponent().add(AttributeAppender.replace("class", "pulse"));//"pulse('" + this.getComponent().getMarkupId() + "')");
+										target.add(this.getComponent());
 									}
 								}))
 						.setOutputMarkupId(true)

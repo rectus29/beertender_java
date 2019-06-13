@@ -34,6 +34,10 @@ function signInCallback(authResult) {
 	}
 }
 
+function pulse() {
+
+}
+
 jQuery(document).ready(function ($) {
 
 

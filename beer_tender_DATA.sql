@@ -93,7 +93,7 @@ INSERT INTO `config` (`id`, `created`, `updated`, `ke`, `val`) VALUES
 -- Déchargement des données de la table `packaging`
 --
 
-INSERT INTO `packaging` (`id`, `created`, `updated`, `name`, `state`, `shortName`, `sortOrder`) VALUES
+INSERT INTO `packaging` (`id`, `created`, `updated`, `name`, `state`, `shortName`, seqOrder) VALUES
 (1, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 12x75cl', 1, '75cl', 0),
 (2, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Bouteille 24x33cl', 1, '33cl', 1),
 (3, '2018-09-06 13:18:03', '2018-09-06 13:18:03', 'Coffret cadeaux', 1, 'cadeaux', 3),
