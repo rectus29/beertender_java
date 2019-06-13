@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+	<body>
+		<wicket:panel>
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<th>Produit</th>
+					<th>Packaging</th>
+					<th>Prix</th>
+				</tr>
+				</thead>
+				<tbody wicket:id="innerwmc">
+				<tr wicket:id="lvProduct">
+					<td wicket:id="productName"></td>
+					<td wicket:id="productPack"></td>
+					<td>
+						<form action="#" wicket:id="priceForm">
+							<input type="number" wicket:id="productPrice"/>
+						</form>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</wicket:panel>
+	</body>
+</html>

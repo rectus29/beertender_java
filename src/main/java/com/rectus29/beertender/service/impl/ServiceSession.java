@@ -38,13 +38,13 @@ public class ServiceSession implements IserviceSession {
 		User u = serviceUser.getUser(subject);
 		u.setLastLogin(new Date());
 		serviceUser.save(u);
-		log.debug(u.getFormattedName() + " vient de se connecter");
+		log.debug(u.getFormattedName() + " just log in");
     }
 
     public void onStop(Session session) {
 		if (subjectMap.containsKey(session.getId())) {
 			User u = serviceUser.getUser(subjectMap.get(session.getId()));
-			log.debug(u.getFormattedName() + " vient de deco");
+			log.debug(u.getFormattedName() + " logout");
 			subjectMap.remove(session.getId());
 		}
     }
@@ -52,7 +52,7 @@ public class ServiceSession implements IserviceSession {
     public void onExpiration(Session session) {
 		if (subjectMap.containsKey(session.getId())) {
 			User u = serviceUser.getUser(subjectMap.get(session.getId()));
-			log.debug(u.getFormattedName() + " vient d'expirer");
+			log.debug(u.getFormattedName() + " has expired");
 			subjectMap.remove(session.getId());
 		}
     }

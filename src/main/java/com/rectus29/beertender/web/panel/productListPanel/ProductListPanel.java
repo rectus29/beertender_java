@@ -25,59 +25,64 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
 public class ProductListPanel extends Panel {
 
-    @SpringBean(name = "serviceProduct")
-    private IserviceProduct serviceProduct;
+	@SpringBean(name = "serviceProduct")
+	private IserviceProduct serviceProduct;
 	@SpringBean(name = "serviceUser")
 	private IserviceUser serviceUser;
-    @SpringBean(name = "serviceCategory")
-    private IserviceCategory serviceCategory;
-    private List<Category> filter = new ArrayList<>();
-    private WebMarkupContainer wmc;
+	@SpringBean(name = "serviceCategory")
+	private IserviceCategory serviceCategory;
+	private List<Category> filter = new ArrayList<>();
+	private WebMarkupContainer wmc;
 
-    public ProductListPanel(String id) {
-        super(id);
-    }
+	public ProductListPanel(String id) {
+		super(id);
+	}
 
-    public ProductListPanel(String id, List<Category> categoryList) {
-        super(id);
-        this.filter = categoryList;
-    }
+	public ProductListPanel(String id, List<Category> categoryList) {
+		super(id);
+		this.filter = categoryList;
+	}
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
 
-        LoadableDetachableModel<List<Product>> ldm = new LoadableDetachableModel<List<Product>>() {
-            @Override
-            protected List<Product> load() {
-                if (BeerTenderSession.get().getBeerTenderFilter().isEmpty()) {
-                    return serviceProduct.getAll();
-                }
-				return serviceProduct.getFilteredProduct(BeerTenderSession.get().getBeerTenderFilter());
-            }
-        };
-        add((wmc = new WebMarkupContainer("wmc")).setOutputMarkupId(true));
+		LoadableDetachableModel<List<Product>> ldm = new LoadableDetachableModel<List<Product>>() {
+			@Override
+			protected List<Product> load() {
+				List<Product> out = new ArrayList<>();
+				if (BeerTenderSession.get().getBeerTenderFilter().isEmpty()) {
+					out.addAll(serviceProduct.getAll());
+				} else {
+					out.addAll(serviceProduct.getFilteredProduct(BeerTenderSession.get().getBeerTenderFilter()));
+				}
+				out.sort(Comparator.comparingInt(Product::getSeqOrder));
+				return out;
+			}
+		};
+		add((wmc = new WebMarkupContainer("wmc")).setOutputMarkupId(true));
 
-        wmc.add(new ListView<Product>("lv", ldm) {
-            @Override
-            protected void populateItem(ListItem<Product> item) {
+		wmc.add(new ListView<Product>("lv", ldm) {
+			@Override
+			protected void populateItem(ListItem<Product> item) {
 //                item.add(new ProductImage("productImage", item.getModel()));
-                item.add(new Label("productName", item.getModelObject().getName()));
+				item.add(new Label("productName", item.getModelObject().getName()));
 				item.add(new Label("shortdesc", StringUtils.left(item.getModelObject().getProductDefinition().getDescription(), 110)));
-                item.add(new Label("packaging", item.getModelObject().getPackaging().getName()));
-                item.add(new CurrencyLabel("price", new Model<>(item.getModelObject().getPrice())));
-                item.add(new BookmarkablePageLink<ProductPage>(
-                                "btnProduct",
-                                ProductPage.class,
-						new PageParameters().add(ProductPage.PRODUCT_UID, item.getModelObject().getUniqueId())
-                        )
-                );
-                item.add(new ListView<Category>("rvCateg", item.getModelObject().getCategoryList()){
+				item.add(new Label("packaging", item.getModelObject().getPackaging().getName()));
+				item.add(new CurrencyLabel("price", new Model<>(item.getModelObject().getPrice())));
+				item.add(new BookmarkablePageLink<ProductPage>(
+								"btnProduct",
+								ProductPage.class,
+								new PageParameters().add(ProductPage.PRODUCT_UID, item.getModelObject().getUniqueId())
+						)
+				);
+				item.add(new ListView<Category>("rvCateg", item.getModelObject().getCategoryList()) {
 					@Override
 					protected void populateItem(ListItem<Category> item) {
 						item.add(new Label("categBadge", item.getModelObject().getName()));
@@ -93,9 +98,9 @@ public class ProductListPanel extends Panel {
 				}.add(new Label("bookmarkLabel")
 						.add(new AttributeModifier("class", (serviceUser.getCurrentUser().getProductBookmarkList().contains(item.getModelObject())) ? "fa fa-star" : "fa fa-star-o"))
 				).setOutputMarkupId(true));
-            }
-        });
+			}
+		});
 
 
-    }
+	}
 }

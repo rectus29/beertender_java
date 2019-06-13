@@ -23,7 +23,7 @@ public class Packaging extends BasicGenericEntity<Packaging>{
 
 	private String shortName;
 
-	private Integer sortOrder = 0;
+	private Integer seqOrder = 0;
 
 	@OneToMany(mappedBy = "packaging")
 	private List<Product> productList = new ArrayList<>();
@@ -57,12 +57,12 @@ public class Packaging extends BasicGenericEntity<Packaging>{
 	}
 
 
-	public Integer getSortOrder() {
-		return sortOrder;
+	public Integer getSeqOrder() {
+		return seqOrder;
 	}
 
-	public void setSortOrder(Integer sortOrder) {
-		this.sortOrder = sortOrder;
+	public void setSeqOrder(Integer sortOrder) {
+		this.seqOrder = sortOrder;
 	}
 
 	@Override
@@ -78,12 +78,12 @@ public class Packaging extends BasicGenericEntity<Packaging>{
 		return Objects.equals(name, packaging.name) &&
 				Objects.equals(getId(), packaging.getId()) &&
 				Objects.equals(shortName, packaging.shortName) &&
-				Objects.equals(sortOrder, packaging.sortOrder) &&
+				Objects.equals(seqOrder, packaging.seqOrder) &&
 				state == packaging.state;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, shortName, sortOrder, state);
+		return Objects.hash(name, shortName, seqOrder, state);
 	}
 }

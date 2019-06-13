@@ -2,6 +2,9 @@ package com.rectus29.beertender.web.page.admin.product;
 
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.page.admin.product.panels.list.ProductAdminListPanel;
+import com.rectus29.beertender.web.page.admin.product.panels.priceedit.PriceEditPanel;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -53,6 +56,14 @@ public class ProductAdminPanel extends Panel {
 //				return SecurityUtils.getSubject().isPermitted("system:productdefinition:edit");
 //			}
 //		});
+
+		add(new AjaxLink("priceEdit") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				wmc.addOrReplace(new PriceEditPanel("tabbed"));
+				target.add(wmc);
+			}
+		});
 
 
 		wmc.add(new ProductAdminListPanel("tabbed"));

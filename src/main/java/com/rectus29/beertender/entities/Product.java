@@ -34,6 +34,9 @@ public class Product extends BasicGenericEntity<Product> {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private ImageResource fileImage;
 
+	@Column(nullable = false)
+	private int seqOrder = 0;
+
 	public Product() {
 		this.productDefinition = new ProductDefinition();
 	}
@@ -84,6 +87,15 @@ public class Product extends BasicGenericEntity<Product> {
 
 	public void setFileImage(ImageResource fileImage) {
 		this.fileImage = fileImage;
+	}
+
+	public int getSeqOrder() {
+		return seqOrder;
+	}
+
+	public Product setSeqOrder(int seqOrder) {
+		this.seqOrder = seqOrder;
+		return this;
 	}
 
 	@Override

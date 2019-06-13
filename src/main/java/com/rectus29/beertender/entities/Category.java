@@ -1,14 +1,8 @@
 package com.rectus29.beertender.entities;
 
 /*-----------------------------------------------------*/
-/*      _____           _               ___   ___      */
-/*     |  __ \         | |             |__ \ / _ \     */
-/*     | |__) |___  ___| |_ _   _ ___     ) | (_) |    */
-/*     |  _  // _ \/ __| __| | | / __|   / / \__, |    */
-/*     | | \ \  __/ (__| |_| |_| \__ \  / /_   / /     */
-/*     |_|  \_\___|\___|\__|\__,_|___/ |____| /_/      */
-/*                                                     */
-/*                Date: 13/06/2018 17:10                */
+/*                        Rectus29                     */
+/*                Date: 13/06/2018 17:10               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
@@ -28,17 +22,16 @@ public class Category extends BasicGenericEntity<Category> implements ISearchabl
 
 	@Field
 	private String name;
-
     private String shortName;
-
 	@Field
 	@Column(columnDefinition = "MEDIUMTEXT")
 	private String description;
-
     @ManyToMany(targetEntity = Product.class, mappedBy = "categoryList")
     private List<Product> productList = new ArrayList<>();
-
+	@Column(nullable = false)
     private Boolean isRoot = false;
+	@Column(nullable = false)
+	private int seqOrder = 0;
 
 
     public Category() {
@@ -82,6 +75,15 @@ public class Category extends BasicGenericEntity<Category> implements ISearchabl
 
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
+	}
+
+	public int getSeqOrder() {
+		return seqOrder;
+	}
+
+	public Category setSeqOrder(int seqOrder) {
+		this.seqOrder = seqOrder;
+		return this;
 	}
 
 	@Override

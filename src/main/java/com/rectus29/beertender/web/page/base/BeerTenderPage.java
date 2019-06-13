@@ -70,7 +70,7 @@ public class BeerTenderPage extends BeerTenderBasePage {
 			@Override
 			protected List<Packaging> load() {
 				List<Packaging> out = servicePackaging.getAll(Arrays.asList(State.ENABLE));
-				Collections.sort(out, Comparator.comparing(Packaging::getSortOrder));
+				Collections.sort(out, Comparator.comparing(Packaging::getSeqOrder));
 				return out;
 			}
 		};

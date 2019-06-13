@@ -1,7 +1,6 @@
 package com.rectus29.beertender.service.impl;
 
 import com.rectus29.beertender.entities.Category;
-import com.rectus29.beertender.entities.Order;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceProduct;
@@ -69,4 +68,5 @@ public class ServiceProduct extends GenericManagerImpl<Product, Long> implements
 				);
 		return out;
 	}
+
 }
