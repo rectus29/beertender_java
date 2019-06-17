@@ -47,7 +47,11 @@ public class User extends BasicGenericEntity<User> implements IDecorableElement 
 	@Column
 	@Type(type = "com.rectus29.beertender.hibernate.types.LocaleUserType")
 	private Locale userLocale = Locale.FRANCE ;
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "users_product_bookmark",
+			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id")
+	)
 	private List<Product> productBookmarkList = new ArrayList<>();
 
 	public User() {

@@ -91,13 +91,16 @@ public class ProductListPanel extends Panel {
 				item.add(new AjaxLink("bookmarkLink") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						User user = serviceUser.getCurrentUser().addBookmark(item.getModelObject());
-						serviceUser.save(user);
+						User user = serviceUser.getCurrentUser();
+						user.addBookmark(item.getModelObject());
+						user = serviceUser.save(user);
 						target.add(this);
 					}
 				}.add(new Label("bookmarkLabel")
 						.add(new AttributeModifier("class", (serviceUser.getCurrentUser().getProductBookmarkList().contains(item.getModelObject())) ? "fa fa-star" : "fa fa-star-o"))
-				).setOutputMarkupId(true));
+						).setOutputMarkupId(true)
+								.setVisible(false)
+				);
 			}
 		});
 

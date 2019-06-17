@@ -8,7 +8,7 @@
 			<div class="col-md-6">
 				<div class="grey-panel">
 					<div class="grey-header">
-						<h5>SYNTHESE</h5>
+						<h5>MONTANT</h5>
 					</div>
 					<div>Montant total : <span wicket:id="orderSum"/></div>
 					<div>Montant collecté : <span wicket:id="orderpaid"/><a href="#">Info paiment</a></div>
@@ -17,20 +17,25 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<table class="table table-striped">
-					<thead>
-					<tr>
-						<th>Produit</th>
-						<th>Nb</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr wicket:id="orderProductRv">
-						<td wicket:id="prod"></td>
-						<td wicket:id="nb"></td>
-					</tr>
-					</tbody>
-				</table>
+				<div class="grey-panel">
+					<div class="grey-header">
+						<h5>SYNTHESE</h5>
+					</div>
+					<table class="table table-striped">
+						<thead>
+						<tr>
+							<th>Produit</th>
+							<th>Nb</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr wicket:id="orderProductRv">
+							<td wicket:id="prod"></td>
+							<td wicket:id="nb"></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="col-md-12">
 				<table class="table table-striped table-sm">

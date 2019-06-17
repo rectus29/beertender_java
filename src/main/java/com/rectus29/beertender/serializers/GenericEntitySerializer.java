@@ -8,14 +8,9 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Type;
 
 /*-----------------------------------------------------*/
-/*      _____           _               ___   ___      */
-/*     |  __ \         | |             |__ \ / _ \     */
-/*     | |__) |___  ___| |_ _   _ ___     ) | (_) |    */
-/*     |  _  // _ \/ __| __| | | / __|   / / \__, |    */
-/*     | | \ \  __/ (__| |_| |_| \__ \  / /_   / /     */
-/*     |_|  \_\___|\___|\__|\__,_|___/ |____| /_/      */
+/*						rectus29					   */
 /*                                                     */
-/*                Date: 23/09/2016 12:08                */
+/*                Date: 23/09/2016 12:08               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 public class GenericEntitySerializer implements JsonSerializer<GenericEntity>, JsonDeserializer<GenericEntity> {
