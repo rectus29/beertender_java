@@ -50,6 +50,7 @@ public class BeerTenderBasePage extends ProtectedPage {
 	private Label nbProductLabel, cartCostLabel;
 
 	public BeerTenderBasePage() {
+		super();
 	}
 
 	public BeerTenderBasePage(IModel model) {
