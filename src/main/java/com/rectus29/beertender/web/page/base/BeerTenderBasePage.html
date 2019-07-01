@@ -12,46 +12,38 @@
                 <img src="img/beer.png" width="30" height="30" alt="" class="d-inline-block align-top">
                 <b><span>Beer</span>Tender</b>
             </a>
-            <!--logo end-->
-            <div class="nav notify-row" id="top_menu">
-				<!--  notification start -->
-                <ul class="nav top-menu">
-                    <li id="header_inbox_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                            <i class="fa fa-shopping-cart"></i>
+			<div class="top-menu">
+				<ul class="nav pull-right top-menu">
+					<li class="dropdown" id="header_inbox_bar">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="index.html#">
+							<i class="fa fa-shopping-cart"></i>
 							<span class="badge bg-warning" wicket:id="cartNbProduct">0</span>
-                        </a>
-                        <ul class="dropdown-menu extended inbox">
-                            <div class="notify-arrow notify-arrow-yellow"></div>
-                            <li>
+						</a>
+						<ul class="dropdown-menu extended inbox">
+							<div class="notify-arrow notify-arrow-yellow"></div>
+							<li>
 								<p class="yellow">Votre panier</p>
-                            </li>
+							</li>
 							<li wicket:id="cartLv">
-                                <a href="index.html#">
+								<a href="index.html#">
 									<span class="photo"><img alt="avatar" src="img/beer.png" wicket:id="productImg"></span>
-                                    <span class="subject">
+									<span class="subject">
 									  <span class="from" wicket:id="productName">Zac Snider</span>
 									  <span class="time" wicket:id="qte">Just now</span>
 								  	</span>
 									<span class="message" wicket:id="productPackage">
 									</span>
-                                </a>
-                            </li>
+								</a>
+							</li>
 							<wicket:enclosure>
 								<li>
 									<a href="#" wicket:id="cartLink">
 										Voir la commande
-                                </a>
-                            </li>
+									</a>
+								</li>
 							</wicket:enclosure>
-                        </ul>
-                    </li>
-                    <!-- inbox dropdown end -->
-                </ul>
-                <!--  notification end -->
-            </div>
-            <div class="top-menu">
-                <ul class="nav pull-right top-menu">
+						</ul>
+					</li>
                     <wicket:enclosure>
                         <li><a class="logout" href="#" wicket:id="admin"><i class="fa fa-cogs"></i>&nbsp;Admin</a></li>
                     </wicket:enclosure>
