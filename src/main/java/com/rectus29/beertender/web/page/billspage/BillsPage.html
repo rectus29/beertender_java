@@ -6,93 +6,91 @@
 	<body>
 		<wicket:extend>
 			<div class="mt showback">
-				<div class="col-lg-12">
-					<div class="row content-panel">
-						<div class="col-lg-10 col-lg-offset-1">
-							<div class="invoice-body">
-								<div class="pull-left">
-									<h1 wicket:id="tfName"></h1>
-								</div>
-								<!-- /pull-right -->
-								<div class="clearfix"></div>
-								<br>
-								<br>
-								<br>
-								<div class="row">
-									<div class="col-md-9">
-										<h4>Paul Smith</h4>
-										<address>
-											<strong>Enterprise Corp.</strong><br>
-											234 Great Ave, Suite 600<br>
-											San Francisco, CA 94107<br>
-											<abbr title="Phone">P:</abbr> (123) 456-7890
-										</address>
-									</div>
-									<!-- /col-md-9 -->
-									<div class="col-md-3">
-										<br>
-										<div>
-											<div class="pull-left"> Commande # :</div>
-											<div class="pull-right" wicket:id="billsCode"></div>
-											<div class="clearfix"></div>
-										</div>
-										<div>
-											<!-- /col-md-3 -->
-											<div class="pull-left"> Date de cloture :</div>
-											<div class="pull-right" wicket:id="tfEndDate"> 15/03/14</div>
-											<div class="clearfix"></div>
-										</div>
-										<!-- /row -->
-										<br>
-										<div class="well well-small green">
-											<div class="pull-left"> Total :</div>
-											<div class="pull-right" wicket:id="billsTotal"></div>
-											<div class="clearfix"></div>
-										</div>
-									</div>
-									<!-- /invoice-body -->
-								</div>
-								<!-- /col-lg-10 -->
-								<table class="table">
-									<thead>
-									<tr>
-										<th class="text-center" style="width:60px">Qte</th>
-										<th class="text-left">Description</th>
-										<th class="text-right" style="width:140px">Prix unitaire</th>
-										<th class="text-right" style="width:90px">Total</th>
-										<th class="text-right">Action</th>
-									</tr>
-									</thead>
-									<tbody wicket:id="wmc">
-									<tr wicket:id="lvCartRow">
-										<td class="text-center" wicket:id="productqte">1</td>
-										<td><span wicket:id="productName"/>&nbsp;-&nbsp;<span wicket:id="productpack"/></td>
-										<td class="text-right" wicket:id="productunitprice">$429.00</td>
-										<td class="text-right" wicket:id="rowprice">$429.00</td>
-										<td>
-											<a href="" wicket:id="plusLink">
-												<i class="fa fa-plus"></i>
-											</a>
-											<a href="" wicket:id="minusLink">
-												<i class="fa fa-minus"></i>
-											</a>
-											<a href="" wicket:id="rmLink">
-												<i class="fa fa-trash"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="2" rowspan="4"></td>
-										<td class="text-right no-border">
-											<div class="well well-small green"><strong>Total</strong></div>
-										</td>
-										<td class="text-right"><strong wicket:id="billsTotal2">$1029.00</strong></td>
-									</tr>
-									</tbody>
-								</table>
-								<br>
-								<br>
+				<div class="row">
+					<div class="col-lg-10 col-lg-offset-1">
+						<div class="invoice-body">
+							<div class="pull-left">
+								<h1 wicket:id="tfName"></h1>
 							</div>
+							<!-- /pull-right -->
+							<div class="clearfix"></div>
+							<br>
+							<br>
+							<br>
+							<div class="row">
+								<div class="col-md-9">
+									<h4>Paul Smith</h4>
+									<address>
+										<strong>Enterprise Corp.</strong><br>
+										234 Great Ave, Suite 600<br>
+										San Francisco, CA 94107<br>
+										<abbr title="Phone">P:</abbr> (123) 456-7890
+									</address>
+								</div>
+								<!-- /col-md-9 -->
+								<div class="col-md-3">
+									<br>
+									<div>
+										<div class="pull-left"> Commande # :</div>
+										<div class="pull-right" wicket:id="billsCode"></div>
+										<div class="clearfix"></div>
+									</div>
+									<div>
+										<!-- /col-md-3 -->
+										<div class="pull-left"> Date de cloture :</div>
+										<div class="pull-right" wicket:id="tfEndDate"> 15/03/14</div>
+										<div class="clearfix"></div>
+									</div>
+									<!-- /row -->
+									<br>
+									<div class="well well-small green">
+										<div class="pull-left"> Total :</div>
+										<div class="pull-right" wicket:id="billsTotal"></div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+								<!-- /invoice-body -->
+							</div>
+							<!-- /col-lg-10 -->
+							<table class="table">
+								<thead>
+								<tr>
+									<th class="text-center" style="width:60px">Qte</th>
+									<th class="text-left">Description</th>
+									<th class="text-right" style="width:140px">Prix unitaire</th>
+									<th class="text-right" style="width:90px">Total</th>
+									<th class="text-right">Action</th>
+								</tr>
+								</thead>
+								<tbody wicket:id="wmc">
+								<tr wicket:id="lvCartRow">
+									<td class="text-center" wicket:id="productqte">1</td>
+									<td><span wicket:id="productName"/>&nbsp;-&nbsp;<span wicket:id="productpack"/></td>
+									<td class="text-right" wicket:id="productunitprice">$429.00</td>
+									<td class="text-right" wicket:id="rowprice">$429.00</td>
+									<td>
+										<a href="" wicket:id="plusLink">
+											<i class="fa fa-plus"></i>
+										</a>
+										<a href="" wicket:id="minusLink">
+											<i class="fa fa-minus"></i>
+										</a>
+										<a href="" wicket:id="rmLink">
+											<i class="fa fa-trash"></i>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" rowspan="4"></td>
+									<td class="text-right no-border">
+										<div class="well well-small green"><strong>Total</strong></div>
+									</td>
+									<td class="text-right"><strong wicket:id="billsTotal2">$1029.00</strong></td>
+								</tr>
+								</tbody>
+							</table>
+							<br>
+							<br>
 						</div>
 					</div>
 				</div>

@@ -127,4 +127,9 @@ public class BillsPage extends BeerTenderPage {
 		};
 		wmc.add(lv.setOutputMarkupId(true));
 	}
+
+	@Override
+	public String getTitleContribution() {
+		return "Ma commande";
+	}
 }

@@ -34,15 +34,13 @@ function signInCallback(authResult) {
 	}
 }
 
-function pulse() {
+//default option for datepicker
+$.fn.datepicker.defaults.language = "fr";
+$.fn.datepicker.defaults.zIndexOffset = "30000";
 
-}
 
 jQuery(document).ready(function ($) {
-
-
 	//    sidebar dropdown menu auto scrolling
-
 	$('#sidebar .sub-menu > a').click(function () {
 		var o = ($(this).offset());
 		diff = 250 - o.top;
@@ -51,10 +49,7 @@ jQuery(document).ready(function ($) {
 		else
 			$("#sidebar").scrollTo("+=" + Math.abs(diff), 500);
 	});
-
-
 	//    sidebar toggle
-
 	$(function () {
 		function responsiveView() {
 			var wSize = $(window).width();
@@ -105,11 +100,8 @@ jQuery(document).ready(function ($) {
 		spacebarenabled: false,
 		cursorborder: ''
 	});
-
 	//  $("html").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '6', cursorborderradius: '10px', background: '#404040', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
-
 	// widget tools
-
 	$('.panel .tools .fa-chevron-down').click(function () {
 		var el = jQuery(this).parents(".panel").children(".panel-body");
 		if (jQuery(this).hasClass("fa-chevron-down")) {
@@ -125,18 +117,7 @@ jQuery(document).ready(function ($) {
 		jQuery(this).parents(".panel").parent().remove();
 	});
 
-
-	//    tool tips
-
-	$('.tooltips').tooltip();
-
-	//    popovers
-
-	$('.popovers').popover();
-
-
 	// custom bar chart
-
 	if ($(".custom-bar-chart")) {
 		$(".bar").each(function () {
 			var i = $(this).find(".value").html();

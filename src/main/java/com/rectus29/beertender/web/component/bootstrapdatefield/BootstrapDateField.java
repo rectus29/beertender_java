@@ -1,5 +1,6 @@
 package com.rectus29.beertender.web.component.bootstrapdatefield;
 
+import com.rectus29.beertender.web.Config;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
@@ -39,6 +40,9 @@ public class BootstrapDateField extends FormComponent {
 	@Override
 	protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
-		tag.put("data-provide", "datepicker");
+//		tag.put("data-provide", "datepicker");
+		tag.put("value", Config.get().dateFormat("dd-MM-yyyy", (Date) this.getModel().getObject()));
 	}
+
+
 }

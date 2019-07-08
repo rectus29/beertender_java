@@ -95,7 +95,7 @@ public class BeerTenderApplication extends WebApplication {
 		mountPage("mail/#{panel}", MailBoxPage.class);
 		mountPage("product/#{productUniqueId}", ProductPage.class);
 		mountPage("home/#{package}/#{category}", getHomePage());
-		mountPage("order/", BillsPage.class);
+		mountPage("myorder/", BillsPage.class);
 		mountPage("maintenance/", MaintenancePage.class);
 		mountPage("search/#{search}", SearchPage.class);
 

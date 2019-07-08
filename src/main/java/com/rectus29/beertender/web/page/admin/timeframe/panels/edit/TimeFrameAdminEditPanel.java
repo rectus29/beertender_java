@@ -22,7 +22,6 @@ import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.util.Arrays;
-import java.util.Date;
 
 /*-----------------------------------------------------*/
 /*                                                     */
@@ -59,8 +58,8 @@ public abstract class TimeFrameAdminEditPanel extends Panel {
 			protected void onInitialize() {
 				super.onInitialize();
 				add(new TextField<>("name", new PropertyModel<String>(timeFrameIModel, "name")).setRequired(true));
-				add(new BootstrapDateField("startdate", new PropertyModel<Date>(timeFrameIModel, "startDate")).setRequired(true));
-				add(new BootstrapDateField("enddate", new PropertyModel<Date>(timeFrameIModel, "endDate")).setRequired(true));
+				add(new BootstrapDateField("startdate", new PropertyModel(timeFrameIModel, "startDate")).setRequired(true));
+				add(new BootstrapDateField("enddate", new PropertyModel(timeFrameIModel, "endDate")).setRequired(true));
 				add(new DropDownChoice<>("state",
 						new PropertyModel<>(timeFrameIModel, "state"),
 						Arrays.asList(State.values()),

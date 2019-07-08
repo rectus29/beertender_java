@@ -21,13 +21,13 @@
 			<label class="control-label" wicket:for="startdate">
 				<wicket:message key="start-date"/>
 			</label>
-			<input wicket:id="startdate" class="form-control datepicker"/>
+			<input class="form-control datepicker" type="text" wicket:id="startdate"/>
 		</div>
 		<div class="form-group">
 			<label class="control-label" wicket:for="enddate">
 				<wicket:message key="end-date"/>
 			</label>
-			<input wicket:id="enddate" class="form-control"/>
+			<input class="form-control datepicker" type="text" wicket:id="enddate"/>
 		</div>
 		<div class="form-group">
 			<label class="control-label" wicket:for="state">
@@ -47,6 +47,12 @@
 		</div>
 		<div wicket:id="feed"/>
 	</form>
+	<script>
+		$('.datepicker').datepicker({
+			language: 'fr',
+			zIndexOffset: 30000
+		});
+	</script>
 </wicket:panel>
 </body>
 </html>

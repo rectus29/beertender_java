@@ -42,5 +42,23 @@ a.logo span {
 	}
 }
 
+ul.top-menu > li > .logout {
+	margin-right: 0px;
+	margin-top: 0px;
+}
+
+ul.top-menu > li > a {
+	margin-right: 0px;
+}
+
+ul.top-menu > li {
+	margin-right: 15px;
+	margin-top: 15px;
+}
+
+.notify-arrow {
+	left: inherit;
+	right: 16px;
+}
 
 
