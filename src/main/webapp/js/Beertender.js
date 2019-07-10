@@ -34,12 +34,26 @@ function signInCallback(authResult) {
 	}
 }
 
-//default option for datepicker
-$.fn.datepicker.defaults.language = "fr";
-$.fn.datepicker.defaults.zIndexOffset = "30000";
-
 
 jQuery(document).ready(function ($) {
+
+	//default option for datepicker
+	$.fn.datepicker.defaults.language = "fr";
+	$.fn.datepicker.defaults.zIndexOffset = "30000";
+	$('.datepicker').datepicker();
+
+	$('#nav-accordion').dcAccordion({
+		eventType: 'click',
+		autoClose: true,
+		saveState: true,
+		disableLink: true,
+		speed: 'slow',
+		showCount: false,
+		autoExpand: true,
+		//        cookie: 'dcjq-accordion-1',
+		classExpand: 'dcjq-current-parent'
+	});
+
 	//    sidebar dropdown menu auto scrolling
 	$('#sidebar .sub-menu > a').click(function () {
 		var o = ($(this).offset());

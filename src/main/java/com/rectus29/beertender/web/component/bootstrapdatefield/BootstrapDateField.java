@@ -4,6 +4,7 @@ import com.rectus29.beertender.web.Config;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 import java.util.Date;
 
@@ -12,10 +13,10 @@ import java.util.Date;
 /*                   Date: 25/04/2019                  */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-public class BootstrapDateField extends FormComponent {
+public class BootstrapDateField extends FormComponent<Date> {
 
 	public BootstrapDateField(String id) {
-		super(id);
+		super(id, new Model<>(new Date()));
 	}
 
 	public BootstrapDateField(String id, IModel<Date> model) {
@@ -40,7 +41,7 @@ public class BootstrapDateField extends FormComponent {
 	@Override
 	protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
-//		tag.put("data-provide", "datepicker");
+		tag.put("data-provide", "datepicker");
 		tag.put("value", Config.get().dateFormat("dd-MM-yyyy", (Date) this.getModel().getObject()));
 	}
 
