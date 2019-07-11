@@ -1,4 +1,4 @@
-package com.rectus29.beertender.web.page.admin.product.panels.priceedit;
+package com.rectus29.beertender.web.page.admin.priceedit;
 
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.service.IserviceProduct;

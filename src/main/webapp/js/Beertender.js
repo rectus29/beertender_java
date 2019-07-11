@@ -35,11 +35,13 @@ function signInCallback(authResult) {
 }
 
 
-jQuery(document).ready(function ($) {
+$(document).ready(function ($) {
 
 	//default option for datepicker
 	$.fn.datepicker.defaults.language = "fr";
 	$.fn.datepicker.defaults.zIndexOffset = "30000";
+	$.fn.datepicker.defaults.autoclose = "true";
+	$.fn.datepicker.defaults.todayHighlight = "true";
 	$('.datepicker').datepicker();
 
 	$('#nav-accordion').dcAccordion({

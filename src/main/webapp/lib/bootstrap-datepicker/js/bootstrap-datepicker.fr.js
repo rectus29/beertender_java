@@ -2,7 +2,7 @@
  * French translation for bootstrap-datepicker
  * Nico Mollet <nico.mollet@gmail.com>
  */
-;(function ($) {
+(function ($) {
 	$.fn.datepicker.dates['fr'] = {
 		days: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
 		daysShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],

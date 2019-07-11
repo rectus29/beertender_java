@@ -69,7 +69,7 @@ public class ProductAdminListPanel extends Panel {
 				List<Product> productList = serviceProduct.getAll();
 				if (StringUtils.isNotBlank(ProductAdminListPanel.this.name)) {
 					for (Product temp : productList) {
-						if (temp.getName().contains(ProductAdminListPanel.this.name)) {
+						if (StringUtils.containsIgnoreCase(ProductAdminListPanel.this.name, temp.getName())) {
 							out.add(temp);
 						}
 					}
@@ -95,13 +95,11 @@ public class ProductAdminListPanel extends Panel {
 		form.add(new TextField<String>("name", new PropertyModel<String>(this, "name")));
 		form.add(new DropDownChoice<Packaging>("pckg", new PropertyModel<Packaging>(this, "searchPackaging"), servicePackaging.getAll(Arrays.asList(State.ENABLE)), new ChoiceRenderer<Packaging>("name")).setNullValid(true));
 		form.add(new AjaxSubmitLink("filterSubmitButton") {
-
 			@Override
 			public void onSubmit(AjaxRequestTarget target, Form form) {
 				ldm.detach();
 				target.add(wmc, form, navigator);
 			}
-
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
 				target.add(form);

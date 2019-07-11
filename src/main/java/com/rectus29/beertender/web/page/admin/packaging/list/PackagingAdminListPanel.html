@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+	<body>
+		<wicket:panel>
+			<div class="actionRow">
+				<!--				<a href="#" class="btn btn-primary btn-sm pull-right" wicket:id="add">-->
+				<!--					<wicket:message key="add"/>-->
+				<!--				</a>-->
+				<!--				-->
+			</div>
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<th>#</th>
+					<th>
+						<wicket:message key="name"/>
+					</th>
+					<th>status</th>
+				</tr>
+				</thead>
+				<tbody wicket:id="wmc">
+				<tr wicket:id="sorting">
+					<td wicket:id="id"></td>
+					<td wicket:id="name">[name]</td>
+					<td wicket:id="state">[role]</td>
+				</tr>
+				</tbody>
+			</table>
+			<div wicket:id="navigator"/>
+			<div wicket:id="modal"/>
+		</wicket:panel>
+	</body>
+</html>

@@ -59,20 +59,21 @@ public class OrderSummaryChildPanel extends Panel {
 		add(new CurrencyLabel("orderSum", timeFrameModel.getObject().getOrderSum()));
 		add(new CurrencyLabel("orderpaid", timeFrameModel.getObject().getOrderPaid()));
 
-		double nbProduct = 0d;
+		double nbPack = 0d;
 		double nbAttendees = 0d;
+		//prepare data
 		for (Order temp : timeFrameModel.getObject().getOrderList()) {
 			if (temp.getState() != State.DELETED) {
-				if (temp.getOrderItemList().size() > 0) {
+				if (!temp.getOrderItemList().isEmpty()) {
 					nbAttendees++;
 				}
 				for (OrderItem tempItem : temp.getOrderItemList()) {
-					nbProduct = tempItem.getQuantity();
+					nbPack += tempItem.getQuantity();
 				}
 			}
 		}
 		add(new Label("orderAttendees", nbAttendees));
-		add(new Label("orderProdNb", nbProduct));
+		add(new Label("orderPack", nbPack));
 
 		add(new ListView<Map.Entry<Product, Long>>("orderProductRv", new Model<ArrayList<Map.Entry<Product, Long>>>() {
 			@Override

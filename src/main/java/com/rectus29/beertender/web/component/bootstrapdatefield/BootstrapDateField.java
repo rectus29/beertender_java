@@ -42,7 +42,7 @@ public class BootstrapDateField extends FormComponent<Date> {
 	protected void onComponentTag(ComponentTag tag) {
 		super.onComponentTag(tag);
 		tag.put("data-provide", "datepicker");
-		tag.put("value", Config.get().dateFormat("dd-MM-yyyy", (Date) this.getModel().getObject()));
+		tag.put("value", Config.get().dateFormat("dd/MM/yyyy", this.getModel().getObject()));
 	}
 
 

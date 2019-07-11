@@ -2,16 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <body>
 <wicket:panel xmlns:wicket="http://wicket.apache.org">
-    <div wicket:id="tabs-container" class="tab-row">
-        <ul class="nav nav-tabs">
-            <li wicket:id="tabs" class="nav-item">
-                <a href="#" class="nav-link" wicket:id="link">
+	<div class="panel-heading" wicket:id="tabs-container">
+		<ul class="nav nav-tabs nav-justified">
+			<li wicket:id="tabs">
+				<a data-toggle="tab" href="#" wicket:id="link">
                     <span wicket:id="title">[[tab title]]</span>
                 </a>
             </li>
         </ul>
     </div>
-    <div wicket:id="panel" class="tab-panel">[panel]</div>
+	<div class="panel-body" wicket:id="panel">[panel]</div>
 </wicket:panel>
 </body>
 </html>
