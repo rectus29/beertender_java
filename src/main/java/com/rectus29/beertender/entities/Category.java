@@ -12,6 +12,7 @@ import org.hibernate.search.annotations.Field;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 //@Indexed
@@ -89,5 +90,23 @@ public class Category extends BasicGenericEntity<Category> implements ISearchabl
 	@Override
 	public int compareTo(Category object) {
 		return defaultCompareTo(object);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Category category = (Category) o;
+		return seqOrder == category.seqOrder &&
+				Objects.equals(name, category.name) &&
+				Objects.equals(shortName, category.shortName) &&
+				Objects.equals(description, category.description) &&
+				Objects.equals(productList, category.productList) &&
+				Objects.equals(isRoot, category.isRoot);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, shortName, description, productList, isRoot, seqOrder);
 	}
 }

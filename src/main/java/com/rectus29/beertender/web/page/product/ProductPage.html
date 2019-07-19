@@ -3,40 +3,36 @@
 	<body>
 		<wicket:extend>
 			<div class="mt showback">
-				<div class="productPack pull-right" wicket:id="beerPack"></div>
-				<div class="mt row">
-					<div class="col-lg-12">
-						<div class="row">
-							<wicket:enclosure>
-								<div class="col-md-4 profile-text mt mb centered">
-									<div class="right-divider hidden-sm hidden-xs">
-										<div class="product-pic">
-											<img alt="beerImg" class="rounded img-fluid img-circle" style="height: 350px;" wicket:id="beerImg">
-										</div>
-									</div>
+				<div class="row">
+					<wicket:enclosure>
+						<div class="col-md-4 profile-text mt mb centered">
+							<div class="right-divider hidden-sm hidden-xs">
+								<div class="product-pic">
+									<img alt="beerImg" class="rounded img-fluid img-circle" style="height: 350px;" wicket:id="beerImg">
 								</div>
-							</wicket:enclosure>
-							<div class="profile-text">
-								<h3 wicket:id="beerName"></h3>
-								<h6>
-									<wicket:container wicket:id="rvCateg">
-										<span wicket:id="categBadge"/>
-									</wicket:container>
-								</h6>
-								<p wicket:id="beerText"></p>
-								<br>
-								<p>
-								<form wicket:id="form">
-									<div class="productPrice" wicket:id="beerPrize"></div>
-									<div style="display: inline-block; margin:15px 0 0 15px;">
-										<i class="fa fa-shopping-cart"></i>&nbsp;<input placeholder="Quantité" type="number" wicket:id="qte" width="20">
-									</div>
-									<a class="btn btn-theme" href="#" style="margin: 15px 15px 0 0;" wicket:id="addToCart">Ajouter à la commande</a>
-									<div wicket:id="feed"></div>
-								</form>
-								</p>
 							</div>
 						</div>
+					</wicket:enclosure>
+					<div class="profile-text">
+						<div class="productPack pull-right" wicket:id="beerPack"></div>
+						<h3 wicket:id="beerName"></h3>
+						<h6>
+							<wicket:container wicket:id="rvCateg">
+								<span wicket:id="categBadge"/>
+							</wicket:container>
+						</h6>
+						<p wicket:id="beerText"></p>
+						<br>
+						<p>
+						<form wicket:id="form">
+							<div class="productPrice" wicket:id="beerPrize"></div>
+							<div style="display: inline-block; margin:15px 0 0 15px;">
+								<i class="fa fa-shopping-cart"></i>&nbsp;<input placeholder="Quantité" type="number" wicket:id="qte" width="20">
+							</div>
+							<a class="btn btn-theme" href="#" style="margin: 15px 15px 0 0;" wicket:id="addToCart">Ajouter à la commande</a>
+							<div wicket:id="feed"></div>
+						</form>
+						</p>
 					</div>
 				</div>
 			</div>

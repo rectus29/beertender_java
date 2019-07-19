@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "product", indexes = {
@@ -101,5 +102,20 @@ public class Product extends BasicGenericEntity<Product> {
 	@Override
 	public int compareTo(Product object) {
 		return defaultCompareTo(object);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Product product = (Product) o;
+		return Objects.equals(productDefinition, product.productDefinition) &&
+				Objects.equals(price, product.price) &&
+				Objects.equals(packaging, product.packaging);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(productDefinition, price, packaging, categoryList);
 	}
 }

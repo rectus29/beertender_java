@@ -1,8 +1,6 @@
 package com.rectus29.beertender.service.impl;
 
-import com.rectus29.beertender.entities.Order;
-import com.rectus29.beertender.entities.TimeFrame;
-import com.rectus29.beertender.entities.User;
+import com.rectus29.beertender.entities.*;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.service.IserviceTimeFrame;
@@ -14,8 +12,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,6 +33,18 @@ public class ServiceOrder extends GenericManagerImpl<Order, Long> implements Ise
 	public ServiceOrder(IserviceTimeFrame serviceTimeFrame) {
 		super(Order.class);
 		this.serviceTimeFrame = serviceTimeFrame;
+	}
+
+	public static boolean orderContains(Order order, Product product) {
+		if (order != null && product != null) {
+			for (OrderItem item : order.getOrderItemList()) {
+				if (Objects.equals(item.getProduct(), product)) {
+					return true;
+				}
+			}
+		}
+		return false;
+
 	}
 
 	@Override

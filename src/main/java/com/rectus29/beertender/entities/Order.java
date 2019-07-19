@@ -4,11 +4,13 @@ package com.rectus29.beertender.entities;
 import com.rectus29.beertender.entities.payment.Payment;
 import com.rectus29.beertender.enums.PaymentStatus;
 import com.rectus29.beertender.enums.State;
+import com.rectus29.beertender.service.impl.ServiceOrder;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * User: rectus_29
@@ -78,9 +80,9 @@ public class Order extends BasicGenericEntity<Order> {
 
 	public Order addProduct(Product product, long qte) {
 		OrderItem toAdd = new OrderItem(product, qte, this);
-		if (orderItemList.contains(toAdd)) {
+		if (ServiceOrder.orderContains(this, product)) {
 			for (OrderItem item : orderItemList) {
-				if (toAdd.equals(item)) {
+				if (Objects.equals(toAdd, item)) {
 					if (item.getQuantity() + toAdd.getQuantity() > 0) {
 						item.setQuantity(item.getQuantity() + toAdd.getQuantity());
 					} else {

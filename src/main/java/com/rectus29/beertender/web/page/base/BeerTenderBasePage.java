@@ -20,6 +20,7 @@ import com.rectus29.beertender.web.security.signout.SignoutPage;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.wicket.event.IEvent;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -47,7 +48,8 @@ public class BeerTenderBasePage extends ProtectedPage {
 	private IserviceOrder serviceOrder;
 	@SpringBean(name = "serviceTimeFrame")
 	private IserviceTimeFrame serviceTimeFrame;
-	private Label nbProductLabel, cartCostLabel;
+	private WebMarkupContainer wmc;
+	private LoadableDetachableModel<List<OrderItem>> ldm;
 
 	public BeerTenderBasePage() {
 		super();
@@ -90,12 +92,12 @@ public class BeerTenderBasePage extends ProtectedPage {
 			}
 		});
 
-		LoadableDetachableModel<List<OrderItem>> ldm = new LoadableDetachableModel<List<OrderItem>>() {
+		ldm = new LoadableDetachableModel<List<OrderItem>>() {
 			@Override
 			protected List<OrderItem> load() {
 				Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
 				if (order != null) {
-					return (List<OrderItem>) order.getOrderItemList();
+					return order.getOrderItemList();
 				} else {
 					setResponsePage(ErrorPage.class, new PageParameters().add("errorCode", ErrorCode.NO_ORDER_FOUND));
 				}
@@ -103,15 +105,16 @@ public class BeerTenderBasePage extends ProtectedPage {
 			}
 		};
 
-		add((nbProductLabel = new Label("cartNbProduct", ldm.getObject().size()) {
+		wmc = new WebMarkupContainer("cartHolder");
+		add(wmc.setOutputMarkupId(true));
+		wmc.add(new Label("cartNbProduct", ldm.getObject().size()) {
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
 				setVisible(ldm.getObject().size() > 0);
 			}
-		}).setOutputMarkupId(true));
-
-		add(new ListView<OrderItem>("cartLv", ldm) {
+		}.setOutputMarkupId(true));
+		wmc.add(new ListView<OrderItem>("cartLv", ldm) {
 			@Override
 			protected void populateItem(ListItem<OrderItem> item) {
 				item.add(new ProductImage("productImg", item.getModelObject().getProduct()));
@@ -120,9 +123,7 @@ public class BeerTenderBasePage extends ProtectedPage {
 				item.add(new Label("productPackage", item.getModelObject().getProduct().getPackaging().getName()));
 			}
 		});
-
-
-		add(new BookmarkablePageLink("cartLink", BillsPage.class) {
+		wmc.add(new BookmarkablePageLink("cartLink", BillsPage.class) {
 			@Override
 			protected void onConfigure() {
 				super.onConfigure();
@@ -135,8 +136,9 @@ public class BeerTenderBasePage extends ProtectedPage {
 	@Override
 	public void onEvent(IEvent event) {
 		if (event.getPayload() instanceof RefreshEvent) {
+			ldm.detach();
 			((RefreshEvent) event.getPayload()).getTarget()
-					.add(nbProductLabel);
+					.add(wmc);
 		}
 	}
 }
