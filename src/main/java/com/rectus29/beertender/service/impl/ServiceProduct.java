@@ -27,11 +27,19 @@ public class ServiceProduct extends GenericManagerImpl<Product, Long> implements
     @Override
     public List<Product> getFilteredProduct(BeerTenderFilter btf) {
         List<Product> out = new ArrayList<>();
-        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
-        detachedCriteria.add(Restrictions.eq("packaging", btf.getPackagingFilter().getObject()));
-//    	detachedCriteria.add(Restrictions.in("categoryList", btf.getCategoryFilterList()));
-        out.addAll((List<Product>) getHibernateTemplate().findByCriteria(detachedCriteria));
-        //filter on categ manually fo rhte moment
+		DetachedCriteria dc = DetachedCriteria.forClass(Product.class);
+		dc.add(Restrictions.eq("packaging", btf.getPackagingFilter().getObject()));
+//        dc.createAlias("categoryList", "categ", JoinType.LEFT_OUTER_JOIN);
+//
+//
+//
+//		dc.add(Restrictions.eq("categoryList", btf.getCategoryFilterModel().getObject()));
+
+//        DetachedCriteria categAlias = detachedCriteria.createAlias("categoryList", "categ", JoinType.INNER_JOIN);
+//
+
+		out.addAll((List<Product>) getHibernateTemplate().findByCriteria(dc));
+//        //filter on categ manually fo rhte moment
         if (btf.getCategoryFilterModel().getObject() != null) {
             Iterator<Product> it = out.iterator();
             while (it.hasNext()) {

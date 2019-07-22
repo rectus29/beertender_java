@@ -180,6 +180,15 @@ public class User extends BasicGenericEntity<User> implements IDecorableElement 
 		return this;
 	}
 
+	public User updateAvatarImage(AvatarResource avatarImage) {
+		if (this.getAvatarImage() != null) {
+			this.avatarImage.setImageBytes(avatarImage.getImageBytes());
+		} else {
+			this.avatarImage = avatarImage;
+		}
+		return this;
+	}
+
 	public List<Product> getProductBookmarkList() {
 		return productBookmarkList;
 	}

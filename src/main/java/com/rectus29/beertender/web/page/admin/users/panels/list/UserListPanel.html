@@ -1,79 +1,93 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+		"http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns:wicket="http://wicket.apache.org">
-<head>
-	<link rel="stylesheet" type="text/css" href="src/main/webapp/css/beertender.css"/>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
-<body>
-<wicket:panel>
-	<div class="actionRow">
-		<div class="actionZone pull-right">
-			<a href="#" class="btn btn-primary btn-sm" wicket:id="add">
-				<wicket:message key="add"/>
-			</a>
-			<a href="#" class="btn btn-warning btn-sm" wicket:id="enroll">
-				Inviter
-			</a>
-		</div>
-		<form wicket:id="form" class="form-inline">
-			<div class="form-group">
-				<input class="form-control form-control-sm" wicket:id="name" placeholder="Rechercher"/>
-				<a class="btn btn-light btn-sm" wicket:id="filterSubmitButton">
-					<wicket:message key="filter"/>
-				</a>
-			</div>
-		</form>
-	</div>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Auth</th>
-            <th><wicket:message key="name"/></th>
-            <th><wicket:message key="mail"/></th>
-            <th><wicket:message key="role"/></th>
-            <th>status</th>
-            <th><wicket:message key="action"/>s</th>
-        </tr>
-        </thead>
-        <tbody wicket:id="wmc">
-        <tr wicket:id="sorting">
-            <td wicket:id="id"></td>
-            <td >
-				<span class="fa-stack">
-					<i class="fa fa-circle fa-stack-2x"></i>
-					<i class="fa fa-flag fa-stack-1x fa-inverse" wicket:id="auth"></i>
-				</span>
-			</td>
-            <td wicket:id="lastName"></td>
-            <td wicket:id="email">[name]</td>
-            <td wicket:id="role">[role]</td>
-            <td wicket:id="state">[role]</td>
-            <td>
-                <div class="btn-group ">
-                    <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                        <wicket:message key="action"/>
-                        <span class="caret"></span>
-                    </button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#" wicket:id="runas"><i class="icon-user"/>&nbsp;
-							<wicket:message key="UserProfile.runAs"/>
-						</a>
-						<a class="dropdown-item" href="#" wicket:id="edit"><i class="icon-edit"/>&nbsp;
-							<wicket:message key="edit"/>
-						</a>
-						<a class="dropdown-item" href="#" wicket:id="remove"><i class="icon-remove"/>&nbsp;
-							<wicket:message key="delete"/>
+	<head>
+		<link href="src/main/webapp/css/beertender.css" rel="stylesheet" type="text/css"/>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+	</head>
+	<body>
+		<wicket:panel>
+			<div class="actionRow">
+				<div class="actionZone pull-right">
+					<a class="btn btn-primary btn-sm" href="#" wicket:id="add">
+						<wicket:message key="add"/>
+					</a>
+					<a class="btn btn-warning btn-sm" href="#" wicket:id="enroll">
+						Inviter
+					</a>
+				</div>
+				<form class="form-inline" wicket:id="form">
+					<div class="form-group">
+						<input class="form-control form-control-sm" placeholder="Rechercher" wicket:id="name"/>
+						<a class="btn btn-light btn-sm" wicket:id="filterSubmitButton">
+							<wicket:message key="filter"/>
 						</a>
 					</div>
-				</div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div wicket:id="navigator"/>
-    <div wicket:id="modal"/>
-</wicket:panel>
-</body>
+				</form>
+			</div>
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<th>#</th>
+					<th>
+					</th>
+					<th>
+						<wicket:message key="name"/>
+					</th>
+					<th>
+						<wicket:message key="mail"/>
+					</th>
+					<th>
+						<wicket:message key="role"/>
+					</th>
+					<th>status</th>
+					<th>
+						<wicket:message key="action"/>
+						s
+					</th>
+				</tr>
+				</thead>
+				<tbody wicket:id="wmc">
+				<tr wicket:id="sorting">
+					<td wicket:id="id"></td>
+					<td>
+						<img height="30px" wicket:id="avatar"/>
+					</td>
+					<td wicket:id="lastName"></td>
+					<td wicket:id="email">[name]</td>
+					<td wicket:id="role">[role]</td>
+					<td wicket:id="state">[role]</td>
+					<td>
+						<div class="btn-group ">
+							<button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+								<wicket:message key="action"/>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="#" wicket:id="runas"><i class="icon-user"/>&nbsp;
+										<wicket:message key="UserProfile.runAs"/>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="#" wicket:id="edit"><i class="icon-edit"/>&nbsp;
+										<wicket:message key="edit"/>
+									</a>
+								</li>
+								<li class="divider" role="separator"></li>
+								<li>
+									<a class="dropdown-item" href="#" wicket:id="remove"><i class="icon-remove"/>&nbsp;
+										<wicket:message key="delete"/>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<div wicket:id="navigator"/>
+			<div wicket:id="modal"/>
+		</wicket:panel>
+	</body>
 </html>

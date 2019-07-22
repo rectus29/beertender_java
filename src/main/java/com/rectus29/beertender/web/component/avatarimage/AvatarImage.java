@@ -43,7 +43,7 @@ public class AvatarImage extends Image {
 		init();
 	}
 
-	public AvatarImage(String id, IModel<IDecorableElement> userIModel) {
+	public AvatarImage(String id, IModel<? extends IDecorableElement> userIModel) {
 		super(id);
 		this.model = userIModel;
 		init();

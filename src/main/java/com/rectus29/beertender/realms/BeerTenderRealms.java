@@ -18,17 +18,9 @@ import org.apache.shiro.util.SimpleByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 
 /*-----------------------------------------------------*/
-/*      _____           _               ___   ___      */
-/*     |  __ \         | |             |__ \ / _ \     */
-/*     | |__) |___  ___| |_ _   _ ___     ) | (_) |    */
-/*     |  _  // _ \/ __| __| | | / __|   / / \__, |    */
-/*     | | \ \  __/ (__| |_| |_| \__ \  / /_   / /     */
-/*     |_|  \_\___|\___|\__|\__,_|___/ |____| /_/      */
-/*                                                     */
+/*						Rectus29					   */
 /*                Date: 13/06/2018 16:28               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
@@ -67,16 +59,13 @@ public class BeerTenderRealms extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		User user = this.serviceUser.getByProperty("email", token.getUsername(), true);
+		user.setLastName("plop");
+		this.serviceUser.save(user);
 		if (user != null && user.getUserAuthentificationType() == UserAuthentificationType.EMBED) {
 			return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(Base64.decode(user.getSalt())), getName());
 		} else {
 			return null;
 		}
-	}
-
-	@Override
-	protected AuthorizationInfo getAuthorizationInfo(PrincipalCollection principals) {
-		return super.getAuthorizationInfo(principals);
 	}
 
 	@Override
@@ -101,10 +90,4 @@ public class BeerTenderRealms extends AuthorizingRealm {
 			return null;
 		}
 	}
-
-	@Override
-	public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
-		super.clearCachedAuthorizationInfo(principals);
-	}
-
 }

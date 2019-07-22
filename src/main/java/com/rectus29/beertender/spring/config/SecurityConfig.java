@@ -34,12 +34,12 @@ public class SecurityConfig {
 
 	private final String cipherKey = "9Jo0hLz8XhDpPsOOYOnSUA==";
 
-	@Bean
+	@Bean(name = "BeerTenderRealms")
 	public BeerTenderRealms beerTenderRealms() {
 		return new BeerTenderRealms();
 	}
 
-	@Bean
+	@Bean(name = "GoogleOauthRealms")
 	public GoogleOauthRealms googleOauthRealms() {
 		return new GoogleOauthRealms();
 	}

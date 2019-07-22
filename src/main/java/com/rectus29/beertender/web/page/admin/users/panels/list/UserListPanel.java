@@ -3,10 +3,10 @@ package com.rectus29.beertender.web.page.admin.users.panels.list;
 
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.State;
-import com.rectus29.beertender.enums.UserAuthentificationType;
 import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.BeerTenderApplication;
+import com.rectus29.beertender.web.component.avatarimage.AvatarImage;
 import com.rectus29.beertender.web.component.confirmation.ConfirmationLink;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.admin.users.panels.edit.UserEditPanel;
@@ -20,7 +20,6 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
-import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.EnumLabel;
 import org.apache.wicket.markup.html.basic.Label;
@@ -95,15 +94,7 @@ public class UserListPanel extends Panel {
 			@Override
 			protected void populateItem(final ListItem<User> item) {
 				item.add(new Label("id", item.getModelObject().getId() + ""));
-				item.add(new Label("auth").add(
-						new AttributeAppender("class",
-								(item.getModelObject().getUserAuthentificationType().equals(UserAuthentificationType.GOOGLE))
-										? " fa-google"
-										: (item.getModelObject().getUserAuthentificationType().equals(UserAuthentificationType.EMBED))
-										? " fa-key" :
-										" fa-lock")
-						)
-				);
+				item.add(new AvatarImage("avatar", item.getModel()));
 				item.add(new Label("lastName", item.getModelObject().getFormattedName()));
 				item.add(new Label("email", item.getModelObject().getEmail()));
 				item.add(new Label("role", item.getModelObject().getRole().getName()));
@@ -125,6 +116,7 @@ public class UserListPanel extends Panel {
 								modal.close(target);
 							}
 						});
+						modal.setSize(BeerTenderModal.ModalFormat.LARGE);
 						modal.show(target);
 					}
 

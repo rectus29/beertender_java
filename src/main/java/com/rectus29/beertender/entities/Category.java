@@ -27,7 +27,7 @@ public class Category extends BasicGenericEntity<Category> implements ISearchabl
 	@Field
 	@Column(columnDefinition = "MEDIUMTEXT")
 	private String description;
-    @ManyToMany(targetEntity = Product.class, mappedBy = "categoryList")
+	@ManyToMany(targetEntity = Product.class, mappedBy = "categoryList", fetch = FetchType.LAZY)
     private List<Product> productList = new ArrayList<>();
 	@Column(nullable = false)
     private Boolean isRoot = false;

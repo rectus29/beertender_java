@@ -101,7 +101,7 @@ public class Token extends BasicGenericEntity<Token> {
 
 	public Boolean isExpired(){
 		if(this.state != State.DISABLE && this.state != State.DELETED){
-			return (this.getExpirationDate() != null) && this.getExpirationDate().after(new Date());
+			return (this.getExpirationDate() != null) && this.getExpirationDate().before(new Date());
 		}
 		return true;
 	}

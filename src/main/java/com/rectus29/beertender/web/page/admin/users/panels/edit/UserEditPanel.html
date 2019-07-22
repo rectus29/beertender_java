@@ -1,77 +1,95 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+		"http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns:wicket="http://wicket.apache.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
-<body>
-<wicket:head>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+	</head>
+	<body>
+		<wicket:head>
 
-</wicket:head>
-<wicket:panel>
-    <form wicket:id="form">
-        <div class="form-group">
-            <label class="control-label" wicket:for="lastname">
-                <wicket:message key="lastName"/>
-            </label>
+		</wicket:head>
+		<wicket:panel>
+			<form wicket:id="form">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" wicket:for="lastname">
+								<wicket:message key="lastName"/>
+							</label>
 
-            <input wicket:id="lastname" type="text" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label" wicket:for="firstname">
-                <wicket:message key="firstName"/>
-            </label>
+							<input class="form-control" type="text" wicket:id="lastname"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label" wicket:for="firstname">
+								<wicket:message key="firstname"/>
+							</label>
 
-            <input wicket:id="firstname" type="text" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label" wicket:for="mail">
-                <wicket:message key="mail"/>
-            </label>
+							<input class="form-control" type="text" wicket:id="firstname"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label" wicket:for="mail">
+								<wicket:message key="mail"/>
+							</label>
 
-            <input wicket:id="mail" type="text" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label" wicket:for="password">
-                <wicket:message key="password"/>
-            </label>
+							<input class="form-control" type="text" wicket:id="mail"/>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" wicket:for="password">
+								<wicket:message key="password"/>
+							</label>
 
-            <input wicket:id="password" type="password" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label" wicket:for="role">
-                <wicket:message key="role"/>
-            </label>
+							<input class="form-control" type="password" wicket:id="password"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label" wicket:for="passwordConfirm">
+								<wicket:message key="password-confirmation"/>
+							</label>
 
-            <select wicket:id="role" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label" wicket:for="auth">
-                <wicket:message key="authMode"/>
-            </label>
+							<input class="form-control" type="password" wicket:id="passwordConfirm"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label" wicket:for="role">
+								<wicket:message key="role"/>
+							</label>
 
-            <select wicket:id="auth" class="form-control"/>
-        </div>
-		<div class="form-group">
-            <label class="control-label" wicket:for="uuid">
-				UUID
-            </label>
+							<select class="form-control" wicket:id="role"/>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label" wicket:for="auth">
+								<wicket:message key="authMode"/>
+							</label>
 
-            <input wicket:id="uuid" type="text" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <div class="controls">
-                <a href="#" class="btn btn-primary" wicket:id="submit">
-                    <wicket:message key="submit"/>
-                </a>
-                <a href="#" class="btn btn-light" wicket:id="cancel">
-                    <wicket:message key="cancel"/>
-                </a>
-            </div>
-        </div>
-        <div wicket:id="feed"/>
+							<select class="form-control" wicket:id="auth"/>
+						</div>
+						<div class="form-group">
+							<label class="control-label" wicket:for="uuid">
+								UUID
+							</label>
 
-    </form>
-</wicket:panel>
-</body>
+							<input class="form-control" type="text" wicket:id="uuid"/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="controls">
+						<a class="btn btn-primary" href="#" wicket:id="submit">
+							<wicket:message key="submit"/>
+						</a>
+						<a class="btn btn-light" href="#" wicket:id="cancel">
+							<wicket:message key="cancel"/>
+						</a>
+					</div>
+				</div>
+				<div wicket:id="feed"/>
+
+			</form>
+		</wicket:panel>
+	</body>
 </html>

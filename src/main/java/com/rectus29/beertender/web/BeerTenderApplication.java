@@ -145,7 +145,7 @@ public class BeerTenderApplication extends WebApplication {
 	}
 
 	public BeerTenderRealms getRealms() {
-		return (BeerTenderRealms) WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext()).getBean( BeerTenderRealms.class.getSimpleName());
+		return (BeerTenderRealms) WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext()).getBean(BeerTenderRealms.class.getSimpleName());
 	}
 
 	public void updateRights() {

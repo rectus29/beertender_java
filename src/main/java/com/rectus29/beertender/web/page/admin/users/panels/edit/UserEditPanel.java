@@ -58,6 +58,7 @@ public class UserEditPanel extends Panel {
 	private Form form;
 	private BootstrapFeedbackPanel feed;
 	private String password;
+	private String passwordConfirm;
 
 	public UserEditPanel(String s) {
 		super(s);
@@ -88,6 +89,11 @@ public class UserEditPanel extends Panel {
 				);
 				add(new PasswordTextField("password",
 						new PropertyModel<String>(UserEditPanel.this, "password"))
+						.add(new PasswordPolicyValidator())
+						.setRequired(user.getPassword() == null)
+				);
+				add(new PasswordTextField("passwordConfirm",
+						new PropertyModel<>(UserEditPanel.this, "passwordConfirm"))
 						.add(new PasswordPolicyValidator())
 						.setRequired(user.getPassword() == null)
 				);

@@ -5,9 +5,6 @@ import com.rectus29.beertender.entities.Packaging;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /*-----------------------------------------------------*/
 /*                                                     */
 /*                Date: 06/09/2018 17:47               */
@@ -24,8 +21,6 @@ public class BeerTenderFilter {
 	public IModel<Packaging> getPackagingFilter() {
 		return packagingFilterModel;
 	}
-
-
 
 	public BeerTenderFilter setPackagingFilter(IModel<Packaging> packagingFilter) {
 		this.packagingFilterModel = packagingFilter;
@@ -48,6 +43,7 @@ public class BeerTenderFilter {
 		this.packagingFilterModel = packagingFilterModel;
 		return this;
 	}
+
 
 	public boolean isEmpty() {
 		if(this.packagingFilterModel == null || this.packagingFilterModel.getObject() == null){
