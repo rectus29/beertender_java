@@ -10,8 +10,8 @@ function signInCallback(authResult) {
 	if (authResult['code']) {
 		// Send the code to the server
 		$.ajax({
-			type: 'POST',
-			url: 'googleOauthSignin',
+			method: 'POST',
+			url: '/beertender/googleOauthSignin',
 			// Always include an `X-Requested-With` header in every AJAX request,
 			// to protect against CSRF attacks.
 			headers: {
@@ -19,7 +19,7 @@ function signInCallback(authResult) {
 			},
 			contentType: 'application/octet-stream; charset=utf-8',
 			success: function (result) {
-				window.location.assign('home');
+				window.location.assign('/beertender/home');
 				// Handle or verify the server response.
 			},
 			error: function (result) {
@@ -31,6 +31,8 @@ function signInCallback(authResult) {
 		});
 	} else {
 		// There was an error.
+		alert("Error while Google Authentication");
+		$('#signinButton i').toggleClass('fa-spin');
 	}
 }
 

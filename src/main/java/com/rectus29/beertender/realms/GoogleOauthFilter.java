@@ -7,6 +7,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.rectus29.beertender.service.impl.ServiceSession;
+import com.rectus29.beertender.service.impl.ServiceUser;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -38,13 +39,14 @@ import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletConte
 public class GoogleOauthFilter implements Filter {
 
 	private Logger logger = LoggerFactory.getLogger(GoogleOauthFilter.class);
-
-	ServiceSession serviceSession;
+	private ServiceSession serviceSession;
+	private ServiceUser serviceUser;
 
 	public void init(FilterConfig filterConfig) throws ServletException {
 		//nothing special here
 		WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		serviceSession = (ServiceSession) webApplicationContext.getBean("serviceSession");
+		serviceUser = (ServiceUser) webApplicationContext.getBean("serviceUser");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

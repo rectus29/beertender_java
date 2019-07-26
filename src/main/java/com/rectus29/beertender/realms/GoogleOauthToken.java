@@ -14,6 +14,7 @@ public class GoogleOauthToken implements AuthenticationToken {
 	private String familyName;
 	private String givenName;
 	private String userId;
+	private boolean enrollement = false;
 	private byte[] avatarBytes;
 
 	public GoogleOauthToken(String googleEmail) {
@@ -83,4 +84,6 @@ public class GoogleOauthToken implements AuthenticationToken {
 		this.avatarBytes = avatar;
 		return this;
 	}
+
+
 }

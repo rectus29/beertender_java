@@ -51,7 +51,6 @@ public class BeerTenderRealms extends AuthorizingRealm {
 	 */
 	@Autowired
 	public void setServiceUser(IserviceUser serviceUser) {
-		setName(REALM_NAME);
 		this.serviceUser = serviceUser;
 	}
 
@@ -59,8 +58,6 @@ public class BeerTenderRealms extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		User user = this.serviceUser.getByProperty("email", token.getUsername(), true);
-		user.setLastName("plop");
-		this.serviceUser.save(user);
 		if (user != null && user.getUserAuthentificationType() == UserAuthentificationType.EMBED) {
 			return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(Base64.decode(user.getSalt())), getName());
 		} else {
@@ -90,4 +87,15 @@ public class BeerTenderRealms extends AuthorizingRealm {
 			return null;
 		}
 	}
+
+	@Override
+	public Class getAuthenticationTokenClass() {
+		return AuthenticationToken.class;
+	}
+
+	@Override
+	public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
+		super.clearCachedAuthorizationInfo(principals);
+	}
+
 }

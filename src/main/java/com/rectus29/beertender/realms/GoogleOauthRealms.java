@@ -9,6 +9,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.credential.AllowAllCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.util.SimpleByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,20 +27,20 @@ import java.util.UUID;
 public class GoogleOauthRealms extends BeerTenderRealms {
 
 	public static final String REALM_NAME = "GoogleOauthRealms";
-	protected IserviceUser serviceUser;
 
 	public GoogleOauthRealms() {
 		setName(REALM_NAME);
+		setCredentialsMatcher(new AllowAllCredentialsMatcher());
 	}
 
 	@Autowired
+	@Override
 	public void setServiceUser(IserviceUser serviceUser) {
-		setName(REALM_NAME);
-		this.serviceUser = serviceUser;
+		super.setServiceUser(serviceUser);
 	}
 
 	@Override
-	@Transactional()
+	@Transactional
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		GoogleOauthToken got = (GoogleOauthToken) token;
 		User user = this.serviceUser.getUserByMail(got.getGoogleEmail());
@@ -60,8 +61,7 @@ public class GoogleOauthRealms extends BeerTenderRealms {
 			user = this.serviceUser.save(user);
 			if (user.getUserAuthentificationType() == UserAuthentificationType.GOOGLE) {
 				//auth
-				SimpleAuthenticationInfo auth = new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(Base64.decode(user.getSalt())), getName());
-				return auth;
+				return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(Base64.decode(user.getSalt())), getName());
 			}
 		}
 		return null;
