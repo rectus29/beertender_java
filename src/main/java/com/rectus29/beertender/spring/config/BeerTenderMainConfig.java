@@ -18,6 +18,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
 import javax.annotation.PostConstruct;
@@ -39,7 +40,7 @@ import java.util.Properties;
 })
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.rectus29.beertender"})
-public class BeerTenderMainConfig /*implements TransactionManagementConfigurer */ {
+public class BeerTenderMainConfig implements TransactionManagementConfigurer {
 	private static final Logger LOG = LoggerFactory.getLogger(BeerTenderMainConfig.class);
 	@Autowired
 	private Environment env;
@@ -142,10 +143,10 @@ public class BeerTenderMainConfig /*implements TransactionManagementConfigurer *
 		}
 	}
 
-	/*@Override
+	@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return transactionManager();
-	}*/
+	}
 
 	@Bean
 	public JavaMailSenderImpl javaMailSender() {

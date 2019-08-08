@@ -39,36 +39,36 @@ public class ServiceSession implements IserviceSession {
 		u.setLastLogin(new Date());
 		serviceUser.save(u);
 		log.debug(u.getFormattedName() + " just log in");
-    }
+	}
 
-    public void onStop(Session session) {
+	public void onStop(Session session) {
 		if (subjectMap.containsKey(session.getId())) {
 			User u = serviceUser.getUser(subjectMap.get(session.getId()));
 			log.debug(u.getFormattedName() + " logout");
 			subjectMap.remove(session.getId());
 		}
-    }
+	}
 
-    public void onExpiration(Session session) {
+	public void onExpiration(Session session) {
 		if (subjectMap.containsKey(session.getId())) {
 			User u = serviceUser.getUser(subjectMap.get(session.getId()));
 			log.debug(u.getFormattedName() + " has expired");
 			subjectMap.remove(session.getId());
 		}
-    }
+	}
 
 	public List<Subject> getConnectedSubjects() {
-        cleanList();
+		cleanList();
 		return new ArrayList<Subject>(subjectMap.values());
-    }
+	}
 
-    private void cleanList() {
+	private void cleanList() {
 		for (Subject subject : subjectMap.values()) {
-            try {
-                subject.getSession().getLastAccessTime();
-            } catch (Exception e) {
+			try {
+				subject.getSession().getLastAccessTime();
+			} catch (Exception e) {
 				subjectMap.remove(subject);
-            }
-        }
-    }
+			}
+		}
+	}
 }

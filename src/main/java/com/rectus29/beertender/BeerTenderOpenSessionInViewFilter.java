@@ -17,9 +17,10 @@ public class BeerTenderOpenSessionInViewFilter extends OpenSessionInViewFilter {
 
 	@Override
 	protected Session openSession(SessionFactory sessionFactory) throws DataAccessResourceFailureException {
+//		return super.openSession(sessionFactory);
 		try {
 			Session session = sessionFactory.openSession();
-			session.setFlushMode(FlushMode.AUTO);
+			session.setHibernateFlushMode(FlushMode.AUTO);
 			return session;
 		} catch (HibernateException ex) {
 			throw new DataAccessResourceFailureException("Could not open Hibernate Session", ex);

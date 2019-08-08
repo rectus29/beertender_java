@@ -7,7 +7,6 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.rectus29.beertender.service.impl.ServiceSession;
-import com.rectus29.beertender.service.impl.ServiceUser;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -20,7 +19,10 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.imageio.ImageIO;
-import javax.servlet.*;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -28,29 +30,29 @@ import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
-
 /*-----------------------------------------------------*/
-/*                                                     */
+/*                      Rectus29                       */
 /*                Date: 21/09/2018 12:44               */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
-@Transactional
-public class GoogleOauthFilter implements Filter {
+@WebServlet(name = "googleAuthServlet", urlPatterns = "/googleOauthSignin")
+public class GoogleOauthServlet extends HttpServlet {
 
-	private Logger logger = LoggerFactory.getLogger(GoogleOauthFilter.class);
-	private ServiceSession serviceSession;
-	private ServiceUser serviceUser;
+	private Logger logger = LoggerFactory.getLogger(GoogleOauthServlet.class);
 
-	public void init(FilterConfig filterConfig) throws ServletException {
-		//nothing special here
-		WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-		serviceSession = (ServiceSession) webApplicationContext.getBean("serviceSession");
-		serviceUser = (ServiceUser) webApplicationContext.getBean("serviceUser");
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		process(req, resp);
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		logger.debug("Hitting GoogleOauthFilter");
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		process(req, resp);
+	}
+
+	@Transactional
+	public void process(ServletRequest request, ServletResponse response) throws IOException {
+		logger.debug("Hitting GoogleOauthServlet");
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
@@ -67,7 +69,7 @@ public class GoogleOauthFilter implements Filter {
 		String CLIENT_SECRET_FILE = "client_secret.json";
 
 		//retreive authcode
-		 StringBuilder authCode = new StringBuilder();
+		StringBuilder authCode = new StringBuilder();
 
 		BufferedReader bufferedReader = request.getReader();
 		char[] charBuffer = new char[128];
@@ -106,19 +108,17 @@ public class GoogleOauthFilter implements Filter {
 			HttpClient client = new HttpClient();
 			GetMethod get = new GetMethod(pictureUrl);
 			int httpStatus = client.executeMethod(get);
-			if(HttpStatus.SC_OK == httpStatus){
-				byte[] temp  = get.getResponseBody();
+			if (HttpStatus.SC_OK == httpStatus) {
+				byte[] temp = get.getResponseBody();
 				//check it's an image
-				Boolean isImage = ImageIO.read(new ByteArrayInputStream(temp)) != null;
-				if(isImage){
+				boolean isImage = ImageIO.read(new ByteArrayInputStream(temp)) != null;
+				if (isImage) {
 					avatarBytes = temp;
 				}
 			}
 		} catch (IOException e) {
 			logger.error("Error while retrieving user avatar from google", e);
 		}
-
-
 		logger.info("GoogleOauth user login: {}", email);
 
 		final GoogleOauthToken token = new GoogleOauthToken(email)
@@ -129,20 +129,18 @@ public class GoogleOauthFilter implements Filter {
 				.setAvatarBytes(avatarBytes);
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
+			//retreive service from spring
+			WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+			ServiceSession serviceSession = (ServiceSession) webApplicationContext.getBean("serviceSession");
+			//login the current user
 			currentUser.login(token);
 			serviceSession.addSubject(currentUser);
 			logger.debug("Authorized user locally: {}", currentUser);
 			httpResponse.setStatus(200);
 			httpResponse.addHeader("auth", "Ok");
-			return;
 		} catch (Exception e) {
 			logger.error("User cannot be authenticated. Probably not provisioned yet? Will respond with 401.", e);
 			httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unknown user");
-			return;
 		}
 	}
-
-	public void destroy() {
-	}
-
 }
