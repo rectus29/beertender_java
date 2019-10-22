@@ -68,9 +68,10 @@ public class BeerTenderMainConfig implements TransactionManagementConfigurer {
 	}
 
 	@Bean
-	public HibernateJpaVendorAdapter hibernateJpaVendorAdapter() {
+	@Autowired
+	public HibernateJpaVendorAdapter hibernateJpaVendorAdapter(Properties beerTenderProperties) {
 		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-		hibernateJpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL55Dialect");
+		hibernateJpaVendorAdapter.setDatabasePlatform(beerTenderProperties.getProperty("dataBase.platform"));
 		hibernateJpaVendorAdapter.setGenerateDdl(true);
 		return hibernateJpaVendorAdapter;
 	}

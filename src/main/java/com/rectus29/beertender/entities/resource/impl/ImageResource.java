@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class ImageResource extends Resource {
 
 	@Lob
-	@Column(columnDefinition = "LONGBLOB")
+	@Basic
 	private byte[] imageBytes;
 
 	public ImageResource() {

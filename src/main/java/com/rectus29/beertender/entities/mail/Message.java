@@ -3,6 +3,7 @@ package com.rectus29.beertender.entities.mail;
 import com.rectus29.beertender.entities.BasicGenericEntity;
 import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.enums.MessageType;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,7 +31,8 @@ public class Message extends BasicGenericEntity<Message> {
 	private User author;
 	@OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
 	private List<Recipient> recipientList = new ArrayList<Recipient>();
-	@Column(columnDefinition = "MEDIUMTEXT", nullable = false, length = 524288)
+	@Column(nullable = false)
+	@Type(type="text")
 	private String text;
 
 	public Message() {

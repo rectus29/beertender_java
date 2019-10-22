@@ -13,25 +13,26 @@ import com.rectus29.beertender.service.IserviceTimeFrame;
 import com.rectus29.beertender.tasks.Task;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
-@Transactional
-@Service
+@Component
 public class TimeFrameTask extends Task {
 
 	private static final Logger log = LogManager.getLogger(TimeFrameTask.class);
 
-	@Autowired
-	@Qualifier("serviceTimeFrame")
-	private IserviceTimeFrame serviceTimeFrame;
+	private final IserviceTimeFrame serviceTimeFrame;
+
+	public TimeFrameTask(@Qualifier("serviceTimeFrame") IserviceTimeFrame serviceTimeFrame) {
+		this.serviceTimeFrame = serviceTimeFrame;
+	}
 
 	@Override
+	@Transactional
 	@Scheduled(cron = "0 0 * * * *")
 	public void process() {
 		log.debug("start timeFrame Management task");
@@ -62,3 +63,4 @@ public class TimeFrameTask extends Task {
 		log.debug("timeFrame task done");
 	}
 }
+

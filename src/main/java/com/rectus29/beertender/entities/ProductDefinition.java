@@ -9,6 +9,7 @@ package com.rectus29.beertender.entities;
 
 import com.rectus29.beertender.entities.search.ISearchable;
 import org.apache.lucene.analysis.fr.FrenchAnalyzer;
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 
@@ -30,7 +31,7 @@ public class ProductDefinition extends BasicGenericEntity<ProductDefinition> imp
 	private String name;
 
 	@Field
-	@Column(columnDefinition = "MEDIUMTEXT")
+	@Type(type="text")
 	private String description;
 
 	public ProductDefinition() {

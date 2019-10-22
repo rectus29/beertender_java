@@ -7,6 +7,7 @@ package com.rectus29.beertender.entities;
 /*-----------------------------------------------------*/
 
 import com.rectus29.beertender.entities.search.ISearchable;
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ public class Category extends BasicGenericEntity<Category> implements ISearchabl
 	private String name;
     private String shortName;
 	@Field
-	@Column(columnDefinition = "MEDIUMTEXT")
+	@Type(type="text")
 	private String description;
 	@ManyToMany(targetEntity = Product.class, mappedBy = "categoryList", fetch = FetchType.LAZY)
     private List<Product> productList = new ArrayList<>();

@@ -1,8 +1,12 @@
 package com.rectus29.beertender.entities.resource.impl;
 
 import com.rectus29.beertender.entities.resource.Resource;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 /*-----------------------------------------------------*/
 /*                     Rectus29                        */
@@ -23,7 +27,7 @@ public class DocumentResource extends Resource {
 		this.setResourceType(ResourceType.DOCUMENT);
 	}
 
-	@Column(columnDefinition = "MEDIUMTEXT")
+	@Type(type="text")
 	private String filePath;
 
 	public String getFilePath() {
