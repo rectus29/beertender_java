@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 @Component
-public class TimeFrameTask extends Task {
+public class TimeFrameTask implements Task {
 
 	private static final Logger log = LogManager.getLogger(TimeFrameTask.class);
 

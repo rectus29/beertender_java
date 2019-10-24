@@ -61,11 +61,11 @@ public class ServiceOrder extends GenericManagerImpl<Order, Long> implements Ise
 			dc.add(Restrictions.eq("timeFrame", timeFrame));
 			List<Order> order = (List<Order>) getHibernateTemplate().findByCriteria(dc);
 			if (order.isEmpty()){
-				log.info("no Order for this user create one id" + user.getUuid());
+				log.info("no Order for this user create one");
 				return new Order(user, timeFrame);
 			}else{
 				if(State.DISABLE.equals(order.get(0).getState())){
-					log.error("Order disable for user " + user.getUuid());
+					log.error("Order disable for user " + user.getUniqueId());
 					return null;
 				}else {
 					return order.get(0);

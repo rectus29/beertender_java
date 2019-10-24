@@ -48,7 +48,7 @@ public class GoogleOauthRealms extends BeerTenderRealms {
 			//update DATA from google
 			user.setFirstName(got.getGivenName());
 			user.setLastName(got.getFamilyName());
-			user.setUuid(got.getUserId());
+			user.setUniqueId(got.getUserId());
 			user.updateAvatarImage(new AvatarResource().setImageBytes(got.getAvatarBytes()));
 			//if a first login with google
 			if (user.getUserAuthentificationType() == UserAuthentificationType.NONE) {

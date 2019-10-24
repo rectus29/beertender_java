@@ -1,10 +1,12 @@
 package com.rectus29.beertender.web.security.forgotpassword;
 
 import com.rectus29.beertender.entities.User;
+import com.rectus29.beertender.service.IserviceMail;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.page.base.BasePage;
-import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.form.Form;
@@ -28,9 +30,9 @@ public class ForgotPasssword extends BasePage {
 
     @SpringBean(name = "serviceUser")
     private IserviceUser serviceUser;
-//
-//    @SpringBean(name = "serviceMail")
-//    private IserviceMail serviceMail;
+
+    @SpringBean(name = "serviceMail")
+    private IserviceMail serviceMail;
 
     private String identity;
 
@@ -50,16 +52,14 @@ public class ForgotPasssword extends BasePage {
             @Override
             protected void onSubmit(AjaxRequestTarget ajaxRequestTarget, Form<?> form) {
                 try {
-                    User test = serviceUser.getByProperty("accountID", identity, true);
-                    if (test == null) {
-                        test = serviceUser.getUserByMail(identity);
-                    }
+
+                    User test = serviceUser.getUserByMail(identity);
                     if (test != null) {
                         String session = UUID.randomUUID().toString();
                         test.setRestoreSession(session);
                         test.setRestoreSessionDate(new Date());
-                       // serviceMail.sendRestoreMail(test, session);
-                        serviceUser.save(test);
+                        test = serviceUser.save(test);
+                        serviceMail.sendRestoreMail(test, session);
                         info(getString("success"));
                         id.setEnabled(false);
                         this.setEnabled(false);

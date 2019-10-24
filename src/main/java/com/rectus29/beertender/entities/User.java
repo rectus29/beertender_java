@@ -13,15 +13,13 @@ import java.util.*;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "users", indexes = {
-		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
+		@Index(columnList = "uniqueId", unique = true)}
 )
 public class User extends BasicGenericEntity<User> implements IDecorableElement {
 
 	@Column(nullable = false)
 	private String password = RandomStringUtils.random(64);
-	@Column(nullable = false, unique = true, length = 36)
-	private String uuid = UUID.randomUUID().toString();
-	@Column(nullable = false, unique = true)
+	@Column(nullable = true, unique = true, length = 36)
 	private String email;
 	@Column
 	private String firstName;
@@ -73,14 +71,6 @@ public class User extends BasicGenericEntity<User> implements IDecorableElement 
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
 	}
 
 	public String getEmail() {

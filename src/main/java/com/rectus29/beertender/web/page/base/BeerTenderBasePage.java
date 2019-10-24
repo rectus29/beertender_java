@@ -98,9 +98,9 @@ public class BeerTenderBasePage extends ProtectedPage {
 				Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
 				if (order != null) {
 					return order.getOrderItemList();
-				} else {
+				} /*else {
 					setResponsePage(ErrorPage.class, new PageParameters().add("errorCode", ErrorCode.NO_ORDER_FOUND));
-				}
+				}*/
 				return new ArrayList<>();
 			}
 		};

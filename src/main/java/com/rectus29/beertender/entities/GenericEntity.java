@@ -4,10 +4,7 @@ import com.rectus29.beertender.enums.State;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -39,6 +36,11 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 		return uniqueId;
 	}
 
+	public T setUniqueId(String uniqueId) {
+		this.uniqueId = uniqueId;
+		return (T) this;
+	}
+
 	public Date getCreated() {
 		return created;
 	}
@@ -47,8 +49,9 @@ public abstract class GenericEntity<T> implements Serializable, Comparable<T> {
 		return updated;
 	}
 
-	public void setUpdated(Date updated) {
+	public T setUpdated(Date updated) {
 		this.updated = updated;
+		return (T) this;
 	}
 
 	public State getState() {

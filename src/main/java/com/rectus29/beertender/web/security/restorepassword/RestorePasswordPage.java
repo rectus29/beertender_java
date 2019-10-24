@@ -84,7 +84,7 @@ public class RestorePasswordPage extends BasePage {
 			protected void onSubmit(AjaxRequestTarget ajaxRequestTarget, Form<?> form) {
 				user.setPassword(new Sha256Hash(mdp1String, new SimpleByteSource(Base64.decode(user.getSalt())), 1024).toBase64());
 				user.setRestoreSession(null);
-				serviceUser.save(user);
+				user = serviceUser.save(user);
 				info("Votre mot de passe a été changé avec succés,\n vous pouvez maintenant vous connecter à la platforme");
 				ajaxRequestTarget.add(feed);
 			}

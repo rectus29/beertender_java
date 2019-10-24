@@ -1,21 +1,9 @@
 package com.rectus29.beertender.tasks;
 
-/*-----------------------------------------------------*/
-/*      _____           _               ___   ___      */
-/*     |  __ \         | |             |__ \ / _ \     */
-/*     | |__) |___  ___| |_ _   _ ___     ) | (_) |    */
-/*     |  _  // _ \/ __| __| | | / __|   / / \__, |    */
-/*     | | \ \  __/ (__| |_| |_| \__ \  / /_   / /     */
-/*     |_|  \_\___|\___|\__|\__,_|___/ |____| /_/      */
-/*                                                     */
-/*                Date: 30/06/2016 15:21               */
-/*                 All right reserved                  */
-/*-----------------------------------------------------*/
-
 /**
- * Task class abastract parent
+ * Task class abstract parent
  */
-public abstract class Task {
+public interface Task {
 
-	public abstract void process();
+	void process();
 }
