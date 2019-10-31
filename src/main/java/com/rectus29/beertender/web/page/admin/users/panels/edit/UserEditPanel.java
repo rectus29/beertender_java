@@ -117,8 +117,8 @@ public class UserEditPanel extends Panel {
 						return serviceUser.getCurrentUser().isAdmin();
 					}
 				}.setRequired(true));
-				add(new TextField<String>("uuid",
-						new PropertyModel<String>(user, "uuid")) {
+				add(new TextField<String>("uniqueId",
+						new PropertyModel<String>(user, "uniqueId")) {
 					@Override
 					public boolean isEnabled() {
 						return serviceUser.getCurrentUser().isAdmin();
