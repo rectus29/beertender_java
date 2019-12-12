@@ -170,8 +170,11 @@ public abstract class GenericManagerImpl<T extends GenericEntity, PK extends Ser
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
+    @Transactional
     public T save(T object) {
-        return hibernateTemplate.merge(object);
+//        hibernateTemplate.getSessionFactory().getCurrentSession().setReadOnly(object, false);
+        T obj = hibernateTemplate.merge(object);
+        return obj;
     }
 
 	/**

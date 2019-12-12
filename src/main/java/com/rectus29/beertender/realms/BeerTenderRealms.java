@@ -15,6 +15,7 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.SimpleByteSource;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,8 @@ public class BeerTenderRealms extends AuthorizingRealm {
 
 	public static final String REALM_NAME = "BeerTenderRealms";
 	private static final Logger logger = LogManager.getLogger(BeerTenderRealms.class);
+
+	@Autowired
 	protected IserviceUser serviceUser;
 
 	/**
@@ -49,10 +52,10 @@ public class BeerTenderRealms extends AuthorizingRealm {
 	 *
 	 * @param serviceUser the service user
 	 */
-	@Autowired
-	public void setServiceUser(IserviceUser serviceUser) {
-		this.serviceUser = serviceUser;
-	}
+//
+//	public void setServiceUser(IserviceUser serviceUser) {
+//		this.serviceUser = serviceUser;
+//	}
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {

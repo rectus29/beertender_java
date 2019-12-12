@@ -33,8 +33,8 @@ public class Role extends BasicGenericEntity<Role> {
 	@OneToMany(mappedBy = "role")
 	private Set<User> users = new HashSet<User>();
 
-	@Column
-	private Boolean isAdmin = false;
+	@Column(nullable = false)
+	private boolean isAdmin = false;
 
 	public Role() {
 
@@ -100,7 +100,7 @@ public class Role extends BasicGenericEntity<Role> {
 		this.permissions.remove(perm);
 	}
 
-	public Boolean getIsAdmin() {
+	public boolean getIsAdmin() {
 		return isAdmin;
 	}
 

@@ -5,12 +5,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -76,8 +78,8 @@ public class BeerTenderMainConfig implements TransactionManagementConfigurer {
 		return hibernateJpaVendorAdapter;
 	}
 
-	@Bean(name = "beerTenderProperties")
-	public Properties getBeertenderProperties() {
+	@Bean
+	public Properties beerTenderProperties() {
 		Properties prop = new Properties();
 		try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("beertender.properties")) {
 			if (inputStream != null) {
@@ -92,13 +94,12 @@ public class BeerTenderMainConfig implements TransactionManagementConfigurer {
 	}
 
 	@Bean
-	@Autowired
-	public ComboPooledDataSource dataSource(Properties beerTenderProperties) throws PropertyVetoException {
+	public ComboPooledDataSource dataSource() throws PropertyVetoException {
 		ComboPooledDataSource dataSource = new ComboPooledDataSource();
-		dataSource.setDriverClass(beerTenderProperties.getProperty("dataBase.driver"));
-		dataSource.setJdbcUrl(beerTenderProperties.getProperty("dataBase.url"));
-		dataSource.setUser(beerTenderProperties.getProperty("dataBase.user"));
-		dataSource.setPassword(beerTenderProperties.getProperty("dataBase.password"));
+		dataSource.setDriverClass(beerTenderProperties().getProperty("dataBase.driver"));
+		dataSource.setJdbcUrl(beerTenderProperties().getProperty("dataBase.url"));
+		dataSource.setUser(beerTenderProperties().getProperty("dataBase.user"));
+		dataSource.setPassword(beerTenderProperties().getProperty("dataBase.password"));
 		dataSource.setAutoCommitOnClose(true);
 		dataSource.setIdleConnectionTestPeriod(15);
 		dataSource.setMaxIdleTime(15);
@@ -118,35 +119,27 @@ public class BeerTenderMainConfig implements TransactionManagementConfigurer {
 
 	@Bean
 	@Autowired
-	public LocalSessionFactoryBean sessionFactory(Properties beerTenderProperties) {
-		try {
+	public LocalSessionFactoryBean sessionFactory(ComboPooledDataSource dataSource) {
 			LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
-			localSessionFactoryBean.setDataSource(dataSource(beerTenderProperties));
+			localSessionFactoryBean.setDataSource(dataSource);
 			localSessionFactoryBean.setPackagesToScan("com.rectus29.beertender.entities");
 			localSessionFactoryBean.setHibernateProperties(hibernateProperties());
 			return localSessionFactoryBean;
-		} catch (PropertyVetoException e) {
-			LOG.error("Error while session factory init", e);
-			return null;
-		}
 	}
 
 	@Bean
-	public PlatformTransactionManager transactionManager() {
-		try {
+	@Autowired
+	public PlatformTransactionManager transactionManager(LocalSessionFactoryBean sessionFactory, ComboPooledDataSource dataSource ) {
 			HibernateTransactionManager txManager = new HibernateTransactionManager();
-			txManager.setSessionFactory(sessionFactory(getBeertenderProperties()).getObject());
-			txManager.setDataSource(dataSource(getBeertenderProperties()));
+			txManager.setSessionFactory(sessionFactory.getObject());
+			txManager.setDataSource(dataSource);
 			return txManager;
-		} catch (PropertyVetoException e) {
-			LOG.error("Error while transaction manager init", e);
-			return null;
-		}
 	}
 
 	@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
-		return transactionManager();
+//		return transactionManager();
+		return null;
 	}
 
 	@Bean

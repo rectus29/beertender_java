@@ -9,6 +9,7 @@ package com.rectus29.beertender.entities;
 import com.rectus29.beertender.entities.search.ISearchable;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-//@Indexed
+@Indexed
 @Table(name = "category", indexes = {
 		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}
 )

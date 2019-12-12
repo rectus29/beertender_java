@@ -4,7 +4,9 @@ import com.rectus29.beertender.entities.User;
 import com.rectus29.beertender.entities.resource.impl.AvatarResource;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.enums.UserAuthentificationType;
+import com.rectus29.beertender.service.IserviceSession;
 import com.rectus29.beertender.service.IserviceUser;
+import com.rectus29.beertender.spring.AppContext;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.UUID;
 
 /*-----------------------------------------------------*/
@@ -31,12 +34,6 @@ public class GoogleOauthRealms extends BeerTenderRealms {
 	public GoogleOauthRealms() {
 		setName(REALM_NAME);
 		setCredentialsMatcher(new AllowAllCredentialsMatcher());
-	}
-
-	@Autowired
-	@Override
-	public void setServiceUser(IserviceUser serviceUser) {
-		super.setServiceUser(serviceUser);
 	}
 
 	@Override
@@ -58,6 +55,7 @@ public class GoogleOauthRealms extends BeerTenderRealms {
 				user.setUserAuthentificationType(UserAuthentificationType.GOOGLE);
 				user.setState(State.ENABLE);
 			}
+			user.setLastLogin(new Date());
 			user = this.serviceUser.save(user);
 			if (user.getUserAuthentificationType() == UserAuthentificationType.GOOGLE) {
 				//auth

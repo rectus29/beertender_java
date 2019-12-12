@@ -33,10 +33,14 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.settings.ApplicationSettings;
 import org.apache.wicket.settings.RequestCycleSettings;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.apache.wicket.util.lang.Bytes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.wicketstuff.shiro.annotation.AnnotationsShiroAuthorizationStrategy;
 import org.wicketstuff.shiro.authz.ShiroUnauthorizedComponentListener;
@@ -51,6 +55,7 @@ import java.util.Properties;
 /*                                                     */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
+@Component
 public class BeerTenderApplication extends WebApplication {
 
 	private static final Logger log = LogManager.getLogger(BeerTenderApplication.class);
@@ -59,11 +64,11 @@ public class BeerTenderApplication extends WebApplication {
 	private String buildNumber = "00";
 	private String buildDate = "00";
 	private String version = "DEV";
-	private Properties properties = new Properties();
+	@Autowired
+	private Properties beerTenderProperties;
 
 	@Override
 	public void init() {
-		ApplicationContext ctx = new AnnotationConfigApplicationContext(BeerTenderApplication.class);
 		super.init();
 		log.debug("Init Beertender application");
 		getDebugSettings().setAjaxDebugModeEnabled(true);
@@ -161,20 +166,12 @@ public class BeerTenderApplication extends WebApplication {
 		//retrieve version info from properties
 		InputStream inputStream = null;
 		try {
-			Properties prop = new Properties();
-			inputStream = getClass().getClassLoader().getResourceAsStream("beertender.properties");
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("version property file not found in the classpath");
-			}
 			// get the property value and print it out
-			this.buildDate = StringUtils.isNotBlank(prop.getProperty("build.date"))? prop.getProperty("build.date"): buildDate;
-			this.buildNumber = StringUtils.isNotBlank(prop.getProperty("build.revision"))? prop.getProperty("build.revision"): buildNumber;
-			this.version = StringUtils.isNotBlank(prop.getProperty("build.version"))? prop.getProperty("build.version"): version;
-			this.properties = prop;
+			this.buildDate = StringUtils.isNotBlank(this.beerTenderProperties.getProperty("build.date"))? this.beerTenderProperties.getProperty("build.date"): buildDate;
+			this.buildNumber = StringUtils.isNotBlank(this.beerTenderProperties.getProperty("build.revision"))? this.beerTenderProperties.getProperty("build.revision"): buildNumber;
+			this.version = StringUtils.isNotBlank(this.beerTenderProperties.getProperty("build.version"))? this.beerTenderProperties.getProperty("build.version"): version;
 		} catch (Exception e) {
-			log.error("Error while parsing versio property file", e);
+			log.error("Error while parsing version property file", e);
 		} finally {
 			if(inputStream != null){
 				inputStream.close();
@@ -183,7 +180,7 @@ public class BeerTenderApplication extends WebApplication {
 	}
 
 	public Object getProperty(String propertyName){
-		return this.properties.get(propertyName);
+		return this.beerTenderProperties.get(propertyName);
 	}
 
 	public String getBuildNumber() {

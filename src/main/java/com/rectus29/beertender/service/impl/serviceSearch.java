@@ -44,7 +44,9 @@ public class serviceSearch implements IserviceSearch {
 		Reflections reflections = new Reflections("com.rectus29.beertender.entities");
 		Set<Class<? extends ISearchable>> classes = reflections.getSubTypesOf(ISearchable.class);
 		for (Class tempClass : classes) {
+			log.debug("find class " + tempClass.getSimpleName() + " to add to index cache");
 			for (Field tempField : tempClass.getDeclaredFields()) {
+				log.debug("add field " + tempField.getName() + " to index cache");
 				if (tempField.isAnnotationPresent(org.hibernate.search.annotations.Field.class)) {
 					this.indexedFieldByClassMap.put(tempClass, tempField);
 				}

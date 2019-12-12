@@ -8,10 +8,12 @@ package com.rectus29.beertender.entities;
 
 
 import com.rectus29.beertender.entities.search.ISearchable;
+import com.rectus29.beertender.hibernate.search.interceptor.BasicGenericEntityInterceptor;
 import org.apache.lucene.analysis.fr.FrenchAnalyzer;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +22,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-//@Indexed(interceptor = BasicGenericEntityInterceptor.class)
+@Indexed(interceptor = BasicGenericEntityInterceptor.class)
 @Analyzer(impl = FrenchAnalyzer.class)
 @Table(name = "productdefinition", indexes = {
 		@Index(name = "uniqueId", columnList = "uniqueId", unique = true)}

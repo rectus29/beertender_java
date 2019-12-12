@@ -2,6 +2,7 @@ package com.rectus29.beertender.spring.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
@@ -18,7 +19,8 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 @EnableScheduling()
 public class SchedulerConfig implements SchedulingConfigurer {
 	private static final Logger LOG = LoggerFactory.getLogger(SchedulerConfig.class);
-	private final int POOL_SIZE = 10;
+	@Value("scheduleTastPoolSize")
+	private final int POOL_SIZE = 5;
 
 	@Override
 	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {

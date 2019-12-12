@@ -1,6 +1,7 @@
 package com.rectus29.beertender.realms;
 
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.subject.Subject;
 
 /*-----------------------------------------------------*/
 /*                                                     */

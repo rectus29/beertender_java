@@ -65,7 +65,7 @@ type User {
 	id: ID!,
 	created: Date!,
 	updated: Date!,
-	uuid: String!,
+	uniqueId: String!,
 	firstName: String,
 	lastName: String,
 	role: String!,

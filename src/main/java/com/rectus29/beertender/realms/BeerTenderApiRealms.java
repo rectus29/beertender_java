@@ -28,7 +28,6 @@ public class BeerTenderApiRealms extends BeerTenderRealms {
 
 	public static final String REALM_NAME = "BeerTenderApiRealms";
 	private static final Logger logger = LogManager.getLogger(BeerTenderApiRealms.class);
-	protected IserviceUser serviceUser;
 
 	/**
 	 * Instantiates a new Eve tool realms.
@@ -47,11 +46,10 @@ public class BeerTenderApiRealms extends BeerTenderRealms {
 	 *
 	 * @param serviceUser the service user
 	 */
-	@Autowired
-	public void setServiceUser(IserviceUser serviceUser) {
-		setName(REALM_NAME);
-		this.serviceUser = serviceUser;
-	}
+//	@Autowired
+//	public void setServiceUser(IserviceUser serviceUser) {
+//		this.serviceUser = serviceUser;
+//	}
 
 
 	@Override
