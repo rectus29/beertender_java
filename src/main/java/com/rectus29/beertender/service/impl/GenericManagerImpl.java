@@ -102,13 +102,12 @@ public abstract class GenericManagerImpl<T extends GenericEntity, PK extends Ser
     }
 
     @Autowired
-    @Required
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
         this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 
-    protected DetachedCriteria getDetachedCriteria(){
+    DetachedCriteria getDetachedCriteria(){
     	return DetachedCriteria.forClass(this.persistentClass);
 	}
 
@@ -116,7 +115,27 @@ public abstract class GenericManagerImpl<T extends GenericEntity, PK extends Ser
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
-    public List<T> getAll() {
+    public List<T> getAll(State... state) {
+        DetachedCriteria dc = this.getDetachedCriteria();
+        dc.add(Restrictions.in("state", state));
+        return (List<T>) getHibernateTemplate().findByCriteria(dc);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    public List<T> getAll(List<State> stateList) {
+        DetachedCriteria dc = this.getDetachedCriteria();
+        dc.add(Restrictions.in("state", stateList));
+        return (List<T>) getHibernateTemplate().findByCriteria(dc);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    public List<T> getAll(){
         return hibernateTemplate.loadAll(this.persistentClass);
     }
 

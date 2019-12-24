@@ -8,7 +8,7 @@ package com.rectus29.beertender.web.component.datelabel;
 /*-----------------------------------------------------*/
 
 
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;
@@ -41,7 +41,7 @@ public class DateLabel<T extends Date> extends Label {
         if(d == null){
             replaceComponentTagBody(markupStream, openTag, "-");
         }                                                  else{
-            replaceComponentTagBody(markupStream, openTag, Config.get().dateFormat(d));
+            replaceComponentTagBody(markupStream, openTag, BeerTenderConfig.get().dateFormat(d));
         }
     }
 }

@@ -19,7 +19,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 @EnableScheduling()
 public class SchedulerConfig implements SchedulingConfigurer {
 	private static final Logger LOG = LoggerFactory.getLogger(SchedulerConfig.class);
-	@Value("scheduleTastPoolSize")
+	@Value("${scheduleTaskPoolSize}")
 	private final int POOL_SIZE = 5;
 
 	@Override

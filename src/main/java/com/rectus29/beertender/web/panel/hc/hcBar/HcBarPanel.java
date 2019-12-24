@@ -4,7 +4,7 @@ package com.rectus29.beertender.web.panel.hc.hcBar;
  * Created by RTAI on 03/07/2014.
  */
 
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
@@ -212,7 +212,7 @@ public abstract class HcBarPanel extends Panel {
     }
 
 	public String getColor() {
-		return Config.get().getDefaultColor();
+		return BeerTenderConfig.get().getDefaultColor();
 	}
 
     public class BarDataObject {

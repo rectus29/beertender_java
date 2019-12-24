@@ -82,7 +82,7 @@ public abstract class ProductAdminEditPanel extends Panel {
                             protected List<? extends ProductDefinition> load() {
                                 List<ProductDefinition> out = new ArrayList<>();
                                 out.add(new ProductDefinition());
-                                out.addAll(serviceProductDefinition.getAll(Arrays.asList(State.ENABLE)));
+                                out.addAll(serviceProductDefinition.getAll(State.ENABLE));
                                 return out;
                             }
                         },
@@ -95,30 +95,6 @@ public abstract class ProductAdminEditPanel extends Panel {
                         add(new TextArea<String>("defDesc", new PropertyModel<>(productDefinitionIModel,"description")));
                     }
                 }).setOutputMarkupId(true).setVisible(false));
-
-//                add(new SwitchButton("editdef") {
-//					@Override
-//					public void onPush(AjaxRequestTarget target) {
-//						defEditPanel.setVisible(!defEditPanel.isVisible());
-//						ddc.setVisible(!ddc.isVisible());
-//						target.add(wmc);
-//					}
-//
-//					@Override
-//					public void onRelease(AjaxRequestTarget target) {
-//						onPush(target);
-//					}
-//
-//					@Override
-//					protected String getOnLabel() {
-//						return "Editer";
-//					}
-//
-//					@Override
-//					protected String getOffLabel() {
-//						return "Utiliser";
-//					}
-//				});
 
                 add(new DropDownChoice<>("state",
                         new PropertyModel<>(productIModel, "state"),

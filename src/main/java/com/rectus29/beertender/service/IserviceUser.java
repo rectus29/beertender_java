@@ -6,12 +6,7 @@ import org.apache.shiro.subject.Subject;
 
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: rectus_29
- * Date: 20 janv. 2010
- * Time: 10:49:57
- */
+
 public interface IserviceUser extends GenericManager<User, Long> {
 
     User getCurrentUser();
@@ -23,6 +18,4 @@ public interface IserviceUser extends GenericManager<User, Long> {
     User getUserByMail(String property);
 
 	List<User> getAll(List<State> stateArray);
-
-	void disable(User modelObject);
 }

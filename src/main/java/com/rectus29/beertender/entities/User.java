@@ -10,7 +10,6 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.*;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "users", indexes = {
 		@Index(columnList = "uniqueId", unique = true)}
@@ -19,7 +18,7 @@ public class User extends BasicGenericEntity<User> implements IDecorableElement 
 
 	@Column(nullable = false)
 	private String password = RandomStringUtils.random(64);
-	@Column(nullable = true, unique = true, length = 36)
+	@Column(nullable = false, unique = true, length = 36)
 	private String email;
 	@Column
 	private String firstName;
@@ -179,7 +178,7 @@ public class User extends BasicGenericEntity<User> implements IDecorableElement 
 		return this;
 	}
 
-	public List<Product> getProductBookmarkList() {
+	/*public List<Product> getProductBookmarkList() {
 		return productBookmarkList;
 	}
 
@@ -193,7 +192,7 @@ public class User extends BasicGenericEntity<User> implements IDecorableElement 
 			this.productBookmarkList.add(product);
 		}
 		return this;
-	}
+	}*/
 
 	public Locale getUserLocale() {
 		return userLocale;

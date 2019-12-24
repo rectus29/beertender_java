@@ -11,7 +11,7 @@ import com.rectus29.beertender.event.ReplyMailEvent;
 import com.rectus29.beertender.service.IserviceMessage;
 import com.rectus29.beertender.service.IserviceRecipient;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import com.rectus29.beertender.web.component.wicketmodal.BeerTenderModal;
 import com.rectus29.beertender.web.page.mailbox.panels.maildisplay.MailDisplayPanel;
 import com.rectus29.beertender.web.page.mailbox.panels.send.SendMailPanel;
@@ -138,7 +138,7 @@ public class MailBoxDisplayPanel extends Panel {
 						target.add(preview);
 					}
 				}.add(new Label("subject", components.getModelObject().getRecipient().getMessage().getSubject())));
-				components.add(new Label("date", Config.get().dateHourFormat(components.getModelObject().getRecipient().getCreated())));
+				components.add(new Label("date", BeerTenderConfig.get().dateHourFormat(components.getModelObject().getRecipient().getCreated())));
 				components.setOutputMarkupId(true);
 
 			}

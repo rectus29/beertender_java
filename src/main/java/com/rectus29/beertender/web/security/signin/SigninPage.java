@@ -6,6 +6,7 @@ import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.BeerTenderApplication;
 import com.rectus29.beertender.web.component.bootstrapfeedbackpanel.BootstrapFeedbackPanel;
 import com.rectus29.beertender.web.page.base.BasePage;
+import com.rectus29.beertender.web.page.home.HomePage;
 import com.rectus29.beertender.web.security.forgotpassword.ForgotPasssword;
 import com.rectus29.beertender.web.security.maintenancepage.MaintenancePage;
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
@@ -93,17 +96,12 @@ public class SigninPage extends BasePage {
 			throw new RestartResponseException(MaintenancePage.class);
 		}
 		continueToOriginalDestination();
+		setResponsePage(BeerTenderApplication.getInstance().getHomePage());
 	}
 
 	@Override
 	public String getTitleContribution() {
 		return "Connexion";
-	}
-
-	@Override
-	public void renderHead(IHeaderResponse response) {
-		String javascript = "document.body.setAttribute('class', 'signin');";
-		response.render(OnDomReadyHeaderItem.forScript(javascript));
 	}
 
 	private String getPassword() {

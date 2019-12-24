@@ -9,7 +9,7 @@ import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.*;
+import javax.inject.Singleton;
 import java.io.File;
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -22,26 +22,25 @@ import java.util.Date;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 @Transactional
-public class Config implements Serializable{
+@Singleton
+public class BeerTenderConfig implements Serializable{
 
-    private static final Logger log = LogManager.getLogger(Config.class);
-	private IserviceConfig serviceConfig;
-    private static Config ourInstance = new Config();
-    public static final String RESOURCE_PATH = "files";
-	private Folder uploadFolder = null, rootFolder = null,XMLExportFolder = null,  resourceFolder = null;
+    private static final Logger log = LogManager.getLogger(BeerTenderConfig.class);
+    private static final String RESOURCE_PATH = "files";
+    private static BeerTenderConfig ourInstance = new BeerTenderConfig();
+    private Folder uploadFolder = null;
+    private Folder rootFolder = null;
 	private String dateFormat = "dd/MM/yyyy";
     private String fullDateFormat = dateFormat + " HH:mm:ss";
 	private SimpleDateFormat dateFormater;
-	private PeriodFormatter durationFormater;
     private DecimalFormat formatter;
     private DecimalFormat currencyFormatter;
     private String defaultColor[] = {};
 
-    public Config() {
-
+    private BeerTenderConfig() {
     }
 
-    public static Config get() {
+    public static BeerTenderConfig get() {
         return ourInstance;
     }
 
@@ -50,23 +49,14 @@ public class Config implements Serializable{
 		rootFolder = new Folder(rootPath);
 		uploadFolder = new Folder(System.getProperty("java.io.tmpdir"), "upload_tmp");
 		uploadFolder.mkdirs();
-		XMLExportFolder = new Folder(rootPath + File.separator + "XMLExportFile");
-		XMLExportFolder.mkdirs();
 		dateFormater = new SimpleDateFormat(dateFormat);
-		durationFormater = new PeriodFormatterBuilder()
-				.appendHours().printZeroAlways().minimumPrintedDigits(2).appendSeparator(":")
-				.appendMinutes().printZeroAlways().minimumPrintedDigits(2).appendSeparator(":")
-				.appendSeconds().printZeroAlways().minimumPrintedDigits(2)
-				.toFormatter();
 		formatter = new DecimalFormat("###,###,###,###.##");
 		formatter.setMinimumFractionDigits(2);
 		currencyFormatter = new DecimalFormat("###,###,###,###.00");
-		resourceFolder = new Folder(rootFolder, File.separator + RESOURCE_PATH);
-		resourceFolder.mkdirs();
 		dateFormat = "dd/MM/yyyy";
 		fullDateFormat = dateFormat + " HH:mm:ss";
-		this.serviceConfig = (IserviceConfig)  AppContext.getApplicationContext().getBean("serviceConfig");
-		defaultColor = (serviceConfig.getByKey("graphColor") != null)?serviceConfig.getByKey("graphColor").getValue().replaceAll(" ","").split(","): defaultColor;
+        IserviceConfig serviceConfig = (IserviceConfig) AppContext.getApplicationContext().getBean("serviceConfig");
+		defaultColor = (serviceConfig.getByKey("graphColor") != null)? serviceConfig.getByKey("graphColor").getValue().replaceAll(" ","").split(","): defaultColor;
 	}
 
     public Folder getUploadFolder() {

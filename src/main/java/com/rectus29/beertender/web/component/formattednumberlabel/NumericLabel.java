@@ -8,7 +8,7 @@ package com.rectus29.beertender.web.component.formattednumberlabel;
 /*-----------------------------------------------------*/
 
 
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;
@@ -40,7 +40,7 @@ public class NumericLabel<T extends Number> extends Label {
         if (n == null) {
             replaceComponentTagBody(markupStream, openTag, "-");
         } else {
-            replaceComponentTagBody(markupStream, openTag, Config.get().format(n.doubleValue()));
+            replaceComponentTagBody(markupStream, openTag, BeerTenderConfig.get().format(n.doubleValue()));
         }
     }
 }

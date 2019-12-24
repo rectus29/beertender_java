@@ -9,7 +9,7 @@ package com.rectus29.beertender.web.page.admin.order;
 
 import com.rectus29.beertender.entities.TimeFrame;
 import com.rectus29.beertender.service.IserviceTimeFrame;
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
@@ -61,7 +61,7 @@ public class OrderSummaryPanel extends Panel {
 						new ChoiceRenderer<TimeFrame>() {
 							@Override
 							public Object getDisplayValue(TimeFrame object) {
-								return object.getName() + " - " + Config.get().dateFormat(object.getEndDate()) + " (" + object.getState() + ")";
+								return object.getName() + " - " + BeerTenderConfig.get().dateFormat(object.getEndDate()) + " (" + object.getState() + ")";
 							}
 						}
 				).add(new AjaxFormComponentUpdatingBehavior("change") {

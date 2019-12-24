@@ -8,7 +8,7 @@ import com.rectus29.beertender.event.RefreshEvent;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.service.IserviceTimeFrame;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import com.rectus29.beertender.web.component.formattednumberlabel.NumericLabel;
 import com.rectus29.beertender.web.component.labels.CurrencyLabel;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
@@ -73,7 +73,7 @@ public class BillsPage extends BeerTenderPage {
 		Order order = serviceOrder.getCurrentOrderFor(serviceUser.getCurrentUser());
 
 		add(new Label("tfName", timeFrame.getName()));
-		add(new Label("tfEndDate", Config.get().dateFormat(timeFrame.getEndDate())));
+		add(new Label("tfEndDate", BeerTenderConfig.get().dateFormat(timeFrame.getEndDate())));
 		add(new Label("billsCode", order.getId()));
 		add(new CurrencyLabel("billsTotal", order.getOrderPrice()));
 		wmc.add(new CurrencyLabel("billsTotal2", order.getOrderPrice()));

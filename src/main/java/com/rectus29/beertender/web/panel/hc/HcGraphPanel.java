@@ -1,6 +1,6 @@
 package com.rectus29.beertender.web.panel.hc;
 
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
@@ -32,7 +32,7 @@ public abstract class HcGraphPanel extends Panel {
 	protected abstract String getJS();
 
 	public String getColor() {
-		return Config.get().getDefaultColor();
+		return BeerTenderConfig.get().getDefaultColor();
 	}
 
 	public String getTitle() {

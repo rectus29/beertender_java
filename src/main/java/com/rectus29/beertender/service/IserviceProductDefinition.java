@@ -15,5 +15,6 @@ import java.util.List;
 
 public interface IserviceProductDefinition extends GenericManager<ProductDefinition, Long> {
 
-	List<ProductDefinition> getAll(List<State> stateList);
+//	List<ProductDefinition> getAll(List<State> stateList);
+
 }

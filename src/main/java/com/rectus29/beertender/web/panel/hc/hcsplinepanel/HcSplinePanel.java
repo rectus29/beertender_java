@@ -2,14 +2,12 @@ package com.rectus29.beertender.web.panel.hc.hcsplinepanel;
 
 
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import org.apache.logging.log4j.Logger; import org.apache.logging.log4j.LogManager;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -102,7 +100,7 @@ public abstract class HcSplinePanel extends Panel {
                 "	    	    spacingRight: 20,                                                                                                          \n" +
                 "               //animation: false                                                                                                          \n" +
                 "	        },                                                                                                                              \n" +
-                "           colors: [" + Config.get().getDefaultColor() + "],                                                                               \n" +
+                "           colors: [" + BeerTenderConfig.get().getDefaultColor() + "],                                                                               \n" +
                 "           title: {                                                                                                                        \n" +
                 "               text: null                                                                                                                  \n" +
                 "           },                                                                                                                              \n" +

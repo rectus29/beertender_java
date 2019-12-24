@@ -29,17 +29,9 @@ public class ServiceProduct extends GenericManagerImpl<Product, Long> implements
         List<Product> out = new ArrayList<>();
 		DetachedCriteria dc = DetachedCriteria.forClass(Product.class);
 		dc.add(Restrictions.eq("packaging", btf.getPackagingFilter().getObject()));
-//        dc.createAlias("categoryList", "categ", JoinType.LEFT_OUTER_JOIN);
-//
-//
-//
-//		dc.add(Restrictions.eq("categoryList", btf.getCategoryFilterModel().getObject()));
-
-//        DetachedCriteria categAlias = detachedCriteria.createAlias("categoryList", "categ", JoinType.INNER_JOIN);
-//
-
+		dc.add(Restrictions.eq("state", State.ENABLE));
 		out.addAll((List<Product>) getHibernateTemplate().findByCriteria(dc));
-//        //filter on categ manually fo rhte moment
+        //filter on categ manually fo rhte moment
         if (btf.getCategoryFilterModel().getObject() != null) {
             Iterator<Product> it = out.iterator();
             while (it.hasNext()) {
@@ -57,10 +49,8 @@ public class ServiceProduct extends GenericManagerImpl<Product, Long> implements
     public List<Product> getProductByCategory(List<Category> categoryList) {
         List<Product> result = new ArrayList<>();
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
-
         detachedCriteria.add(Restrictions.in("categoryList", categoryList));
-//		detachedCriteria.add(Restrictions.eq("state", State.DISABLE));
-
+		detachedCriteria.add(Restrictions.eq("state", State.DISABLE));
         result.addAll((List<Product>) getHibernateTemplate().findByCriteria(detachedCriteria));
         return result;
     }

@@ -1,10 +1,8 @@
 package com.rectus29.beertender.web;
 
-import com.rectus29.beertender.constant.BeertenderConstant;
 import com.rectus29.beertender.event.DispatchOnEventMethod;
 import com.rectus29.beertender.realms.BeerTenderRealms;
 import com.rectus29.beertender.session.BeerTenderSession;
-import com.rectus29.beertender.tools.StringUtils;
 import com.rectus29.beertender.web.page.admin.AdminPage;
 import com.rectus29.beertender.web.page.billspage.BillsPage;
 import com.rectus29.beertender.web.page.home.HomePage;
@@ -33,25 +31,16 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.settings.ApplicationSettings;
 import org.apache.wicket.settings.RequestCycleSettings;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.apache.wicket.util.lang.Bytes;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.wicketstuff.shiro.annotation.AnnotationsShiroAuthorizationStrategy;
 import org.wicketstuff.shiro.authz.ShiroUnauthorizedComponentListener;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 /*-----------------------------------------------------*/
-/* User: Rectus for          Date: 21/12/12 11:22 	   */
+/* User: Rectus 	          Date: 21/12/12 11:22 	   */
 /*                                                     */
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
@@ -59,13 +48,12 @@ import java.util.Properties;
 public class BeerTenderApplication extends WebApplication {
 
 	private static final Logger log = LogManager.getLogger(BeerTenderApplication.class);
-
-	private Config config;
+	private BeerTenderConfig beerTenderConfig;
 	private String buildNumber = "00";
 	private String buildDate = "00";
 	private String version = "DEV";
-	@Autowired
-	private Properties beerTenderProperties;
+	private String defaultMailSender= "noreply@noreply.no";
+	private String serverUrl = "noUrl@domain.com";
 
 	@Override
 	public void init() {
@@ -92,8 +80,13 @@ public class BeerTenderApplication extends WebApplication {
 						authz)
 		);
 
-		config = Config.get();
-		config.set(getServletContext().getRealPath("/"));
+//		this.buildDate = ;
+//		this.buildNumber = ;
+//		this.version = ;
+//		this.defaultMailSender = ;
+
+		beerTenderConfig = BeerTenderConfig.get();
+		beerTenderConfig.set(getServletContext().getRealPath("/"));
 
 		mountPage("admin/#{panel}", AdminPage.class);
 		mountPage("profile/#{panel}", ProfilePage.class);
@@ -118,18 +111,6 @@ public class BeerTenderApplication extends WebApplication {
 		settings.setInternalErrorPage(ErrorPage.class);
 		getApplicationSettings().setUploadProgressUpdatesEnabled(true);
 
-		IPackageResourceGuard packageResourceGuard = this.getResourceSettings().getPackageResourceGuard();
-		if (packageResourceGuard instanceof SecurePackageResourceGuard){
-			SecurePackageResourceGuard guard = (SecurePackageResourceGuard) packageResourceGuard;
-			//add pattren ti guard here for ressources model access
-		}
-
-		try {
-			loadBeerTenderProperties();
-		} catch (IOException e) {
-			log.error("Error while loading property file");
-		}
-
 	}
 
 	public static BeerTenderApplication getInstance(){
@@ -145,8 +126,8 @@ public class BeerTenderApplication extends WebApplication {
 		return HomePage.class;
 	}
 
-	public Config getConfig() {
-		return config;
+	public BeerTenderConfig getBeerTenderConfig() {
+		return beerTenderConfig;
 	}
 
 	public BeerTenderRealms getRealms() {
@@ -162,27 +143,6 @@ public class BeerTenderApplication extends WebApplication {
 		return new BeerTenderSession(request);
 	}
 
-	private void loadBeerTenderProperties() throws IOException {
-		//retrieve version info from properties
-		InputStream inputStream = null;
-		try {
-			// get the property value and print it out
-			this.buildDate = StringUtils.isNotBlank(this.beerTenderProperties.getProperty("build.date"))? this.beerTenderProperties.getProperty("build.date"): buildDate;
-			this.buildNumber = StringUtils.isNotBlank(this.beerTenderProperties.getProperty("build.revision"))? this.beerTenderProperties.getProperty("build.revision"): buildNumber;
-			this.version = StringUtils.isNotBlank(this.beerTenderProperties.getProperty("build.version"))? this.beerTenderProperties.getProperty("build.version"): version;
-		} catch (Exception e) {
-			log.error("Error while parsing version property file", e);
-		} finally {
-			if(inputStream != null){
-				inputStream.close();
-			}
-		}
-	}
-
-	public Object getProperty(String propertyName){
-		return this.beerTenderProperties.get(propertyName);
-	}
-
 	public String getBuildNumber() {
 		return buildNumber;
 	}
@@ -196,7 +156,6 @@ public class BeerTenderApplication extends WebApplication {
 	}
 
 	public String getDefaultSenderMail(){
-		String defaultSender = (String) this.getProperty(BeertenderConstant.DEFAULTFROMMAIL);
-		return (StringUtils.isNotBlank(defaultSender))? defaultSender : "noMail@nomail.fr";
+		return defaultMailSender;
 	}
 }

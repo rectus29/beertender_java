@@ -65,7 +65,7 @@ public class ProductDefinitionAdminListPanel extends Panel {
 				if (name != null && name.length() > 2)
 					out = new ArrayList<ProductDefinition>(serviceProductDefinition.getAllByProperty("name", name));
 				else
-					out = serviceProductDefinition.getAll();
+					out = serviceProductDefinition.getAll(State.ENABLE, State.DISABLE, State.PENDING);
 				return out;
 			}
 		};
@@ -121,7 +121,7 @@ public class ProductDefinitionAdminListPanel extends Panel {
 				item.add(new ConfirmationLink("remove", new ResourceModel("UserEditPanel.confirmMsg2").getObject()) {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						//serviceUser.disable(item.getModelObject());
+						serviceProductDefinition.delete(item.getModelObject());
 						ldm.detach();
 						modal.close(target);
 						target.add(wmc);

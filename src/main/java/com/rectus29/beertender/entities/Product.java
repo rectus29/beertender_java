@@ -7,10 +7,12 @@ package com.rectus29.beertender.entities;
 /*-----------------------------------------------------*/
 
 import com.rectus29.beertender.entities.resource.impl.ImageResource;
+import com.rectus29.beertender.enums.State;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,7 +44,11 @@ public class Product extends BasicGenericEntity<Product> {
 		this.productDefinition = new ProductDefinition();
 	}
 
-	public ProductDefinition getProductDefinition() {
+    public static State[] getEnableState() {
+		return new State[]{State.ENABLE, State.DISABLE, State.PENDING};
+    }
+
+    public ProductDefinition getProductDefinition() {
 		return productDefinition;
 	}
 

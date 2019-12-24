@@ -7,6 +7,7 @@ package com.rectus29.beertender.service;
 /*-----------------------------------------------------*/
 
 import com.rectus29.beertender.enums.SortOrder;
+import com.rectus29.beertender.enums.State;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -33,6 +34,21 @@ public interface GenericManager<T, PK extends Serializable> {
 	 * @return List of populated objects
 	 */
 	List<T> getAll();
+
+	/**
+	 * Generic method used to get all objects of a particular type. This
+	 * is the same as lookup up all rows in a table.
+	 *
+	 * @return List of populated objects
+	 */
+	List<T> getAll(State... state);
+	/**
+	 * Generic method used to get all objects of a particular type. This
+	 * is the same as lookup up all rows in a table.
+	 *
+	 * @return List of populated objects
+	 */
+	List<T> getAll(List<State> stateList);
 
 	/**
 	 * Generic method to get an object based on class and identifier. An

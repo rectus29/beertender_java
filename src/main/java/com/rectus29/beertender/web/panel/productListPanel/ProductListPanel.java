@@ -3,6 +3,7 @@ package com.rectus29.beertender.web.panel.productListPanel;
 import com.rectus29.beertender.entities.Category;
 import com.rectus29.beertender.entities.Product;
 import com.rectus29.beertender.entities.User;
+import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceCategory;
 import com.rectus29.beertender.service.IserviceProduct;
 import com.rectus29.beertender.service.IserviceUser;
@@ -58,7 +59,7 @@ public class ProductListPanel extends Panel {
 			protected List<Product> load() {
 				List<Product> out = new ArrayList<>();
 				if (BeerTenderSession.get().getBeerTenderFilter().isEmpty()) {
-					out.addAll(serviceProduct.getAll());
+					out.addAll(serviceProduct.getAll(Product.getEnableState()));
 				} else {
 					out.addAll(serviceProduct.getFilteredProduct(BeerTenderSession.get().getBeerTenderFilter()));
 				}
@@ -92,12 +93,12 @@ public class ProductListPanel extends Panel {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						User user = serviceUser.getCurrentUser();
-						user.addBookmark(item.getModelObject());
+//						user.addBookmark(item.getModelObject());
 						user = serviceUser.save(user);
 						target.add(this);
 					}
 				}.add(new Label("bookmarkLabel")
-						.add(new AttributeModifier("class", (serviceUser.getCurrentUser().getProductBookmarkList().contains(item.getModelObject())) ? "fa fa-star" : "fa fa-star-o"))
+						.add(new AttributeModifier("class", /*(serviceUser.getCurrentUser().getProductBookmarkList().contains(item.getModelObject())) ? "fa fa-star" :*/ "fa fa-star-o"))
 						).setOutputMarkupId(true)
 								.setVisible(false)
 				);

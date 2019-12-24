@@ -4,7 +4,7 @@ import com.rectus29.beertender.entities.*;
 import com.rectus29.beertender.enums.State;
 import com.rectus29.beertender.service.IserviceOrder;
 import com.rectus29.beertender.service.IserviceTimeFrame;
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.criterion.DetachedCriteria;
@@ -25,7 +25,7 @@ import java.util.Objects;
 @Service("serviceOrder")
 public class ServiceOrder extends GenericManagerImpl<Order, Long> implements IserviceOrder {
 
-	private static final Logger log = LogManager.getLogger(Config.class);
+	private static final Logger log = LogManager.getLogger(BeerTenderConfig.class);
 
 	private IserviceTimeFrame serviceTimeFrame;
 

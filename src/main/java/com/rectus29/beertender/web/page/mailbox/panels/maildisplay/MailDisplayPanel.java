@@ -10,7 +10,7 @@ import com.rectus29.beertender.event.RefreshEvent;
 import com.rectus29.beertender.event.ReplyMailEvent;
 import com.rectus29.beertender.service.IserviceRecipient;
 import com.rectus29.beertender.service.IserviceUser;
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import com.rectus29.beertender.web.component.avatarimage.AvatarImage;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -109,7 +109,7 @@ public class MailDisplayPanel extends Panel {
 		add(new AvatarImage("avatar", new Model<IDecorableElement>(model.getObject().getMessage().getAuthor())));
 		add(new Label("userLink", model.getObject().getMessage().getAuthor()));
 		add(new Label("target", model.getObject().getTarget().getFormattedName()));
-		add(new Label("date", Config.get().dateHourFormat(model.getObject().getCreated())));
+		add(new Label("date", BeerTenderConfig.get().dateHourFormat(model.getObject().getCreated())));
 
 		model.getObject().setReaded(true);
 		serviceRecipient.save(model.getObject());

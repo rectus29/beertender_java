@@ -8,19 +8,11 @@ import org.apache.shiro.subject.Subject;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: rectus_29
- * Date: 20 janv. 2010
- * Time: 10:50:30
- * To change this template use File | Settings | File Templates.
- */
+
 @Service("serviceUser")
-@Transactional
 public class ServiceUser extends GenericManagerImpl<User, Long> implements IserviceUser {
 
 	public ServiceUser() {
@@ -42,7 +34,6 @@ public class ServiceUser extends GenericManagerImpl<User, Long> implements Iserv
 
 	@Override
 	public User getUserByUsername(String username) {
-
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class);
 		detachedCriteria.add(Restrictions.eq("userName", username));
 		detachedCriteria.add(Restrictions.eq("state", State.ENABLE));
@@ -67,12 +58,6 @@ public class ServiceUser extends GenericManagerImpl<User, Long> implements Iserv
 								.add(Restrictions.in("state", stateArray)
 								)
 				);
-	}
-
-	@Override
-	public void disable(User userToDisable) {
-		userToDisable.setState(State.DELETED);
-		save(userToDisable);
 	}
 
 	public User getUserByMail(String property) {

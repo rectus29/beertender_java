@@ -18,20 +18,8 @@ import java.util.List;
 @Service("serviceProductDefinition")
 public class ServiceProductDefinition extends GenericManagerImpl<ProductDefinition, Long> implements IserviceProductDefinition {
 
-
 	public ServiceProductDefinition() {
 		super(ProductDefinition.class);
-	}
-
-	@Override
-	public List<ProductDefinition> getAll(List<State> stateList) {
-		List<ProductDefinition>  out =(List<ProductDefinition>) getHibernateTemplate()
-				.findByCriteria(
-						getDetachedCriteria()
-								.add(Restrictions.in("state", stateList)
-								)
-				);
-		return out;
 	}
 }
 

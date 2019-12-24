@@ -68,6 +68,7 @@ public class BeerTenderBasePage extends ProtectedPage {
 		super.onInitialize();
 
 		add(new BookmarkablePageLink<HomePage>("homeLink", HomePage.class));
+
 		add(new BookmarkablePageLink<SignoutPage>("logoutLink", SignoutPage.class));
 
 		add(new Link("runAsUsual") {

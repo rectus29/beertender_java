@@ -18,7 +18,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>com.rectus29.beertender.spring.config.BeerTenderMainConfig</param-value>
+		<param-value>com.rectus29.beertender.spring.config.BeerTenderSpringConfig</param-value>
 	</context-param>
 
 	<context-param>
@@ -29,8 +29,8 @@
 
 	<filter>
 		<filter-name>SpringOpenEntityManagerInViewFilter</filter-name>
-		<filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
-<!--		<filter-class>com.rectus29.beertender.BeerTenderOpenSessionInViewFilter</filter-class>-->
+<!--		<filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>-->
+		<filter-class>com.rectus29.beertender.BeerTenderOpenSessionInViewFilter</filter-class>
 	</filter>
 
 	<filter>

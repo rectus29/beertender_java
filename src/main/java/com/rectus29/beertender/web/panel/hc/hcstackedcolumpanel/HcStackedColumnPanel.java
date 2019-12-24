@@ -6,7 +6,7 @@ package com.rectus29.beertender.web.panel.hc.hcstackedcolumpanel;
 /*                 All right reserved                  */
 /*-----------------------------------------------------*/
 
-import com.rectus29.beertender.web.Config;
+import com.rectus29.beertender.web.BeerTenderConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
@@ -152,7 +152,7 @@ public abstract class HcStackedColumnPanel extends Panel {
     }
 
 	public String getColor() {
-		return Config.get().getDefaultColor();
+		return BeerTenderConfig.get().getDefaultColor();
 	}
 
 }

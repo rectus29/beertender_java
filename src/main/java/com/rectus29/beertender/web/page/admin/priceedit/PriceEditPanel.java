@@ -69,13 +69,13 @@ public class PriceEditPanel extends Panel {
 									protected void onUpdate(AjaxRequestTarget target) {
 										Product pord = item.getModelObject();
 										serviceProduct.save(pord);
+										this.getComponent().add(AttributeAppender.replace("class", "pulse"));
 										ldm.detach();
-										this.getComponent().add(AttributeAppender.replace("class", "pulse"));//"pulse('" + this.getComponent().getMarkupId() + "')");
-										target.add(this.getComponent());
+										target.add(item);
 									}
 								}))
-						.setOutputMarkupId(true)
 				);
+				item.setOutputMarkupId(true);
 			}
 		});
 
