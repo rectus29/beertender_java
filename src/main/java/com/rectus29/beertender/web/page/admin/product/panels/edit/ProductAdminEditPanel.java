@@ -16,6 +16,7 @@ import com.rectus29.beertender.web.component.productimage.ProductImage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -87,7 +88,18 @@ public abstract class ProductAdminEditPanel extends Panel {
                             }
                         },
                         new ChoiceRenderer<>("name")
-                )).add((defEditPanel = new WebMarkupContainer("defEditPanel"){
+                ));
+				ddc.add(new AjaxFormComponentUpdatingBehavior("change"){
+					@Override
+					protected void onUpdate(AjaxRequestTarget target) {
+						if(ddc.getDefaultModelObject() != null){
+							defEditPanel.setVisible(true);
+						}else{
+							defEditPanel.setVisible(false);
+						}
+					}
+				});
+				add((defEditPanel = new WebMarkupContainer("defEditPanel"){
                     @Override
                     protected void onInitialize() {
                         super.onInitialize();
