@@ -14,10 +14,14 @@ import com.rectus29.beertender.web.panel.searchpanel.searchpanel;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.link.StatelessLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -66,7 +70,7 @@ public class BeerTenderPage extends BeerTenderBasePage {
 		add(new Label("login", serviceUser.getCurrentUser().getFormattedName()));
 		add(new searchpanel("searchPanel"));
 
-		LoadableDetachableModel model = new LoadableDetachableModel<List<Packaging>>() {
+		LoadableDetachableModel<List<Packaging>> model = new LoadableDetachableModel<List<Packaging>>() {
 			@Override
 			protected List<Packaging> load() {
 				List<Packaging> out = servicePackaging.getAll(Arrays.asList(State.ENABLE));
@@ -75,15 +79,21 @@ public class BeerTenderPage extends BeerTenderBasePage {
 			}
 		};
 
+		add(new ExternalLink("menuHomeLink", "/beertender/"));
+
 		add(new ListView<Packaging>("rvLink", model) {
 			@Override
 			protected void populateItem(ListItem<Packaging> listItem) {
 
-				listItem.add(new BookmarkablePageLink("link",
+				listItem.add(new BookmarkablePageLink<HomePage>("link",
 						HomePage.class,
 						new PageParameters().add("package", listItem.getModelObject().getShortName()))
 						.add(new Label("label", listItem.getModelObject().getName()))
 						.add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getPackagingFilter().getObject() == listItem.getModelObject()) ? " active" : ""))
+				);
+				listItem.add(
+						new BookmarkablePageLink<BeerTenderPage>("childAllLink",HomePage.class,  new PageParameters().add("package", listItem.getModelObject().getShortName()))
+								.add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getCategoryFilterModel().getObject() == null) ? " active" : ""))
 				);
 				listItem.add(new AttributeAppender("class", (BeerTenderSession.get().getBeerTenderFilter().getPackagingFilter().getObject() == listItem.getModelObject()) ? " active" : ""));
 				List<Category> categories = servicePackaging.getChildCategoryFor(listItem.getModelObject());
@@ -91,7 +101,7 @@ public class BeerTenderPage extends BeerTenderBasePage {
 				listItem.add(new ListView<Category>("rvChildLink", categories) {
 					@Override
 					protected void populateItem(ListItem<Category> item) {
-						item.add(new BookmarkablePageLink("childLink",
+						item.add(new BookmarkablePageLink<HomePage>("childLink",
 										HomePage.class,
 										new PageParameters().add("package", listItem.getModelObject().getShortName()).add("category", item.getModelObject().getShortName())
 								)

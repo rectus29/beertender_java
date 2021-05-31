@@ -14,15 +14,25 @@
 						<h5 class="centered" wicket:id="login">Login user</h5>
 
 						<li class="mt" wicket:id="searchPanel"/>
+						<li class="mt">
+							<a href="/" wicket:id="menuHomeLink">
+								<i class="fa fa-home"></i>&nbsp;Acceuil
+							</a>
+						</li>
 						<li class="sub-menu" wicket:id="rvLink">
 							<a href="#" wicket:id="link">
 								<i class="fa fa-beer"></i>
 								<span wicket:id="label">label</span>
 							</a>
 							<ul>
+								<li>
+									<a wicket:id="childAllLink" href="#">
+										<i class="fa fa-circle-o-notch"></i>&nbsp;Toutes
+									</a>
+								</li>
 								<li wicket:id="rvChildLink">
 									<a wicket:id="childLink" href="#">
-										<wicket:container wicket:id="childLabel"/>
+										<i class="fa fa-circle-o-notch"></i>&nbsp;<wicket:container wicket:id="childLabel"/>
 									</a>
 								</li>
 							</ul>

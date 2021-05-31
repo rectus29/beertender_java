@@ -10,6 +10,7 @@ import com.rectus29.beertender.session.BeerTenderSession;
 import com.rectus29.beertender.tools.StringUtils;
 import com.rectus29.beertender.web.page.base.BeerTenderPage;
 import com.rectus29.beertender.web.panel.productListPanel.ProductListPanel;
+import com.rectus29.beertender.web.panel.productTablePanel.ProductTablePanel;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -47,7 +48,7 @@ public class HomePage extends BeerTenderPage {
         StringValue packageParam = getPageParameters().get("package");
         StringValue categParam = getPageParameters().get("category");
 
-		// if there is some param retreiveobject here
+		// if there is some param retreive object here
 		// TODO to displace somewhere else like filter init or other
 		if(StringUtils.isNotEmpty(packageParam.toString())){
 			Packaging pack = servicePackaging.getByProperty("shortName", packageParam.toString(), true);
@@ -64,7 +65,8 @@ public class HomePage extends BeerTenderPage {
             BeerTenderSession.get().getBeerTenderFilter().setCategoryFilterModel(new Model<>());
         }
 
-        add(new ProductListPanel("productListPanel", categoryList));
+//        add(new ProductListPanel("productListPanel", categoryList));
+        add(new ProductTablePanel("productListPanel", categoryList));
     }
 
     @Override

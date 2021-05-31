@@ -25,6 +25,7 @@ public class Category extends BasicGenericEntity<Category> implements ISearchabl
 
 	@Field
 	private String name;
+
     private String shortName;
 	@Field
 	@Type(type="text")

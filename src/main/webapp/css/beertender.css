@@ -61,4 +61,13 @@ ul.top-menu > li {
 	right: 16px;
 }
 
+.cart-qte{
+	display: inline-block;
+	font-size: 1.3em;
+}
+
+.table-hover>tbody>tr:hover {
+	background-color: #ffaa004d;
+}
+
 
