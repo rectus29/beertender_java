@@ -112,8 +112,8 @@ public class BeerTenderSpringConfig implements TransactionManagementConfigurer, 
         localSessionFactoryBean.setHibernateProperties(
                 new Properties() {
                     {
-                        setProperty("hibernate.show_sql", "true");
-                        setProperty("hibernate.format_sql", "true");
+                        setProperty("hibernate.show_sql", "false");
+                        setProperty("hibernate.format_sql", "false");
                         setProperty("hibernate.hbm2ddl.auto", "update");
                         setProperty("hibernate.c3p0.min_size", "5");
                         setProperty("hibernate.c3p0.max_size", "20");

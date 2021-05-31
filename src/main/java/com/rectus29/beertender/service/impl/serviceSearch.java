@@ -54,6 +54,8 @@ public class serviceSearch implements IserviceSearch {
 		}
 	}
 
+
+
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -139,8 +141,8 @@ public class serviceSearch implements IserviceSearch {
 		//purge the index for the given entity type
 		purgeIndexFor(classToIndex);
 		//reload entity to index
-		FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
-		fullTextSession
+			FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
+			fullTextSession
 				.createIndexer(classToIndex)
 				.batchSizeToLoadObjects(25)
 				.cacheMode(CacheMode.NORMAL)

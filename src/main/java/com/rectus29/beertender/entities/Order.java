@@ -35,6 +35,8 @@ public class Order extends BasicGenericEntity<Order> {
 
 	@OneToMany(targetEntity = Payment.class, mappedBy = "order")
 	private List<Payment> paymentList = new ArrayList<>();
+
+	@Enumerated(EnumType.STRING)
 	private PaymentStatus paymentStatus = PaymentStatus.WAITING;
 
 	public Order() {

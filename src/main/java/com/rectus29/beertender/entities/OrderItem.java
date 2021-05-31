@@ -22,6 +22,9 @@ public class OrderItem extends BasicGenericEntity<OrderItem> {
 	@ManyToOne
 	private Product product;
 
+	@Column(name = "productname")
+	private String productName;
+
 	@Column(precision = 12, scale = 3)
 	private BigDecimal productPrice = BigDecimal.ZERO;
 

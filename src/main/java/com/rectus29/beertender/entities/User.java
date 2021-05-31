@@ -14,7 +14,7 @@ import java.util.*;
 @Table(name = "users", indexes = {
 		@Index(columnList = "uniqueId", unique = true)}
 )
-public class User extends BasicGenericEntity<User> implements IDecorableElement {
+public class User extends BasicGenericEntity<User> implements IDecorableElement<AvatarResource> {
 
 	@Column(nullable = false)
 	private String password = RandomStringUtils.random(64);

@@ -98,6 +98,12 @@ public class RestorePasswordPage extends BasePage {
 		form.add(submit);
 	}
 
+	public static void main(String[] args) {
+		String test = new Sha256Hash("Admin31!", new SimpleByteSource(Base64.decode("V0YrnT22Bm4M8oXun75bTUBWSngK2baef3tqD/MbrdNqJaJYwxFCSnitQcv4pnd+nykFQJ4FEOgfa0yRAsxKFg==")), 1024).toBase64();
+		System.out.println(test);
+
+	}
+
 
 	public String getMdp1String() {
 		return mdp1String;

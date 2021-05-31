@@ -2,6 +2,7 @@ package com.rectus29.beertender.web.component.avatarimage;
 
 import com.rectus29.beertender.entities.IDecorableElement;
 import com.rectus29.beertender.entities.User;
+import com.rectus29.beertender.entities.resource.impl.AvatarResource;
 import com.rectus29.beertender.exception.BeerTenderException;
 import com.rectus29.beertender.service.IserviceUser;
 import com.rectus29.beertender.web.BeerTenderApplication;
@@ -43,7 +44,7 @@ public class AvatarImage extends Image {
 		init();
 	}
 
-	public AvatarImage(String id, IModel<? extends IDecorableElement> userIModel) {
+	public AvatarImage(String id, IModel<User> userIModel) {
 		super(id);
 		this.model = userIModel;
 		init();
@@ -55,12 +56,12 @@ public class AvatarImage extends Image {
 			if (model.getObject().getDecoration() == null) {
 				throw new BeerTenderException("no image set use default");
 			}
-			Boolean isImage = ImageIO.read(new ByteArrayInputStream(model.getObject().getDecoration().getImageBytes())) != null;
+			Boolean isImage = ImageIO.read(new ByteArrayInputStream(((AvatarResource) model.getObject().getDecoration()).getImageBytes())) != null;
 			if (isImage) {
 				DynamicImageResource imageResource = new DynamicImageResource() {
 					@Override
 					protected byte[] getImageData(Attributes attributes) {
-						return model.getObject().getDecoration().getImageBytes();
+						return ((AvatarResource)model.getObject().getDecoration()).getImageBytes();
 					}
 				};
 				setImageResource(imageResource);

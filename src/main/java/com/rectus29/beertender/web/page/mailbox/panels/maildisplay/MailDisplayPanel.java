@@ -106,7 +106,7 @@ public class MailDisplayPanel extends Panel {
 		}).setOutputMarkupId(true)));
 
 		add(new Label("mailData", model.getObject().getMessage().getText()).setEscapeModelStrings(false));
-		add(new AvatarImage("avatar", new Model<IDecorableElement>(model.getObject().getMessage().getAuthor())));
+		add(new AvatarImage("avatar", new Model<>(model.getObject().getMessage().getAuthor())));
 		add(new Label("userLink", model.getObject().getMessage().getAuthor()));
 		add(new Label("target", model.getObject().getTarget().getFormattedName()));
 		add(new Label("date", BeerTenderConfig.get().dateHourFormat(model.getObject().getCreated())));

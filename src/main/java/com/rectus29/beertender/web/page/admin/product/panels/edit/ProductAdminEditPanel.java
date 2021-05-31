@@ -99,7 +99,7 @@ public abstract class ProductAdminEditPanel extends Panel {
 						}
 					}
 				});
-				add((defEditPanel = new WebMarkupContainer("defEditPanel"){
+				wmc.add((defEditPanel = new WebMarkupContainer("defEditPanel"){
                     @Override
                     protected void onInitialize() {
                         super.onInitialize();

@@ -34,7 +34,7 @@ public class Product extends BasicGenericEntity<Product> {
 	@ManyToMany
 	private List<Category> categoryList = new ArrayList<>();
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private ImageResource fileImage;
 
 	@Column(nullable = false)
