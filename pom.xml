@@ -12,7 +12,7 @@
 	<properties>
 		<spring.version>5.2.0.RELEASE</spring.version>
 		<wicket.version>7.0.0</wicket.version>
-		<shiro.version>1.3.2</shiro.version>
+		<shiro.version>1.8.0</shiro.version>
 		<log4J.version>2.5</log4J.version>
 		<hibernate.version>5.3.7.Final</hibernate.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
